@@ -1,0 +1,18 @@
+
+/*
+ *
+ *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *
+ */
+
+#include "config.h"
+#include <waf/Section.h>
+
+WA_CUSTOM_SECTION_STR(".wasmux.version", WASMUX_VERSION);
+WA_CUSTOM_SECTION_STR(".wasmux.description", WASMUX_DESCRIPTION);
+WA_CUSTOM_SECTION_STR(".wasmux.url", WASMUX_URL);
+
+__attribute__((export_name("_xxx")))
+void _xxx(void)
+{
+}

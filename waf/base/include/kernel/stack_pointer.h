@@ -1,0 +1,27 @@
+#ifndef _WA_KERNEL_STACK_POINTER_H
+#define _WA_KERNEL_STACK_POINTER_H
+
+#include <kernel/platform.h>
+
+static inline void* __get_stack_pointer()
+{
+  void* stack;
+#ifdef WA_CPU_WASM
+  asm("global.get __stack_pointer\n"
+      "local.set %0" : "=r" (stack));
+#else
+  asm("mov %%esp, %0" : "=r" (stack));
+#endif
+  return stack;
+}
+
+static inline void __set_stack_pointer(void* stack)
+{
+#ifdef WA_CPU_WASM
+  asm("local.get 0\n"
+      "global.set __stack_pointer");
+#else
+#endif
+}
+
+#endif /* _WA_KERNEL_STACK_POINTER_H */

@@ -1,0 +1,112 @@
+/*
+ *
+ *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *
+ */
+
+#ifndef _WA_LIBC_STDIO_H
+#define _WA_LIBC_STDIO_H
+
+#define _STDIO_H
+
+#include <kernel/compiler.h>
+#include <kernel/stdarg.h>
+#include <kernel/stream.h>
+
+#include <stddef.h>
+#include <sys/stat.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+struct __wasmux_stream_s* __wasmux_input_stream();
+struct __wasmux_stream_s* __wasmux_output_stream();
+struct __wasmux_stream_s* __wasmux_error_stream();
+
+// Macros for standard streams
+#define stdin  __wasmux_input_stream()
+#define stdout __wasmux_output_stream()
+#define stderr __wasmux_error_stream()
+
+// File descriptors
+#define STDIN_FILENO  0
+#define STDOUT_FILENO 1
+#define STDERR_FILENO 2
+
+#define SEEK_SET 0  // Beginning of the file
+#define SEEK_CUR 1  // Current position in the file
+#define SEEK_END 2  // End of the file
+
+#define _IOFBF 0
+#define _IOLBF 1
+#define _IONBF 2
+
+#define FILENAME_MAX 1024
+#define BUFSIZ 8192
+
+#define EOF (-1)
+
+#define P_tmpdir "/tmp"
+
+typedef off_t fpos_t;
+
+FILE* fdopen(int fd, const char* mode);
+FILE* fopen(const char* path, const char* mode);
+FILE* freopen(const char* path, const char* mode, FILE* file);
+FILE* tmpfile(void);
+size_t fread(void* ptr, size_t size, size_t nitems, FILE* file);
+size_t fwrite(const void* ptr, size_t size, size_t nitems, FILE* file);
+int fprintf(FILE* file, const char* format, ...);
+int vfprintf(FILE* file, const char* format, va_list ap);
+int fgetc(FILE* file);
+int fputc(int ch, FILE* file);
+int fputs(const char* str, FILE* file);
+int fseek(FILE* file, long offset, int whence);
+int fseeko(FILE* file, off_t offset, int whence);
+int fclose(FILE* file);
+off_t ftello(FILE* file);
+int putc(int ch, FILE* file);
+int feof(FILE* file);
+int getc(FILE* file);
+char* fgets(char* str, int n, FILE* file);
+int fgetpos(FILE* file, fpos_t* pos);
+int fsetpos(FILE* file, fpos_t* pos);
+int ungetc(int ch, FILE* file);
+long ftell(FILE* file);
+void rewind(FILE* file);
+int fflush(FILE* file);
+int ferror(FILE* file);
+void clearerr(FILE* file);
+int fileno(FILE* file);
+int fscanf(FILE* file, const char* format, ...);
+
+void setbuf(FILE* file, char* buf);
+int setvbuf(FILE* file, char* buf, int mode, size_t size);
+
+FILE* popen(const char* command, const char* type);
+int pclose(FILE* file);
+
+int sprintf(char* str, const char* format, ...) __ATTR_PRINTF(2, 3);
+int snprintf(char* str, size_t len, const char* format, ...) __ATTR_PRINTF(3, 4);
+int printf(const char* format, ...);
+int vprintf(const char* format, va_list ap);
+int vsprintf(char* str, const char* format, va_list ap) __ATTR_PRINTF(2, 0);
+int vsnprintf(char* str, size_t len, const char* format, va_list ap) __ATTR_PRINTF(3, 0);
+int sscanf(const char* str, const char* format, ...);
+int getchar(void);
+int putc(int ch, FILE* file);
+int puts(const char* str);
+int putchar(int ch);
+void perror(const char* str);
+
+int rename(const char* oldpath, const char* newpath);
+int remove(const char* path);
+
+char* tmpnam(char* str);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* _WA_LIBC_STDIO_H */

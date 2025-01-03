@@ -1,0 +1,25 @@
+{
+  "name": "wasmux",
+  "version": "0.0.3",
+  "description": "WebAssembly Software Development Kit",
+  "author": "Yurii Yakubin",
+  "homepage": "https://github.com/ykbin/wasmux#readme",
+  "exports": {
+    "./make-webpack-plugin": "./scripts/make-webpack-plugin.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ykbin/wasmux.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ykbin/wasmux/issues"
+  },
+  "keywords": [
+    "WebAssembly"
+  ],
+  "bin": {
+    "wasmux": "scripts/wasmux-cli.js"
+  },
+  "devDependencies": {
+  }
+}

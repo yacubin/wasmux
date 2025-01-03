@@ -1,0 +1,13 @@
+/*
+ *
+ *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *
+ */
+
+#include "config.h"
+#include <string.h>
+
+void* memcpy(void* dst, const void* src, size_t n)
+{
+  return __builtin_memcpy(dst, src, n);
+}
