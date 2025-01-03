@@ -1,0 +1,44 @@
+/*
+ *
+ *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *
+ */
+
+#ifndef _WA_LIBC_SYS_TYPES_H
+#define _WA_LIBC_SYS_TYPES_H
+
+#include <kernel/types.h>
+#include <sys/select.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+typedef unsigned dev_t;
+typedef uintptr_t nlink_t;
+typedef long blksize_t;
+typedef int blkcnt_t;
+
+typedef unsigned char u_char;
+typedef unsigned int u_int;
+typedef unsigned long u_long;
+
+typedef uint16_t u_int16_t;
+typedef uint32_t u_int32_t;
+
+typedef short bits16_t;
+typedef unsigned short u_bits16_t;
+typedef int bits32_t;
+typedef unsigned int u_bits32_t;
+typedef uint64_t bits64_t;
+
+typedef unsigned int mode_t;
+
+typedef uint64_t ino_t;
+typedef uint32_t id_t;
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* _WA_LIBC_SYS_TYPES_H */

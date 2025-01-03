@@ -1,0 +1,10 @@
+{
+  "read":   3,
+  "write":  4,
+  "open":   5,
+  "close":  6,
+  "brk":    45,
+  "ioctl":  54,
+  "getcwd": 183,
+  "gettid": 224
+}

@@ -1,0 +1,322 @@
+/*
+ *
+ *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *
+ */
+
+#include "config.h"
+#include "unistd.h"
+
+#include <kernel/compiler.h>
+#include <kernel/assert.h>
+#include <errno.h>
+
+int fsync(int fd)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+int chdir(const char* path)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+int rmdir(const char* path)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+int fchdir(int fd)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+int fchown(int fd, uid_t owner, gid_t group)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+int chown(const char* path, uid_t owner, gid_t group)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+int lchown(const char* path, uid_t owner, gid_t group)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+int truncate(const char* path, off_t length)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+int ftruncate(int fd, off_t length)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+long fpathconf(int fd, int name)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+long pathconf(const char* path, int name)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+char* ttyname(int fd)
+{
+  char* buf = __get_local_buffer_data();
+  int ret = ttyname_r(fd, buf, __get_local_buffer_size());
+  if (ret != 0) {
+    __set_local_errno(ret);
+    return nullptr;
+  }
+
+  return buf;
+}
+
+int ttyname_r(int fd, char* buf, size_t len)
+{
+  WA_UNREACHABLE();
+  return 0;
+}
+
+unsigned sleep(unsigned seconds)
+{
+  WA_UNREACHABLE();
+  return 0;
+}
+
+unsigned alarm(unsigned seconds)
+{
+  WA_UNREACHABLE();
+  return 0;
+}
+
+long sysconf(int name)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+pid_t getpid(void)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+pid_t getppid(void)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+uid_t getuid(void)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+uid_t geteuid(void)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+gid_t getgid(void)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+gid_t getegid(void)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+int setuid(uid_t uid)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+int setgid(gid_t gid)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+int setpgid(pid_t pid, pid_t pgid)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+int setresuid(uid_t ruid, uid_t euid, uid_t suid)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+int setresgid(gid_t rgid, gid_t egid, gid_t sgid)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+pid_t getpgrp(void)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+pid_t tcgetpgrp(int fd)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+int tcsetpgrp(int fd, pid_t pidgrp)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+char* getlogin(void)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return nullptr;
+}
+
+int getpagesize(void)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+int gethostname(char* name, size_t len)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+int getgroups(int size, gid_t* list)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+int getentropy(void* data, size_t size)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+void* sbrk(intptr_t inc)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return nullptr;
+}
+
+pid_t fork(void)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+pid_t vfork(void)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+int execl(const char* path, const char* arg, ...)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+int execlp(const char* path, const char* arg, ...)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+int execv(const char* path, char* const argv[])
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+int execvp(const char* path, char* const argv[])
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+int execve(const char* path, char* const argv[], char* const envp[])
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+long syscall (long number, ...)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}

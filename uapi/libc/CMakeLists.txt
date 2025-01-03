@@ -1,0 +1,192 @@
+set(libc_HEADERS
+  include/arpa/inet.h
+  include/linux/version.h
+  include/net/if.h
+  include/netinet/in.h
+  include/netinet/tcp.h
+  include/sys/endian.h
+  include/sys/file.h
+  include/sys/ioctl.h
+  include/sys/mman.h
+  include/sys/param.h
+  include/sys/random.h
+  include/sys/resource.h
+  include/sys/select.h
+  include/sys/socket.h
+  include/sys/stat.h
+  include/sys/syscall.h
+  include/sys/sysinfo.h
+  include/sys/sysmacros.h
+  include/sys/time.h
+  include/sys/times.h
+  include/sys/types.h
+  include/sys/uio.h
+  include/sys/un.h
+  include/sys/utsname.h
+  include/sys/vfs.h
+  include/sys/wait.h
+  include/sys/xattr.h
+  include/alloca.h
+  include/ar.h
+  include/assert.h
+  include/byteswap.h
+  include/ctype.h
+  include/dirent.h
+  include/endian.h
+  include/errno.h
+  include/fcntl.h
+  include/features.h
+  include/fnmatch.h
+  include/ftw.h
+  include/glob.h
+  include/grp.h
+  include/inttypes.h
+  include/langinfo.h
+  include/libgen.h
+  include/libintl.h
+  include/limits.h
+  include/locale.h
+  include/malloc.h
+  include/memory.h
+  include/mntent.h
+  include/paths.h
+  include/poll.h
+  include/pwd.h
+  include/regex.h
+  include/regex.h
+  include/sched.h
+  include/search.h
+  include/setjmp.h
+  include/setjmp.h
+  include/signal.h
+  include/stdarg.h
+  include/stddef.h
+  include/stdint.h
+  include/stdio_ext.h
+  include/stdio.h
+  include/stdlib.h
+  include/string.h
+  include/strings.h
+  include/syslog.h
+  include/syslog.h
+  include/termios.h
+  include/time.h
+  include/ucontext.h
+  include/unistd.h
+  include/utime.h
+  include/wchar.h
+  include/wctype.h
+  )
+
+set(libc_SOURCES
+  stub/apra/inet.cpp
+  stub/sys/mman.cpp
+  stub/sys/random.cpp
+  stub/sys/resource.cpp
+  stub/sys/select.cpp
+  stub/sys/socket.cpp
+  stub/sys/stat.cpp
+  stub/sys/sysmacros.cpp
+  stub/sys/time.cpp
+  stub/sys/utsname.cpp
+  stub/sys/vfs.cpp
+  stub/sys/wait.cpp
+  stub/sys/xattr.cpp
+  stub/abort.cpp
+  stub/access.cpp
+  stub/ctype.cpp
+  stub/dirent.cpp
+  stub/environ.cpp
+  stub/exit.cpp
+  stub/fcntl.cpp
+  stub/fnmatch.cpp
+  stub/fprintf.cpp
+  stub/getenv.cpp
+  stub/getmntent.cpp
+  stub/glob.cpp
+  stub/grp.cpp
+  stub/langinfo.cpp
+  stub/libgen.cpp
+  stub/libintl.cpp
+  stub/locale.cpp
+  stub/lseek.cpp
+  stub/malloc.cpp
+  stub/pipe.cpp
+  stub/poll.cpp
+  stub/progname.cpp
+  stub/putc.cpp
+  stub/pwd.cpp
+  stub/qsort.cpp
+  stub/read.cpp
+  stub/regex.cpp
+  stub/search.cpp
+  stub/setjmp.cpp
+  stub/signal.cpp
+  stub/sprintf.cpp
+  stub/stdio_ext.cpp
+  stub/stdio.cpp
+  stub/stdlib.cpp
+  stub/string.cpp
+  stub/strtol.cpp
+  stub/syslog.cpp
+  stub/termios.cpp
+  stub/time.cpp
+  stub/unistd.cpp
+  stub/utime.cpp
+  stub/wchar.cpp
+  stub/wctype.cpp
+  sys/ioctl.cpp
+  brk.cpp
+  close.cpp
+  creat.cpp
+  getcwd.cpp
+  gettid.cpp
+  isatty.cpp
+  memcpy.cpp
+  memset.cpp
+  open.cpp
+  write.cpp
+
+  $<TARGET_OBJECTS:wabase>
+  $<TARGET_OBJECTS:wauser>
+  $<TARGET_OBJECTS:argp>
+  $<TARGET_OBJECTS:fts>
+  $<TARGET_OBJECTS:netdb>
+  $<TARGET_OBJECTS:obstack>
+  )
+
+set(libc_INCLUDES
+  "${CMAKE_CURRENT_SOURCE_DIR}/include"
+  )
+
+set(libc_DEFINITIONS
+  )
+
+set(libc_LIBRARIES
+  wauser
+  )
+
+if (TARGET getopt)
+  list(APPEND libc_INCLUDES $<TARGET_PROPERTY:getopt,INTERFACE_INCLUDE_DIRECTORIES>)
+  list(APPEND libc_SOURCES $<TARGET_OBJECTS:getopt>)
+else ()
+  list(APPEND libc_INCLUDES "${CMAKE_CURRENT_SOURCE_DIR}/nogetopt")
+  WASMUX_INSTALL_HEADERS(HEADERS nogetopt/getopt_core.h BASE_DIR nogetopt DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+endif ()
+
+source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${libc_HEADERS} ${libc_SOURCES})
+add_library(libc STATIC ${libc_HEADERS} ${libc_SOURCES})
+target_include_directories(libc PRIVATE ${libc_INCLUDES})
+target_compile_definitions(libc PRIVATE ${libc_DEFINITIONS})
+target_link_libraries(libc PUBLIC ${libc_LIBRARIES})
+set_target_properties(libc PROPERTIES PREFIX "")
+
+add_library(WASMUX::LIBC ALIAS libc)
+
+install(TARGETS libc
+  RUNTIME DESTINATION "${WASMUX_INSTALL_BINDIR}"
+  LIBRARY DESTINATION "${WASMUX_INSTALL_LIBDIR}"
+  ARCHIVE DESTINATION "${WASMUX_INSTALL_LIBDIR}"
+  )
+
+WASMUX_INSTALL_HEADERS(HEADERS ${libc_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
