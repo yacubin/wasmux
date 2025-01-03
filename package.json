@@ -1,6 +1,6 @@
 {
   "name": "wasmux",
-  "version": "0.0.3",
+  "version": "0.0.3-develop.1",
   "description": "WebAssembly Software Development Kit",
   "author": "Yurii Yakubin",
   "homepage": "https://github.com/ykbin/wasmux#readme",
