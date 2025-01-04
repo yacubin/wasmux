@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
@@ -84,6 +84,8 @@ int connect(int sock, const struct sockaddr* addr, socklen_t addrlen);
 int bind(int sock, const struct sockaddr* addr, socklen_t addrlen);
 int listen(int sock, int backlog);
 int accept(int sock, struct sockaddr* addr, socklen_t* addrlen);
+ssize_t recv(int sock, void* buf, size_t len, int flags);
+ssize_t send(int sock, const void* buf, size_t len, int flags);
 ssize_t recvfrom(int sock, void* data, size_t size, int flags, struct sockaddr* addr, socklen_t* addrlen);
 ssize_t sendto(int sock, const void* data, size_t size, int flags, const struct sockaddr* addr, socklen_t addrlen);
 ssize_t recvmsg(int sock, struct msghdr* message, int flags);

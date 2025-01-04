@@ -20,7 +20,7 @@ export default function(env, argv) {
         CONFIG_ENABLE_DL: true,
         CONFIG_ENABLE_MAIN_ENV_ARG: false,
       },
-      binaryDir: path.resolve(process.cwd(), "build/release/wasmux"),
+      binaryDir: path.resolve(process.cwd(), "build/wasm32/wasmux"),
       destDir: path.resolve(process.cwd(), "build/sysroot"),
     },
   };

@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
@@ -33,10 +33,29 @@ int rand(void)
   return -1;
 }
 
-long int random(void)
+void srandom(unsigned seed)
+{
+  WA_UNREACHABLE();
+}
+
+long random(void)
 {
   WA_UNREACHABLE();
   return -1;
+}
+
+char* initstate(unsigned seed, char* state, size_t n)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return nullptr;
+}
+
+char* setstate(char* state)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return nullptr;
 }
 
 int wctomb(char* str, wchar_t wch)

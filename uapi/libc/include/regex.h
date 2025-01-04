@@ -31,7 +31,7 @@ typedef struct {
 
 int regcomp(regex_t* regex, const char* pattern, int flags);
 int regexec(const regex_t* regex, const char* str, size_t match_count, regmatch_t* match, int flags);
-size_t regerror(int errcode, const regex_t* regex, char buf, size_t len);
+size_t regerror(int errcode, const regex_t* regex, char* buf, size_t len);
 void regfree(regex_t* regex);
 
 #ifdef __cplusplus

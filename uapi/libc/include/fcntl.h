@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
@@ -8,6 +8,7 @@
 #define _WA_LIBC_FCNTL_H
 
 #include <sys/types.h>
+#include <kernel/fs.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -59,6 +60,7 @@ struct flock {
 
 int fcntl(int fd, int cmd, ...);
 int open(const char* path, int flags, ...);
+int openat(int dirfd, const char* path, int flags, ...);
 int creat(const char* path, mode_t mode);
 
 #ifdef __cplusplus

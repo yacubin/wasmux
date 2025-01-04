@@ -48,6 +48,13 @@ void seekdir(DIR* dir, long offset)
   WA_UNREACHABLE();
 }
 
+DIR* fdopendir(int fd)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return nullptr;
+}
+
 int scandir(const char* dirname, struct dirent*** namelist,
             int (*filter)(const struct dirent*),
             int (*compar)(const struct dirent**, const struct dirent**))

@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
@@ -9,6 +9,7 @@
 
 #include <kernel/types.h>
 #include <kernel/ioctls.h>
+#include <kernel/termios.h>
 
 #ifdef __cplusplus
 extern "C" {

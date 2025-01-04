@@ -12,6 +12,10 @@ if (CONFIG_OBSTACK_PATH)
   add_subdirectory("${CONFIG_OBSTACK_PATH}" obstack)
 endif ()
 
+if (CONFIG_LOCALE_PATH)
+  add_subdirectory("${CONFIG_LOCALE_PATH}" locale)
+endif ()
+
 if (CONFIG_ENABLE_GETOPT)
   add_subdirectory(getopt)
 endif ()

@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
@@ -145,6 +145,12 @@ int strcoll(const char* s1, const char* s2)
 }
 
 char* strerror(int errnum)
+{
+  WA_UNREACHABLE();
+  return nullptr;
+}
+
+char* strsignal(int sig)
 {
   WA_UNREACHABLE();
   return nullptr;

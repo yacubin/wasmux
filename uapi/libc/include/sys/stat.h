@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
@@ -49,6 +49,10 @@ extern "C" {
 #define S_IRUSR 0400
 #define S_IRWXU 0700
 
+#define S_IEXEC  S_IXUSR
+#define S_IWRITE S_IWUSR
+#define S_IREAD  S_IRUSR
+
 struct stat {
   dev_t     st_dev;         /* ID of device containing file */
   ino_t     st_ino;         /* Inode number */
@@ -71,13 +75,15 @@ struct stat {
 };
 
 int fstat(int fd, struct stat* buf);
-
 int stat(const char* path, struct stat* buf);
 int lstat(const char* path, struct stat* buf);
+int fstatat(int dirfd, const char* path, struct stat* buf, int flags);
 int mkdir(const char* path, mode_t mode);
 int fchmod(int fd, mode_t mode);
 int chmod(const char* path, mode_t mode);
 int mknod(const char* path, mode_t mode, dev_t dev);
+int mkdirat(int dirfd, const char* path, mode_t mode);
+int mkfifo(const char* path, mode_t mode);
 
 mode_t umask(mode_t mask);
 

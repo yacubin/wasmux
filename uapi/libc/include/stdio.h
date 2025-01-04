@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
@@ -12,6 +12,7 @@
 #include <kernel/compiler.h>
 #include <kernel/stdarg.h>
 #include <kernel/stream.h>
+#include <kernel/fs.h>
 
 #include <stddef.h>
 #include <sys/stat.h>

@@ -29,6 +29,7 @@ void setgrent(void);
 void endgrent(void);
 
 int initgroups(const char* user, gid_t group);
+int setgroups(size_t size, const gid_t* list);
 
 #ifdef __cplusplus
 }

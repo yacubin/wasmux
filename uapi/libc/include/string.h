@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
@@ -44,6 +44,7 @@ size_t strxfrm(char* dst, const char* src, size_t len);
 int strcoll(const char* str1, const char* str2);
 
 char* strerror(int errnum);
+char* strsignal(int sig);
 
 #ifdef __cplusplus
 }

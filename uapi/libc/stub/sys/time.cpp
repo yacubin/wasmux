@@ -1,14 +1,24 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #include "config.h"
-#include "sys/time.h"
+#include <sys/time.h>
 
+#include <kernel/compiler.h>
 #include <kernel/assert.h>
 #include <errno.h>
+
+static char __tzname_GMT[] = "GMT";
+extern "C" char* __tzname[2] =
+{
+  __tzname_GMT,
+  __tzname_GMT,
+};
+
+extern "C" __ATTR_ALIAS(__tzname, tzname) __ATTR_WEAK;
 
 int gettimeofday(struct timeval* tv, struct timezone* tz)
 {

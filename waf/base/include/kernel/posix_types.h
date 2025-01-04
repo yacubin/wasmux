@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
@@ -12,5 +12,9 @@
 typedef struct {
   int dummy;
 } fd_set;
+
+typedef struct {
+  int val[2];
+} __kernel_fsid_t;
 
 #endif /* _WA_KERNEL_POSIX_TYPES_H */

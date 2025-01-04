@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
@@ -40,6 +40,7 @@ void rewinddir(DIR* dir);
 long telldir(DIR* dir);
 void seekdir(DIR* dir, long offset);
 int dirfd(DIR* dir);
+DIR* fdopendir(int fd);
 
 int scandir(const char* dirname, struct dirent*** namelist,
             int (*filter)(const struct dirent*),

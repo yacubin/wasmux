@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
@@ -34,6 +34,18 @@ int listen(int sock, int backlog)
 }
 
 int accept(int sock, struct sockaddr* addr, socklen_t* addrlen)
+{
+  WA_UNREACHABLE();
+  return -1;
+}
+
+ssize_t recv(int sock, void* buf, size_t len, int flags)
+{
+  WA_UNREACHABLE();
+  return -1;
+}
+
+ssize_t send(int sock, const void* buf, size_t len, int flags)
 {
   WA_UNREACHABLE();
   return -1;

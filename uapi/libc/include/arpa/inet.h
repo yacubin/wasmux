@@ -14,6 +14,7 @@ extern "C" {
 #endif
 
 char* inet_ntoa(struct in_addr in);
+int inet_pton(int af, const char* src, void* dst);
 
 #ifdef __cplusplus
 }

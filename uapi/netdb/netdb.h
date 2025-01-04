@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
@@ -14,7 +14,16 @@
 extern "C" {
 #endif
 
-#define AI_PASSIVE 1
+#define AI_PASSIVE   0x0001  /* Socket address for binding (server-side) */
+#define AI_CANONNAME 0x0002  /* Request for canonical name */
+
+#define EAI_BADFLAGS    -1   /* Invalid value for `ai_flags` */
+#define EAI_NONAME      -2   /* Name or service is not known */
+#define EAI_FAIL        -4   /* A non-recoverable error occurred */
+#define EAI_FAMILY      -6   /* The requested address family is not supported */
+#define EAI_SOCKTYPE    -7   /* The requested socket type is not supported */
+#define EAI_MEMORY      -10  /* Memory allocation failure */
+#define EAI_SYSTEM      -11  /* A system error occurred (check `errno`) */
 
 #define NI_MAXHOST 1025
 #define NI_MAXSERV 32

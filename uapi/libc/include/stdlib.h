@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
@@ -57,7 +57,10 @@ int abs(int i);
 
 void srand(unsigned seed);
 int rand(void);
-long int random(void);
+void srandom(unsigned seed);
+long random(void);
+char* initstate(unsigned seed, char* state, size_t n);
+char* setstate(char* state);
 
 int mblen(const char* str, size_t len);
 int mbtowc(wchar_t* pwc, const char* str, size_t len);

@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
@@ -9,6 +9,7 @@
 
 #define EPERM          1    /* Operation not permitted */
 #define ENOENT         2    /* No such file or directory */
+#define ESRCH          3    /* No such process */
 #define EINTR          4    /* Interrupted function call */
 #define EIO            5    /* Input/output error */
 #define ENXIO          6    /* No such device or address */
@@ -31,6 +32,7 @@
 #define EMFILE         24   /* Too many open files */
 #define ENOTTY         25   /* Inappropriate I/O control operation */
 #define ETXTBSY        26   /* Text file busy */
+#define EFBIG          27   /* File too large */
 #define ENOSPC         28   /* No space left on device */
 #define ESPIPE         29   /* Invalid seek */
 #define EROFS          30   /* Read-only filesystem */
@@ -50,9 +52,11 @@
 #define	EOPNOTSUPP     95   /* Operation not supported on socket */
 #define EAFNOSUPPORT   97   /* Address family not supported */
 #define EADDRNOTAVAIL  99   /* Address not available */
+#define ECONNABORTED   103  /* Connection aborted */
 #define EISCONN        106  /* Socket is connected */
 #define ENOTCONN       107  /* The socket is not connected */
 #define ETIMEDOUT      110  /* Connection timed out */
+#define EINPROGRESS    115  /* Operation in progress */
 #define ESTALE         116  /* Stale file handle */
 #define EDQUOT         122  /* Disk quota exceeded */
 #define ECANCELED      125  /* Operation canceled */

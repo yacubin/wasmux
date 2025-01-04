@@ -125,6 +125,12 @@ long sysconf(int name)
   return -1;
 }
 
+char* crypt(const char* key, const char* salt)
+{
+  WA_UNREACHABLE();
+  return nullptr;
+}
+
 pid_t getpid(void)
 {
   WA_UNREACHABLE();
@@ -181,6 +187,20 @@ int setgid(gid_t gid)
   return -1;
 }
 
+int seteuid(uid_t euid)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+int setegid(gid_t egid)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
 int setpgid(pid_t pid, pid_t pgid)
 {
   WA_UNREACHABLE();
@@ -196,6 +216,13 @@ int setresuid(uid_t ruid, uid_t euid, uid_t suid)
 }
 
 int setresgid(gid_t rgid, gid_t egid, gid_t sgid)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+pid_t setsid(void)
 {
   WA_UNREACHABLE();
   errno = ENOSYS;
@@ -252,6 +279,13 @@ int getgroups(int size, gid_t* list)
 }
 
 int getentropy(void* data, size_t size)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+int pause(void)
 {
   WA_UNREACHABLE();
   errno = ENOSYS;

@@ -14,6 +14,7 @@ set(libc_HEADERS
   include/sys/select.h
   include/sys/socket.h
   include/sys/stat.h
+  include/sys/statfs.h
   include/sys/syscall.h
   include/sys/sysinfo.h
   include/sys/sysmacros.h
@@ -41,11 +42,9 @@ set(libc_HEADERS
   include/glob.h
   include/grp.h
   include/inttypes.h
-  include/langinfo.h
   include/libgen.h
   include/libintl.h
   include/limits.h
-  include/locale.h
   include/malloc.h
   include/memory.h
   include/mntent.h
@@ -75,6 +74,8 @@ set(libc_HEADERS
   include/ucontext.h
   include/unistd.h
   include/utime.h
+  include/utmp.h
+  include/utmpx.h
   include/wchar.h
   include/wctype.h
   )
@@ -88,6 +89,7 @@ set(libc_SOURCES
   stub/sys/select.cpp
   stub/sys/socket.cpp
   stub/sys/stat.cpp
+  stub/sys/statfs.cpp
   stub/sys/sysmacros.cpp
   stub/sys/time.cpp
   stub/sys/utsname.cpp
@@ -107,10 +109,8 @@ set(libc_SOURCES
   stub/getmntent.cpp
   stub/glob.cpp
   stub/grp.cpp
-  stub/langinfo.cpp
   stub/libgen.cpp
   stub/libintl.cpp
-  stub/locale.cpp
   stub/lseek.cpp
   stub/malloc.cpp
   stub/pipe.cpp
@@ -135,6 +135,7 @@ set(libc_SOURCES
   stub/time.cpp
   stub/unistd.cpp
   stub/utime.cpp
+  stub/utmpx.cpp
   stub/wchar.cpp
   stub/wctype.cpp
   syscalls/brk.cpp
@@ -179,6 +180,11 @@ endif ()
 if (TARGET obstack)
   list(APPEND libc_INCLUDES $<TARGET_PROPERTY:obstack,INTERFACE_INCLUDE_DIRECTORIES>)
   list(APPEND libc_SOURCES $<TARGET_OBJECTS:obstack>)
+endif ()
+
+if (TARGET locale)
+  list(APPEND libc_INCLUDES $<TARGET_PROPERTY:locale,INTERFACE_INCLUDE_DIRECTORIES>)
+  list(APPEND libc_SOURCES $<TARGET_OBJECTS:locale>)
 endif ()
 
 if (TARGET getopt)

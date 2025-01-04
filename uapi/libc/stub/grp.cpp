@@ -48,3 +48,9 @@ int initgroups(const char* user, gid_t group)
   WA_UNREACHABLE();
   return -1;
 }
+
+int setgroups(size_t size, const gid_t* list)
+{
+  WA_UNREACHABLE();
+  return -1;
+}

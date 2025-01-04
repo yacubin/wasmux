@@ -6,6 +6,7 @@ set(wabase_HEADERS
   include/kernel/byteorder.h
   include/kernel/compiler.h
   include/kernel/errno.h
+  include/kernel/fs.h
   include/kernel/int-types.h
   include/kernel/ioctls.h
   include/kernel/limits-base.h
@@ -23,7 +24,9 @@ set(wabase_HEADERS
   include/kernel/socket.h
   include/kernel/sprintf.h
   include/kernel/stack_pointer.h
+  include/kernel/statfs.h
   include/kernel/stdarg.h
+  include/kernel/termios.h
   include/kernel/time.h
   include/kernel/types.h
   include/kernel/wasm_header.h

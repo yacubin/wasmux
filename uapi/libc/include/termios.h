@@ -7,6 +7,8 @@
 #ifndef _WA_LIBC_TERMIOS_H
 #define _WA_LIBC_TERMIOS_H
 
+#include <kernel/termios.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif

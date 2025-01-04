@@ -9,13 +9,13 @@ set(getopt_SOURCES
 
 set(getopt_INCLUDES
   "${CMAKE_CURRENT_SOURCE_DIR}"
+  $<TARGET_PROPERTY:libc,INTERFACE_INCLUDE_DIRECTORIES>
   )
 
 set(getopt_DEFINITIONS
   )
 
 set(getopt_LIBRARIES
-  WASMUX::WAF
   )
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${getopt_HEADERS} ${getopt_SOURCES})

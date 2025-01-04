@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 

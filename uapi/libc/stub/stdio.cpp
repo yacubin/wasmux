@@ -1,11 +1,11 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #include "config.h"
-#include "stdio.h"
+#include <stdio.h>
 
 #include <kernel/assert.h>
 #include <errno.h>

@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
@@ -34,6 +34,14 @@ extern "C" {
 #define LOG_CRON     (9 << 3)
 #define LOG_AUTHPRIV (10 << 3)
 #define LOG_FTP      (11 << 3)
+#define LOG_LOCAL0   (16 << 3)
+#define LOG_LOCAL1   (17 << 3)
+#define LOG_LOCAL2   (18 << 3)
+#define LOG_LOCAL3   (19 << 3)
+#define LOG_LOCAL4   (20 << 3)
+#define LOG_LOCAL5   (21 << 3)
+#define LOG_LOCAL6   (22 << 3)
+#define LOG_LOCAL7   (23 << 3)
 
 /* options */
 #define LOG_PID    0x01
