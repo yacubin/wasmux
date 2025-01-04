@@ -62,7 +62,7 @@ FILE* tmpfile(void)
   return nullptr;
 }
 
-size_t fread(void* ptr, size_t size, size_t nitems, FILE* file)
+size_t fread(void* ptr, size_t size, size_t n, FILE* file)
 {
   WA_UNREACHABLE();
   errno = ENOSYS;
@@ -76,7 +76,7 @@ int fgetc(FILE* file)
   return EOF;
 }
 
-size_t fwrite(const void* ptr, size_t size, size_t nitems, FILE* file)
+size_t fwrite(const void* ptr, size_t size, size_t n, FILE* file)
 {
   WA_UNREACHABLE();
   errno = ENOSYS;
@@ -197,7 +197,7 @@ int fileno(FILE* file)
   return file->fd;
 }
 
-int fscanf(FILE* file, const char* format, ...)
+int fscanf(FILE* file, const char* fmt, ...)
 {
   WA_UNREACHABLE();
   return -1;
@@ -229,20 +229,41 @@ int pclose(FILE* file)
   return -1;
 }
 
-int printf(const char* format, ...)
+size_t fwrite_unlocked(const void* ptr, size_t size, size_t n, FILE* file)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return 0;
+}
+
+int putc_unlocked(int ch, FILE* file)
 {
   WA_UNREACHABLE();
   errno = ENOSYS;
   return -1;
 }
 
-int vprintf(const char* format, va_list ap)
+int fputs_unlocked(const char* str, FILE* file)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+int printf(const char* fmt, ...)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
+int vprintf(const char* fmt, va_list ap)
 {
   WA_UNREACHABLE();
   return -1;
 }
 
-int sscanf(const char* str, const char* format, ...)
+int sscanf(const char* str, const char* fmt, ...)
 {
   WA_UNREACHABLE();
   return -1;

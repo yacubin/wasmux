@@ -15,6 +15,7 @@ extern "C" {
 #endif
 
 void* memcpy(void* dst, const void* src, size_t n);
+void* mempcpy(void* dst, const void* src, size_t n);
 void* memset(void* mem, int ch, size_t n);
 
 int memcmp(const void* p1, const void* p2, size_t n);
@@ -23,6 +24,7 @@ void* memchr(const void* mem, int ch, size_t n);
 void* memrchr(const void* mem, int ch, size_t n);
 
 char* strchr(const char* str, int ch);
+char* strchrnul(const char* str, int ch);
 size_t strlen(const char* str);
 int strcmp(const char* s1, const char* s2);
 int strncmp(const char* s1, const char* s2, size_t n);

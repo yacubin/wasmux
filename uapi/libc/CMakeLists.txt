@@ -67,6 +67,7 @@ set(libc_HEADERS
   include/stdlib.h
   include/string.h
   include/strings.h
+  include/sysexits.h
   include/syslog.h
   include/syslog.h
   include/termios.h
@@ -79,6 +80,7 @@ set(libc_HEADERS
   )
 
 set(libc_SOURCES
+  dirent/dirfd.cpp
   stub/apra/inet.cpp
   stub/sys/mman.cpp
   stub/sys/random.cpp
@@ -149,10 +151,7 @@ set(libc_SOURCES
 
   $<TARGET_OBJECTS:wabase>
   $<TARGET_OBJECTS:wauser>
-  $<TARGET_OBJECTS:argp>
-  $<TARGET_OBJECTS:fts>
   $<TARGET_OBJECTS:netdb>
-  $<TARGET_OBJECTS:obstack>
   )
 
 set(libc_INCLUDES
@@ -166,6 +165,21 @@ set(libc_LIBRARIES
   wauser
   )
 
+if (TARGET argp)
+  list(APPEND libc_INCLUDES $<TARGET_PROPERTY:argp,INTERFACE_INCLUDE_DIRECTORIES>)
+  list(APPEND libc_SOURCES $<TARGET_OBJECTS:argp>)
+endif ()
+
+if (TARGET fts)
+  list(APPEND libc_INCLUDES $<TARGET_PROPERTY:fts,INTERFACE_INCLUDE_DIRECTORIES>)
+  list(APPEND libc_SOURCES $<TARGET_OBJECTS:fts>)
+endif ()
+
+if (TARGET obstack)
+  list(APPEND libc_INCLUDES $<TARGET_PROPERTY:obstack,INTERFACE_INCLUDE_DIRECTORIES>)
+  list(APPEND libc_SOURCES $<TARGET_OBJECTS:obstack>)
+endif ()
+
 if (TARGET getopt)
   list(APPEND libc_INCLUDES $<TARGET_PROPERTY:getopt,INTERFACE_INCLUDE_DIRECTORIES>)
   list(APPEND libc_SOURCES $<TARGET_OBJECTS:getopt>)
@@ -176,7 +190,7 @@ endif ()
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${libc_HEADERS} ${libc_SOURCES})
 add_library(libc STATIC ${libc_HEADERS} ${libc_SOURCES})
-target_include_directories(libc PRIVATE ${libc_INCLUDES})
+target_include_directories(libc PUBLIC ${libc_INCLUDES})
 target_compile_definitions(libc PRIVATE ${libc_DEFINITIONS})
 target_link_libraries(libc PUBLIC ${libc_LIBRARIES})
 set_target_properties(libc PROPERTIES PREFIX "")

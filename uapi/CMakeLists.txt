@@ -1,7 +1,16 @@
-add_subdirectory(argp)
-add_subdirectory(fts)
+if (CONFIG_ARGP_PATH)
+  add_subdirectory("${CONFIG_ARGP_PATH}" argp)
+endif ()
+
+if (CONFIG_FTS_PATH)
+  add_subdirectory("${CONFIG_FTS_PATH}" fts)
+endif ()
+
 add_subdirectory(netdb)
-add_subdirectory(obstack)
+
+if (CONFIG_OBSTACK_PATH)
+  add_subdirectory("${CONFIG_OBSTACK_PATH}" obstack)
+endif ()
 
 if (CONFIG_ENABLE_GETOPT)
   add_subdirectory(getopt)

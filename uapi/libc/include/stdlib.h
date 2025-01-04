@@ -7,6 +7,7 @@
 #ifndef _WA_LIBC_STDLIB_H
 #define _WA_LIBC_STDLIB_H
 
+#include <kernel/widechar.h>
 #include <alloca.h>
 #include <malloc.h>
 
@@ -56,6 +57,7 @@ int abs(int i);
 
 void srand(unsigned seed);
 int rand(void);
+long int random(void);
 
 int mblen(const char* str, size_t len);
 int mbtowc(wchar_t* pwc, const char* str, size_t len);

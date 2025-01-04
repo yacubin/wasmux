@@ -1,5 +1,15 @@
+set(WASMUX_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+
+set(WASMUX_INSTALL_BINDIR "bin")
+set(WASMUX_INSTALL_LIBDIR "lib")
+set(WASMUX_INSTALL_INCLUDEDIR "include")
+
 set(CONFIG_TARGET_SYSTEM wasm32 CACHE STRING "Target system")
 set_property(CACHE CONFIG_TARGET_SYSTEM PROPERTY STRINGS wasm32 wasm64 wasm32-wasi wasm64-wasi)
+
+if (CONFIG_TARGET_SYSTEM MATCHES "-wasi$")
+  set(WASMUX_INSTALL_LIBDIR "${WASMUX_INSTALL_LIBDIR}/${CMAKE_SYSTEM_PROCESSOR}-wasi")
+endif ()
 
 option(CONFIG_ENABLE_TLS "Enable thread-local storage" ON)
 option(CONFIG_ENABLE_KERNEL "Enable kernel installation" OFF)
@@ -13,15 +23,9 @@ option(CONFIG_ENABLE_LIBCXX "Enable libc++ library" ON)
 option(CONFIG_ENABLE_PTHREAD "Enable pthread library" ON)
 option(CONFIG_ENABLE_MAIN_ENV_ARG "Enable env argument for main function" OFF)
 
-set(WASMUX_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
-
-set(WASMUX_INSTALL_BINDIR "bin")
-set(WASMUX_INSTALL_LIBDIR "lib")
-set(WASMUX_INSTALL_INCLUDEDIR "include")
-
-if (CONFIG_TARGET_SYSTEM MATCHES "-wasi$")
-  set(WASMUX_INSTALL_LIBDIR "${WASMUX_INSTALL_LIBDIR}/${CMAKE_SYSTEM_PROCESSOR}-wasi")
-endif ()
+set(CONFIG_ARGP_PATH "${WASMUX_ROOT_DIR}/uapi/argp" CACHE STRING "Path to argp standalone")
+set(CONFIG_FTS_PATH "${WASMUX_ROOT_DIR}/uapi/fts" CACHE STRING "Path to fts standalone")
+set(CONFIG_OBSTACK_PATH "${WASMUX_ROOT_DIR}/uapi/obstack" CACHE STRING "Path to obstack standalone")
 
 macro(WASMUX_INSTALL_HEADERS)
   cmake_parse_arguments(__waf_install_headers

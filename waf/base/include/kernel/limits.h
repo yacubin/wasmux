@@ -59,5 +59,6 @@
 #define PATH_MAX 4096  // Maximum length of a file path
 
 #define CHAR_BIT 8
+#define UCHAR_MAX 255
 
 #endif /* _WA_KERNEL_LIMITS_H */

@@ -33,6 +33,12 @@ int rand(void)
   return -1;
 }
 
+long int random(void)
+{
+  WA_UNREACHABLE();
+  return -1;
+}
+
 int wctomb(char* str, wchar_t wch)
 {
   WA_UNREACHABLE();

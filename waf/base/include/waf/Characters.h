@@ -93,4 +93,18 @@ CHAR* charactersCopy(CHAR* dst, const CHAR* src)
   return ret;
 }
 
+template<typename CHAR, bool WITH_NULL>
+const CHAR* charactersFind(const CHAR* str, CHAR ch)
+{
+  for (;;) {
+    CHAR c = *str;
+    if (c == 0)
+      break;
+    if (c == ch)
+      return str;
+    str++;
+  }
+  return WITH_NULL ? nullptr : str;
+}
+
 }  // namespace WAF

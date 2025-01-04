@@ -37,8 +37,12 @@ void* memrchr(const void* mem, int ch, size_t n)
 
 char* strchr(const char* str, int ch)
 {
-  WA_UNREACHABLE();
-  return nullptr;
+  return const_cast<char*>(WAF::charactersFind<char,true>(str, ch));
+}
+
+char* strchrnul(const char* str, int ch)
+{
+  return const_cast<char*>(WAF::charactersFind<char,false>(str, ch));
 }
 
 size_t strlen(const char* str)

@@ -23,7 +23,8 @@ extern "C" {
 #define DT_SOCK    12
 #define DT_WHT     14
 
-typedef struct DIR DIR;
+typedef struct dir_struct DIR;
+
 struct dirent {
   ino_t d_ino;
   unsigned short int d_reclen;
@@ -38,6 +39,7 @@ int closedir(DIR* dir);
 void rewinddir(DIR* dir);
 long telldir(DIR* dir);
 void seekdir(DIR* dir, long offset);
+int dirfd(DIR* dir);
 
 int scandir(const char* dirname, struct dirent*** namelist,
             int (*filter)(const struct dirent*),
