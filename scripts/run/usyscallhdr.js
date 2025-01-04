@@ -11,7 +11,7 @@ async function runScript(input, output)
   }
 
   const content = await fs.promises.readFile(input, 'utf-8');
-  const syscalls = Object.entries(JSON.parse(content)).sort((a, b) => a[1] - b[1]);
+  const syscalls = Object.entries(JSON.parse(content)).sort((a, b) => a[1].number - b[1].number);
 
   const lines = [ "/* Automatically generated file (DO NOT EDIT) */" ];
 
@@ -19,7 +19,7 @@ async function runScript(input, output)
   lines.push(`#define _WA_KERNEL_SYSCALL_NUMS_H`);
   lines.push(``);
 
-  for (const [name, number] of syscalls) {
+  for (const [name, {number}] of syscalls) {
     lines.push(`#define SYS_${name} ${number}`);
   }
 

@@ -1,10 +1,10 @@
 {
-  "read":   3,
-  "write":  4,
-  "open":   5,
-  "close":  6,
-  "brk":    45,
-  "ioctl":  54,
-  "getcwd": 183,
-  "gettid": 224
+  "read":   { "number": 3,   "argc": 3 },
+  "write":  { "number": 4,   "argc": 3 },
+  "open":   { "number": 5,   "argc": 3 },
+  "close":  { "number": 6,   "argc": 1 },
+  "brk":    { "number": 45,  "argc": 1 },
+  "ioctl":  { "number": 54,  "argc": 3 },
+  "getcwd": { "number": 183, "argc": 2 },
+  "gettid": { "number": 224, "argc": 0 }
 }

@@ -11,7 +11,7 @@ async function runScript(input, output)
   }
 
   const content = await fs.promises.readFile(input, 'utf-8');
-  const syscalls = Object.entries(JSON.parse(content)).sort((a, b) => a[1] - b[1]);
+  const syscalls = Object.entries(JSON.parse(content)).sort((a, b) => a[1].number - b[1].number);
 
   const lines = [ "/* Automatically generated file (DO NOT EDIT) */" ];
 
@@ -20,7 +20,7 @@ async function runScript(input, output)
   lines.push(``);
 
   let maxNumber = 0;
-  for (const [name, number] of syscalls) {
+  for (const [name, {number}] of syscalls) {
     lines.push(`#define __NR_${name} ${number}`);
     maxNumber = Math.max(maxNumber, number);
   }

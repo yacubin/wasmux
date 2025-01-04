@@ -66,9 +66,14 @@ static inline long sys_open(const char* filename, int flags, umode_t mode)
   return __DO_SYSCALL(open, filename, flags, mode);
 }
 
-static inline long sys_write(unsigned int fd, const char* buf, size_t len)
+static inline long sys_read(unsigned int fd, char* buf, size_t count)
 {
-  return __DO_SYSCALL(write, fd, buf, len);
+  return __DO_SYSCALL(read, fd, buf, count);
+}
+
+static inline long sys_write(unsigned int fd, const char* buf, size_t count)
+{
+  return __DO_SYSCALL(write, fd, buf, count);
 }
 
 static inline long sys_close(unsigned int fd)

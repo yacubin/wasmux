@@ -137,17 +137,18 @@ set(libc_SOURCES
   stub/utime.cpp
   stub/wchar.cpp
   stub/wctype.cpp
-  sys/ioctl.cpp
-  brk.cpp
-  close.cpp
+  syscalls/brk.cpp
+  syscalls/close.cpp
+  syscalls/getcwd.cpp
+  syscalls/gettid.cpp
+  syscalls/ioctl.cpp
+  syscalls/open.cpp
+  syscalls/read.cpp
+  syscalls/write.cpp
   creat.cpp
-  getcwd.cpp
-  gettid.cpp
   isatty.cpp
   memcpy.cpp
   memset.cpp
-  open.cpp
-  write.cpp
 
   $<TARGET_OBJECTS:wabase>
   $<TARGET_OBJECTS:wauser>
