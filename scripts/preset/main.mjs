@@ -13,7 +13,6 @@ export default function(env, argv) {
       cacheVariables: {
         CMAKE_INSTALL_PREFIX: "/usr",
         CONFIG_ENABLE_TLS: true,
-        CONFIG_ENABLE_GETOPT: true,
         CONFIG_ENABLE_LIBC: true,
         CONFIG_ENABLE_CRT: true,
         CONFIG_ENABLE_LIBM: true,

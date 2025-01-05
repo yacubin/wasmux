@@ -1,12 +1,11 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #include "config.h"
 
-#include <kernel/types.h>
 #include <kernel/compiler.h>
 #include <kernel/syscalls.h>
 

@@ -43,7 +43,6 @@ set(libc_HEADERS
   include/grp.h
   include/inttypes.h
   include/libgen.h
-  include/libintl.h
   include/limits.h
   include/malloc.h
   include/memory.h
@@ -92,6 +91,7 @@ set(libc_SOURCES
   stub/sys/statfs.cpp
   stub/sys/sysmacros.cpp
   stub/sys/time.cpp
+  stub/sys/uio.cpp
   stub/sys/utsname.cpp
   stub/sys/vfs.cpp
   stub/sys/wait.cpp
@@ -110,7 +110,6 @@ set(libc_SOURCES
   stub/glob.cpp
   stub/grp.cpp
   stub/libgen.cpp
-  stub/libintl.cpp
   stub/lseek.cpp
   stub/malloc.cpp
   stub/pipe.cpp
@@ -145,11 +144,13 @@ set(libc_SOURCES
   syscalls/ioctl.cpp
   syscalls/open.cpp
   syscalls/read.cpp
+  syscalls/waitpid.cpp
   syscalls/write.cpp
   creat.cpp
   isatty.cpp
   memcpy.cpp
   memset.cpp
+  ttyname.cpp
 
   $<TARGET_OBJECTS:wabase>
   $<TARGET_OBJECTS:wauser>
@@ -193,6 +194,11 @@ if (TARGET getopt)
 else ()
   list(APPEND libc_INCLUDES "${CMAKE_CURRENT_SOURCE_DIR}/nogetopt")
   WASMUX_INSTALL_HEADERS(HEADERS nogetopt/getopt_core.h BASE_DIR nogetopt DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+endif ()
+
+if (TARGET libintl)
+  list(APPEND libc_INCLUDES $<TARGET_PROPERTY:libintl,INTERFACE_INCLUDE_DIRECTORIES>)
+  list(APPEND libc_SOURCES $<TARGET_OBJECTS:libintl>)
 endif ()
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${libc_HEADERS} ${libc_SOURCES})

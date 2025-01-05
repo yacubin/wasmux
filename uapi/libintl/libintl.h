@@ -12,6 +12,10 @@ extern "C" {
 #endif
 
 char* gettext(const char* msgid);
+char* dgettext(const char* domainname, const char* msgid);
+
+char* textdomain (const char* domainname);
+char* bindtextdomain (const char* domainname, const char* dirname);
 
 #ifdef __cplusplus
 }

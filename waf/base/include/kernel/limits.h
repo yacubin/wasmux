@@ -56,6 +56,7 @@
 #define PTRDIFF_MAX INTPTR_MAX
 #define PTRDIFF_MIN INTPTR_MIN
 
+#define NAME_MAX 255
 #define PATH_MAX 4096  // Maximum length of a file path
 
 #define CHAR_BIT 8

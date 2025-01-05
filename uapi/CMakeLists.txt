@@ -16,8 +16,12 @@ if (CONFIG_LOCALE_PATH)
   add_subdirectory("${CONFIG_LOCALE_PATH}" locale)
 endif ()
 
-if (CONFIG_ENABLE_GETOPT)
-  add_subdirectory(getopt)
+if (CONFIG_GETOPT_PATH)
+  add_subdirectory("${CONFIG_GETOPT_PATH}" getopt)
+endif ()
+
+if (CONFIG_LIBINTL_PATH)
+  add_subdirectory("${CONFIG_LIBINTL_PATH}" libintl)
 endif ()
 
 if (CONFIG_ENABLE_LIBGCC)

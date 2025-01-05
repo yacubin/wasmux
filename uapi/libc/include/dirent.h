@@ -8,10 +8,13 @@
 #define _WA_LIBC_DIRENT_H
 
 #include <sys/types.h>
+#include <kernel/limits.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#define MAXNAMLEN NAME_MAX
 
 #define DT_UNKNOWN 0
 #define DT_FIFO    1

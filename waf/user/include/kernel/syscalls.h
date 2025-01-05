@@ -7,6 +7,7 @@
 #ifndef _WA_KERNEL_SYSCALLS_H
 #define _WA_KERNEL_SYSCALLS_H
 
+#include <kernel/types.h>
 #include <kernel/syscall-nums.h>
 
 #ifdef __cplusplus
@@ -99,6 +100,21 @@ static inline long sys_ioctl(unsigned int fd, unsigned int cmd, unsigned long ar
 static inline long sys_brk(unsigned long brk)
 {
   return __DO_SYSCALL(brk, brk);
+}
+
+static inline long sys_fork(void)
+{
+  return __DO_SYSCALL(fork);
+}
+
+static inline long sys_exit(int error_code)
+{
+  return __DO_SYSCALL(exit, error_code);
+}
+
+static inline long sys_waitpid(pid_t pid, int* stat_addr, int options)
+{
+  return __DO_SYSCALL(waitpid, pid, stat_addr, options);
 }
 
 #ifdef __cplusplus

@@ -30,6 +30,8 @@ struct tm {
 typedef long clock_t;
 #define CLOCKS_PER_SEC ((clock_t)1000000)
 
+extern char* tzname[2];
+
 time_t time(time_t* time);
 time_t timegm(struct tm *tm);
 clock_t clock(void);

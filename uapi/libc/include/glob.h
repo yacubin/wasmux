@@ -13,6 +13,8 @@
 extern "C" {
 #endif
 
+#define GLOB_NOSORT 0x04
+
 #define	GLOB_NOSPACE 1
 #define	GLOB_ABORTED 2
 #define	GLOB_NOMATCH 3

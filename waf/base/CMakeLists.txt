@@ -6,6 +6,7 @@ set(wabase_HEADERS
   include/kernel/byteorder.h
   include/kernel/compiler.h
   include/kernel/errno.h
+  include/kernel/fcntl.h
   include/kernel/fs.h
   include/kernel/int-types.h
   include/kernel/ioctls.h

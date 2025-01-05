@@ -8,6 +8,7 @@
 #define _WA_LIBC_FCNTL_H
 
 #include <sys/types.h>
+#include <kernel/fcntl.h>
 #include <kernel/fs.h>
 
 #ifdef __cplusplus

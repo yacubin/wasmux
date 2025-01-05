@@ -20,6 +20,7 @@ extern "C" {
 #define WIFEXITED(status)   (((status) & 0x7f) == 0)
 #define WTERMSIG(status)    ((status) & 0x7f)
 #define WIFSIGNALED(status) ((status) - 1 < 0xff)
+#define WIFSTOPPED(status)  (((status) & 0xff) == 0x7f)
 
 pid_t wait(int* stat_loc);
 pid_t waitpid(pid_t pid, int* stat_loc, int options);

@@ -88,24 +88,6 @@ long pathconf(const char* path, int name)
   return -1;
 }
 
-char* ttyname(int fd)
-{
-  char* buf = __get_local_buffer_data();
-  int ret = ttyname_r(fd, buf, __get_local_buffer_size());
-  if (ret != 0) {
-    __set_local_errno(ret);
-    return nullptr;
-  }
-
-  return buf;
-}
-
-int ttyname_r(int fd, char* buf, size_t len)
-{
-  WA_UNREACHABLE();
-  return 0;
-}
-
 unsigned sleep(unsigned seconds)
 {
   WA_UNREACHABLE();

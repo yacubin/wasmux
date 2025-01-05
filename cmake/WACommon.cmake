@@ -13,7 +13,6 @@ endif ()
 
 option(CONFIG_ENABLE_TLS "Enable thread-local storage" ON)
 option(CONFIG_ENABLE_KERNEL "Enable kernel installation" OFF)
-option(CONFIG_ENABLE_GETOPT "Enable getopt functionality" ON)
 option(CONFIG_ENABLE_LIBGCC "Enable libgcc library" ON)
 option(CONFIG_ENABLE_LIBC "Enable libc library" ON)
 option(CONFIG_ENABLE_CRT "Enable C Run-Time" ON)
@@ -27,6 +26,8 @@ set(CONFIG_ARGP_PATH    "${WASMUX_ROOT_DIR}/uapi/argp"    CACHE STRING "Path to 
 set(CONFIG_FTS_PATH     "${WASMUX_ROOT_DIR}/uapi/fts"     CACHE STRING "Path to fts standalone")
 set(CONFIG_OBSTACK_PATH "${WASMUX_ROOT_DIR}/uapi/obstack" CACHE STRING "Path to obstack standalone")
 set(CONFIG_LOCALE_PATH  "${WASMUX_ROOT_DIR}/uapi/locale"  CACHE STRING "Path to locale standalone")
+set(CONFIG_GETOPT_PATH  "${WASMUX_ROOT_DIR}/uapi/getopt"  CACHE STRING "Path to getopt standalone")
+set(CONFIG_LIBINTL_PATH "${WASMUX_ROOT_DIR}/uapi/libintl" CACHE STRING "Path to libintl standalone")
 
 macro(WASMUX_INSTALL_HEADERS)
   cmake_parse_arguments(__waf_install_headers

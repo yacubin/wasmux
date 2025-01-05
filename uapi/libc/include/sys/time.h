@@ -13,8 +13,6 @@
 extern "C" {
 #endif
 
-extern char* tzname[2];
-
 int gettimeofday(struct timeval* tv, struct timezone* tz);
 int utimes(const char* filename, const struct timeval times[2]);
 

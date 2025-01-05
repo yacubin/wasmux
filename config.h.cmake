@@ -16,9 +16,6 @@
 /* Enable kernel installation */
 #cmakedefine01 CONFIG_ENABLE_KERNEL
 
-/* Enable getopt functionality */
-#cmakedefine01 CONFIG_ENABLE_GETOPT
-
 /* Enable pthread library */
 #cmakedefine01 CONFIG_ENABLE_PTHREAD
 
