@@ -44,7 +44,6 @@ set(libc_HEADERS
   include/inttypes.h
   include/libgen.h
   include/limits.h
-  include/malloc.h
   include/memory.h
   include/mntent.h
   include/paths.h
@@ -111,7 +110,6 @@ set(libc_SOURCES
   stub/grp.cpp
   stub/libgen.cpp
   stub/lseek.cpp
-  stub/malloc.cpp
   stub/pipe.cpp
   stub/poll.cpp
   stub/progname.cpp
@@ -139,6 +137,7 @@ set(libc_SOURCES
   stub/wctype.cpp
   syscalls/brk.cpp
   syscalls/close.cpp
+  syscalls/creat.cpp
   syscalls/getcwd.cpp
   syscalls/gettid.cpp
   syscalls/ioctl.cpp
@@ -146,7 +145,6 @@ set(libc_SOURCES
   syscalls/read.cpp
   syscalls/waitpid.cpp
   syscalls/write.cpp
-  creat.cpp
   isatty.cpp
   memcpy.cpp
   memset.cpp
@@ -167,6 +165,11 @@ set(libc_DEFINITIONS
 set(libc_LIBRARIES
   wauser
   )
+
+if (TARGET malloc)
+  list(APPEND libc_INCLUDES $<TARGET_PROPERTY:malloc,INTERFACE_INCLUDE_DIRECTORIES>)
+  list(APPEND libc_SOURCES $<TARGET_OBJECTS:malloc>)
+endif ()
 
 if (TARGET argp)
   list(APPEND libc_INCLUDES $<TARGET_PROPERTY:argp,INTERFACE_INCLUDE_DIRECTORIES>)

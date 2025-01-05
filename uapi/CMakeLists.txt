@@ -1,35 +1,39 @@
-if (CONFIG_ARGP_PATH)
-  add_subdirectory("${CONFIG_ARGP_PATH}" argp)
-endif ()
+if (CONFIG_ENABLE_LIBC)
+  if (CONFIG_MALLOC_PATH)
+    add_subdirectory("${CONFIG_MALLOC_PATH}" malloc)
+  endif ()
 
-if (CONFIG_FTS_PATH)
-  add_subdirectory("${CONFIG_FTS_PATH}" fts)
-endif ()
+  if (CONFIG_ARGP_PATH)
+    add_subdirectory("${CONFIG_ARGP_PATH}" argp)
+  endif ()
 
-add_subdirectory(netdb)
+  if (CONFIG_FTS_PATH)
+    add_subdirectory("${CONFIG_FTS_PATH}" fts)
+  endif ()
 
-if (CONFIG_OBSTACK_PATH)
-  add_subdirectory("${CONFIG_OBSTACK_PATH}" obstack)
-endif ()
+  add_subdirectory(netdb)
 
-if (CONFIG_LOCALE_PATH)
-  add_subdirectory("${CONFIG_LOCALE_PATH}" locale)
-endif ()
+  if (CONFIG_OBSTACK_PATH)
+    add_subdirectory("${CONFIG_OBSTACK_PATH}" obstack)
+  endif ()
 
-if (CONFIG_GETOPT_PATH)
-  add_subdirectory("${CONFIG_GETOPT_PATH}" getopt)
-endif ()
+  if (CONFIG_LOCALE_PATH)
+    add_subdirectory("${CONFIG_LOCALE_PATH}" locale)
+  endif ()
 
-if (CONFIG_LIBINTL_PATH)
-  add_subdirectory("${CONFIG_LIBINTL_PATH}" libintl)
+  if (CONFIG_GETOPT_PATH)
+    add_subdirectory("${CONFIG_GETOPT_PATH}" getopt)
+  endif ()
+
+  if (CONFIG_LIBINTL_PATH)
+    add_subdirectory("${CONFIG_LIBINTL_PATH}" libintl)
+  endif ()
+
+  add_subdirectory(libc)
 endif ()
 
 if (CONFIG_ENABLE_LIBGCC)
   add_subdirectory(libgcc)
-endif ()
-
-if (CONFIG_ENABLE_LIBC)
-  add_subdirectory(libc)
 endif ()
 
 if (CONFIG_ENABLE_CRT)

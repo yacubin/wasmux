@@ -2,7 +2,7 @@ const path = require('path');
 const url = require('url');
 
 const { USER_CONFIG, DEFAULT_PRESET } = require('./Constants.js');
-const { fileExists }  = require('./FileSystem.js');
+const { fileExists }  = require('./utils/FileSystem.js');
 
 class WafpackContext {
   _nodeExecutable;

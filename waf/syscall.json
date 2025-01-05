@@ -7,6 +7,7 @@
   "open":    { "number": 5,   "argc": 3 },
   "close":   { "number": 6,   "argc": 1 },
   "waitpid": { "number": 7,   "argc": 3 },
+  "creat":   { "number": 8,   "argc": 2 },
   "brk":     { "number": 45,  "argc": 1 },
   "ioctl":   { "number": 54,  "argc": 3 },
   "getcwd":  { "number": 183, "argc": 2 },

@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
@@ -52,6 +52,7 @@ typedef intptr_t off_t;
 typedef int64_t off64_t;
 
 typedef int clockid_t;
+typedef unsigned int mode_t;
 typedef unsigned short umode_t;
 
 #endif

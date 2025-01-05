@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
@@ -31,8 +31,6 @@ typedef unsigned short u_bits16_t;
 typedef int bits32_t;
 typedef unsigned int u_bits32_t;
 typedef uint64_t bits64_t;
-
-typedef unsigned int mode_t;
 
 typedef uint64_t ino_t;
 typedef uint32_t id_t;

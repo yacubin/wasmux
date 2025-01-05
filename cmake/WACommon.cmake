@@ -22,6 +22,7 @@ option(CONFIG_ENABLE_LIBCXX "Enable libc++ library" ON)
 option(CONFIG_ENABLE_PTHREAD "Enable pthread library" ON)
 option(CONFIG_ENABLE_MAIN_ENV_ARG "Enable env argument for main function" OFF)
 
+set(CONFIG_MALLOC_PATH  "${WASMUX_ROOT_DIR}/uapi/malloc"  CACHE STRING "Path to malloc standalone")
 set(CONFIG_ARGP_PATH    "${WASMUX_ROOT_DIR}/uapi/argp"    CACHE STRING "Path to argp standalone")
 set(CONFIG_FTS_PATH     "${WASMUX_ROOT_DIR}/uapi/fts"     CACHE STRING "Path to fts standalone")
 set(CONFIG_OBSTACK_PATH "${WASMUX_ROOT_DIR}/uapi/obstack" CACHE STRING "Path to obstack standalone")

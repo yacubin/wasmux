@@ -5,8 +5,8 @@
  */
 
 #include "config.h"
-#include "stdlib.h"
 
+#include <stdlib.h>
 #include <kernel/compiler.h>
 
 void* malloc(size_t size)

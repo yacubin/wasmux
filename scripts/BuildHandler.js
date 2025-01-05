@@ -1,10 +1,10 @@
 const path = require('path');
 const fs = require('fs');
 
-const { fileExists }  = require('./FileSystem.js');
-const { spawnAsync } = require('./ChildProcess.js');
-const cmake  = require('./CMake.js');
-const { requestGet } = require('./HttpRequest.js');
+const { fileExists }  = require('./utils/FileSystem.js');
+const { spawnAsync } = require('./utils/ChildProcess.js');
+const cmake  = require('./utils/CMake.js');
+const { requestGet } = require('./utils/HttpRequest.js');
 
 function toArray(o)
 {
