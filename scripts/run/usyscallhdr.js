@@ -1,6 +1,9 @@
 const path = require('path');
 const fs = require('fs');
 
+const { filepathToMacroCIdentifier } = require('../utils/CXXHelper.js');
+const { generatedScriptNameComment } = require('../utils/CXXHelper.js');
+
 async function runScript(input, output)
 {
   if (!input) {
@@ -12,11 +15,13 @@ async function runScript(input, output)
 
   const content = await fs.promises.readFile(input, 'utf-8');
   const syscalls = Object.entries(JSON.parse(content)).sort((a, b) => a[1].number - b[1].number);
+  const pragmaOnce = filepathToMacroCIdentifier(output);
 
-  const lines = [ "/* Automatically generated file (DO NOT EDIT) */" ];
+  const lines = [];
 
-  lines.push(`#ifndef _WA_KERNEL_SYSCALL_NUMS_H`);
-  lines.push(`#define _WA_KERNEL_SYSCALL_NUMS_H`);
+  lines.push(generatedScriptNameComment(process.argv[1]));
+  lines.push(`#ifndef ${pragmaOnce}`);
+  lines.push(`#define ${pragmaOnce}`);
   lines.push(``);
 
   for (const [name, {number}] of syscalls) {
@@ -24,7 +29,7 @@ async function runScript(input, output)
   }
 
   lines.push(``);
-  lines.push(`#endif /* _WA_KERNEL_SYSCALL_NUMS_H */`);
+  lines.push(`#endif /* ${pragmaOnce} */`);
   lines.push(``);
 
   await fs.promises.mkdir(path.dirname(output), { recursive: true });

@@ -42,6 +42,7 @@ size_t strspn(const char* str, const char* accept);
 size_t strcspn(const char* str, const char* reject);
 size_t strxfrm(char* dst, const char* src, size_t len);
 int strcoll(const char* str1, const char* str2);
+double strtod(const char* str, char** end);
 
 char* strerror(int errnum);
 char* strsignal(int sig);

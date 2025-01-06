@@ -144,6 +144,12 @@ int strcoll(const char* s1, const char* s2)
   return 0;
 }
 
+double strtod(const char* str, char** end)
+{
+  WA_UNREACHABLE();
+  return 0.0;
+}
+
 char* strerror(int errnum)
 {
   WA_UNREACHABLE();

@@ -7,6 +7,18 @@
 #ifndef _WA_KERNEL_SOCKET_H
 #define _WA_KERNEL_SOCKET_H
 
+#define AF_UNSPEC 0
+#define AF_UNIX   1
+#define AF_LOCAL  1
+#define AF_INET   2
+#define AF_INET6  10
+
+#define PF_UNSPEC AF_UNSPEC
+#define PF_UNIX   AF_UNIX
+#define PF_LOCAL  AF_LOCAL
+#define PF_INET   AF_INET
+#define PF_INET6  AF_INET6
+
 #define __SS_MAXSIZE 128
 
 typedef unsigned short in_port_t;

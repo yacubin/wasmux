@@ -1,10 +1,11 @@
 const path = require('path');
 const fs = require('fs');
 
-const { fileExists }  = require('./utils/FileSystem.js');
+const { fileExists, directoryExists }  = require('./utils/FileSystem.js');
 const { spawnAsync } = require('./utils/ChildProcess.js');
 const cmake  = require('./utils/CMake.js');
 const { requestGet } = require('./utils/HttpRequest.js');
+const { REQUEST_ATTEMPTS } = require('./Constants.js'); // TODO: Move to context
 
 function toArray(o)
 {
@@ -159,7 +160,7 @@ function prepearAction(config)
 
 async function doTargetBuild(config)
 {
-  if (!await fileExists(config.binaryDir)) {
+  if (!await directoryExists(config.binaryDir)) {
     await fs.promises.mkdir(config.binaryDir, { recursive: true });
   }
   if (actionHandlers[config.action]) {
@@ -193,16 +194,16 @@ async function doExtractArchive(name, config)
   if (!config.extractDir)
     throw "Unknown extractDir";
 
-  if (!await fileExists(config.arcDir))
+  if (!await directoryExists(config.arcDir))
     await fs.promises.mkdir(config.arcDir, { recursive: true });
 
-  if (!await fileExists(config.tempDir))
+  if (!await directoryExists(config.tempDir))
     await fs.promises.mkdir(config.tempDir, { recursive: true });
 
   const arcName = `${name}${path.extname(config.sourceUrl)}`;
   const arcFile = path.join(config.arcDir, arcName);
 
-  await tryRequestGet(config.sourceUrl, arcFile, 10);
+  await tryRequestGet(config.sourceUrl, arcFile, REQUEST_ATTEMPTS);
 
   let extractDir = await fs.promises.mkdtemp(path.resolve(config.tempDir, arcName + '.'));
 
@@ -222,14 +223,14 @@ async function doExtractArchive(name, config)
     }
   }
 
-  if (await fileExists(config.extractDir)) {
+  if (await directoryExists(config.extractDir)) {
     // TODO: Marge extractDir with output
     console.log(`rm -fr ${config.extractDir}`);
     await fs.promises.rm(config.extractDir, { recursive: true });
   }
   else {
     const parentDir = path.dirname(config.extractDir);
-    if (!await fileExists(parentDir)) {
+    if (!await directoryExists(parentDir)) {
       console.log(`mkdir -p ${parentDir}`);
       await fs.promises.mkdir(parentDir, { recursive: true }); 
     }
@@ -400,7 +401,7 @@ module.exports = async function(wasmux)
   const childConfig = copyObject(userConfig);
   await doConfigNode("build", childConfig, rootConfig);
 
-  if (!await fileExists(childConfig.binaryDir)) {
+  if (!await directoryExists(childConfig.binaryDir)) {
     console.log(`mkdir -p "${childConfig.binaryDir}"`);
     await fs.promises.mkdir(childConfig.binaryDir, { recursive: true });
   }
