@@ -1,14 +1,14 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #pragma once
 
-#include <kernel/align.h>
-#include <kernel/types.h>
-#include <kernel/bulk-memory.h>
+#include <wasmux/align.h>
+#include <wasmux/types.h>
+#include <wasmux/bulk-memory.h>
 
 namespace WAF {
 

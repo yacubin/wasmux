@@ -7,8 +7,8 @@
 #ifndef _WA_LIBC_SYS_SOCKET_H
 #define _WA_LIBC_SYS_SOCKET_H
 
-#include <kernel/types.h>
-#include <kernel/socket.h>
+#include <wasmux/types.h>
+#include <wasmux/socket.h>
 #include <sys/uio.h>
 
 #ifdef __cplusplus

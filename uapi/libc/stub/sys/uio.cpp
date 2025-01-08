@@ -8,7 +8,7 @@
 
 #include <sys/uio.h>
 #include <errno.h>
-#include <kernel/assert.h>
+#include <wasmux/assert.h>
 
 ssize_t readv(int fd, const struct iovec* iov, int count)
 {

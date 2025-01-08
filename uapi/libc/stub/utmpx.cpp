@@ -7,7 +7,7 @@
 #include "config.h"
 #include <utmpx.h>
 
-#include <kernel/assert.h>
+#include <wasmux/assert.h>
 
 struct utmpx* getutxent(void)
 {

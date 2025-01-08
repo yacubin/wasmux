@@ -7,7 +7,7 @@
 #include "config.h"
 #include "getopt.h"
 
-#include <kernel/assert.h>
+#include <wasmux/assert.h>
 
 int optind = 1;
 char* optarg = nullptr;

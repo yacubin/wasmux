@@ -1,16 +1,16 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #pragma once
 
-#include <kernel/types.h>
-#include <kernel/assert.h>
-#include <kernel/mutex.h>
-#include <kernel/bulk-memory.h>
-#include <kernel/log.h>
+#include <wasmux/types.h>
+#include <wasmux/assert.h>
+#include <wasmux/mutex.h>
+#include <wasmux/bulk-memory.h>
+#include <wasmux/log.h>
 #include <waf/New.h>
 #include <waf/BitVector.h>
 

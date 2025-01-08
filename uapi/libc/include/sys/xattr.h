@@ -1,13 +1,13 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #ifndef _WA_LIBC_SYS_XATTR_H
 #define _WA_LIBC_SYS_XATTR_H
 
-#include <kernel/types.h>
+#include <wasmux/types.h>
 
 #ifdef __cplusplus
 extern "C" {

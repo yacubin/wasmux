@@ -1,13 +1,13 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #include "config.h"
 
 #include <termios.h>
-#include <kernel/compiler.h>
+#include <wasmux/compiler.h>
 
 __ATTR_HIDDEN
 extern "C" int __isatty(int fd)

@@ -1,14 +1,14 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #ifndef _WA_LIBC_SIGNAL_H
 #define _WA_LIBC_SIGNAL_H
 
-#include <kernel/types.h>
-#include <kernel/signal.h>
+#include <wasmux/types.h>
+#include <wasmux/signal.h>
 #include <setjmp.h>
 
 #ifdef __cplusplus

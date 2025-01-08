@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
@@ -8,8 +8,8 @@
 #define _WA_LIBC_WCHAR_H
 
 #include <stddef.h>
-#include <kernel/widechar.h>
-#include <kernel/stream.h>
+#include <wasmux/widechar.h>
+#include <wasmux/stream.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -25,11 +25,11 @@ wint_t towupper(wint_t wc);
 int wcwidth(wchar_t wc);
 
 // mbstate_s can be in <waf/mbstate.h> or another file
-struct __wasmux_mbstate_s {
-  unsigned long dummy;
+struct __glibc_mbstate_s {
+  int __count;
 };
 
-typedef struct __wasmux_mbstate_s mbstate_t;
+typedef struct __glibc_mbstate_s mbstate_t;
 
 int mbsinit(const mbstate_t* state);
 size_t mbrtowc(wchar_t* wcs, const char* str, size_t len, mbstate_t* state);

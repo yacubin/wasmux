@@ -1,13 +1,13 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #ifndef _WA_KERNEL_TIME_H
 #define _WA_KERNEL_TIME_H
 
-#include <kernel/types.h>
+#include <wasmux/types.h>
 
 #define CLOCK_REALTIME  0
 #define CLOCK_MONOTONIC 1

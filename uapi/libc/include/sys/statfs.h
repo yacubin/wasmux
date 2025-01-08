@@ -7,7 +7,7 @@
 #ifndef _WA_LIBC_SYS_STATFS_H
 #define _WA_LIBC_SYS_STATFS_H
 
-#include <kernel/statfs.h>
+#include <wasmux/statfs.h>
 
 #ifdef __cplusplus
 extern "C" {

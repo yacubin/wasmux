@@ -7,7 +7,7 @@
 #include "config.h"
 #include <stdio.h>
 
-#include <kernel/assert.h>
+#include <wasmux/assert.h>
 #include <errno.h>
 
 static struct __wasmux_stream_s s_stream_list[] =

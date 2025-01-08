@@ -6,7 +6,7 @@
 
 #include "config.h"
 #include <dirent.h>
-#include <kernel/compiler.h>
+#include <wasmux/compiler.h>
 
 #include "dir_struct.h"
 

@@ -1,13 +1,13 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #include "config.h"
-#include <kernel/byteorder.h>
+#include <wasmux/byteorder.h>
 
-#include <kernel/assert.h>
+#include <wasmux/assert.h>
 
 uint32_t htonl(uint32_t host)
 {

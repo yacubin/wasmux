@@ -7,8 +7,8 @@
 #ifndef _WA_LIBC_NETDB_H
 #define _WA_LIBC_NETDB_H
 
-#include <kernel/types.h>
-#include <kernel/socket.h>
+#include <wasmux/types.h>
+#include <wasmux/socket.h>
 
 #ifdef __cplusplus
 extern "C" {

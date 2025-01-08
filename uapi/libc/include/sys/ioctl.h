@@ -7,9 +7,9 @@
 #ifndef _WA_LIBC_SYS_IOCTL_H
 #define _WA_LIBC_SYS_IOCTL_H
 
-#include <kernel/types.h>
-#include <kernel/ioctls.h>
-#include <kernel/termios.h>
+#include <wasmux/types.h>
+#include <wasmux/ioctls.h>
+#include <wasmux/termios.h>
 
 #ifdef __cplusplus
 extern "C" {

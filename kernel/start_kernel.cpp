@@ -5,7 +5,7 @@
  */
 
 #include "config.h"
-#include <kernel/init.h>
+#include <wasmux/init.h>
 
 extern "C" void __start_kernel()
 {

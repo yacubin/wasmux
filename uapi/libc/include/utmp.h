@@ -7,8 +7,8 @@
 #ifndef _WA_LIBC_UTMP_H
 #define _WA_LIBC_UTMP_H
 
-#include <kernel/types.h>
-#include <kernel/time.h>
+#include <wasmux/types.h>
+#include <wasmux/time.h>
 
 #ifdef __cplusplus
 extern "C" {

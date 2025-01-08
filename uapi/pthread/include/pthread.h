@@ -7,9 +7,9 @@
 #ifndef _WA_PTHREAD_PTHREAD_H
 #define _WA_PTHREAD_PTHREAD_H
 
-#include <kernel/types.h>
-#include <kernel/time.h>
-#include <kernel/sched.h>
+#include <wasmux/types.h>
+#include <wasmux/time.h>
+#include <wasmux/sched.h>
 
 #ifdef __cplusplus
 extern "C" {

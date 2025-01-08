@@ -1,15 +1,15 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #ifndef _WA_KERNEL_SPRINTF_H
 #define _WA_KERNEL_SPRINTF_H
 
-#include <kernel/types.h>
-#include <kernel/compiler.h>
-#include <kernel/stdarg.h>
+#include <wasmux/types.h>
+#include <wasmux/compiler.h>
+#include <wasmux/stdarg.h>
 
 #ifdef __cplusplus
 extern "C" {

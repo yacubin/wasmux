@@ -6,9 +6,9 @@
 
 #include "config.h"
 
-#include <kernel/compiler.h>
-#include <kernel/thread_data.h>
-#include <kernel/syscalls.h>
+#include <wasmux/compiler.h>
+#include <wasmux/thread_data.h>
+#include <wasmux/syscalls.h>
 
 __ATTR_HIDDEN
 extern "C" pid_t __waitpid(pid_t pid, int* stat_loc, int options)

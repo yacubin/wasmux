@@ -1,13 +1,13 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #ifndef _WA_LIBC_SYS_TIMES_H
 #define _WA_LIBC_SYS_TIMES_H
 
-#include <kernel/time.h>
+#include <wasmux/time.h>
 
 #ifdef __cplusplus
 extern "C" {

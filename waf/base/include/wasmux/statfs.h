@@ -7,7 +7,7 @@
 #ifndef _WA_KERNEL_STATFS_H
 #define _WA_KERNEL_STATFS_H
 
-#include <kernel/posix_types.h>
+#include <wasmux/posix_types.h>
 
 #ifdef __cplusplus
 extern "C" {

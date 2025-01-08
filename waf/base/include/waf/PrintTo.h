@@ -1,14 +1,14 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #pragma once
 
-#include <kernel/types.h>
-#include <kernel/stdarg.h>
-#include <kernel/compiler.h>
+#include <wasmux/types.h>
+#include <wasmux/stdarg.h>
+#include <wasmux/compiler.h>
 
 namespace WAF {
 

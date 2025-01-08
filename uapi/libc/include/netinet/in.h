@@ -1,15 +1,15 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #ifndef _WA_LIBC_NETINET_IN_H
 #define _WA_LIBC_NETINET_IN_H
 
-#include <kernel/types.h>
-#include <kernel/socket.h>
-#include <kernel/byteorder.h>
+#include <wasmux/types.h>
+#include <wasmux/socket.h>
+#include <wasmux/byteorder.h>
 
 typedef uint32_t in_addr_t;
 

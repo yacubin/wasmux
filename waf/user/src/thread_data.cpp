@@ -1,11 +1,11 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #include "config.h"
-#include <kernel/thread_data.h>
+#include <wasmux/thread_data.h>
 
 static struct wax_thread_data s_main_thread_data = { 0 };
 

@@ -6,8 +6,8 @@
 
 #include "config.h"
 
-#include <kernel/compiler.h>
-#include <kernel/syscalls.h>
+#include <wasmux/compiler.h>
+#include <wasmux/syscalls.h>
 
 __ATTR_HIDDEN
 extern "C" pid_t __gettid()

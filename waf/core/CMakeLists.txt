@@ -1,6 +1,6 @@
 set(wacore_HEADERS
-  include/kernel/init.h
-  include/kernel/wasm_page.h
+  include/wasmux/init.h
+  include/wasmux/wasm_page.h
   )
 
 set(wacore_SOURCES

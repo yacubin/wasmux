@@ -1,13 +1,13 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #ifndef _WA_LIBC_SETJMP_H
 #define _WA_LIBC_SETJMP_H
 
-#include <kernel/signal.h>
+#include <wasmux/signal.h>
 
 #ifdef __cplusplus
 extern "C" {

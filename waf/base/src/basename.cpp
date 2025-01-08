@@ -1,12 +1,12 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #include "config.h"
-#include <kernel/assert.h>
-#include <kernel/basename.h>
+#include <wasmux/assert.h>
+#include <wasmux/basename.h>
 
 char* basename(char* path)
 {

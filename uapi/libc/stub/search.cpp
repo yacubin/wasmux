@@ -1,13 +1,13 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #include "config.h"
 #include "search.h"
 
-#include <kernel/assert.h>
+#include <wasmux/assert.h>
 
 void* tsearch(const void* key, void** root, int (*compare)(const void*, const void*))
 {

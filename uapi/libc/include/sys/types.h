@@ -7,7 +7,7 @@
 #ifndef _WA_LIBC_SYS_TYPES_H
 #define _WA_LIBC_SYS_TYPES_H
 
-#include <kernel/types.h>
+#include <wasmux/types.h>
 #include <sys/select.h>
 
 #ifdef __cplusplus

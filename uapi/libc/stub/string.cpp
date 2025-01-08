@@ -8,7 +8,7 @@
 #include "string.h"
 #include "strings.h"
 
-#include <kernel/assert.h>
+#include <wasmux/assert.h>
 #include <waf/Characters.h>
 
 int memcmp(const void* p1, const void* p2, size_t n)
@@ -142,12 +142,6 @@ int strcoll(const char* s1, const char* s2)
 {
   WA_UNREACHABLE();
   return 0;
-}
-
-double strtod(const char* str, char** end)
-{
-  WA_UNREACHABLE();
-  return 0.0;
 }
 
 char* strerror(int errnum)

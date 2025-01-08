@@ -7,7 +7,7 @@
 #include "config.h"
 #include "unistd.h"
 
-#include <kernel/assert.h>
+#include <wasmux/assert.h>
 #include <errno.h>
 
 int access(const char* path, int mode)

@@ -7,8 +7,8 @@
 #include "config.h"
 #include "stdio.h"
 
-#include <kernel/assert.h>
-#include <kernel/errno.h>
+#include <wasmux/assert.h>
+#include <wasmux/errno.h>
 
 int sprintf(char* str, const char* fmt, ...)
 {

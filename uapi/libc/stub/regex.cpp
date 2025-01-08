@@ -7,7 +7,7 @@
 #include "config.h"
 #include "regex.h"
 
-#include <kernel/assert.h>
+#include <wasmux/assert.h>
 
 int regcomp(regex_t* regex, const char* pattern, int flags)
 {

@@ -8,8 +8,8 @@
 #define _WA_LIBC_FCNTL_H
 
 #include <sys/types.h>
-#include <kernel/fcntl.h>
-#include <kernel/fs.h>
+#include <wasmux/fcntl.h>
+#include <wasmux/fs.h>
 
 #ifdef __cplusplus
 extern "C" {

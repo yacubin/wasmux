@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include <kernel/types.h>
+#include <wasmux/types.h>
 
 namespace {
 

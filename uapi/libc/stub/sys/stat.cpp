@@ -7,7 +7,7 @@
 #include "config.h"
 #include "sys/stat.h"
 
-#include <kernel/assert.h>
+#include <wasmux/assert.h>
 #include <errno.h>
 
 int fstat(int fd, struct stat* buf)

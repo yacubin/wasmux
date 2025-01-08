@@ -7,7 +7,7 @@
 #include "config.h"
 #include "stdlib.h"
 
-#include <kernel/assert.h>
+#include <wasmux/assert.h>
 #include <errno.h>
 
 int system(const char* command)

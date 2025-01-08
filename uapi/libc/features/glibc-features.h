@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
@@ -9,5 +9,6 @@
 
 #define __GNU_LIBRARY__ 6
 #define __GLIBC__ 2
+#define __GLIBC_MINOR__ 40
 
 #endif /* _WA_LIBC_FEATURES_H */

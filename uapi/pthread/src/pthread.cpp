@@ -7,7 +7,7 @@
 #include "config.h"
 #include "pthread.h"
 
-#include <kernel/assert.h>
+#include <wasmux/assert.h>
 
 int pthread_mutexattr_init(pthread_mutexattr_t *attr)
 {

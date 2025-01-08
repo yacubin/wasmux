@@ -36,7 +36,6 @@ set(libc_HEADERS
   include/endian.h
   include/errno.h
   include/fcntl.h
-  include/features.h
   include/fnmatch.h
   include/ftw.h
   include/glob.h
@@ -56,6 +55,7 @@ set(libc_HEADERS
   include/setjmp.h
   include/setjmp.h
   include/signal.h
+  include/spawn.h
   include/stdarg.h
   include/stddef.h
   include/stdint.h
@@ -156,6 +156,7 @@ set(libc_SOURCES
   )
 
 set(libc_INCLUDES
+  "${CMAKE_CURRENT_BINARY_DIR}/include"
   "${CMAKE_CURRENT_SOURCE_DIR}/include"
   )
 
@@ -204,6 +205,8 @@ if (TARGET libintl)
   list(APPEND libc_SOURCES $<TARGET_OBJECTS:libintl>)
 endif ()
 
+configure_file("features/${CONFIG_LIBC_FEATURES}-features.h" "${CMAKE_CURRENT_BINARY_DIR}/include/features.h" COPYONLY)
+
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${libc_HEADERS} ${libc_SOURCES})
 add_library(libc STATIC ${libc_HEADERS} ${libc_SOURCES})
 target_include_directories(libc PUBLIC ${libc_INCLUDES})
@@ -220,3 +223,4 @@ install(TARGETS libc
   )
 
 WASMUX_INSTALL_HEADERS(HEADERS ${libc_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/include/features.h" DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")

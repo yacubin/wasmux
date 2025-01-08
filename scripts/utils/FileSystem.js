@@ -54,6 +54,37 @@ function directoryExistsSync(path)
   }
 }
 
+function extname(fullpath, options)
+{
+  if (options?.longest)
+  {
+    const filename = path.basename(fullpath);
+    const index = filename.indexOf('.');
+    return index != -1 ? filename.substring(index) : '';
+  }
+
+  return path.extname(fullpath);
+}
+
+async function fileList(dirname, options)
+{
+  const list = [];
+  if (await directoryExists(dirname)) {
+    for (const iter of await fs.promises.readdir(dirname)) {
+      const filepath = path.resolve(dirname, iter);
+      const stat = await fs.promises.stat(filepath);
+      if (stat.isFile()) {
+        list.push(options.relative ? path.relative(options.relative, filepath) : filepath);
+      }
+      else if (options.recursive && stat.isDirectory()) {
+        for (const fname of await fileList(filepath, options))
+          list.push(fname);
+      }
+    }
+  }
+  return list;
+}
+
 module.exports = {
   pathExists,
   pathExistsSync,
@@ -61,4 +92,6 @@ module.exports = {
   fileExistsSync,
   directoryExists,
   directoryExistsSync,
+  extname,
+  fileList,
 };

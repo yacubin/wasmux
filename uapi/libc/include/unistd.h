@@ -10,7 +10,7 @@
 #include <features.h>
 #include <sys/types.h>
 #include <getopt_core.h>
-#include <kernel/fs.h>
+#include <wasmux/fs.h>
 
 #ifdef __cplusplus
 extern "C" {

@@ -1,13 +1,13 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #ifndef _WA_LIBC_MNTENT_H
 #define _WA_LIBC_MNTENT_H
 
-#include <kernel/stream.h>
+#include <wasmux/stream.h>
 #include <paths.h>
 
 #ifdef __cplusplus

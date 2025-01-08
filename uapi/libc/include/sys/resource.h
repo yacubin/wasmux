@@ -1,13 +1,13 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #ifndef _WA_LIBC_SYS_RESOURCE_H
 #define _WA_LIBC_SYS_RESOURCE_H
 
-#include <kernel/time.h>
+#include <wasmux/time.h>
 #include <sys/types.h> // for id_t
 
 #ifdef __cplusplus

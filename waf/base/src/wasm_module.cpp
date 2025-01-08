@@ -1,12 +1,12 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #include "config.h"
-#include <kernel/wasm_module.h>
-#include <kernel/wasm_header.h>
+#include <wasmux/wasm_module.h>
+#include <wasmux/wasm_header.h>
 #include <waf/Leb128.h>
 
 const char* wa_strsecid(uint8_t id)

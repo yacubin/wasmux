@@ -1,16 +1,16 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #ifndef _WA_LIBC_SYS_SELECT_H
 #define _WA_LIBC_SYS_SELECT_H
 
-#include <kernel/types.h>
-#include <kernel/posix_types.h>
-#include <kernel/signal.h>
-#include <kernel/time.h>
+#include <wasmux/types.h>
+#include <wasmux/posix_types.h>
+#include <wasmux/signal.h>
+#include <wasmux/time.h>
 
 #ifdef __cplusplus
 extern "C" {

@@ -1,14 +1,14 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #ifndef _WA_LIBC_ERRNO_H
 #define _WA_LIBC_ERRNO_H
 
-#include <kernel/errno.h>
-#include <kernel/thread_data.h>
+#include <wasmux/errno.h>
+#include <wasmux/thread_data.h>
 
 #ifdef __cplusplus
 extern "C" {

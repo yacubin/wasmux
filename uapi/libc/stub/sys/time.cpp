@@ -7,8 +7,8 @@
 #include "config.h"
 #include <sys/time.h>
 
-#include <kernel/compiler.h>
-#include <kernel/assert.h>
+#include <wasmux/compiler.h>
+#include <wasmux/assert.h>
 #include <errno.h>
 
 static char __tzname_GMT[] = "GMT";

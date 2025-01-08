@@ -7,7 +7,7 @@
 #ifndef _WA_LIBC_SYS_PARAM_H
 #define _WA_LIBC_SYS_PARAM_H
 
-#include <kernel/limits.h>
+#include <wasmux/limits.h>
 
 #ifdef __cplusplus
 extern "C" {

@@ -7,9 +7,9 @@
 #include "config.h"
 #include <sys/statfs.h>
 
-#include <kernel/assert.h>
-#include <kernel/errno.h>
-#include <kernel/thread_data.h>
+#include <wasmux/assert.h>
+#include <wasmux/errno.h>
+#include <wasmux/thread_data.h>
 
 int statfs(const char* path, struct statfs* buf)
 {

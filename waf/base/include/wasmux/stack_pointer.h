@@ -1,7 +1,7 @@
 #ifndef _WA_KERNEL_STACK_POINTER_H
 #define _WA_KERNEL_STACK_POINTER_H
 
-#include <kernel/platform.h>
+#include <wasmux/platform.h>
 
 static inline void* __get_stack_pointer()
 {

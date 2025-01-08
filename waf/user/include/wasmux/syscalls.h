@@ -7,8 +7,8 @@
 #ifndef _WA_KERNEL_SYSCALLS_H
 #define _WA_KERNEL_SYSCALLS_H
 
-#include <kernel/types.h>
-#include <kernel/syscall-nums.h>
+#include <wasmux/types.h>
+#include <wasmux/syscall-nums.h>
 
 #ifdef __cplusplus
 extern "C" {

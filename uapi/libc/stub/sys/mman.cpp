@@ -1,13 +1,13 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-205  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #include "config.h"
 #include "sys/mman.h"
 
-#include <kernel/assert.h>
+#include <wasmux/assert.h>
 #include <errno.h>
 
 void* mmap(void* addr, size_t size, int prot, int flags, int fd, off_t offset)

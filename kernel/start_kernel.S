@@ -5,7 +5,7 @@
  */
 
 #include "config.h"
-#include <kernel/types.h>
+#include <wasmux/types.h>
 
 .globaltype __stack_pointer, PTR
 

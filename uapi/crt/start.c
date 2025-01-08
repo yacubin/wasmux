@@ -1,12 +1,12 @@
 
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #include "config.h"
-#include <kernel/compiler.h>
+#include <wasmux/compiler.h>
 
 __ATTR_WEAK
 int __main_void(void);

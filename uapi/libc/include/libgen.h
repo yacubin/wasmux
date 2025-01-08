@@ -1,13 +1,13 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #ifndef _WA_LIBC_LIBGEN_H
 #define _WA_LIBC_LIBGEN_H
 
-#include <kernel/basename.h>
+#include <wasmux/basename.h>
 
 #ifdef __cplusplus
 extern "C" {

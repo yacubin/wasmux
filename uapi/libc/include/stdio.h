@@ -9,10 +9,10 @@
 
 #define _STDIO_H
 
-#include <kernel/compiler.h>
-#include <kernel/stdarg.h>
-#include <kernel/stream.h>
-#include <kernel/fs.h>
+#include <wasmux/compiler.h>
+#include <wasmux/stdarg.h>
+#include <wasmux/stream.h>
+#include <wasmux/fs.h>
 
 #include <stddef.h>
 #include <sys/stat.h>

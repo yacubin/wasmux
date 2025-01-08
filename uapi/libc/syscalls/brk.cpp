@@ -6,10 +6,10 @@
 
 #include "config.h"
 
-#include <kernel/compiler.h>
-#include <kernel/errno.h>
-#include <kernel/thread_data.h>
-#include <kernel/syscalls.h>
+#include <wasmux/compiler.h>
+#include <wasmux/errno.h>
+#include <wasmux/thread_data.h>
+#include <wasmux/syscalls.h>
 
 extern "C" void* __curbrk = nullptr;
 

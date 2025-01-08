@@ -1,13 +1,13 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #ifndef _WA_KERNEL_WASM_HEADER_H
 #define _WA_KERNEL_WASM_HEADER_H
 
-#include <kernel/int-types.h>
+#include <wasmux/int-types.h>
 
 #define	WASM_MAG0 0x00
 #define	WASM_MAG1 'a'

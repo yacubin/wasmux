@@ -7,7 +7,7 @@
 #ifndef _WA_KERNEL_LIMITS_H
 #define _WA_KERNEL_LIMITS_H
 
-#include <kernel/limits-base.h>
+#include <wasmux/limits-base.h>
 
 #define INT8_C      __INT_C
 #define UINT8_C     __INT_C

@@ -1,13 +1,13 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #ifndef _WA_LIBC_WCTYPE_H
 #define _WA_LIBC_WCTYPE_H
 
-#include <kernel/widechar.h>
+#include <wasmux/widechar.h>
 
 #ifdef __cplusplus
 extern "C" {

@@ -1,13 +1,13 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #ifndef _WA_KERNEL_INIT_H
 #define _WA_KERNEL_INIT_H
 
-#include <kernel/compiler.h>
+#include <wasmux/compiler.h>
 
 #ifdef __cplusplus
 extern "C" {

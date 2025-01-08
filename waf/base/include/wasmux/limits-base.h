@@ -1,13 +1,13 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #ifndef _WA_KERNEL_LIMITS_BASE_H
 #define _WA_KERNEL_LIMITS_BASE_H
 
-#include <kernel/sizeof.h>
+#include <wasmux/sizeof.h>
 
 #define __UINT_C(c)   c ## U
 #define __INT_C(c)    c

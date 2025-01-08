@@ -1,13 +1,13 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #include "config.h"
 #include "libintl.h"
 
-#include <kernel/assert.h>
+#include <wasmux/assert.h>
 
 char* gettext(const char* msgid)
 {

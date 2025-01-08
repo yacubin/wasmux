@@ -1,7 +1,7 @@
 set(wauser_HEADERS
-  include/kernel/stream.h
-  include/kernel/syscalls.h
-  include/kernel/thread_data.h
+  include/wasmux/stream.h
+  include/wasmux/syscalls.h
+  include/wasmux/thread_data.h
   )
 
 set(wauser_SOURCES
@@ -18,12 +18,12 @@ set(wauser_LIBRARIES
   )
 
 set(wauser_GENFILES
-  "${CMAKE_CURRENT_BINARY_DIR}/include/kernel/syscall-nums.h"
+  "${CMAKE_CURRENT_BINARY_DIR}/include/wasmux/syscall-nums.h"
   )
 
 GEN_USYSCALLHDR(
   INPUT "${WASMUX_ROOT_DIR}/waf/syscall.json"
-  OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/include/kernel/syscall-nums.h"
+  OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/include/wasmux/syscall-nums.h"
   )
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${wauser_HEADERS} ${wauser_SOURCES})

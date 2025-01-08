@@ -7,7 +7,7 @@
 #ifndef _WA_KERNEL_TYPES_H
 #define _WA_KERNEL_TYPES_H
 
-#include <kernel/sizeof.h>
+#include <wasmux/sizeof.h>
 
 #if defined(__ASSEMBLY__)
 #if __SIZEOF_VOIDP__ == 8
@@ -19,8 +19,8 @@
 # endif
 #else
 
-# include <kernel/nullptr.h>
-# include <kernel/int-types.h>
+# include <wasmux/nullptr.h>
+# include <wasmux/int-types.h>
 
 # define __PRIPTR_PREFIX "l"
 

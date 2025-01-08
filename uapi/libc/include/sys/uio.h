@@ -7,7 +7,7 @@
 #ifndef _WA_LIBC_SYS_UIO_H
 #define _WA_LIBC_SYS_UIO_H
 
-#include <kernel/types.h>
+#include <wasmux/types.h>
 
 struct iovec {
   void*  iov_base;  // Pointer to the data buffer

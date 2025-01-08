@@ -1,13 +1,13 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #ifndef _WA_KERNEL_INT_TYPES_H
 #define _WA_KERNEL_INT_TYPES_H
 
-#include <kernel/sizeof.h>
+#include <wasmux/sizeof.h>
 
 typedef signed char int8_t;
 typedef unsigned char uint8_t;

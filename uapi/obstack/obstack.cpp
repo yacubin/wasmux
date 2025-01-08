@@ -1,14 +1,14 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #include "config.h"
 #include "obstack.h"
 
-#include <kernel/compiler.h>
-#include <kernel/assert.h>
+#include <wasmux/compiler.h>
+#include <wasmux/assert.h>
 
 void _obstack_free(struct obstack* obstack, void* obj)
 {

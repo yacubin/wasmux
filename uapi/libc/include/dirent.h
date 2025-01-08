@@ -8,7 +8,7 @@
 #define _WA_LIBC_DIRENT_H
 
 #include <sys/types.h>
-#include <kernel/limits.h>
+#include <wasmux/limits.h>
 
 #ifdef __cplusplus
 extern "C" {

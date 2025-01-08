@@ -7,7 +7,7 @@
 #include "config.h"
 #include "stdio.h"
 
-#include <kernel/assert.h>
+#include <wasmux/assert.h>
 #include <errno.h>
 
 int fprintf(FILE* file, const char* fmt, ...)

@@ -7,7 +7,7 @@
 #include "config.h"
 #include "sys/socket.h"
 
-#include <kernel/assert.h>
+#include <wasmux/assert.h>
 
 int socket(int domain, int type, int protocol)
 {
