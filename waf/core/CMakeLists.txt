@@ -21,7 +21,7 @@ set(wacore_GENFILES
   )
 
 GEN_KSYSCALLHDR(
-  INPUT "${WASMUX_ROOT_DIR}/waf/syscall.json"
+  INPUT "${WASMUX_ROOT_DIR}/waf/syscall.js"
   OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/include/uapi/asm/unistd.h"
 )
 

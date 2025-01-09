@@ -7,7 +7,7 @@ project(wasmux VERSION 0.0.1
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
-include(WACommon)
+include(WxCommon)
 
 set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -D__ASSEMBLY__")
 

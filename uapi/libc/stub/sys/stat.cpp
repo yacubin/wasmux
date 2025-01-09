@@ -57,12 +57,6 @@ int chmod(const char* path, mode_t mode)
   return -1;
 }
 
-int mknod(const char* path, mode_t mode, dev_t dev)
-{
-  WA_UNREACHABLE();
-  return -1;
-}
-
 int mkdirat(int dirfd, const char* path, mode_t mode)
 {
   WA_UNREACHABLE();

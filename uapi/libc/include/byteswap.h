@@ -1,14 +1,16 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_BYTESWAP_H
-#define _WA_LIBC_BYTESWAP_H
+#ifndef _BYTESWAP_H
+#define _BYTESWAP_H
 
-#define bswap_16 __builtin_bswap16
-#define bswap_32 __builtin_bswap32
-#define bswap_64 __builtin_bswap64
+#include <wasmux/swab.h>
 
-#endif /* _WA_LIBC_BYTESWAP_H */
+#define bswap_16 __swab16
+#define bswap_32 __swab32
+#define bswap_64 __swab64
+
+#endif /* _BYTESWAP_H */

@@ -17,16 +17,16 @@ if (CONFIG_ENABLE_LIBC)
     add_subdirectory("${CONFIG_OBSTACK_PATH}" obstack)
   endif ()
 
+  if (CONFIG_LIBINTL_PATH)
+    add_subdirectory("${CONFIG_LIBINTL_PATH}" libintl)
+  endif ()
+
   if (CONFIG_LOCALE_PATH)
     add_subdirectory("${CONFIG_LOCALE_PATH}" locale)
   endif ()
 
   if (CONFIG_GETOPT_PATH)
     add_subdirectory("${CONFIG_GETOPT_PATH}" getopt)
-  endif ()
-
-  if (CONFIG_LIBINTL_PATH)
-    add_subdirectory("${CONFIG_LIBINTL_PATH}" libintl)
   endif ()
 
   add_subdirectory(libc)

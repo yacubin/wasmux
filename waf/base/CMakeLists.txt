@@ -27,6 +27,7 @@ set(wabase_HEADERS
   include/wasmux/stack_pointer.h
   include/wasmux/statfs.h
   include/wasmux/stdarg.h
+  include/wasmux/swab.h
   include/wasmux/termios.h
   include/wasmux/time.h
   include/wasmux/types.h
@@ -74,4 +75,4 @@ set_target_properties(wabase PROPERTIES LINKER_LANGUAGE CXX)
 
 add_library(WASMUX::WABASE ALIAS wabase)
 
-WASMUX_INSTALL_HEADERS(HEADERS ${wabase_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+WX_INSTALL_HEADERS(HEADERS ${wabase_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")

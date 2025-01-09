@@ -23,4 +23,4 @@ target_include_directories(malloc PUBLIC "${malloc_INCLUDES}")
 target_compile_definitions(malloc PRIVATE "${malloc_DEFINITIONS}")
 target_link_libraries(malloc PRIVATE ${malloc_LIBRARIES})
 
-WASMUX_INSTALL_HEADERS(HEADERS ${malloc_HEADERS} DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+WX_INSTALL_HEADERS(HEADERS ${malloc_HEADERS} DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")

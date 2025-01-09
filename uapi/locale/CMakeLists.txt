@@ -25,4 +25,4 @@ target_include_directories(locale PUBLIC "${locale_INCLUDES}")
 target_compile_definitions(locale PRIVATE "${locale_DEFINITIONS}")
 target_link_libraries(locale PRIVATE ${locale_LIBRARIES})
 
-WASMUX_INSTALL_HEADERS(HEADERS ${locale_HEADERS} DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+WX_INSTALL_HEADERS(HEADERS ${locale_HEADERS} DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")

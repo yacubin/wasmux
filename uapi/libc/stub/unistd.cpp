@@ -18,13 +18,6 @@ int fsync(int fd)
   return -1;
 }
 
-int chdir(const char* path)
-{
-  WA_UNREACHABLE();
-  errno = ENOSYS;
-  return -1;
-}
-
 int rmdir(const char* path)
 {
   WA_UNREACHABLE();
@@ -323,14 +316,7 @@ int execvp(const char* path, char* const argv[])
   return -1;
 }
 
-int execve(const char* path, char* const argv[], char* const envp[])
-{
-  WA_UNREACHABLE();
-  errno = ENOSYS;
-  return -1;
-}
-
-long syscall (long number, ...)
+long syscall(long number, ...)
 {
   WA_UNREACHABLE();
   errno = ENOSYS;

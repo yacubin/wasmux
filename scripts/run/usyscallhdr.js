@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const url = require('url');
 
 const { filepathToMacroCIdentifier } = require('../utils/CXXHelper.js');
 const { generatedScriptNameComment } = require('../utils/CXXHelper.js');
@@ -13,8 +14,8 @@ async function runScript(input, output)
     throw "Not pass the output filename to the program";
   }
 
-  const content = await fs.promises.readFile(input, 'utf-8');
-  const syscalls = Object.entries(JSON.parse(content)).sort((a, b) => a[1].number - b[1].number);
+  const module = await import(url.pathToFileURL(input));
+  const syscalls = Object.entries(module.default).sort((a, b) => a[1].number - b[1].number);
   const pragmaOnce = filepathToMacroCIdentifier(output);
 
   const lines = [];

@@ -26,6 +26,7 @@ void* memrchr(const void* mem, int ch, size_t n);
 char* strchr(const char* str, int ch);
 char* strchrnul(const char* str, int ch);
 size_t strlen(const char* str);
+size_t strnlen(const char* str, size_t len);
 int strcmp(const char* s1, const char* s2);
 int strncmp(const char* s1, const char* s2, size_t n);
 char* strcpy(char* dst, const char* src);
@@ -45,6 +46,8 @@ int strcoll(const char* str1, const char* str2);
 
 char* strerror(int errnum);
 char* strsignal(int sig);
+
+char* __strchrnul(const char* str, int ch);
 
 #ifdef __cplusplus
 }

@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_KERNEL_SYSCALLS_H
-#define _WA_KERNEL_SYSCALLS_H
+#ifndef _WASMUX_SYSCALLS_H
+#define _WASMUX_SYSCALLS_H
 
 #include <wasmux/types.h>
 #include <wasmux/syscall-nums.h>
@@ -14,34 +14,34 @@
 extern "C" {
 #endif
 
-#define WA_SYSINST_NAME "kernel"
-#define WA_SYSCALL_NAME0 "_syscall0"
-#define WA_SYSCALL_NAME1 "_syscall1"
-#define WA_SYSCALL_NAME2 "_syscall2"
-#define WA_SYSCALL_NAME3 "_syscall3"
-#define WA_SYSCALL_NAME4 "_syscall4"
-#define WA_SYSCALL_NAME5 "_syscall5"
-#define WA_SYSCALL_NAME6 "_syscall6"
+#define WX_SYSINST_NAME "kernel"
+#define WX_SYSCALL_NAME0 "_syscall0"
+#define WX_SYSCALL_NAME1 "_syscall1"
+#define WX_SYSCALL_NAME2 "_syscall2"
+#define WX_SYSCALL_NAME3 "_syscall3"
+#define WX_SYSCALL_NAME4 "_syscall4"
+#define WX_SYSCALL_NAME5 "_syscall5"
+#define WX_SYSCALL_NAME6 "_syscall6"
 
-__attribute__((import_module(WA_SYSINST_NAME), import_name(WA_SYSCALL_NAME0)))
+__attribute__((import_module(WX_SYSINST_NAME), import_name(WX_SYSCALL_NAME0)))
 long __kernel_syscall0(long number);
 
-__attribute__((import_module(WA_SYSINST_NAME), import_name(WA_SYSCALL_NAME1)))
+__attribute__((import_module(WX_SYSINST_NAME), import_name(WX_SYSCALL_NAME1)))
 long __kernel_syscall1(long number, long arg1);
 
-__attribute__((import_module(WA_SYSINST_NAME), import_name(WA_SYSCALL_NAME2)))
+__attribute__((import_module(WX_SYSINST_NAME), import_name(WX_SYSCALL_NAME2)))
 long __kernel_syscall2(long number, long arg1, long arg2);
 
-__attribute__((import_module(WA_SYSINST_NAME), import_name(WA_SYSCALL_NAME3)))
+__attribute__((import_module(WX_SYSINST_NAME), import_name(WX_SYSCALL_NAME3)))
 long __kernel_syscall3(long number, long arg1, long arg2, long arg3);
 
-__attribute__((import_module(WA_SYSINST_NAME), import_name(WA_SYSCALL_NAME4)))
+__attribute__((import_module(WX_SYSINST_NAME), import_name(WX_SYSCALL_NAME4)))
 long __kernel_syscall4(long number, long arg1, long arg2, long arg3, long arg4);
 
-__attribute__((import_module(WA_SYSINST_NAME), import_name(WA_SYSCALL_NAME5)))
+__attribute__((import_module(WX_SYSINST_NAME), import_name(WX_SYSCALL_NAME5)))
 long __kernel_syscall5(long number, long arg1, long arg2, long arg3, long arg4, long arg5);
 
-__attribute__((import_module(WA_SYSINST_NAME), import_name(WA_SYSCALL_NAME6)))
+__attribute__((import_module(WX_SYSINST_NAME), import_name(WX_SYSCALL_NAME6)))
 long __kernel_syscall6(long number, long arg1, long arg2, long arg3, long arg4, long arg5, long arg6);
 
 #define __SYSCALL_ARG0(nr, a1, a2, a3, a4, a5, a6) nr
@@ -122,8 +122,33 @@ static inline long sys_creat(const char* path, umode_t mode)
   return __DO_SYSCALL(creat, path, mode);
 }
 
+static inline long sys_link(const char* oldname, const char* newname)
+{
+  return __DO_SYSCALL(link, oldname, newname);
+}
+
+static inline long sys_unlink(const char* pathname)
+{
+  return __DO_SYSCALL(unlink, pathname);
+}
+
+static inline long sys_execve(const char* filename, const char* const* argv, const char* const* envp)
+{
+  return __DO_SYSCALL(execve, filename, argv, envp);
+}
+
+static inline long sys_chdir(const char* filename)
+{
+  return __DO_SYSCALL(chdir, filename);
+}
+
+static inline long sys_mknod(const char* filename, umode_t mode, unsigned dev)
+{
+  return __DO_SYSCALL(mknod, filename, mode, dev);
+}
+
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _WA_KERNEL_SYSCALLS_H */
+#endif /* _WASMUX_SYSCALLS_H */

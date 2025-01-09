@@ -16,6 +16,7 @@ extern "C" {
 struct wax_thread_data {
   int errcode;
   char buffer[256];
+  void* locale_data;
 };
 
 struct wax_thread_data* __get_thread_data();

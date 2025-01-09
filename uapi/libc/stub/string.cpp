@@ -40,14 +40,14 @@ char* strchr(const char* str, int ch)
   return const_cast<char*>(WAF::charactersFind<char,true>(str, ch));
 }
 
-char* strchrnul(const char* str, int ch)
-{
-  return const_cast<char*>(WAF::charactersFind<char,false>(str, ch));
-}
-
 size_t strlen(const char* str)
 {
   return WAF::charactersLength(str);
+}
+
+size_t strnlen(const char* str, size_t len)
+{
+  return WAF::charactersLength(str, len);
 }
 
 int strcmp(const char* str1, const char* str2)

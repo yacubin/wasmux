@@ -20,3 +20,9 @@ char* dgettext(const char* domainname, const char* msgid)
   WA_UNREACHABLE();
   return nullptr;
 }
+
+char* dngettext(const char* domainname, const char* msgid, const char* msgid_plural, unsigned long n)
+{
+  WA_UNREACHABLE();
+  return nullptr;
+}

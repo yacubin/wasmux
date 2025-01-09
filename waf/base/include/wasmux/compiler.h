@@ -21,7 +21,7 @@
 
 #define __ATTR_ALIAS(from, to) __typeof(from) to __attribute__((__alias__(#from)))
 #define __ATTR_WEAK __attribute__((__weak__))
-#define __ATTR_HIDDEN __attribute__((visibility("hidden")))
+#define __ATTR_HIDDEN __attribute__((__visibility__("hidden")))
 #define __ATTR_PRINTF(fmt, args) __attribute__((__format__(printf, fmt, args)))
 
 #endif /* _WA_KERNEL_COMPILER_H */

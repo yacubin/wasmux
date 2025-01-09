@@ -80,6 +80,7 @@ set(libc_HEADERS
 
 set(libc_SOURCES
   dirent/dirfd.cpp
+  string/strchrnul.cpp
   stub/apra/inet.cpp
   stub/sys/mman.cpp
   stub/sys/random.cpp
@@ -136,11 +137,14 @@ set(libc_SOURCES
   stub/wchar.cpp
   stub/wctype.cpp
   syscalls/brk.cpp
+  syscalls/chdir.cpp
   syscalls/close.cpp
   syscalls/creat.cpp
+  syscalls/execve.cpp
   syscalls/getcwd.cpp
   syscalls/gettid.cpp
   syscalls/ioctl.cpp
+  syscalls/mknod.cpp
   syscalls/open.cpp
   syscalls/read.cpp
   syscalls/waitpid.cpp
@@ -187,6 +191,11 @@ if (TARGET obstack)
   list(APPEND libc_SOURCES $<TARGET_OBJECTS:obstack>)
 endif ()
 
+if (TARGET libintl)
+  list(APPEND libc_INCLUDES $<TARGET_PROPERTY:libintl,INTERFACE_INCLUDE_DIRECTORIES>)
+  list(APPEND libc_SOURCES $<TARGET_OBJECTS:libintl>)
+endif ()
+
 if (TARGET locale)
   list(APPEND libc_INCLUDES $<TARGET_PROPERTY:locale,INTERFACE_INCLUDE_DIRECTORIES>)
   list(APPEND libc_SOURCES $<TARGET_OBJECTS:locale>)
@@ -197,12 +206,7 @@ if (TARGET getopt)
   list(APPEND libc_SOURCES $<TARGET_OBJECTS:getopt>)
 else ()
   list(APPEND libc_INCLUDES "${CMAKE_CURRENT_SOURCE_DIR}/nogetopt")
-  WASMUX_INSTALL_HEADERS(HEADERS nogetopt/getopt_core.h BASE_DIR nogetopt DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
-endif ()
-
-if (TARGET libintl)
-  list(APPEND libc_INCLUDES $<TARGET_PROPERTY:libintl,INTERFACE_INCLUDE_DIRECTORIES>)
-  list(APPEND libc_SOURCES $<TARGET_OBJECTS:libintl>)
+  WX_INSTALL_HEADERS(HEADERS nogetopt/getopt_core.h BASE_DIR nogetopt DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()
 
 configure_file("features/${CONFIG_LIBC_FEATURES}-features.h" "${CMAKE_CURRENT_BINARY_DIR}/include/features.h" COPYONLY)
@@ -222,5 +226,5 @@ install(TARGETS libc
   ARCHIVE DESTINATION "${WASMUX_INSTALL_LIBDIR}"
   )
 
-WASMUX_INSTALL_HEADERS(HEADERS ${libc_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+WX_INSTALL_HEADERS(HEADERS ${libc_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/include/features.h" DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")

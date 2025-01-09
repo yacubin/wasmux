@@ -1,0 +1,36 @@
+include(WxMacros)
+include(GenScript)
+
+set(WASMUX_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+
+WX_OPTION(CONFIG_TARGET_SYSTEM       "Target system" wasm32 ENUM wasm32 wasm64 wasm32-wasi wasm64-wasi)
+WX_OPTION(CONFIG_ENABLE_TLS          "Enable thread-local storage" ON BOOLEAN)
+WX_OPTION(CONFIG_ENABLE_KERNEL       "Enable kernel installation" OFF BOOLEAN)
+WX_OPTION(CONFIG_ENABLE_LIBGCC       "Enable libgcc library" ON BOOLEAN)
+WX_OPTION(CONFIG_ENABLE_LIBC         "Enable libc library" ON BOOLEAN)
+WX_OPTION(CONFIG_ENABLE_CRT          "Enable C Run-Time" ON BOOLEAN)
+WX_OPTION(CONFIG_ENABLE_LIBM         "Enable Math library" ON BOOLEAN)
+WX_OPTION(CONFIG_ENABLE_DL           "Enable Dynamic library" ON BOOLEAN)
+WX_OPTION(CONFIG_ENABLE_LIBCXX       "Enable libc++ library" ON BOOLEAN)
+WX_OPTION(CONFIG_ENABLE_PTHREAD      "Enable pthread library" ON BOOLEAN)
+WX_OPTION(CONFIG_ENABLE_MAIN_ENV_ARG "Enable env argument for main function" OFF BOOLEAN)
+WX_OPTION(CONFIG_LIBC_FEATURES       "Choosing features for libc" glibc ENUM none glibc uclibc)
+
+if (CONFIG_ENABLE_LIBC)
+  WX_OPTION(CONFIG_MALLOC_PATH       "Path to malloc standalone" "${WASMUX_ROOT_DIR}/uapi/malloc" STRING)
+  WX_OPTION(CONFIG_ARGP_PATH         "Path to argp standalone" "${WASMUX_ROOT_DIR}/uapi/argp" STRING)
+  WX_OPTION(CONFIG_FTS_PATH          "Path to fts standalone" "${WASMUX_ROOT_DIR}/uapi/fts" STRING)
+  WX_OPTION(CONFIG_OBSTACK_PATH      "Path to obstack standalone" "${WASMUX_ROOT_DIR}/uapi/obstack" STRING)
+  WX_OPTION(CONFIG_LOCALE_PATH       "Path to locale standalone" "${WASMUX_ROOT_DIR}/uapi/locale" STRING)
+  WX_OPTION(CONFIG_GETOPT_PATH       "Path to getopt standalone" "${WASMUX_ROOT_DIR}/uapi/getopt" STRING)
+  WX_OPTION(CONFIG_LIBINTL_PATH      "Path to libintl standalone" "${WASMUX_ROOT_DIR}/uapi/libintl" STRING)
+endif ()
+
+set(WASMUX_INSTALL_BINDIR "bin")
+set(WASMUX_INSTALL_LIBDIR "lib")
+set(WASMUX_INSTALL_INCLUDEDIR "include")
+
+if (CONFIG_TARGET_SYSTEM MATCHES "-wasi$")
+  set(WASMUX_INSTALL_LIBDIR "${WASMUX_INSTALL_LIBDIR}/${CMAKE_SYSTEM_PROCESSOR}-wasi")
+endif ()
+

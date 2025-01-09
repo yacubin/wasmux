@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_KERNEL_ERRNO_H
-#define _WA_KERNEL_ERRNO_H
+#ifndef _WASMUX_ERRNO_H
+#define _WASMUX_ERRNO_H
 
 #define EPERM          1    /* Operation not permitted */
 #define ENOENT         2    /* No such file or directory */
@@ -44,6 +44,7 @@
 #define ENOSYS         38   /* Function not implemented */
 #define ENOTEMPTY      39   /* Directory not empty */
 #define ELOOP          40   /* Too many levels of symbolic links */
+#define ENOMSG         42   /* No message of the desired type */
 #define EOVERFLOW      75   /* Value too large to be stored in data type */
 #define EILSEQ         84   /* Invalid or incomplete multibyte or wide character */
 #define ENODATA        86   /* The named attribute does not exist */
@@ -64,4 +65,4 @@
 #define ENOATTR     ENODATA
 #define EWOULDBLOCK EAGAIN
 
-#endif /* _WA_KERNEL_ERRNO_H */
+#endif /* _WASMUX_ERRNO_H */
