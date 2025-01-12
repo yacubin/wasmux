@@ -14,6 +14,7 @@ set(wabase_HEADERS
   include/wasmux/limits.h
   include/wasmux/log.h
   include/wasmux/notify_waiter.h
+  include/wasmux/mman.h
   include/wasmux/mutex.h
   include/wasmux/nullptr.h
   include/wasmux/platform.h
@@ -30,6 +31,7 @@ set(wabase_HEADERS
   include/wasmux/swab.h
   include/wasmux/termios.h
   include/wasmux/time.h
+  include/wasmux/time64.h
   include/wasmux/types.h
   include/wasmux/wasm_header.h
   include/wasmux/wasm_module.h

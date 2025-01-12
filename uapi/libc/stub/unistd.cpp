@@ -67,6 +67,13 @@ int ftruncate(int fd, off_t length)
   return -1;
 }
 
+ssize_t pread(int fd, void* buf, size_t count, off_t offset)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
 long fpathconf(int fd, int name)
 {
   WA_UNREACHABLE();
@@ -265,13 +272,6 @@ int pause(void)
   WA_UNREACHABLE();
   errno = ENOSYS;
   return -1;
-}
-
-void* sbrk(intptr_t inc)
-{
-  WA_UNREACHABLE();
-  errno = ENOSYS;
-  return nullptr;
 }
 
 pid_t fork(void)

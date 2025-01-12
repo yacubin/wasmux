@@ -51,6 +51,8 @@ int lchown(const char* path, uid_t owner, gid_t group);
 int truncate(const char* path, off_t length);
 int ftruncate(int fd, off_t length);
 
+ssize_t pread(int fd, void* buf, size_t count, off_t offset);
+
 #define _PC_PIPE_BUF 1  /* Example: Implementation-defined value */
 
 long fpathconf(int fd, int name);

@@ -4,36 +4,29 @@
  *
  */
 
-#ifndef _WA_LIBC_SYS_MMAN_H
-#define _WA_LIBC_SYS_MMAN_H
+#ifndef _SYS_MMAN_H
+#define _SYS_MMAN_H
 
 #include <wasmux/types.h>
+#include <wasmux/mman.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-/* mmap() prot */
-#define PROT_NONE   0x00000000
-#define PROT_READ   0x00000001
-#define PROT_WRITE  0x00000002
-#define PROT_EXEC   0x00000004
-
-/* mmap() flags */
-#define MAP_SHARED  0x00000001
-#define MAP_PRIVATE 0x00000002
 
 #define MAP_FAILED ((void*)-1)
 
 void* mmap(void* addr, size_t size, int prot, int flags, int fd, off_t offset);
 int munmap(void* addr, size_t size);
 
+int madvise (void* addr, size_t size, int advice);
 int mprotect(void* addr, size_t size, int prot);
 int mlock(const void* addr, size_t size);
 int munlock(const void* addr, size_t size);
+void* mremap(void* old_addr, size_t old_size, size_t new_size, int flags, ...);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _WA_LIBC_SYS_MMAN_H */
+#endif /* _SYS_MMAN_H */

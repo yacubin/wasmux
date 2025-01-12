@@ -4,9 +4,9 @@
  *
  */
 
-#ifndef _WA_LIBC_FEATURES_H
-#define _WA_LIBC_FEATURES_H
+#ifndef _FEATURES_H
+#define _FEATURES_H
 
 #define __UCLIBC__ 1
 
-#endif /* _WA_LIBC_FEATURES_H */
+#endif /* _FEATURES_H */

@@ -4,9 +4,9 @@
  *
  */
 
-#ifndef _WA_LIBC_FEATURES_H
-#define _WA_LIBC_FEATURES_H
+#ifndef _FEATURES_H
+#define _FEATURES_H
 
 /* None */
 
-#endif /* _WA_LIBC_FEATURES_H */
+#endif /* _FEATURES_H */

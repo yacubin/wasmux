@@ -50,6 +50,7 @@ int scandir(const char* dirname, struct dirent*** namelist,
             int (*compar)(const struct dirent**, const struct dirent**));
 
 int versionsort(const struct dirent** a, const struct dirent** b);
+ssize_t getdents(int fd, void* dir_list, size_t count);
 
 #ifdef __cplusplus
 }

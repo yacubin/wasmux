@@ -8,6 +8,7 @@
 #define _WA_LIBC_TIME_H
 
 #include <wasmux/time.h>
+#include <wasmux/time64.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -50,7 +51,7 @@ struct tm* gmtime_r(const time_t* time, struct tm* buf);
 int timespec_get(struct timespec* ts, int base);
 int nanosleep(const struct timespec* duration, struct timespec* remain);
 
-int clock_gettime(clockid_t clock_id, struct timespec* tp);
+int clock_gettime(clockid_t clock_id, struct timespec* ts);
 double difftime(time_t time1, time_t time0);
 
 #ifdef __cplusplus

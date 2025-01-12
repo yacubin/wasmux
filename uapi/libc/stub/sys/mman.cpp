@@ -24,6 +24,13 @@ int munmap(void* addr, size_t size)
   return -1;
 }
 
+int madvise (void* addr, size_t size, int advice)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return -1;
+}
+
 int mprotect(void* addr, size_t size, int prot)
 {
   WA_UNREACHABLE();
@@ -43,4 +50,11 @@ int munlock(const void* addr, size_t size)
   WA_UNREACHABLE();
   errno = ENOSYS;
   return -1;
+}
+
+void* mremap(void* old_addr, size_t old_size, size_t new_size, int flags, ...)
+{
+  WA_UNREACHABLE();
+  errno = ENOSYS;
+  return nullptr;
 }

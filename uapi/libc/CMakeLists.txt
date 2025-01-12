@@ -38,7 +38,6 @@ set(libc_HEADERS
   include/fcntl.h
   include/fnmatch.h
   include/ftw.h
-  include/glob.h
   include/grp.h
   include/inttypes.h
   include/libgen.h
@@ -48,8 +47,6 @@ set(libc_HEADERS
   include/paths.h
   include/poll.h
   include/pwd.h
-  include/regex.h
-  include/regex.h
   include/sched.h
   include/search.h
   include/setjmp.h
@@ -89,6 +86,7 @@ set(libc_SOURCES
   stub/sys/socket.cpp
   stub/sys/stat.cpp
   stub/sys/statfs.cpp
+  stub/sys/sysinfo.cpp
   stub/sys/sysmacros.cpp
   stub/sys/time.cpp
   stub/sys/uio.cpp
@@ -107,7 +105,6 @@ set(libc_SOURCES
   stub/fprintf.cpp
   stub/getenv.cpp
   stub/getmntent.cpp
-  stub/glob.cpp
   stub/grp.cpp
   stub/libgen.cpp
   stub/lseek.cpp
@@ -118,7 +115,6 @@ set(libc_SOURCES
   stub/pwd.cpp
   stub/qsort.cpp
   stub/read.cpp
-  stub/regex.cpp
   stub/search.cpp
   stub/setjmp.cpp
   stub/signal.cpp
@@ -153,6 +149,7 @@ set(libc_SOURCES
   memcpy.cpp
   memset.cpp
   ttyname.cpp
+  sbrk.cpp
 
   $<TARGET_OBJECTS:wabase>
   $<TARGET_OBJECTS:wauser>
@@ -187,6 +184,7 @@ if (TARGET fts)
 endif ()
 
 if (TARGET obstack)
+  set(CONFIG_OBSTACK_INTERFACE_VERSION 1)
   list(APPEND libc_INCLUDES $<TARGET_PROPERTY:obstack,INTERFACE_INCLUDE_DIRECTORIES>)
   list(APPEND libc_SOURCES $<TARGET_OBJECTS:obstack>)
 endif ()
@@ -202,6 +200,7 @@ if (TARGET locale)
 endif ()
 
 if (TARGET getopt)
+  set(CONFIG_GETOPT_INTERFACE_VERSION 2)
   list(APPEND libc_INCLUDES $<TARGET_PROPERTY:getopt,INTERFACE_INCLUDE_DIRECTORIES>)
   list(APPEND libc_SOURCES $<TARGET_OBJECTS:getopt>)
 else ()
@@ -209,7 +208,20 @@ else ()
   WX_INSTALL_HEADERS(HEADERS nogetopt/getopt_core.h BASE_DIR nogetopt DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()
 
+if (TARGET regex)
+  set(CONFIG_REGEX_INTERFACE_VERSION 1)
+  list(APPEND libc_INCLUDES $<TARGET_PROPERTY:regex,INTERFACE_INCLUDE_DIRECTORIES>)
+  list(APPEND libc_SOURCES $<TARGET_OBJECTS:regex>)
+endif ()
+
+if (TARGET glob)
+  set(CONFIG_GLOB_INTERFACE_VERSION 2)
+  list(APPEND libc_INCLUDES $<TARGET_PROPERTY:glob,INTERFACE_INCLUDE_DIRECTORIES>)
+  list(APPEND libc_SOURCES $<TARGET_OBJECTS:glob>)
+endif ()
+
 configure_file("features/${CONFIG_LIBC_FEATURES}-features.h" "${CMAKE_CURRENT_BINARY_DIR}/include/features.h" COPYONLY)
+configure_file("gnu-versions.h.cmake" "${CMAKE_CURRENT_BINARY_DIR}/include/gnu-versions.h" @ONLY)
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${libc_HEADERS} ${libc_SOURCES})
 add_library(libc STATIC ${libc_HEADERS} ${libc_SOURCES})
@@ -227,4 +239,6 @@ install(TARGETS libc
   )
 
 WX_INSTALL_HEADERS(HEADERS ${libc_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/include/features.h" DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/include/gnu-versions.h" DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")

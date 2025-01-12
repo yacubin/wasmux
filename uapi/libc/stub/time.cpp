@@ -84,7 +84,7 @@ int nanosleep(const struct timespec* duration, struct timespec* remain)
   return -1;
 }
 
-int clock_gettime(clockid_t clock_id, struct timespec* tp)
+int clock_gettime(clockid_t clock_id, struct timespec* ts)
 {
   WA_UNREACHABLE();
   errno = ENOSYS;

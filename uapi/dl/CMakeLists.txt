@@ -19,7 +19,7 @@ set(dl_LIBRARIES
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${dl_HEADERS} ${dl_SOURCES})
 add_library(dl STATIC ${dl_HEADERS} ${dl_SOURCES})
-target_include_directories(dl PRIVATE "${dl_INCLUDES}")
+target_include_directories(dl PUBLIC "${dl_INCLUDES}")
 target_compile_definitions(dl PRIVATE "${dl_DEFINITIONS}")
 target_link_libraries(dl PUBLIC ${dl_LIBRARIES})
 

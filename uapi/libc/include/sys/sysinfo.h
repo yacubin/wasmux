@@ -1,20 +1,20 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_SYS_SYSINFO_H
-#define _WA_LIBC_SYS_SYSINFO_H
+#ifndef _SYS_SYSINFO_H
+#define _SYS_SYSINFO_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/* Not Implemented */
+int get_nprocs(void);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _WA_LIBC_SYS_SYSINFO_H */
+#endif /* _SYS_SYSINFO_H */

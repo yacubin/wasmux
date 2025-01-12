@@ -29,6 +29,14 @@ if (CONFIG_ENABLE_LIBC)
     add_subdirectory("${CONFIG_GETOPT_PATH}" getopt)
   endif ()
 
+  if (CONFIG_REGEX_PATH)
+    add_subdirectory("${CONFIG_REGEX_PATH}" regex)
+  endif ()
+
+  if (CONFIG_GLOB_PATH)
+    add_subdirectory("${CONFIG_GLOB_PATH}" glob)
+  endif ()
+
   add_subdirectory(libc)
 endif ()
 
