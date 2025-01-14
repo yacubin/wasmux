@@ -5,8 +5,9 @@
  */
 
 #include "config.h"
-#include "string.h"
-#include "strings.h"
+
+#include <string.h>
+#include <strings.h>
 
 #include <wasmux/assert.h>
 #include <waf/Characters.h>
@@ -103,12 +104,6 @@ char* strstr(const char* haystack, const char* needle)
 }
 
 char* strpbrk(const char* str, const char* accept)
-{
-  WA_UNREACHABLE();
-  return nullptr;
-}
-
-char* strdup(const char* str)
 {
   WA_UNREACHABLE();
   return nullptr;

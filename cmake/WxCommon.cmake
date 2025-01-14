@@ -18,6 +18,7 @@ WX_OPTION(CONFIG_LIBC_FEATURES       "Choosing features for libc" glibc ENUM non
 
 if (CONFIG_ENABLE_LIBC)
   WX_OPTION(CONFIG_MALLOC_PATH       "Path to malloc standalone"  "${WASMUX_ROOT_DIR}/uapi/malloc"  STRING)
+  WX_OPTION(CONFIG_STRING_PATH       "Path to string standalone"  "${WASMUX_ROOT_DIR}/uapi/string"  STRING)
   WX_OPTION(CONFIG_ARGP_PATH         "Path to argp standalone"    "${WASMUX_ROOT_DIR}/uapi/argp"    STRING)
   WX_OPTION(CONFIG_FTS_PATH          "Path to fts standalone"     "${WASMUX_ROOT_DIR}/uapi/fts"     STRING)
   WX_OPTION(CONFIG_OBSTACK_PATH      "Path to obstack standalone" "${WASMUX_ROOT_DIR}/uapi/obstack" STRING)

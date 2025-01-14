@@ -1,11 +1,11 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_STRINGS_H
-#define _WA_LIBC_STRINGS_H
+#ifndef _STRINGS_H
+#define _STRINGS_H
 
 #include <stddef.h>
 
@@ -23,4 +23,4 @@ int strncasecmp(const char* str1, const char* str2, size_t len);
 }
 #endif
 
-#endif /* _WA_LIBC_STRINGS_H */
+#endif /* _STRINGS_H */

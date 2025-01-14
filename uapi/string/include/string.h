@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_LIBC_STRING_H
-#define _WA_LIBC_STRING_H
+#ifndef _STRING_H
+#define _STRING_H
 
 #include <strings.h>
 #include <wasmux/basename.h>
@@ -53,4 +53,4 @@ char* __strchrnul(const char* str, int ch);
 }
 #endif
 
-#endif /* _WA_LIBC_STRING_H */
+#endif /* _STRING_H */

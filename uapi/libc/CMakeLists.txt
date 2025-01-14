@@ -59,8 +59,6 @@ set(libc_HEADERS
   include/stdio_ext.h
   include/stdio.h
   include/stdlib.h
-  include/string.h
-  include/strings.h
   include/sysexits.h
   include/syslog.h
   include/syslog.h
@@ -77,7 +75,6 @@ set(libc_HEADERS
 
 set(libc_SOURCES
   dirent/dirfd.cpp
-  string/strchrnul.cpp
   stub/apra/inet.cpp
   stub/sys/mman.cpp
   stub/sys/random.cpp
@@ -122,7 +119,6 @@ set(libc_SOURCES
   stub/stdio_ext.cpp
   stub/stdio.cpp
   stub/stdlib.cpp
-  stub/string.cpp
   stub/strtol.cpp
   stub/syslog.cpp
   stub/termios.cpp
@@ -146,8 +142,6 @@ set(libc_SOURCES
   syscalls/waitpid.cpp
   syscalls/write.cpp
   isatty.cpp
-  memcpy.cpp
-  memset.cpp
   ttyname.cpp
   sbrk.cpp
 
@@ -168,10 +162,15 @@ set(libc_LIBRARIES
   wauser
   )
 
-if (TARGET malloc)
-  list(APPEND libc_INCLUDES $<TARGET_PROPERTY:malloc,INTERFACE_INCLUDE_DIRECTORIES>)
-  list(APPEND libc_SOURCES $<TARGET_OBJECTS:malloc>)
-endif ()
+set(libc_DEPENDENCIES
+  malloc
+  string
+  )
+
+foreach (_lib ${libc_DEPENDENCIES})
+  list(APPEND libc_INCLUDES $<TARGET_PROPERTY:${_lib},INTERFACE_INCLUDE_DIRECTORIES>)
+  list(APPEND libc_SOURCES $<TARGET_OBJECTS:${_lib}>)
+endforeach ()
 
 if (TARGET argp)
   list(APPEND libc_INCLUDES $<TARGET_PROPERTY:argp,INTERFACE_INCLUDE_DIRECTORIES>)
