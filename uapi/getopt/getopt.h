@@ -7,7 +7,7 @@
 #ifndef _WA_LIBC_GETOPT_H
 #define _WA_LIBC_GETOPT_H
 
-#include <getopt_core.h>
+#include <getopt_unistd.h>
 
 #ifdef __cplusplus
 extern "C" {

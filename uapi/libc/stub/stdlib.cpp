@@ -58,12 +58,6 @@ char* setstate(char* state)
   return nullptr;
 }
 
-int wctomb(char* str, wchar_t wch)
-{
-  WA_UNREACHABLE();
-  return -1;
-}
-
 int mkstemp(char* temp)
 {
   WA_UNREACHABLE();
@@ -75,28 +69,4 @@ char* mktemp(char* pattern)
   WA_UNREACHABLE();
   errno = ENOSYS;
   return nullptr;
-}
-
-int mblen(const char* str, size_t len)
-{
-  WA_UNREACHABLE();
-  return -1;
-}
-
-int mbtowc(wchar_t* pwc, const char* str, size_t len)
-{
-  WA_UNREACHABLE();
-  return -1;
-}
-
-size_t mbstowcs(wchar_t* dst, const char* src, size_t dstlen)
-{
-  WA_UNREACHABLE();
-  return 0;
-}
-
-size_t wcstombs(char* dst, const wchar_t* src, size_t dstlen)
-{
-  WA_UNREACHABLE();
-  return 0;
 }

@@ -30,3 +30,7 @@ endmacro()
 macro(GEN_USYSCALLHDR)
   __gen_syscallhdr_impl(usyscallhdr ${ARGN})
 endmacro()
+
+macro(GEN_KWEBCALLHDR)
+  __gen_syscallhdr_impl(webcallhdr ${ARGN})
+endmacro()

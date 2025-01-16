@@ -6,6 +6,7 @@ set(string_HEADERS
 set(string_SOURCES
   src/memcpy.cpp
   src/memset.cpp
+  src/stpcpy.cpp
   src/strchrnul.cpp
   src/strdup.cpp
   src/string.cpp

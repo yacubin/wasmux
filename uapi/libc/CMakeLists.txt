@@ -165,22 +165,15 @@ set(libc_LIBRARIES
 set(libc_DEPENDENCIES
   malloc
   string
+  wcsmbs
+  argp
+  fts
   )
 
 foreach (_lib ${libc_DEPENDENCIES})
   list(APPEND libc_INCLUDES $<TARGET_PROPERTY:${_lib},INTERFACE_INCLUDE_DIRECTORIES>)
   list(APPEND libc_SOURCES $<TARGET_OBJECTS:${_lib}>)
 endforeach ()
-
-if (TARGET argp)
-  list(APPEND libc_INCLUDES $<TARGET_PROPERTY:argp,INTERFACE_INCLUDE_DIRECTORIES>)
-  list(APPEND libc_SOURCES $<TARGET_OBJECTS:argp>)
-endif ()
-
-if (TARGET fts)
-  list(APPEND libc_INCLUDES $<TARGET_PROPERTY:fts,INTERFACE_INCLUDE_DIRECTORIES>)
-  list(APPEND libc_SOURCES $<TARGET_OBJECTS:fts>)
-endif ()
 
 if (TARGET obstack)
   set(CONFIG_OBSTACK_INTERFACE_VERSION 1)
@@ -204,7 +197,7 @@ if (TARGET getopt)
   list(APPEND libc_SOURCES $<TARGET_OBJECTS:getopt>)
 else ()
   list(APPEND libc_INCLUDES "${CMAKE_CURRENT_SOURCE_DIR}/nogetopt")
-  WX_INSTALL_HEADERS(HEADERS nogetopt/getopt_core.h BASE_DIR nogetopt DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+  WX_INSTALL_HEADERS(HEADERS nogetopt/getopt_unistd.h BASE_DIR nogetopt DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()
 
 if (TARGET regex)

@@ -1,0 +1,15 @@
+/*
+ *
+ *  Copyright (C) 2025  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *
+ */
+
+#include "config.h"
+
+#include <wchar.h>
+#include <waf/Characters.h>
+
+int wcscmp(const wchar_t* wcs1, const wchar_t* wcs2)
+{
+  return WAF::charactersCompare(wcs1, wcs2);
+}

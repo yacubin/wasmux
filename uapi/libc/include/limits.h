@@ -20,4 +20,6 @@
 # define CHAR_MAX SCHAR_MAX
 #endif
 
+#define MB_LEN_MAX 4
+
 #endif /* _WA_LIBC_LIMITS_H */

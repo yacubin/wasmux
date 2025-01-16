@@ -12,8 +12,15 @@ module.exports = {
   unlink:  { number: 10,  argc: 1 },
   execve:  { number: 11,  argc: 3 },
   chdir:   { number: 12,  argc: 1 },
-
+  //time32:  { number: 13,  argc: 1 },
   mknod:   { number: 14,  argc: 3 },
+  chmod:   { number: 15,  argc: 2 },
+  //lchown16: { number: 16,  argc: 3 },
+
+  lseek:   { number: 19,  argc: 3 },
+  getpid:  { number: 20,  argc: 0 },
+  mount:   { number: 21,  argc: 5 },
+
   brk:     { number: 45,  argc: 1 },
   ioctl:   { number: 54,  argc: 3 },
   getcwd:  { number: 183, argc: 2 },

@@ -1,5 +1,5 @@
 set(getopt_HEADERS
-  getopt_core.h
+  getopt_unistd.h
   getopt.h
   )
 

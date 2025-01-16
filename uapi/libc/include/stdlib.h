@@ -8,6 +8,7 @@
 #define _WA_LIBC_STDLIB_H
 
 #include <wasmux/widechar.h>
+#include <wcsmbs_stdlib.h>
 #include <alloca.h>
 #include <malloc.h>
 
@@ -40,7 +41,6 @@ double strtod(const char* str, char** end);
 int atoi(const char* str);
 long atol(const char* str);
 double atof(const char* str);
-int wctomb(char* str, wchar_t wch);
 
 char* getenv(const char* name);
 int setenv(const char* name, const char* value, int overwrite);
@@ -61,11 +61,6 @@ void srandom(unsigned seed);
 long random(void);
 char* initstate(unsigned seed, char* state, size_t n);
 char* setstate(char* state);
-
-int mblen(const char* str, size_t len);
-int mbtowc(wchar_t* pwc, const char* str, size_t len);
-size_t mbstowcs(wchar_t* dst, const char* src, size_t dstlen);
-size_t wcstombs(char* dst, const wchar_t* src, size_t dstlen);
 
 #ifdef __cplusplus
 }

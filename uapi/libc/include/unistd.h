@@ -9,7 +9,7 @@
 
 #include <features.h>
 #include <sys/types.h>
-#include <getopt_core.h>
+#include <getopt_unistd.h>
 #include <wasmux/fs.h>
 
 #ifdef __cplusplus
