@@ -127,13 +127,6 @@ pid_t getppid(void)
   return -1;
 }
 
-uid_t getuid(void)
-{
-  WA_UNREACHABLE();
-  errno = ENOSYS;
-  return -1;
-}
-
 uid_t geteuid(void)
 {
   WA_UNREACHABLE();

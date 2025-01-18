@@ -147,6 +147,11 @@ static inline long sys_mknod(const char* filename, umode_t mode, unsigned dev)
   return __DO_SYSCALL(mknod, filename, mode, dev);
 }
 
+static inline long sys_getuid(void)
+{
+  return __DO_SYSCALL(getuid);
+}
+
 #ifdef __cplusplus
 }
 #endif

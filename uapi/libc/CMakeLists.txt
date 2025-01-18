@@ -135,6 +135,7 @@ set(libc_SOURCES
   syscalls/execve.cpp
   syscalls/getcwd.cpp
   syscalls/gettid.cpp
+  syscalls/getuid.cpp
   syscalls/ioctl.cpp
   syscalls/mknod.cpp
   syscalls/open.cpp
