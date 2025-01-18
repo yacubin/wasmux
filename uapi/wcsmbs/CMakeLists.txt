@@ -1,6 +1,7 @@
 set(wcsmbs_HEADERS
   include/wcsmbs_stdlib.h
   include/wcsmbs.h
+  include/wctype.h
   )
 
 set(wcsmbs_SOURCES
@@ -24,6 +25,7 @@ set(wcsmbs_SOURCES
   src/wcstombs.cpp
   src/wctob.cpp
   src/wctomb.cpp
+  src/wctype.cpp
   src/wmemchr.cpp
   src/wmemcpy.cpp
   )

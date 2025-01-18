@@ -10,6 +10,7 @@
 #include <stddef.h>
 #include <wctype.h>
 #include <wcsmbs.h>
+#include <libio_wchar.h>
 #include <wasmux/stream.h>
 
 #ifdef __cplusplus
@@ -20,8 +21,6 @@ int wcwidth(wchar_t wc);
 int wcswidth(const wchar_t* wcs, size_t len);
 
 int wcscoll(const wchar_t* wcs1, const wchar_t* wcs2);
-
-wint_t putwc(wchar_t wc, FILE* stream);
 
 #ifdef __cplusplus
 }

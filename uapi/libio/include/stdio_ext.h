@@ -1,11 +1,11 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_STDIO_EXT_H
-#define _WA_LIBC_STDIO_EXT_H
+#ifndef _STDIO_EXT_H
+#define _STDIO_EXT_H
 
 #include <stdio.h>
 
@@ -26,4 +26,4 @@ void __fseterr(FILE* file);
 }
 #endif
 
-#endif /* _WA_LIBC_STDIO_EXT_H */
+#endif /* _STDIO_EXT_H */

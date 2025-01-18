@@ -5,8 +5,8 @@
  */
 
 #include "config.h"
-#include <stdio.h>
 
+#include <stdio.h>
 #include <wasmux/assert.h>
 #include <errno.h>
 

@@ -1,4 +1,5 @@
 set(locale_HEADERS
+  bits/locale_struct.h
   langinfo.h
   locale.h
   )

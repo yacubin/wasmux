@@ -4,9 +4,7 @@
  *
  */
 
-#ifndef _WA_LIBC_STDIO_H
-#define _WA_LIBC_STDIO_H
-
+#ifndef _STDIO_H
 #define _STDIO_H
 
 #include <wasmux/compiler.h>
@@ -116,4 +114,4 @@ char* tmpnam(char* str);
 }
 #endif
 
-#endif /* _WA_LIBC_STDIO_H */
+#endif /* _STDIO_H */

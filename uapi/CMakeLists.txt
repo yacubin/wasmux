@@ -7,6 +7,10 @@ if (CONFIG_ENABLE_LIBC)
     add_subdirectory("${CONFIG_STRING_PATH}" string)
   endif ()
 
+  if (CONFIG_LIBIO_PATH)
+    add_subdirectory("${CONFIG_LIBIO_PATH}" libio)
+  endif ()
+
   if (CONFIG_WCSMBS_PATH)
     add_subdirectory("${CONFIG_WCSMBS_PATH}" wcsmbs)
   endif ()

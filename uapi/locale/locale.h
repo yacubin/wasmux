@@ -1,11 +1,13 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_LOCALE_H
-#define _WA_LIBC_LOCALE_H
+#ifndef _LOCALE_H
+#define _LOCALE_H
+
+#include <bits/locale_struct.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -53,4 +55,4 @@ struct lconv* localeconv(void);
 }
 #endif
 
-#endif /* _WA_LIBC_LOCALE_H */
+#endif /* _LOCALE_H */

@@ -24,6 +24,9 @@ module.exports = {
   brk:     { number: 45,  argc: 1 },
   ioctl:   { number: 54,  argc: 3 },
   getcwd:  { number: 183, argc: 2 },
+
   getuid:  { number: 199, argc: 0 },
+  getgid:  { number: 200, argc: 0 },
+
   gettid:  { number: 224, argc: 0 },
 }

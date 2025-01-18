@@ -56,8 +56,6 @@ set(libc_HEADERS
   include/stdarg.h
   include/stddef.h
   include/stdint.h
-  include/stdio_ext.h
-  include/stdio.h
   include/stdlib.h
   include/sysexits.h
   include/syslog.h
@@ -70,7 +68,6 @@ set(libc_HEADERS
   include/utmp.h
   include/utmpx.h
   include/wchar.h
-  include/wctype.h
   )
 
 set(libc_SOURCES
@@ -99,7 +96,6 @@ set(libc_SOURCES
   stub/exit.cpp
   stub/fcntl.cpp
   stub/fnmatch.cpp
-  stub/fprintf.cpp
   stub/getenv.cpp
   stub/getmntent.cpp
   stub/grp.cpp
@@ -115,9 +111,6 @@ set(libc_SOURCES
   stub/search.cpp
   stub/setjmp.cpp
   stub/signal.cpp
-  stub/sprintf.cpp
-  stub/stdio_ext.cpp
-  stub/stdio.cpp
   stub/stdlib.cpp
   stub/strtol.cpp
   stub/syslog.cpp
@@ -127,13 +120,13 @@ set(libc_SOURCES
   stub/utime.cpp
   stub/utmpx.cpp
   stub/wchar.cpp
-  stub/wctype.cpp
   syscalls/brk.cpp
   syscalls/chdir.cpp
   syscalls/close.cpp
   syscalls/creat.cpp
   syscalls/execve.cpp
   syscalls/getcwd.cpp
+  syscalls/getgid.cpp
   syscalls/gettid.cpp
   syscalls/getuid.cpp
   syscalls/ioctl.cpp
@@ -166,9 +159,12 @@ set(libc_LIBRARIES
 set(libc_DEPENDENCIES
   malloc
   string
+  libio
   wcsmbs
   argp
   fts
+  libintl
+  locale
   )
 
 foreach (_lib ${libc_DEPENDENCIES})
@@ -180,16 +176,6 @@ if (TARGET obstack)
   set(CONFIG_OBSTACK_INTERFACE_VERSION 1)
   list(APPEND libc_INCLUDES $<TARGET_PROPERTY:obstack,INTERFACE_INCLUDE_DIRECTORIES>)
   list(APPEND libc_SOURCES $<TARGET_OBJECTS:obstack>)
-endif ()
-
-if (TARGET libintl)
-  list(APPEND libc_INCLUDES $<TARGET_PROPERTY:libintl,INTERFACE_INCLUDE_DIRECTORIES>)
-  list(APPEND libc_SOURCES $<TARGET_OBJECTS:libintl>)
-endif ()
-
-if (TARGET locale)
-  list(APPEND libc_INCLUDES $<TARGET_PROPERTY:locale,INTERFACE_INCLUDE_DIRECTORIES>)
-  list(APPEND libc_SOURCES $<TARGET_OBJECTS:locale>)
 endif ()
 
 if (TARGET getopt)

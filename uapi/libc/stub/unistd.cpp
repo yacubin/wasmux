@@ -134,13 +134,6 @@ uid_t geteuid(void)
   return -1;
 }
 
-gid_t getgid(void)
-{
-  WA_UNREACHABLE();
-  errno = ENOSYS;
-  return -1;
-}
-
 gid_t getegid(void)
 {
   WA_UNREACHABLE();
