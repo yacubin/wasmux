@@ -34,3 +34,26 @@ endmacro()
 macro(GEN_KWEBCALLHDR)
   __gen_syscallhdr_impl(webcallhdr ${ARGN})
 endmacro()
+
+macro(GEN_KWEBCALLTBL)
+  cmake_parse_arguments(__gen_webcalltbl
+    ""
+    "SIDE;INPUT;OUTPUT"
+    ""
+    ${ARGN}
+    )
+  add_custom_command(COMMAND "${NODE_EXECUTABLE}"
+      "${__gen_scripts_node_scripts_dir}/run/webcalltbl.js"
+      "${__gen_webcalltbl_SIDE}"
+      "${__gen_webcalltbl_INPUT}"
+      "${__gen_webcalltbl_OUTPUT}"
+    DEPENDS
+      "${__gen_scripts_node_scripts_dir}/run/webcalltbl.js"
+      "${__gen_webcalltbl_INPUT}"
+    OUTPUT
+      "${__gen_webcalltbl_OUTPUT}"
+    WORKING_DIRECTORY
+      "${CMAKE_CURRENT_BINARY_DIR}"
+    VERBATIM
+    )
+endmacro()

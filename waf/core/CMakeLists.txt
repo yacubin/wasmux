@@ -21,6 +21,8 @@ set(wacore_LIBRARIES
 set(wacore_GENFILES
   "${CMAKE_CURRENT_BINARY_DIR}/include/uapi/asm/unistd.h"
   "${CMAKE_CURRENT_BINARY_DIR}/include/wasmux/webcall-nums.h"
+  "${CMAKE_CURRENT_BINARY_DIR}/include/wasmux/webcall-main.h"
+  "${CMAKE_CURRENT_BINARY_DIR}/include/wasmux/webcall-worker.h"
   )
 
 GEN_KSYSCALLHDR(
@@ -31,6 +33,18 @@ GEN_KSYSCALLHDR(
 GEN_KWEBCALLHDR(
   INPUT "${WASMUX_ROOT_DIR}/waf/webcalls.js"
   OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/include/wasmux/webcall-nums.h"
+)
+
+GEN_KWEBCALLTBL(
+  SIDE main
+  INPUT "${WASMUX_ROOT_DIR}/waf/webcalls.js"
+  OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/include/wasmux/webcall-main.h"
+)
+
+GEN_KWEBCALLTBL(
+  SIDE worker
+  INPUT "${WASMUX_ROOT_DIR}/waf/webcalls.js"
+  OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/include/wasmux/webcall-worker.h"
 )
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${wacore_HEADERS} ${wacore_SOURCES})
