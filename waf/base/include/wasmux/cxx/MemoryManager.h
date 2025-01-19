@@ -11,8 +11,8 @@
 #include <wasmux/mutex.h>
 #include <wasmux/bulk-memory.h>
 #include <wasmux/log.h>
-#include <waf/New.h>
-#include <waf/BitVector.h>
+#include <wasmux/cxx/New.h>
+#include <wasmux/cxx/BitVector.h>
 
 namespace WAF {
 

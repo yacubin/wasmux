@@ -5,10 +5,10 @@
  */
 
 #include "config.h"
-#include "wchar.h"
 
+#include <wchar.h>
 #include <wasmux/assert.h>
-#include <waf/Characters.h>
+#include <wasmux/cxx/Characters.h>
 
 int wcwidth(wchar_t wc)
 {

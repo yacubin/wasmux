@@ -5,10 +5,10 @@
  */
 
 #include "config.h"
-#include <string.h>
 
+#include <string.h>
 #include <wasmux/compiler.h>
-#include <waf/Characters.h>
+#include <wasmux/cxx/Characters.h>
 
 char* __strchrnul(const char* str, int ch)
 {

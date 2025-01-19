@@ -8,9 +8,8 @@
 
 #include <string.h>
 #include <stdlib.h>
-
 #include <wasmux/compiler.h>
-#include <waf/Characters.h>
+#include <wasmux/cxx/Characters.h>
 
 extern "C" char* __strdup(const char* str)
 {

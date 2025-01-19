@@ -8,9 +8,8 @@
 
 #include <string.h>
 #include <strings.h>
-
 #include <wasmux/assert.h>
-#include <waf/Characters.h>
+#include <wasmux/cxx/Characters.h>
 
 int memcmp(const void* p1, const void* p2, size_t n)
 {

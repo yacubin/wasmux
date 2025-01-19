@@ -7,8 +7,8 @@
 #pragma once
 
 #include <wasmux/types.h>
-#include <waf/New.h>
-#include <waf/TypeTraits.h>
+#include <wasmux/cxx/New.h>
+#include <wasmux/cxx/TypeTraits.h>
 
 namespace WAF {
 

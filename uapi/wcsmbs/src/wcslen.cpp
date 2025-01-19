@@ -7,8 +7,8 @@
 #include "config.h"
 
 #include <wchar.h>
-#include <waf/Characters.h>
 #include <wasmux/assert.h>
+#include <wasmux/cxx/Characters.h>
 
 size_t wcslen(const wchar_t* wcs)
 {

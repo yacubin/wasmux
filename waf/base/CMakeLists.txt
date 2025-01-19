@@ -1,4 +1,16 @@
 set(wabase_HEADERS
+  include/wasmux/cxx/Atomic.h
+  include/wasmux/cxx/BitVector.h
+  include/wasmux/cxx/Characters.h
+  include/wasmux/cxx/Leb128.h
+  include/wasmux/cxx/Math.h
+  include/wasmux/cxx/MemoryManager.h
+  include/wasmux/cxx/New.h
+  include/wasmux/cxx/PrintTo.h
+  include/wasmux/cxx/RefPtr.h
+  include/wasmux/cxx/Section.h
+  include/wasmux/cxx/StaticStorage.h
+  include/wasmux/cxx/TypeTraits.h
   include/wasmux/align.h
   include/wasmux/assert.h
   include/wasmux/basename.h
@@ -37,18 +49,6 @@ set(wabase_HEADERS
   include/wasmux/wasm_module.h
   include/wasmux/wasm_symbols.h
   include/wasmux/widechar.h
-  include/waf/Atomic.h
-  include/waf/BitVector.h
-  include/waf/Characters.h
-  include/waf/Leb128.h
-  include/waf/Math.h
-  include/waf/MemoryManager.h
-  include/waf/New.h
-  include/waf/PrintTo.h
-  include/waf/RefPtr.h
-  include/waf/Section.h
-  include/waf/StaticStorage.h
-  include/waf/TypeTraits.h
   )
 
 set(wabase_SOURCES

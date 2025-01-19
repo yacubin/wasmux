@@ -5,10 +5,10 @@
  */
 
 #include "config.h"
-#include <wasmux/sprintf.h>
 
+#include <wasmux/sprintf.h>
 #include <wasmux/bulk-memory.h>
-#include <waf/PrintTo.h>
+#include <wasmux/cxx/PrintTo.h>
 
 struct sprintf_data_s {
   char* start;

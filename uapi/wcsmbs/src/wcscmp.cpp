@@ -7,7 +7,7 @@
 #include "config.h"
 
 #include <wchar.h>
-#include <waf/Characters.h>
+#include <wasmux/cxx/Characters.h>
 
 int wcscmp(const wchar_t* wcs1, const wchar_t* wcs2)
 {

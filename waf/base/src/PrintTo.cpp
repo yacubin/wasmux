@@ -1,13 +1,13 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #include "config.h"
-#include "waf/PrintTo.h"
 
-#include <waf/Characters.h>
+#include <wasmux/cxx/PrintTo.h>
+#include <wasmux/cxx/Characters.h>
 
 namespace WAF {
 

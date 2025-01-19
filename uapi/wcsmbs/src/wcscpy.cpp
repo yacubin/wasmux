@@ -7,7 +7,7 @@
 #include "config.h"
 
 #include <wchar.h>
-#include <waf/Characters.h>
+#include <wasmux/cxx/Characters.h>
 
 wchar_t* wcscpy(wchar_t* dst, const wchar_t* src)
 {

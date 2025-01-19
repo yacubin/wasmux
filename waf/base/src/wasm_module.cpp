@@ -5,9 +5,10 @@
  */
 
 #include "config.h"
+
 #include <wasmux/wasm_module.h>
 #include <wasmux/wasm_header.h>
-#include <waf/Leb128.h>
+#include <wasmux/cxx/Leb128.h>
 
 const char* wa_strsecid(uint8_t id)
 {

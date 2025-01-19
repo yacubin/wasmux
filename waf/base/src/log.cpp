@@ -5,14 +5,14 @@
  */
 
 #include "config.h"
-#include <wasmux/log.h>
 
+#include <wasmux/log.h>
 #include <wasmux/platform.h>
 
 #ifdef WA_OS_WINDOWS
 
 #include <windows.h>
-#include <waf/PrintTo.h>
+#include <wasmux/cxx/PrintTo.h>
 
 static void log_write(void* ptr, const char* data, unsigned size)
 {

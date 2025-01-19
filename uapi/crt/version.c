@@ -1,12 +1,13 @@
 
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #include "config.h"
-#include <waf/Section.h>
+
+#include <wasmux/cxx/Section.h>
 
 WA_CUSTOM_SECTION_STR(".wasmux.version", WASMUX_VERSION);
 WA_CUSTOM_SECTION_STR(".wasmux.description", WASMUX_DESCRIPTION);

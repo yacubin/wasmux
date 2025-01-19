@@ -7,7 +7,7 @@
 #include "config.h"
 
 #include <wchar.h>
-#include <waf/Characters.h>
+#include <wasmux/cxx/Characters.h>
 
 wchar_t* wmemchr(const wchar_t* wcs, wchar_t wch, size_t len)
 {
