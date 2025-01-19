@@ -7,7 +7,7 @@
 #ifndef _WA_LIBC_MNTENT_H
 #define _WA_LIBC_MNTENT_H
 
-#include <wasmux/stream.h>
+#include <bits/file_struct.h>
 #include <paths.h>
 
 #ifdef __cplusplus

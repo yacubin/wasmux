@@ -11,7 +11,6 @@
 #include <wctype.h>
 #include <wcsmbs.h>
 #include <libio_wchar.h>
-#include <wasmux/stream.h>
 
 #ifdef __cplusplus
 extern "C" {

@@ -7,7 +7,7 @@
 #ifndef _LIBIO_WCHAR_H
 #define _LIBIO_WCHAR_H
 
-#include <wasmux/stream.h>
+#include <bits/file_struct.h>
 #include <wasmux/widechar.h>
 
 #ifdef __cplusplus

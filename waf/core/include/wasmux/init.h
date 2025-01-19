@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_KERNEL_INIT_H
-#define _WA_KERNEL_INIT_H
+#ifndef _WASMUX_INIT_H
+#define _WASMUX_INIT_H
 
 #include <wasmux/compiler.h>
 
@@ -45,4 +45,4 @@ extern void __wasm_call_ctors(void) __ATTR_WEAK;
 }
 #endif
 
-#endif /* _WA_KERNEL_INIT_H */
+#endif /* _WASMUX_INIT_H */

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-import { generatedScriptNameComment } = require('../utils/CXXHelper.js');
+const { generatedScriptNameComment } = require('../utils/CXXHelper.js');
 
 async function runScript(output)
 {

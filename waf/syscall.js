@@ -21,9 +21,10 @@ module.exports = {
   getpid:  { number: 20,  argc: 0 },
   mount:   { number: 21,  argc: 5 },
 
-  brk:     { number: 45,  argc: 1 },
-  ioctl:   { number: 54,  argc: 3 },
-  getcwd:  { number: 183, argc: 2 },
+  brk:          { number: 45,  argc: 1 },
+  ioctl:        { number: 54,  argc: 3 },
+  gettimeofday: { number: 78,  argc: 2 },
+  getcwd:       { number: 183, argc: 2 },
 
   getuid:  { number: 199, argc: 0 },
   getgid:  { number: 200, argc: 0 },

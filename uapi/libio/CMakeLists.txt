@@ -1,4 +1,5 @@
 set(libio_HEADERS
+  include/bits/file_struct.h
   include/libio_wchar.h
   include/stdio.h
   include/stdio_ext.h

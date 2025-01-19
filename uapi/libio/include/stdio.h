@@ -9,7 +9,7 @@
 
 #include <wasmux/compiler.h>
 #include <wasmux/stdarg.h>
-#include <wasmux/stream.h>
+#include <bits/file_struct.h>
 #include <wasmux/fs.h>
 
 #include <stddef.h>
@@ -19,9 +19,9 @@
 extern "C" {
 #endif
 
-struct __wasmux_stream_s* __wasmux_input_stream();
-struct __wasmux_stream_s* __wasmux_output_stream();
-struct __wasmux_stream_s* __wasmux_error_stream();
+struct __file_struct* __wasmux_input_stream();
+struct __file_struct* __wasmux_output_stream();
+struct __file_struct* __wasmux_error_stream();
 
 // Macros for standard streams
 #define stdin  __wasmux_input_stream()

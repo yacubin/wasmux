@@ -1,5 +1,4 @@
 set(wauser_HEADERS
-  include/wasmux/stream.h
   include/wasmux/syscalls.h
   include/wasmux/thread_data.h
   )

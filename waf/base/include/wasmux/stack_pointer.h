@@ -9,6 +9,8 @@ static inline void* __get_stack_pointer()
 #ifdef WA_CPU_WASM
   asm("global.get __stack_pointer\n"
       "local.set %0" : "=r" (stack));
+#elif __x86_64__
+  asm("mov %%rsp, %0" : "=r" (stack));
 #else
   asm("mov %%esp, %0" : "=r" (stack));
 #endif

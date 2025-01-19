@@ -10,7 +10,7 @@
 #include <wasmux/assert.h>
 #include <errno.h>
 
-static struct __wasmux_stream_s s_stream_list[] =
+static struct __file_struct s_stream_list[] =
 {
   {
     .fd = STDIN_FILENO,
@@ -23,17 +23,17 @@ static struct __wasmux_stream_s s_stream_list[] =
   },
 };
 
-struct __wasmux_stream_s* __wasmux_input_stream()
+struct __file_struct* __wasmux_input_stream()
 {
   return &s_stream_list[STDIN_FILENO];
 }
 
-struct __wasmux_stream_s* __wasmux_output_stream()
+struct __file_struct* __wasmux_output_stream()
 {
   return &s_stream_list[STDOUT_FILENO];
 }
 
-struct __wasmux_stream_s* __wasmux_error_stream()
+struct __file_struct* __wasmux_error_stream()
 {
   return &s_stream_list[STDERR_FILENO];
 }

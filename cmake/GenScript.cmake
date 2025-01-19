@@ -1,6 +1,30 @@
 find_program(NODE_EXECUTABLE node REQUIRED)
 get_filename_component(__gen_scripts_node_scripts_dir "${CMAKE_CURRENT_LIST_DIR}/../scripts" ABSOLUTE)
 
+macro(__gen_script_output_impl _script)
+  cmake_parse_arguments(__gen_${_script}
+    ""
+    "OUTPUT"
+    ""
+    ${ARGN}
+    )
+  add_custom_command(COMMAND "${NODE_EXECUTABLE}"
+      "${__gen_scripts_node_scripts_dir}/run/${_script}.js"
+      "${__gen_${_script}_OUTPUT}"
+    DEPENDS
+      "${__gen_scripts_node_scripts_dir}/run/${_script}.js"
+    OUTPUT
+      "${__gen_${_script}_OUTPUT}"
+    WORKING_DIRECTORY
+      "${CMAKE_CURRENT_BINARY_DIR}"
+    VERBATIM
+    )
+endmacro()
+
+macro(GEN_KUTSVERSION)
+  __gen_script_output_impl(utsversion ${ARGN})
+endmacro()
+
 macro(__gen_syscallhdr_impl _script)
   cmake_parse_arguments(__gen_${_script}
     ""

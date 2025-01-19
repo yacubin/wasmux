@@ -20,13 +20,6 @@ extern "C" char* __tzname[2] =
 
 extern "C" __ATTR_ALIAS(__tzname, tzname) __ATTR_WEAK;
 
-int gettimeofday(struct timeval* tv, struct timezone* tz)
-{
-  WA_UNREACHABLE();
-  errno = ENOSYS;
-  return -1;
-}
-
 int utimes(const char* filename, const struct timeval times[2])
 {
   WA_UNREACHABLE();

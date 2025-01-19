@@ -130,6 +130,7 @@ set(libc_SOURCES
   syscalls/geteuid.cpp
   syscalls/getgid.cpp
   syscalls/gettid.cpp
+  syscalls/gettimeofday.cpp
   syscalls/getuid.cpp
   syscalls/ioctl.cpp
   syscalls/mknod.cpp

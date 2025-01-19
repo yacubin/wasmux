@@ -8,6 +8,7 @@
 #define _WASMUX_SYSCALLS_H
 
 #include <wasmux/types.h>
+#include <wasmux/time.h>
 #include <wasmux/syscall-nums.h>
 
 #ifdef __cplusplus
@@ -165,6 +166,11 @@ static inline long sys_geteuid(void)
 static inline long sys_getegid(void)
 {
   return __DO_SYSCALL(getegid);
+}
+
+static inline long sys_gettimeofday(struct timeval* tv, struct timezone* tz)
+{
+  return __DO_SYSCALL(gettimeofday, tv, tz);
 }
 
 #ifdef __cplusplus
