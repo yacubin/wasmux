@@ -23,4 +23,6 @@ target_include_directories(glob PUBLIC "${glob_INCLUDES}")
 target_compile_definitions(glob PRIVATE "${glob_DEFINITIONS}")
 target_link_libraries(glob PRIVATE ${glob_LIBRARIES})
 
-WX_INSTALL_HEADERS(HEADERS ${glob_HEADERS} DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+if (CONFIG_ENABLE_INSTALL_HEADERS)
+  WX_INSTALL_HEADERS(HEADERS ${glob_HEADERS} DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+endif ()

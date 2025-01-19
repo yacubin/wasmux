@@ -31,4 +31,6 @@ target_compile_definitions(libio PRIVATE "${libio_DEFINITIONS}")
 target_link_libraries(libio PRIVATE ${libio_LIBRARIES})
 set_target_properties(libio PROPERTIES PREFIX "")
 
-WX_INSTALL_HEADERS(HEADERS ${libio_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+if (CONFIG_ENABLE_INSTALL_HEADERS)
+  WX_INSTALL_HEADERS(HEADERS ${libio_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+endif ()

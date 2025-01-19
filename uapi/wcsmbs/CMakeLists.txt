@@ -48,4 +48,6 @@ target_include_directories(wcsmbs PRIVATE "${wcsmbs_INCLUDES}")
 target_compile_definitions(wcsmbs PRIVATE "${wcsmbs_DEFINITIONS}")
 target_link_libraries(wcsmbs PRIVATE ${wcsmbs_LIBRARIES})
 
-WX_INSTALL_HEADERS(HEADERS ${wcsmbs_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+if (CONFIG_ENABLE_INSTALL_HEADERS)
+  WX_INSTALL_HEADERS(HEADERS ${wcsmbs_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+endif ()

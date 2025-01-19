@@ -21,3 +21,6 @@
 
 /* Enable env argument for main function */
 #cmakedefine01 CONFIG_ENABLE_MAIN_ENV_ARG
+
+/* Enable install headers */
+#cmakedefine01 CONFIG_ENABLE_INSTALL_HEADERS

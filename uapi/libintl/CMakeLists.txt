@@ -24,4 +24,6 @@ target_compile_definitions(libintl PRIVATE "${libintl_DEFINITIONS}")
 target_link_libraries(libintl PRIVATE ${libintl_LIBRARIES})
 set_target_properties(libintl PROPERTIES PREFIX "")
 
-WX_INSTALL_HEADERS(HEADERS ${libintl_HEADERS} DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+if (CONFIG_ENABLE_INSTALL_HEADERS)
+  WX_INSTALL_HEADERS(HEADERS ${libintl_HEADERS} DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+endif ()

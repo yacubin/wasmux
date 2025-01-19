@@ -30,4 +30,6 @@ target_include_directories(string PRIVATE "${string_INCLUDES}")
 target_compile_definitions(string PRIVATE "${string_DEFINITIONS}")
 target_link_libraries(string PRIVATE ${string_LIBRARIES})
 
-WX_INSTALL_HEADERS(HEADERS ${string_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+if (CONFIG_ENABLE_INSTALL_HEADERS)
+  WX_INSTALL_HEADERS(HEADERS ${string_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+endif ()
