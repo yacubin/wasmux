@@ -162,6 +162,11 @@ static inline long sys_geteuid(void)
   return __DO_SYSCALL(geteuid);
 }
 
+static inline long sys_getegid(void)
+{
+  return __DO_SYSCALL(getegid);
+}
+
 #ifdef __cplusplus
 }
 #endif
