@@ -27,6 +27,7 @@ module.exports = {
 
   getuid:  { number: 199, argc: 0 },
   getgid:  { number: 200, argc: 0 },
+  geteuid: { number: 201, argc: 0 },
 
   gettid:  { number: 224, argc: 0 },
 }

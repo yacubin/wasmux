@@ -126,6 +126,7 @@ set(libc_SOURCES
   syscalls/creat.cpp
   syscalls/execve.cpp
   syscalls/getcwd.cpp
+  syscalls/geteuid.cpp
   syscalls/getgid.cpp
   syscalls/gettid.cpp
   syscalls/getuid.cpp
