@@ -4,13 +4,13 @@
  *
  */
 
-#ifndef _WA_LIBC_UNISTD_H
-#define _WA_LIBC_UNISTD_H
+#ifndef _UNISTD_H
+#define _UNISTD_H
 
 #include <features.h>
 #include <sys/types.h>
-#include <getopt_unistd.h>
 #include <wasmux/fs.h>
+@_UNISTD_H_INCLUDES@
 
 #ifdef __cplusplus
 extern "C" {
@@ -125,4 +125,4 @@ long syscall(long number, ...);
 }
 #endif
 
-#endif /* _WA_LIBC_UNISTD_H */
+#endif /* _UNISTD_H */

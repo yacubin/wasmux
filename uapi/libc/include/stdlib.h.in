@@ -8,9 +8,9 @@
 #define _WA_LIBC_STDLIB_H
 
 #include <wasmux/widechar.h>
-#include <wcsmbs_stdlib.h>
 #include <alloca.h>
 #include <malloc.h>
+@_STDLIB_H_INCLUDES@
 
 #ifdef __cplusplus
 extern "C" {

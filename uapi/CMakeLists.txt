@@ -23,7 +23,9 @@ if (CONFIG_ENABLE_LIBC)
     add_subdirectory("${CONFIG_FTS_PATH}" fts)
   endif ()
 
-  add_subdirectory(netdb)
+  if (CONFIG_NETDB_PATH)
+    add_subdirectory("${CONFIG_NETDB_PATH}" netdb)
+  endif ()
 
   if (CONFIG_OBSTACK_PATH)
     add_subdirectory("${CONFIG_OBSTACK_PATH}" obstack)

@@ -1,13 +1,13 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_GETOPT_H
-#define _WA_LIBC_GETOPT_H
+#ifndef _GETOPT_H
+#define _GETOPT_H
 
-#include <getopt_unistd.h>
+#include <bits/getopt_base.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -31,4 +31,4 @@ int getopt_long_only(int argc, char* const* argv, const char* optstring, const s
 }
 #endif
 
-#endif /* _WA_LIBC_GETOPT_H */
+#endif /* _GETOPT_H */

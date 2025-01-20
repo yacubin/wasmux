@@ -23,6 +23,8 @@ target_include_directories(regex PUBLIC "${regex_INCLUDES}")
 target_compile_definitions(regex PRIVATE "${regex_DEFINITIONS}")
 target_link_libraries(regex PRIVATE ${regex_LIBRARIES})
 
+set_target_properties(regex PROPERTIES GNU_VERSIONS_H_DEFINE "#define _GNU_REGEX_INTERFACE_VERSION 1")
+
 if (CONFIG_ENABLE_INSTALL_HEADERS)
   WX_INSTALL_HEADERS(HEADERS ${regex_HEADERS} DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()

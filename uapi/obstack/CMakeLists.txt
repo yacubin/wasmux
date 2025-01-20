@@ -23,6 +23,8 @@ target_include_directories(obstack PRIVATE "${obstack_INCLUDES}")
 target_compile_definitions(obstack PRIVATE "${obstack_DEFINITIONS}")
 target_link_libraries(obstack PRIVATE ${obstack_LIBRARIES})
 
+set_target_properties(obstack PROPERTIES GNU_VERSIONS_H_DEFINE "#define _GNU_OBSTACK_INTERFACE_VERSION 1")
+
 if (CONFIG_ENABLE_INSTALL_HEADERS)
   WX_INSTALL_HEADERS(HEADERS ${obstack_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()

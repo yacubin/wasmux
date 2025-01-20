@@ -19,7 +19,7 @@ set(netdb_LIBRARIES
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${netdb_HEADERS} ${netdb_SOURCES})
 add_library(netdb STATIC ${netdb_HEADERS} ${netdb_SOURCES})
-target_include_directories(netdb PRIVATE "${netdb_INCLUDES}")
+target_include_directories(netdb PUBLIC "${netdb_INCLUDES}")
 target_compile_definitions(netdb PRIVATE "${netdb_DEFINITIONS}")
 target_link_libraries(netdb PRIVATE ${netdb_LIBRARIES})
 

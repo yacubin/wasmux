@@ -1,11 +1,11 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_GETOPT_CORE_H
-#define _WA_LIBC_GETOPT_CORE_H
+#ifndef _BITS_GETOPT_BASE_H
+#define _BITS_GETOPT_BASE_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -22,4 +22,4 @@ int getopt(int argc, char* const* argv, const char* optstring);
 }
 #endif
 
-#endif /* _WA_LIBC_GETOPT_CORE_H */
+#endif /* _BITS_GETOPT_BASE_H */

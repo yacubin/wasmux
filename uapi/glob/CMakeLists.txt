@@ -23,6 +23,8 @@ target_include_directories(glob PUBLIC "${glob_INCLUDES}")
 target_compile_definitions(glob PRIVATE "${glob_DEFINITIONS}")
 target_link_libraries(glob PRIVATE ${glob_LIBRARIES})
 
+set_target_properties(glob PROPERTIES GNU_VERSIONS_H_DEFINE "#define _GNU_GLOB_INTERFACE_VERSION 2")
+
 if (CONFIG_ENABLE_INSTALL_HEADERS)
   WX_INSTALL_HEADERS(HEADERS ${glob_HEADERS} DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()

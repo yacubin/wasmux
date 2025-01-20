@@ -56,14 +56,12 @@ set(libc_HEADERS
   include/stdarg.h
   include/stddef.h
   include/stdint.h
-  include/stdlib.h
   include/sysexits.h
   include/syslog.h
   include/syslog.h
   include/termios.h
   include/time.h
   include/ucontext.h
-  include/unistd.h
   include/utime.h
   include/utmp.h
   include/utmpx.h
@@ -147,6 +145,12 @@ set(libc_SOURCES
   $<TARGET_OBJECTS:netdb>
   )
 
+set(libc_DATAFILES
+  include/gnu-versions.h.in
+  include/stdlib.h.in
+  include/unistd.h.in
+  )
+
 set(libc_INCLUDES
   "${CMAKE_CURRENT_BINARY_DIR}/include"
   "${CMAKE_CURRENT_SOURCE_DIR}/include"
@@ -166,47 +170,51 @@ set(libc_DEPENDENCIES
   wcsmbs
   argp
   fts
+  netdb
+  obstack
   libintl
   locale
+  getopt
+  regex
+  glob
   )
+
+set(_GNU_VERSIONS_H_DEFINES "")
+set(_STDLIB_H_INCLUDES "")
+set(_UNISTD_H_INCLUDES "")
 
 foreach (_lib ${libc_DEPENDENCIES})
   list(APPEND libc_INCLUDES $<TARGET_PROPERTY:${_lib},INTERFACE_INCLUDE_DIRECTORIES>)
   list(APPEND libc_SOURCES $<TARGET_OBJECTS:${_lib}>)
+
+  get_target_property(_gnu_version_h_define ${_lib} GNU_VERSIONS_H_DEFINE)
+  if (_gnu_version_h_define)
+    list(APPEND _GNU_VERSIONS_H_DEFINES "${_gnu_version_h_define}")
+  endif ()
+
+  get_target_property(_stdlib_h_include ${_lib} STDLIB_H_INCLUDE)
+  if (_stdlib_h_include)
+    list(APPEND _STDLIB_H_INCLUDES "${_stdlib_h_include}")
+  endif ()
+
+  get_target_property(_unistd_h_include ${_lib} UNISTD_H_INCLUDE)
+  if (_unistd_h_include)
+    list(APPEND _UNISTD_H_INCLUDES "${_unistd_h_include}")
+  endif ()
 endforeach ()
 
-if (TARGET obstack)
-  set(CONFIG_OBSTACK_INTERFACE_VERSION 1)
-  list(APPEND libc_INCLUDES $<TARGET_PROPERTY:obstack,INTERFACE_INCLUDE_DIRECTORIES>)
-  list(APPEND libc_SOURCES $<TARGET_OBJECTS:obstack>)
-endif ()
+string(REPLACE ";" "\n" _GNU_VERSIONS_H_DEFINES "${_GNU_VERSIONS_H_DEFINES}")
+string(REPLACE ";" "\n" _STDLIB_H_INCLUDES "${_STDLIB_H_INCLUDES}")
+string(REPLACE ";" "\n" _UNISTD_H_INCLUDES "${_UNISTD_H_INCLUDES}")
 
-if (TARGET getopt)
-  set(CONFIG_GETOPT_INTERFACE_VERSION 2)
-  list(APPEND libc_INCLUDES $<TARGET_PROPERTY:getopt,INTERFACE_INCLUDE_DIRECTORIES>)
-  list(APPEND libc_SOURCES $<TARGET_OBJECTS:getopt>)
-else ()
-  list(APPEND libc_INCLUDES "${CMAKE_CURRENT_SOURCE_DIR}/nogetopt")
-  WX_INSTALL_HEADERS(HEADERS nogetopt/getopt_unistd.h BASE_DIR nogetopt DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
-endif ()
-
-if (TARGET regex)
-  set(CONFIG_REGEX_INTERFACE_VERSION 1)
-  list(APPEND libc_INCLUDES $<TARGET_PROPERTY:regex,INTERFACE_INCLUDE_DIRECTORIES>)
-  list(APPEND libc_SOURCES $<TARGET_OBJECTS:regex>)
-endif ()
-
-if (TARGET glob)
-  set(CONFIG_GLOB_INTERFACE_VERSION 2)
-  list(APPEND libc_INCLUDES $<TARGET_PROPERTY:glob,INTERFACE_INCLUDE_DIRECTORIES>)
-  list(APPEND libc_SOURCES $<TARGET_OBJECTS:glob>)
-endif ()
+configure_file("include/gnu-versions.h.in" "${CMAKE_CURRENT_BINARY_DIR}/include/gnu-versions.h" @ONLY)
+configure_file("include/stdlib.h.in" "${CMAKE_CURRENT_BINARY_DIR}/include/stdlib.h" @ONLY)
+configure_file("include/unistd.h.in" "${CMAKE_CURRENT_BINARY_DIR}/include/unistd.h" @ONLY)
 
 configure_file("features/${CONFIG_LIBC_FEATURES}-features.h" "${CMAKE_CURRENT_BINARY_DIR}/include/features.h" COPYONLY)
-configure_file("gnu-versions.h.cmake" "${CMAKE_CURRENT_BINARY_DIR}/include/gnu-versions.h" @ONLY)
 
-source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${libc_HEADERS} ${libc_SOURCES})
-add_library(libc STATIC ${libc_HEADERS} ${libc_SOURCES})
+source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${libc_HEADERS} ${libc_SOURCES} ${libc_DATAFILES})
+add_library(libc STATIC ${libc_HEADERS} ${libc_SOURCES} ${libc_DATAFILES})
 target_include_directories(libc PUBLIC ${libc_INCLUDES})
 target_compile_definitions(libc PRIVATE ${libc_DEFINITIONS})
 target_link_libraries(libc PUBLIC ${libc_LIBRARIES})
@@ -224,4 +232,6 @@ if (CONFIG_ENABLE_INSTALL_HEADERS)
   WX_INSTALL_HEADERS(HEADERS ${libc_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
   install(FILES "${CMAKE_CURRENT_BINARY_DIR}/include/features.h" DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
   install(FILES "${CMAKE_CURRENT_BINARY_DIR}/include/gnu-versions.h" DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/include/stdlib.h" DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/include/unistd.h" DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()

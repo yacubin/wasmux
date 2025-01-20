@@ -1,5 +1,5 @@
 set(wcsmbs_HEADERS
-  include/wcsmbs_stdlib.h
+  include/bits/wcsmbs_comm.h
   include/wcsmbs.h
   include/wctype.h
   )
@@ -47,6 +47,8 @@ target_include_directories(wcsmbs PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
 target_include_directories(wcsmbs PRIVATE "${wcsmbs_INCLUDES}")
 target_compile_definitions(wcsmbs PRIVATE "${wcsmbs_DEFINITIONS}")
 target_link_libraries(wcsmbs PRIVATE ${wcsmbs_LIBRARIES})
+
+set_target_properties(wcsmbs PROPERTIES STDLIB_H_INCLUDE "#include <bits/wcsmbs_comm.h>")
 
 if (CONFIG_ENABLE_INSTALL_HEADERS)
   WX_INSTALL_HEADERS(HEADERS ${wcsmbs_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")

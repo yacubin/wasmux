@@ -19,14 +19,14 @@
 extern "C" {
 #endif
 
-struct __file_struct* __wasmux_input_stream();
-struct __file_struct* __wasmux_output_stream();
-struct __file_struct* __wasmux_error_stream();
+struct __file_struct* __get_input_stream();
+struct __file_struct* __get_output_stream();
+struct __file_struct* __get_error_stream();
 
 // Macros for standard streams
-#define stdin  __wasmux_input_stream()
-#define stdout __wasmux_output_stream()
-#define stderr __wasmux_error_stream()
+#define stdin  __get_input_stream()
+#define stdout __get_output_stream()
+#define stderr __get_error_stream()
 
 // File descriptors
 #define STDIN_FILENO  0

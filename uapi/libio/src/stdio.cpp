@@ -23,17 +23,17 @@ static struct __file_struct s_stream_list[] =
   },
 };
 
-struct __file_struct* __wasmux_input_stream()
+struct __file_struct* __get_input_stream()
 {
   return &s_stream_list[STDIN_FILENO];
 }
 
-struct __file_struct* __wasmux_output_stream()
+struct __file_struct* __get_output_stream()
 {
   return &s_stream_list[STDOUT_FILENO];
 }
 
-struct __file_struct* __wasmux_error_stream()
+struct __file_struct* __get_error_stream()
 {
   return &s_stream_list[STDERR_FILENO];
 }
