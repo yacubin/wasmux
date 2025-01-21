@@ -7,9 +7,8 @@
 #include "config.h"
 
 #include <unistd.h>
+#include <errno.h>
 #include <wasmux/compiler.h>
-#include <wasmux/errno.h>
-#include <wasmux/thread_data.h>
 
 extern "C" void* __curbrk;
 #define BAD_ADDR reinterpret_cast<void*>(-1)

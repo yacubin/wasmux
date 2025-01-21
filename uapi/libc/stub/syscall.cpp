@@ -6,11 +6,11 @@
 
 #include "config.h"
 
-#include <sys/uio.h>
+#include <unistd.h>
 #include <errno.h>
 #include <wasmux/assert.h>
 
-ssize_t readv(int fd, const struct iovec* iov, int count)
+long syscall(long number, ...)
 {
   WA_UNREACHABLE();
   errno = ENOSYS;

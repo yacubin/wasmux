@@ -45,6 +45,7 @@ set(wabase_HEADERS
   include/wasmux/time.h
   include/wasmux/time64.h
   include/wasmux/types.h
+  include/wasmux/uio.h
   include/wasmux/wasm_header.h
   include/wasmux/wasm_module.h
   include/wasmux/wasm_symbols.h

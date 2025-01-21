@@ -24,6 +24,7 @@ module.exports = {
   brk:          { number: 45,  argc: 1 },
   ioctl:        { number: 54,  argc: 3 },
   gettimeofday: { number: 78,  argc: 2 },
+  writev:       { number: 146, argc: 3 },
   getcwd:       { number: 183, argc: 2 },
 
   getuid:  { number: 199, argc: 0 },

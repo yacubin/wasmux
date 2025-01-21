@@ -111,6 +111,7 @@ set(libc_SOURCES
   stub/signal.cpp
   stub/stdlib.cpp
   stub/strtol.cpp
+  stub/syscall.cpp
   stub/syslog.cpp
   stub/termios.cpp
   stub/time.cpp
@@ -136,13 +137,13 @@ set(libc_SOURCES
   syscalls/read.cpp
   syscalls/waitpid.cpp
   syscalls/write.cpp
-  isatty.cpp
-  ttyname.cpp
-  sbrk.cpp
+  syscalls/writev.cpp
+  src/isatty.cpp
+  src/sbrk.cpp
+  src/ttyname.cpp
 
   $<TARGET_OBJECTS:wabase>
   $<TARGET_OBJECTS:wauser>
-  $<TARGET_OBJECTS:netdb>
   )
 
 set(libc_DATAFILES

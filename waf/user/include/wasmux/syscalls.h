@@ -15,6 +15,8 @@
 extern "C" {
 #endif
 
+struct iovec;
+
 #define WX_SYSINST_NAME "kernel"
 #define WX_SYSCALL_NAME0 "_syscall0"
 #define WX_SYSCALL_NAME1 "_syscall1"
@@ -171,6 +173,11 @@ static inline long sys_getegid(void)
 static inline long sys_gettimeofday(struct timeval* tv, struct timezone* tz)
 {
   return __DO_SYSCALL(gettimeofday, tv, tz);
+}
+
+static inline long sys_writev(unsigned long fd, const struct iovec* vec, unsigned long vlen)
+{
+  return __DO_SYSCALL(writev, fd, vec, vlen);
 }
 
 #ifdef __cplusplus
