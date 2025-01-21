@@ -175,6 +175,11 @@ static inline long sys_gettimeofday(struct timeval* tv, struct timezone* tz)
   return __DO_SYSCALL(gettimeofday, tv, tz);
 }
 
+static inline long sys_readv(unsigned long fd, const struct iovec* vec, unsigned long vlen)
+{
+  return __DO_SYSCALL(readv, fd, vec, vlen);
+}
+
 static inline long sys_writev(unsigned long fd, const struct iovec* vec, unsigned long vlen)
 {
   return __DO_SYSCALL(writev, fd, vec, vlen);

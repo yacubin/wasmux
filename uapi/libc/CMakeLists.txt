@@ -81,7 +81,6 @@ set(libc_SOURCES
   stub/sys/sysinfo.cpp
   stub/sys/sysmacros.cpp
   stub/sys/time.cpp
-  stub/sys/uio.cpp
   stub/sys/utsname.cpp
   stub/sys/vfs.cpp
   stub/sys/wait.cpp
@@ -135,6 +134,7 @@ set(libc_SOURCES
   syscalls/mknod.cpp
   syscalls/open.cpp
   syscalls/read.cpp
+  syscalls/readv.cpp
   syscalls/waitpid.cpp
   syscalls/write.cpp
   syscalls/writev.cpp

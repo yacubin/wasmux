@@ -287,10 +287,3 @@ int execvp(const char* path, char* const argv[])
   errno = ENOSYS;
   return -1;
 }
-
-long syscall(long number, ...)
-{
-  WA_UNREACHABLE();
-  errno = ENOSYS;
-  return -1;
-}
