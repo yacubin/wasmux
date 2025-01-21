@@ -6,8 +6,10 @@ set(libio_HEADERS
   )
 
 set(libio_SOURCES
+  src/_stdio.cpp
   src/fprintf.cpp
   src/libio_wchar.cpp
+  src/setvbuf.cpp
   src/sprintf.cpp
   src/stdio_ext.cpp
   src/stdio.cpp

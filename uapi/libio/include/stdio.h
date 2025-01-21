@@ -19,14 +19,13 @@
 extern "C" {
 #endif
 
-struct __file_struct* __get_input_stream();
-struct __file_struct* __get_output_stream();
-struct __file_struct* __get_error_stream();
+extern FILE* const stdin;
+extern FILE* const stdout;
+extern FILE* const stderr;
 
-// Macros for standard streams
-#define stdin  __get_input_stream()
-#define stdout __get_output_stream()
-#define stderr __get_error_stream()
+#define stdin  stdin
+#define stdout stdout
+#define stderr stderr
 
 // File descriptors
 #define STDIN_FILENO  0

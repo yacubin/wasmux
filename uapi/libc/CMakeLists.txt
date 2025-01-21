@@ -163,27 +163,11 @@ set(libc_LIBRARIES
   wauser
   )
 
-set(libc_DEPENDENCIES
-  malloc
-  string
-  libio
-  wcsmbs
-  argp
-  fts
-  netdb
-  obstack
-  libintl
-  locale
-  getopt
-  regex
-  glob
-  )
-
 set(_GNU_VERSIONS_H_DEFINES "")
 set(_STDLIB_H_INCLUDES "")
 set(_UNISTD_H_INCLUDES "")
 
-foreach (_lib ${libc_DEPENDENCIES})
+foreach (_lib ${LIBC_DEPENDENCIES})
   list(APPEND libc_INCLUDES $<TARGET_PROPERTY:${_lib},INTERFACE_INCLUDE_DIRECTORIES>)
   list(APPEND libc_SOURCES $<TARGET_OBJECTS:${_lib}>)
 
