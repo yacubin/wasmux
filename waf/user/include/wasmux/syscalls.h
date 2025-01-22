@@ -185,7 +185,7 @@ static inline long sys_writev(unsigned long fd, const struct iovec* vec, unsigne
   return __DO_SYSCALL(writev, fd, vec, vlen);
 }
 
-long sys_llseek(unsigned int fd, unsigned long offset_high, unsigned long offset_low, loff_t* result, unsigned int whence)
+static inline long sys_llseek(unsigned int fd, unsigned long offset_high, unsigned long offset_low, loff_t* result, unsigned int whence)
 {
   return __DO_SYSCALL(_llseek, fd, offset_high, offset_low, result, whence);
 }

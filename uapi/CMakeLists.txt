@@ -11,6 +11,11 @@ if (CONFIG_ENABLE_LIBC)
     add_subdirectory("${CONFIG_STRING_PATH}" string)
   endif ()
 
+  if (CONFIG_STDLIB_PATH)
+    list(APPEND LIBC_DEPENDENCIES stdlib)
+    add_subdirectory("${CONFIG_STDLIB_PATH}" stdlib)
+  endif ()
+
   if (CONFIG_LIBIO_PATH)
     list(APPEND LIBC_DEPENDENCIES libio)
     add_subdirectory("${CONFIG_LIBIO_PATH}" libio)

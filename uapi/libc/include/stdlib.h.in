@@ -28,7 +28,6 @@ int atexit(void (*function)(void));
 void exit(int status) __attribute__((noreturn));
 void abort(void) __attribute__((noreturn));
 
-void qsort(void* base, size_t n, size_t size, int (*compar) (const void*, const void*));
 void* bsearch(const void* key, const void* base, size_t n, size_t size, int (*compar)(const void*, const void*));
 
 long strtol(const char* str, char** end, int base);
