@@ -97,7 +97,6 @@ set(libc_SOURCES
   stub/getmntent.cpp
   stub/grp.cpp
   stub/libgen.cpp
-  stub/lseek.cpp
   stub/pipe.cpp
   stub/poll.cpp
   stub/progname.cpp
@@ -131,6 +130,7 @@ set(libc_SOURCES
   syscalls/gettimeofday.cpp
   syscalls/getuid.cpp
   syscalls/ioctl.cpp
+  syscalls/lseek.cpp
   syscalls/mknod.cpp
   syscalls/open.cpp
   syscalls/read.cpp

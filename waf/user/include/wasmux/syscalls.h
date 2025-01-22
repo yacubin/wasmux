@@ -152,22 +152,22 @@ static inline long sys_mknod(const char* filename, umode_t mode, unsigned dev)
 
 static inline long sys_getuid(void)
 {
-  return __DO_SYSCALL(getuid);
+  return __DO_SYSCALL(getuid32);
 }
 
 static inline long sys_getgid(void)
 {
-  return __DO_SYSCALL(getgid);
+  return __DO_SYSCALL(getgid32);
 }
 
 static inline long sys_geteuid(void)
 {
-  return __DO_SYSCALL(geteuid);
+  return __DO_SYSCALL(geteuid32);
 }
 
 static inline long sys_getegid(void)
 {
-  return __DO_SYSCALL(getegid);
+  return __DO_SYSCALL(getegid32);
 }
 
 static inline long sys_gettimeofday(struct timeval* tv, struct timezone* tz)
@@ -183,6 +183,11 @@ static inline long sys_readv(unsigned long fd, const struct iovec* vec, unsigned
 static inline long sys_writev(unsigned long fd, const struct iovec* vec, unsigned long vlen)
 {
   return __DO_SYSCALL(writev, fd, vec, vlen);
+}
+
+long sys_llseek(unsigned int fd, unsigned long offset_high, unsigned long offset_low, loff_t* result, unsigned int whence)
+{
+  return __DO_SYSCALL(_llseek, fd, offset_high, offset_low, result, whence);
 }
 
 #ifdef __cplusplus

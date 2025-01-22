@@ -57,6 +57,7 @@ typedef int64_t off64_t;
 // #endif
 
 typedef intptr_t off_t;
+typedef long long loff_t;
 
 typedef int clockid_t;
 typedef unsigned int mode_t;
