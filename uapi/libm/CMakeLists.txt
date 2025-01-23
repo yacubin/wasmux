@@ -14,8 +14,8 @@ set(libm_DEFINITIONS
   )
 
 set(libm_LIBRARIES
-  WASMUX::WAF
-  WASMUX::LIBC
+  wauser
+  libc
   )
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${libm_HEADERS} ${libm_SOURCES})

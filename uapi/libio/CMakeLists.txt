@@ -16,7 +16,6 @@ set(libio_SOURCES
   )
 
 set(libio_INCLUDES
-  $<TARGET_PROPERTY:wabase,INTERFACE_INCLUDE_DIRECTORIES>
   $<TARGET_PROPERTY:libc,INTERFACE_INCLUDE_DIRECTORIES>
   )
 
@@ -24,6 +23,7 @@ set(libio_DEFINITIONS
   )
 
 set(libio_LIBRARIES
+  wauser
   )
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${libio_HEADERS} ${libio_SOURCES})

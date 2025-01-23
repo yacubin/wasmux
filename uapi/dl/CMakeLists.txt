@@ -14,7 +14,7 @@ set(dl_DEFINITIONS
   )
 
 set(dl_LIBRARIES
-  WASMUX::WAF
+  wauser
   )
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${dl_HEADERS} ${dl_SOURCES})

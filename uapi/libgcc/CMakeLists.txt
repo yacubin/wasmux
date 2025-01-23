@@ -14,7 +14,7 @@ set(libgcc_DEFINITIONS
   )
 
 set(libgcc_LIBRARIES
-  WASMUX::WAF
+  wabase
   )
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${libgcc_HEADERS} ${libgcc_SOURCES})

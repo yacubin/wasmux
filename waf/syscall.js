@@ -34,4 +34,5 @@ module.exports = {
   getegid32:       { number: 202, argc: 0,  func: "sys_getegid"         },
 
   gettid:          { number: 224, argc: 0,  func: "sys_gettid"          },
+  futex:           { number: 240, argc: 6,  func: "sys_futex_time32"    },			
 }

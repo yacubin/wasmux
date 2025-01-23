@@ -31,7 +31,6 @@ set(wcsmbs_SOURCES
   )
 
 set(wcsmbs_INCLUDES
-  $<TARGET_PROPERTY:wabase,INTERFACE_INCLUDE_DIRECTORIES>
   $<TARGET_PROPERTY:libc,INTERFACE_INCLUDE_DIRECTORIES>
   )
 
@@ -39,6 +38,7 @@ set(wcsmbs_DEFINITIONS
   )
 
 set(wcsmbs_LIBRARIES
+  wauser
   )
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${wcsmbs_HEADERS} ${wcsmbs_SOURCES})

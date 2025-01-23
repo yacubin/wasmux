@@ -13,7 +13,7 @@ set(libcxxabi_DEFINITIONS
   )
 
 set(libcxxabi_LIBRARIES
-  WASMUX::WAF
+  wabase
   )
 
 add_library(libcxxabi STATIC ${libcxxabi_SOURCES})

@@ -16,6 +16,7 @@ extern "C" {
 #endif
 
 struct iovec;
+struct timespec32;
 
 #define WX_SYSINST_NAME "kernel"
 #define WX_SYSCALL_NAME0 "_syscall0"
@@ -188,6 +189,11 @@ static inline long sys_writev(unsigned long fd, const struct iovec* vec, unsigne
 static inline long sys_llseek(unsigned int fd, unsigned long offset_high, unsigned long offset_low, loff_t* result, unsigned int whence)
 {
   return __DO_SYSCALL(_llseek, fd, offset_high, offset_low, result, whence);
+}
+
+static inline long sys_futex_time32(uint32_t* uaddr, int op, uint32_t val, const struct timespec32* utime, uint32_t* uaddr2, uint32_t val3)
+{
+  return __DO_SYSCALL(futex, uaddr, op, val, utime, uaddr2, val3);
 }
 
 #ifdef __cplusplus

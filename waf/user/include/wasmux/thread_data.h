@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_KERNEL_THREAD_DATA_H
-#define _WA_KERNEL_THREAD_DATA_H
+#ifndef _WASMUX_THREAD_DATA_H
+#define _WASMUX_THREAD_DATA_H
 
 #include <wasmux/types.h>
 
@@ -17,6 +17,7 @@ struct wax_thread_data {
   int errcode;
   char buffer[256];
   void* locale_data;
+  void* libio_data;
 };
 
 struct wax_thread_data* __get_thread_data();
@@ -30,4 +31,4 @@ struct wax_thread_data* __get_thread_data();
 }
 #endif
 
-#endif /* _WA_KERNEL_THREAD_DATA_H */
+#endif /* _WASMUX_THREAD_DATA_H */

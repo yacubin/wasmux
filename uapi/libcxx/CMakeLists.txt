@@ -15,7 +15,7 @@ set(libcxx_DEFINITIONS
   )
 
 set(libcxx_LIBRARIES
-  WASMUX::WAF
+  wauser
   )
 
 set_source_files_properties(stub/new.cpp PROPERTIES COMPILE_FLAGS -fvisibility-global-new-delete=force-hidden)

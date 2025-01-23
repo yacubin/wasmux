@@ -1,11 +1,11 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_GLOB_H
-#define _WA_LIBC_GLOB_H
+#ifndef _GLOB_H
+#define _GLOB_H
 
 #include <sys/types.h>
 
@@ -13,18 +13,27 @@
 extern "C" {
 #endif
 
-#define GLOB_NOSORT 0x04
+#define GLOB_NOSORT      (1 << 2)
+#define GLOB_ALTDIRFUNC  (1 << 9)
 
 #define	GLOB_NOSPACE 1
 #define	GLOB_ABORTED 2
 #define	GLOB_NOMATCH 3
 #define GLOB_NOSYS   4
 
-typedef struct {
+struct __glibc_glob_struct {
   size_t gl_pathc;
   char** gl_pathv;
   size_t gl_offs;
-} glob_t;
+  int gl_flags;
+  void (*gl_closedir) (void*);
+  struct dirent* (*gl_readdir) (void*);
+  void* (*gl_opendir) (const char*);
+  int (*gl_lstat) (const char*, struct stat*);
+  int (*gl_stat) (const char*, struct stat*);
+};
+
+typedef struct __glibc_glob_struct glob_t;
 
 int glob(const char* pattern, int flags, int (*errcb)(const char* epath, int eerrno), glob_t* glob);
 void globfree(glob_t* glob);
@@ -33,4 +42,4 @@ void globfree(glob_t* glob);
 }
 #endif
 
-#endif /* _WA_LIBC_GLOB_H */
+#endif /* _GLOB_H */
