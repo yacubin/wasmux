@@ -20,7 +20,7 @@ set(libm_LIBRARIES
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${libm_HEADERS} ${libm_SOURCES})
 add_library(libm STATIC ${libm_HEADERS} ${libm_SOURCES})
-target_include_directories(libm PRIVATE "${libm_INCLUDES}")
+target_include_directories(libm PUBLIC "${libm_INCLUDES}")
 target_compile_definitions(libm PRIVATE "${libm_DEFINITIONS}")
 target_link_libraries(libm PRIVATE ${libm_LIBRARIES})
 set_target_properties(libm PROPERTIES PREFIX "")

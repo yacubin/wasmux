@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_LIBC_TERMIOS_H
-#define _WA_LIBC_TERMIOS_H
+#ifndef _TERMIOS_H
+#define _TERMIOS_H
 
 #include <wasmux/termios.h>
 
@@ -126,4 +126,4 @@ int cfsetospeed(struct termios* termios, speed_t speed);
 }
 #endif
 
-#endif /* _WA_LIBC_TERMIOS_H */
+#endif /* _TERMIOS_H */

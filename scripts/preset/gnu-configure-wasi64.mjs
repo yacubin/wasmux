@@ -31,6 +31,7 @@ export default function(env, argv) {
         CXX: "clang++",
         LD: "wasm-ld",
         AR: "llvm-ar",
+        NM: "llvm-nm",
         STRIP: "llvm-strip",
         RANLIB: "llvm-ranlib",
         CFLAGS: `--target=wasm64-wasi -matomics -mmultivalue -mbulk-memory -O3 --sysroot=${path.resolve(process.cwd(), "build/sysroot/usr")}`,

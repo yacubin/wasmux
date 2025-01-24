@@ -12,7 +12,7 @@ module.exports = {
   unlink:          { number: 10,  argc: 1,  func: "sys_unlink"          },
   execve:          { number: 11,  argc: 3,  func: "sys_execve"          },
   chdir:           { number: 12,  argc: 1,  func: "sys_chdir"           },
-  //time32:  { number: 13,  argc: 1 },
+  time:            { number: 13,  argc: 1,  func: "sys_time32"          },
   mknod:           { number: 14,  argc: 3,  func: "sys_mknod"           },
   chmod:           { number: 15,  argc: 2,  func: "sys_chmod"           },
   //lchown16: { number: 16,  argc: 3 },

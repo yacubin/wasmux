@@ -9,10 +9,11 @@
 
 #include <wasmux/compiler.h>
 #include <wasmux/stdarg.h>
-#include <bits/file_struct.h>
 #include <wasmux/fs.h>
 
+#include <features.h>
 #include <stddef.h>
+#include <bits/file_struct.h>
 #include <sys/stat.h>
 
 #ifdef __cplusplus

@@ -5,11 +5,11 @@
  */
 
 #include "config.h"
-#include "termios.h"
 
-#include <wasmux/assert.h>
+#include <termios.h>
 #include <sys/ioctl.h> // for tcgetattr
 #include <errno.h>
+#include <wasmux/assert.h>
 
 int tcflow(int fd, int action)
 {

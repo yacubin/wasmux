@@ -1,20 +1,22 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBM_MATH_H
-#define _WA_LIBM_MATH_H
+#ifndef _MATH_H
+#define _MATH_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 #define signbit(x) __builtin_signbit(x)
-#define HUGE_VAL __builtin_huge_val()
+#define isfinite(x) __builtin_isfinite(x)
 #define isnan(x) __builtin_isnan(x)
 #define isinf(x) __builtin_isinf(x)
+
+#define HUGE_VAL __builtin_huge_val()
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -67,4 +69,4 @@ long lrint(double x);
 }
 #endif
 
-#endif /* _WA_LIBM_MATH_H */
+#endif /* _MATH_H */

@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_COMPILER_RT_FP_LIB_H
-#define _WA_COMPILER_RT_FP_LIB_H
+#ifndef _LIBGCC_FP_LIB_H
+#define _LIBGCC_FP_LIB_H
 
 #include <wasmux/types.h>
 
@@ -39,9 +39,10 @@ void __floatunditf(fp_t* r, du_int a);
 du_int __fixunstfdi(long double input);
 int __unordtf2(fp_t a, fp_t b);
 void __ashlti3(ti_int* r, ti_int a, int b);
+unsigned __fixunstfsi(fp_t a);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _WA_COMPILER_RT_FP_LIB_H */
+#endif /* _LIBGCC_FP_LIB_H */

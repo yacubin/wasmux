@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_LIBC_LIMITS_H
-#define _WA_LIBC_LIMITS_H
+#ifndef _LIMITS_H
+#define _LIMITS_H
 
 #include <wasmux/limits.h>
 
@@ -21,5 +21,6 @@
 #endif
 
 #define MB_LEN_MAX 4
+#define NL_ARGMAX 9
 
-#endif /* _WA_LIBC_LIMITS_H */
+#endif /* _LIMITS_H */

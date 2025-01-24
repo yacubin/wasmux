@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_KERNEL_TIME_H
-#define _WA_KERNEL_TIME_H
+#ifndef _WASMUX_TIME_H
+#define _WASMUX_TIME_H
 
 #include <wasmux/types.h>
 
@@ -14,6 +14,7 @@
 #define CLOCK_BOOTTIME  7
 
 typedef long suseconds_t;
+typedef int32_t time32_t;
 typedef int64_t time_t;
 
 struct timezone {
@@ -31,4 +32,4 @@ struct timespec {
   long tv_nsec;
 };
 
-#endif /* _WA_KERNEL_TIME_H */
+#endif /* _WASMUX_TIME_H */

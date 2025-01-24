@@ -36,6 +36,7 @@ set(libc_HEADERS
   include/endian.h
   include/errno.h
   include/fcntl.h
+  include/float.h
   include/fnmatch.h
   include/ftw.h
   include/grp.h
@@ -59,7 +60,6 @@ set(libc_HEADERS
   include/sysexits.h
   include/syslog.h
   include/syslog.h
-  include/termios.h
   include/time.h
   include/ucontext.h
   include/utime.h
@@ -111,7 +111,6 @@ set(libc_SOURCES
   stub/strtol.cpp
   stub/syscall.cpp
   stub/syslog.cpp
-  stub/termios.cpp
   stub/time.cpp
   stub/unistd.cpp
   stub/utime.cpp

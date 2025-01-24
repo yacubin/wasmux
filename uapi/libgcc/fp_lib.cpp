@@ -117,3 +117,9 @@ void __ashlti3(ti_int* r, ti_int a, int b)
 {
   WA_UNREACHABLE();
 }
+
+unsigned __fixunstfsi(fp_t a)
+{
+  WA_UNREACHABLE();
+  return 0;
+}

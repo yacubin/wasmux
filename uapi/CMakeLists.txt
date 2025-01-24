@@ -26,6 +26,11 @@ if (CONFIG_ENABLE_LIBC)
     add_subdirectory("${CONFIG_WCSMBS_PATH}" wcsmbs)
   endif ()
 
+  if (CONFIG_TERMIOS_PATH)
+    list(APPEND LIBC_DEPENDENCIES termios)
+    add_subdirectory("${CONFIG_TERMIOS_PATH}" termios)
+  endif ()
+
   if (CONFIG_ARGP_PATH)
     list(APPEND LIBC_DEPENDENCIES argp)
     add_subdirectory("${CONFIG_ARGP_PATH}" argp)
