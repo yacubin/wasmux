@@ -13,6 +13,75 @@ function toArray(o)
   return Array.isArray(o) ? o : [o];
 }
 
+class SettingsStorage {
+  _filename;
+  _encoding = "utf-8";
+  _settings;
+  _current;
+
+  constructor(filename)
+  {
+    this._filename = filename;
+  }
+
+  async push(name)
+  {
+    if (!this._settings)
+      await this.load();
+    let object = this._current.object[name];
+    if (!object)
+      object = this._current.object[name] = {};
+    this._current = { parent: this._current, object };
+  }
+
+  async pop()
+  {
+    if (!this._settings)
+      await this.load();
+    console.assert(this._current.parent);
+    this._current = this._current.parent;
+  }
+
+  async get(name)
+  {
+    if (!this._settings)
+      await this.load();
+    return this._current.object[name];
+  }
+
+  async set(name, value)
+  {
+    if (!this._settings)
+      await this.load();
+    this._current.object[name] = value;
+    await this.save();
+  }
+
+  async load()
+  {
+    try {
+      const stat = await fs.promises.stat(this._filename);
+      const content = await fs.promises.readFile(this._filename, this._encoding);
+      this._settings = JSON.parse(content);
+    }
+    catch (e) {
+      this._settings = {};
+    }
+    this._current =
+    {
+      parent: null,
+      object: this._settings,
+    };
+  }
+
+  async save()
+  {
+    const space = 2;
+    const content = JSON.stringify(this._settings, undefined, space);
+    await fs.promises.writeFile(this._filename, content, { encoding: this._encoding, flag: 'w', flush: true });
+  }
+};
+
 function mergeEnvironment(...args)
 {
   const environment = {};
@@ -184,7 +253,7 @@ async function tryRequestGet(sourceUrl, arcFile, attempts)
   }
 }
 
-async function doExtractArchive(ctx, config)
+async function doExtractArchive(ctx, config, settings)
 {
   if (!config.sourceUrl)
     throw "Unknown sourceUrl";
@@ -200,43 +269,61 @@ async function doExtractArchive(ctx, config)
     await fs.promises.mkdir(config.tempDir, { recursive: true });
 
   const arcName = `${config.name}${path.extname(config.sourceUrl)}`;
-  const arcFile = path.join(config.arcDir, arcName);
 
-  await tryRequestGet(config.sourceUrl, arcFile, ctx.requestAttempts);
-
-  let extractDir = await fs.promises.mkdtemp(path.resolve(config.tempDir, arcName + '.'));
-
-  await cmake.extract({
-    environment: config.environment,
-    filename: arcFile,
-    workDir: extractDir,
-    logFile:  path.join(config.tempDir, path.basename(extractDir) + ".log"),
-  });
-
-  const extractList = fs.readdirSync(extractDir);
-  if (extractList.length === 1) {
-    extractDir = path.resolve(extractDir, extractList[0]);
-    if (!fs.statSync(extractDir).isDirectory()) {
-      await fs.promises.rm(extractDir, { recursive: true });
-      throw `Support only directory for archive`;
-    }
+  let arcFile;
+  let downloadUrls = await settings.get("downloadUrls") || {};
+  if (downloadUrls[config.sourceUrl])
+    arcFile = downloadUrls[config.sourceUrl];
+  else {
+    arcFile = path.join(config.arcDir, arcName);
+    await tryRequestGet(config.sourceUrl, arcFile, ctx.requestAttempts);
+    downloadUrls[config.sourceUrl] = arcFile;
+    await settings.set("downloadUrls", downloadUrls);
   }
 
-  if (await directoryExists(config.extractDir)) {
-    // TODO: Marge extractDir with output
-    console.log(`rm -fr ${config.extractDir}`);
-    await fs.promises.rm(config.extractDir, { recursive: true });
+  let extractDir;
+  let extractFiles = await settings.get("extractFiles") || {};
+  if (extractFiles[arcFile]) {
+    extractDir = extractFiles[arcFile];
   }
   else {
-    const parentDir = path.dirname(config.extractDir);
-    if (!await directoryExists(parentDir)) {
-      console.log(`mkdir -p ${parentDir}`);
-      await fs.promises.mkdir(parentDir, { recursive: true }); 
+    extractDir = await fs.promises.mkdtemp(path.resolve(config.tempDir, arcName + '.'));
+  
+    await cmake.extract({
+      environment: config.environment,
+      filename: arcFile,
+      workDir: extractDir,
+      logFile:  path.join(config.tempDir, path.basename(extractDir) + ".log"),
+    });
+  
+    const extractList = fs.readdirSync(extractDir);
+    if (extractList.length === 1) {
+      extractDir = path.resolve(extractDir, extractList[0]);
+      if (!fs.statSync(extractDir).isDirectory()) {
+        await fs.promises.rm(extractDir, { recursive: true });
+        throw `Support only directory for archive`;
+      }
     }
+  
+    if (await directoryExists(config.extractDir)) {
+      // TODO: Marge extractDir with output
+      console.log(`rm -fr ${config.extractDir}`);
+      await fs.promises.rm(config.extractDir, { recursive: true });
+    }
+    else {
+      const parentDir = path.dirname(config.extractDir);
+      if (!await directoryExists(parentDir)) {
+        console.log(`mkdir -p ${parentDir}`);
+        await fs.promises.mkdir(parentDir, { recursive: true }); 
+      }
+    }
+  
+    console.log(`mv ${extractDir} ${config.extractDir}`);
+    await fs.promises.rename(extractDir, config.extractDir);
+  
+    extractFiles[arcFile] = extractDir;
+    await settings.set("extractFiles", extractFiles);
   }
-
-  console.log(`mv ${extractDir} ${config.extractDir}`);
-  await fs.promises.rename(extractDir, config.extractDir);
 }
 
 function copyObject(o)
@@ -308,6 +395,7 @@ async function doConfigNode(ctx, name, binaryDir, config, parentConfig)
   }
 
   const output = config.output || config;
+  output.name = output.name || name;
   output.environment = mergeEnvironment(output.environment, config.environment);
   output.buildType = output.buildType || config.buildType;
   let workDir = config.workDir;
@@ -358,7 +446,7 @@ async function doConfigNode(ctx, name, binaryDir, config, parentConfig)
   }
 }
 
-async function doActionNode(ctx, config)
+async function doActionNode(ctx, config, settings)
 {
   if (config.sysroot) {
     await doTargetBuild(ctx, config.sysroot);
@@ -366,13 +454,15 @@ async function doActionNode(ctx, config)
 
   if (config.required) {
     for (const [name, conf] of Object.entries(config.required)) {
-      await doActionNode(ctx, conf);
+      await settings.push(name);
+      await doActionNode(ctx, conf, settings);
+      await settings.pop();
     }
   }
 
   const output = config.output || config;
   if (output.sourceUrl) {
-    await doExtractArchive(ctx, output);
+    await doExtractArchive(ctx, output, settings);
   }
   if (Array.isArray(output.action)) {
     for (const iter of output.action) {
@@ -398,6 +488,8 @@ module.exports = async function(ctx)
   const userConfig = await ctx.getUserConfig();
   const childConfig = copyObject(userConfig);
   const binaryDir = path.resolve(ctx.workDir, "build");
+  const settingsFilename = path.resolve(binaryDir, "BuildSettings.json");
+  const settings = new SettingsStorage(settingsFilename);
   await doConfigNode(ctx, "workspace", binaryDir, childConfig, rootConfig);
 
   if (!await directoryExists(binaryDir)) {
@@ -409,5 +501,5 @@ module.exports = async function(ctx)
   const jsonConfig = JSON.stringify(childConfig, null, 2);
   await fs.promises.writeFile(path.resolve(binaryDir, "build.json"), jsonConfig);
 
-  await doActionNode(ctx, childConfig);
+  await doActionNode(ctx, childConfig, settings);
 }
