@@ -13,10 +13,13 @@ set(wacore_HEADERS
   include/wasmux/web/worker.h
   include/wasmux/web/xmlhttprequest.h
   include/wasmux/init.h
-  include/wasmux/wasm_page.h
-  include/wasmux/memory_alloc.h
-  include/wasmux/wei.h
+  include/wasmux/main_loop.h
   include/wasmux/main_thread.h
+  include/wasmux/memory_alloc.h
+  include/wasmux/user_access.h
+  include/wasmux/wasm_page.h
+  include/wasmux/wei.h
+  include/wasmux/worker_instance.h
   include/wasmux/worker_thread.h
   )
 
@@ -32,10 +35,14 @@ set(wacore_SOURCES
   src/web/webassembly.cpp
   src/web/worker.cpp
   src/web/xmlhttprequest.cpp
+  src/main_loop.cpp
   src/main_thread.cpp
   src/memory_alloc.cpp
   src/start_worker.cpp
+  src/user_access.cpp
   src/wei.cpp
+  src/worker_instance.cpp
+  src/worker_instanceInit.S
   src/worker_thread.cpp
   )
 
