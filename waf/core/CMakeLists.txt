@@ -67,6 +67,52 @@ set(wacore_GENFILES
   "${CMAKE_CURRENT_BINARY_DIR}/include/wasmux/webcall-worker.h"
   )
 
+if (WIN32)
+  list(APPEND wacore_HEADERS
+    src/windows/BaseThreadContext.h
+    src/windows/Looper.h
+    src/windows/MainThreadContext.h
+    src/windows/NJSObject.h
+    src/windows/NJSObjectList.h
+    src/windows/NJSString.h
+    src/windows/OSMalloc.h
+    src/windows/WorkerThreadContext.h
+    )
+  list(APPEND wacore_SOURCES
+    src/windows/BaseThreadContext.cpp
+    src/windows/Looper.cpp
+    src/windows/MainThreadContext.cpp
+    src/windows/NJSObject.cpp
+    src/windows/NJSObjectList.cpp
+    src/windows/NJSString.cpp
+    src/windows/OSMalloc.cpp
+    src/windows/OSAddEventListener.cpp
+    src/windows/OSCallMethod.cpp
+    src/windows/OSConsoleWrite.cpp
+    src/windows/OSGetMathRandom.cpp
+    src/windows/OSGetPerformanceNow.cpp
+    src/windows/OSGetProperty.cpp
+    src/windows/OSMemory.cpp
+    src/windows/OSObjectCreate.cpp
+    src/windows/OSNotImplemented.cpp
+    src/windows/OSNumberCreate.cpp
+    src/windows/OSObjectRelease.cpp
+    src/windows/OSObjectRetain.cpp
+    src/windows/OSPostMessage.cpp
+    src/windows/OSPromiseThen.cpp
+    src/windows/OSRemoveEventListener.cpp
+    src/windows/OSSetProperty.cpp
+    src/windows/OSStringCreate.cpp
+    src/windows/OSStringCreateByArgs.cpp
+    src/windows/OSTimeout.cpp
+    src/windows/OSUserInstanceStart.cpp
+    src/windows/OSWorkerInstance.cpp
+    src/windows/OSWorkerPerform.cpp
+    src/windows/WebCall.cpp
+    src/windows/WorkerThreadContext.cpp
+    )
+endif ()
+
 # TODO: Move to linux dep
 GEN_KSYSCALLHDR(
   INPUT "${WASMUX_ROOT_DIR}/waf/syscall.js"
