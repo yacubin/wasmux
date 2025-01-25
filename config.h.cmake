@@ -24,3 +24,9 @@
 
 /* Enable install headers */
 #cmakedefine01 CONFIG_ENABLE_INSTALL_HEADERS
+
+/* Initial size of core pages */
+#define CONFIG_CORE_INIT_PAGES @CONFIG_CORE_INIT_PAGES@
+
+/* Maximum size of core pages */
+#define CONFIG_CORE_MAX_PAGES @CONFIG_CORE_MAX_PAGES@

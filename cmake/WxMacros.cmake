@@ -1,7 +1,7 @@
 macro(WX_OPTION _name _desc _value _type)
   if (${_type} STREQUAL BOOLEAN)
     option(${_name} "${_desc}" ${_value})
-  elseif (${_type} STREQUAL STRING)
+  elseif ((${_type} STREQUAL STRING) OR (${_type} STREQUAL NUMBER))
     set(${_name} "${_value}" CACHE STRING "${_desc}")
   elseif (${_type} STREQUAL ENUM)
     set(${_name} "${_value}" CACHE STRING "${_desc}")
