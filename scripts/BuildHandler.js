@@ -5,7 +5,6 @@ const { fileExists, directoryExists }  = require('./utils/FileSystem.js');
 const { spawnAsync } = require('./utils/ChildProcess.js');
 const cmake  = require('./utils/CMake.js');
 const { requestGet } = require('./utils/HttpRequest.js');
-const { REQUEST_ATTEMPTS } = require('./Constants.js'); // TODO: Move to context
 
 function toArray(o)
 {
@@ -158,7 +157,7 @@ function prepearAction(config)
   }
 }
 
-async function doTargetBuild(config)
+async function doTargetBuild(ctx, config)
 {
   if (!await directoryExists(config.binaryDir)) {
     await fs.promises.mkdir(config.binaryDir, { recursive: true });
@@ -185,7 +184,7 @@ async function tryRequestGet(sourceUrl, arcFile, attempts)
   }
 }
 
-async function doExtractArchive(name, config)
+async function doExtractArchive(ctx, config)
 {
   if (!config.sourceUrl)
     throw "Unknown sourceUrl";
@@ -200,10 +199,10 @@ async function doExtractArchive(name, config)
   if (!await directoryExists(config.tempDir))
     await fs.promises.mkdir(config.tempDir, { recursive: true });
 
-  const arcName = `${name}${path.extname(config.sourceUrl)}`;
+  const arcName = `${config.name}${path.extname(config.sourceUrl)}`;
   const arcFile = path.join(config.arcDir, arcName);
 
-  await tryRequestGet(config.sourceUrl, arcFile, REQUEST_ATTEMPTS);
+  await tryRequestGet(config.sourceUrl, arcFile, ctx.requestAttempts);
 
   let extractDir = await fs.promises.mkdtemp(path.resolve(config.tempDir, arcName + '.'));
 
@@ -259,7 +258,7 @@ function copyObject(o)
   }
 }
 
-async function doConfigNode(name, config, parentConfig)
+async function doConfigNode(ctx, name, binaryDir, config, parentConfig)
 {
   if (!name)
     throw "Not supported empty name";
@@ -267,7 +266,6 @@ async function doConfigNode(name, config, parentConfig)
   config.name = name;
   config.environment = mergeEnvironment(config.environment, parentConfig.environment);
   config.buildType = config.buildType || parentConfig.buildType;
-  const binaryDir = config.binaryDir || path.resolve(parentConfig.binaryDir, config.name);
   config.destDir = config.destDir || parentConfig.destDir;
   config.arcDir = config.arcDir || parentConfig.arcDir;
   config.tempDir = config.tempDir || parentConfig.tempDir;
@@ -355,60 +353,61 @@ async function doConfigNode(name, config, parentConfig)
 
   if (config.required) {
     for (const [name, conf] of Object.entries(config.required)) {
-      await doConfigNode(name, conf, config);
+      await doConfigNode(ctx, name, path.resolve(binaryDir, name), conf, config);
     }
   }
 }
 
-async function doActionNode(config)
+async function doActionNode(ctx, config)
 {
   if (config.sysroot) {
-    await doTargetBuild(config.sysroot);
+    await doTargetBuild(ctx, config.sysroot);
   }
 
   if (config.required) {
     for (const [name, conf] of Object.entries(config.required)) {
-      await doActionNode(conf);
+      await doActionNode(ctx, conf);
     }
   }
 
   const output = config.output || config;
   if (output.sourceUrl) {
-    await doExtractArchive(config.name, output);
+    await doExtractArchive(ctx, output);
   }
   if (Array.isArray(output.action)) {
     for (const iter of output.action) {
-      await doTargetBuild(iter);
+      await doTargetBuild(ctx, iter);
     }
   }
   else {
-    await doTargetBuild(output);
+    await doTargetBuild(ctx, output);
   }
 }
 
-module.exports = async function(wasmux)
+module.exports = async function(ctx)
 {
   const rootConfig = {
     environment: process.env,
-    buildType: wasmux.buildType,
-    sourceDir: wasmux.workDir,
-    binaryDir: wasmux.workDir,
-    wasmuxDir: wasmux.rootDir,
-    workDir: wasmux.workDir,
+    buildType: ctx.buildType,
+    sourceDir: ctx.workDir,
+    binaryDir: ctx.workDir,
+    wasmuxDir: ctx.rootDir,
+    workDir: ctx.workDir,
   };
 
-  const userConfig = await wasmux.getUserConfig();
+  const userConfig = await ctx.getUserConfig();
   const childConfig = copyObject(userConfig);
-  await doConfigNode("build", childConfig, rootConfig);
+  const binaryDir = path.resolve(ctx.workDir, "build");
+  await doConfigNode(ctx, "workspace", binaryDir, childConfig, rootConfig);
 
-  if (!await directoryExists(childConfig.binaryDir)) {
-    console.log(`mkdir -p "${childConfig.binaryDir}"`);
-    await fs.promises.mkdir(childConfig.binaryDir, { recursive: true });
+  if (!await directoryExists(binaryDir)) {
+    console.log(`mkdir -p "${binaryDir}"`);
+    await fs.promises.mkdir(binaryDir, { recursive: true });
   }
 
   console.log(`echo $jsonConfig > "build.json"`);
   const jsonConfig = JSON.stringify(childConfig, null, 2);
-  await fs.promises.writeFile(path.resolve(childConfig.binaryDir, "build.json"), jsonConfig);
+  await fs.promises.writeFile(path.resolve(binaryDir, "build.json"), jsonConfig);
 
-  await doActionNode(childConfig);
+  await doActionNode(ctx, childConfig);
 }

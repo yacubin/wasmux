@@ -4,7 +4,7 @@
  *
  */
 
-#include "BasicConfig.h"
+#include "config.h"
 
 #include <wasmux/alert.h>
 #include <wasmux/cxx/Characters.h>
