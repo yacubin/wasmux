@@ -5,8 +5,8 @@
  */
 
 #include "config.h"
-#include "pwd.h"
 
+#include <pwd.h>
 #include <wasmux/assert.h>
 
 struct passwd* getpwuid(uid_t uid)

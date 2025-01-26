@@ -46,7 +46,6 @@ set(libc_HEADERS
   include/mntent.h
   include/paths.h
   include/poll.h
-  include/pwd.h
   include/sched.h
   include/search.h
   include/setjmp.h
@@ -97,7 +96,6 @@ set(libc_SOURCES
   stub/poll.cpp
   stub/progname.cpp
   stub/putc.cpp
-  stub/pwd.cpp
   stub/qsort.cpp
   stub/read.cpp
   stub/search.cpp

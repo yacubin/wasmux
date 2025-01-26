@@ -36,6 +36,11 @@ if (CONFIG_ENABLE_LIBC)
     add_subdirectory("${CONFIG_DIRENT_PATH}" dirent)
   endif ()
 
+  if (CONFIG_PWD_PATH)
+    list(APPEND LIBC_DEPENDENCIES pwd)
+    add_subdirectory("${CONFIG_PWD_PATH}" pwd)
+  endif ()
+
   if (CONFIG_TERMIOS_PATH)
     list(APPEND LIBC_DEPENDENCIES termios)
     add_subdirectory("${CONFIG_TERMIOS_PATH}" termios)

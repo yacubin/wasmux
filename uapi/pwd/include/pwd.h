@@ -1,11 +1,11 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_PWD_H
-#define _WA_LIBC_PWD_H
+#ifndef _PWD_H
+#define _PWD_H
 
 #include <sys/types.h>
 
@@ -38,4 +38,4 @@ void endpwent(void);
 }
 #endif
 
-#endif /* _WA_LIBC_PWD_H */
+#endif /* _PWD_H */
