@@ -27,6 +27,7 @@ void WebTerminalManager_finalize(WebTerminalManager*);
 
 WebTerminal* WebTerminalManager_openSync(WebTerminalManager*, int* errorCode);
 int WebTerminalManager_writeSync(WebTerminalManager*, WebTerminal*, WEI_Object mem, const char* buf, unsigned len);
+int WebTerminalManager_writeStrSync(WebTerminalManager*, WebTerminal*, WebString* str);
 int WebTerminalManager_closeSync(WebTerminalManager*, WebTerminal*);
 
 #ifdef __cplusplus

@@ -10,6 +10,7 @@
 #include <wasmux/errno.h>
 #include <wasmux/notify_waiter.h>
 #include <wasmux/web/string.h>
+#include <wasmux/web/arraybuffer.h>
 #include <wasmux/cxx/ObjectCast.h>
 
 struct BaseSyncData {
@@ -94,12 +95,12 @@ static void onWriteHandler(void* userdata, WEI_Object memoryObj)
   WebString* stdoutStr = WebString_create("stdout");
   WEI_Object textObj = WEI_stringCreate(memoryObj, data->buf, data->len);
 
-  WEI_callIntegerMethod1(object_idx_cast(data->terminal), object_idx_cast(stdoutStr), textObj);
+  int len = WEI_callIntegerMethod1(object_idx_cast(data->terminal), object_idx_cast(stdoutStr), textObj);
 
   WEI_objectRelease(textObj);
   WebString_destroy(stdoutStr);
 
-  data->ec = data->len;
+  data->ec = len;
 	data->notify();
 }
 
@@ -112,6 +113,36 @@ int WebTerminalManager_writeSync(WebTerminalManager* thiz, WebTerminal* terminal
 	data.len = len;
 
   int ec = WEI_postMessage1(&onWriteHandler, &data, mem);
+	if (ec < 0)
+    return ec;
+
+  data.wait();
+	return data.ec;
+}
+
+struct WriteStrSyncData : BaseSyncData {
+	WebTerminal* terminal;
+};
+
+static void onWriteStrHandler(void* userdata, WEI_Object textObj)
+{
+	auto data = reinterpret_cast<WriteStrSyncData*>(userdata);
+  
+  WebString* stdoutStr = WebString_create("stdout");
+  int len = WEI_callIntegerMethod1(object_idx_cast(data->terminal), object_idx_cast(stdoutStr), textObj);
+  WebString_destroy(stdoutStr);
+
+  data->ec = len;
+	data->notify();
+}
+
+int WebTerminalManager_writeStrSync(WebTerminalManager* thiz, WebTerminal* terminal, WebString* str)
+{
+	struct WriteStrSyncData data;
+
+	data.terminal = terminal;
+
+  int ec = WEI_postMessage1(&onWriteStrHandler, &data, object_idx_cast(str));
 	if (ec < 0)
     return ec;
 

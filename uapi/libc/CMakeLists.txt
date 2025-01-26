@@ -161,6 +161,7 @@ set(libc_LIBRARIES
   wauser
   )
 
+set(GNU_VERSIONS_INCLUDE_LIST "")
 set(_GNU_VERSIONS_H_DEFINES "")
 set(_STDLIB_H_INCLUDES "")
 set(_UNISTD_H_INCLUDES "")
@@ -168,6 +169,11 @@ set(_UNISTD_H_INCLUDES "")
 foreach (_lib ${LIBC_DEPENDENCIES})
   list(APPEND libc_INCLUDES $<TARGET_PROPERTY:${_lib},INTERFACE_INCLUDE_DIRECTORIES>)
   list(APPEND libc_SOURCES $<TARGET_OBJECTS:${_lib}>)
+
+  get_target_property(_gnu_versions_include ${_lib} GNU_VERSIONS_INCLUDE)
+  if (_gnu_versions_include)
+    list(APPEND GNU_VERSIONS_INCLUDE_LIST "${_gnu_versions_include}")
+  endif ()
 
   get_target_property(_gnu_version_h_define ${_lib} GNU_VERSIONS_H_DEFINE)
   if (_gnu_version_h_define)
@@ -186,6 +192,7 @@ foreach (_lib ${LIBC_DEPENDENCIES})
 endforeach ()
 
 string(REPLACE ";" "\n" _GNU_VERSIONS_H_DEFINES "${_GNU_VERSIONS_H_DEFINES}")
+string(REPLACE ";" "\n" GNU_VERSIONS_INCLUDE_LIST "${GNU_VERSIONS_INCLUDE_LIST}")
 string(REPLACE ";" "\n" _STDLIB_H_INCLUDES "${_STDLIB_H_INCLUDES}")
 string(REPLACE ";" "\n" _UNISTD_H_INCLUDES "${_UNISTD_H_INCLUDES}")
 
