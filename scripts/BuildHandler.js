@@ -118,10 +118,10 @@ function mergeEnvironment(...args)
 }
 
 const actionHandlers = {
-  none: async (config) => {
+  none: async (config, settings) => {
     /* do nothing */
   },
-  cmake: async (config) => {
+  cmake: async (config, settings) => {
     const cmakeArgs = {
       environment: {
         ...config.environment,
@@ -137,47 +137,56 @@ const actionHandlers = {
     await cmake.build(cmakeArgs);
     await cmake.install(cmakeArgs);
   },
-  configure: async (config) => {
-    const command = path.resolve(config.sourceDir, "configure");
-    const params = [];
-    if (Array.isArray(config.variables)) {
-      for (const iter of config.variables)
-        params.push(iter);
-    }
-    else if (config.variables) {
-      for (const [key,val] of Object.entries(config.variables)) {
-        if (val === null)
-          params.push(`--${key}`);
-        else
-          params.push(`--${key}=${val}`);
+  configure: async (config, settings) => {
+    let step = await settings.get("configure") || "config";
+    if (step === "config") {
+      const command = path.resolve(config.sourceDir, "configure");
+      const params = [];
+      if (Array.isArray(config.variables)) {
+        for (const iter of config.variables)
+          params.push(iter);
       }
+      else if (config.variables) {
+        for (const [key,val] of Object.entries(config.variables)) {
+          if (val === null)
+            params.push(`--${key}`);
+          else
+            params.push(`--${key}=${val}`);
+        }
+      }
+      const res1 = await spawnAsync(command, params, {
+        cwd: config.binaryDir,
+        env: config.environment,
+        extra: {
+          output: `ac.config.log`,
+        },
+      });
+      if (res1.status !== 0) {
+        throw `configure returned status ${res1.status}`;
+      }
+      step = "install";
+      await settings.set("configure", step);
     }
-    const res1 = await spawnAsync(command, params, {
-      cwd: config.binaryDir,
-      env: config.environment,
-      extra: {
-        output: `ac.config.log`,
-      },
-    });
-    if (res1.status !== 0) {
-      throw `configure returned status ${res1.status}`;
-    }
-    const args = [ 'install' ];
-    if (config.destDir) {
-      args.push(`DESTDIR=${config.destDir}`);
-    }
-    const res2 = await spawnAsync("make", args, {
-      cwd: config.binaryDir,
-      env: config.environment,
-      extra: {
-        output: `ac.build.log`,
-      },
-    });
-    if (res2.status !== 0) {
-      throw `make returned status ${res2.status}`;
+    if (step === "install") {
+      const args = [ 'install' ];
+      if (config.destDir) {
+        args.push(`DESTDIR=${config.destDir}`);
+      }
+      const res2 = await spawnAsync("make", args, {
+        cwd: config.binaryDir,
+        env: config.environment,
+        extra: {
+          output: `ac.build.log`,
+        },
+      });
+      if (res2.status !== 0) {
+        throw `make returned status ${res2.status}`;
+      }
+      step = "done";
+      await settings.set("configure", step);
     }
   },
-  make: async (config) => {
+  make: async (config, settings) => {
     const args = config.args || [];
     if (config.destDir) {
       args.push(`DESTDIR=${config.destDir}`);
@@ -193,7 +202,7 @@ const actionHandlers = {
       throw `make returned status ${res2.status}`;
     }
   },
-  process: async (config) => {
+  process: async (config, settings) => {
     if (!config.command)
       throw "Required command field for process action";
     let { command } = config;
@@ -226,13 +235,13 @@ function prepearAction(config)
   }
 }
 
-async function doTargetBuild(ctx, config)
+async function doTargetBuild(ctx, config, settings)
 {
   if (!await directoryExists(config.binaryDir)) {
     await fs.promises.mkdir(config.binaryDir, { recursive: true });
   }
   if (actionHandlers[config.action]) {
-    await actionHandlers[config.action](config);
+    await actionHandlers[config.action](config, settings);
   }
 }
 
@@ -449,15 +458,19 @@ async function doConfigNode(ctx, name, binaryDir, config, parentConfig)
 async function doActionNode(ctx, config, settings)
 {
   if (config.sysroot) {
-    await doTargetBuild(ctx, config.sysroot);
+    await settings.push("sysroot");
+    await doTargetBuild(ctx, config.sysroot, settings);
+    await settings.pop();
   }
 
   if (config.required) {
+    await settings.push("required");
     for (const [name, conf] of Object.entries(config.required)) {
       await settings.push(name);
       await doActionNode(ctx, conf, settings);
       await settings.pop();
     }
+    await settings.pop();
   }
 
   const output = config.output || config;
@@ -465,12 +478,16 @@ async function doActionNode(ctx, config, settings)
     await doExtractArchive(ctx, output, settings);
   }
   if (Array.isArray(output.action)) {
-    for (const iter of output.action) {
-      await doTargetBuild(ctx, iter);
+    await settings.push("action");
+    for (var i = 0; i < output.action.length; ++i) {
+      await settings.push(i.toString());
+      await doTargetBuild(ctx, iter, settings);
+      await settings.pop();
     }
+    await settings.pop();
   }
   else {
-    await doTargetBuild(ctx, output);
+    await doTargetBuild(ctx, output, settings);
   }
 }
 
