@@ -161,40 +161,25 @@ set(libc_LIBRARIES
   wauser
   )
 
-set(GNU_VERSIONS_INCLUDE_LIST "")
-set(_GNU_VERSIONS_H_DEFINES "")
-set(_STDLIB_H_INCLUDES "")
-set(_UNISTD_H_INCLUDES "")
-
 foreach (_lib ${LIBC_DEPENDENCIES})
   list(APPEND libc_INCLUDES $<TARGET_PROPERTY:${_lib},INTERFACE_INCLUDE_DIRECTORIES>)
   list(APPEND libc_SOURCES $<TARGET_OBJECTS:${_lib}>)
-
-  get_target_property(_gnu_versions_include ${_lib} GNU_VERSIONS_INCLUDE)
-  if (_gnu_versions_include)
-    list(APPEND GNU_VERSIONS_INCLUDE_LIST "${_gnu_versions_include}")
-  endif ()
-
-  get_target_property(_gnu_version_h_define ${_lib} GNU_VERSIONS_H_DEFINE)
-  if (_gnu_version_h_define)
-    list(APPEND _GNU_VERSIONS_H_DEFINES "${_gnu_version_h_define}")
-  endif ()
-
-  get_target_property(_stdlib_h_include ${_lib} STDLIB_H_INCLUDE)
-  if (_stdlib_h_include)
-    list(APPEND _STDLIB_H_INCLUDES "${_stdlib_h_include}")
-  endif ()
-
-  get_target_property(_unistd_h_include ${_lib} UNISTD_H_INCLUDE)
-  if (_unistd_h_include)
-    list(APPEND _UNISTD_H_INCLUDES "${_unistd_h_include}")
-  endif ()
 endforeach ()
 
-string(REPLACE ";" "\n" _GNU_VERSIONS_H_DEFINES "${_GNU_VERSIONS_H_DEFINES}")
-string(REPLACE ";" "\n" GNU_VERSIONS_INCLUDE_LIST "${GNU_VERSIONS_INCLUDE_LIST}")
-string(REPLACE ";" "\n" _STDLIB_H_INCLUDES "${_STDLIB_H_INCLUDES}")
-string(REPLACE ";" "\n" _UNISTD_H_INCLUDES "${_UNISTD_H_INCLUDES}")
+set(GNU_VERSIONS_INCLUDE_LIST "")
+set(STDLIB_INCLUDE_LIST "")
+set(UNISTD_INCLUDE_LIST "")
+
+foreach (_iter GNU_VERSIONS_INCLUDE STDLIB_INCLUDE UNISTD_INCLUDE)
+  set(${_iter}_LIST "")
+  foreach (_lib ${LIBC_DEPENDENCIES})
+    get_target_property(_versions_include ${_lib} ${_iter})
+    if (_versions_include)
+      list(APPEND ${_iter}_LIST "${_versions_include}")
+    endif ()
+  endforeach ()
+  string(REPLACE ";" "\n" ${_iter}_LIST "${${_iter}_LIST}")
+endforeach ()
 
 configure_file("include/gnu-versions.h.in" "${CMAKE_CURRENT_BINARY_DIR}/include/gnu-versions.h" @ONLY)
 configure_file("include/stdlib.h.in" "${CMAKE_CURRENT_BINARY_DIR}/include/stdlib.h" @ONLY)

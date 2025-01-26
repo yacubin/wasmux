@@ -10,7 +10,7 @@
 #include <wasmux/widechar.h>
 #include <alloca.h>
 #include <malloc.h>
-@_STDLIB_H_INCLUDES@
+@STDLIB_INCLUDE_LIST@
 
 #ifdef __cplusplus
 extern "C" {

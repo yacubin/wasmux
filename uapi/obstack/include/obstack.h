@@ -1,11 +1,11 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_OBSTACK_OBSTACK_H
-#define _WA_OBSTACK_OBSTACK_H
+#ifndef _OBSTACK_H
+#define _OBSTACK_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -21,4 +21,4 @@ void _obstack_free(struct obstack* obstack, void* obj);
 }
 #endif
 
-#endif /* _WA_OBSTACK_OBSTACK_H */
+#endif /* _OBSTACK_H */

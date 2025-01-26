@@ -24,7 +24,7 @@ target_include_directories(stdlib PRIVATE "${stdlib_INCLUDES}")
 target_compile_definitions(stdlib PRIVATE "${stdlib_DEFINITIONS}")
 target_link_libraries(stdlib PRIVATE ${stdlib_LIBRARIES})
 
-set_target_properties(stdlib PROPERTIES STDLIB_H_INCLUDE "#include <bits/__stdlib.h>")
+set_target_properties(stdlib PROPERTIES STDLIB_INCLUDE "#include <bits/__stdlib.h>")
 
 if (CONFIG_ENABLE_INSTALL_HEADERS)
   WX_INSTALL_HEADERS(HEADERS ${stdlib_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
