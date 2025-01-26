@@ -16,14 +16,19 @@ if (CONFIG_ENABLE_LIBC)
     add_subdirectory("${CONFIG_STDLIB_PATH}" stdlib)
   endif ()
 
+  if (CONFIG_WCSMBS_PATH)
+    list(APPEND LIBC_DEPENDENCIES wcsmbs)
+    add_subdirectory("${CONFIG_WCSMBS_PATH}" wcsmbs)
+  endif ()
+
   if (CONFIG_LIBIO_PATH)
     list(APPEND LIBC_DEPENDENCIES libio)
     add_subdirectory("${CONFIG_LIBIO_PATH}" libio)
   endif ()
 
-  if (CONFIG_WCSMBS_PATH)
-    list(APPEND LIBC_DEPENDENCIES wcsmbs)
-    add_subdirectory("${CONFIG_WCSMBS_PATH}" wcsmbs)
+  if (CONFIG_DIRENT_PATH)
+    list(APPEND LIBC_DEPENDENCIES dirent)
+    add_subdirectory("${CONFIG_DIRENT_PATH}" dirent)
   endif ()
 
   if (CONFIG_TERMIOS_PATH)

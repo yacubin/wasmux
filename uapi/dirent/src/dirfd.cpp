@@ -5,10 +5,11 @@
  */
 
 #include "config.h"
+
 #include <dirent.h>
 #include <wasmux/compiler.h>
 
-#include "dir_struct.h"
+#include <bits/__dirent_dir_struct.h>
 
 __ATTR_HIDDEN
 extern "C" int __dirfd(DIR* dir)

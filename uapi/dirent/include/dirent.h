@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_LIBC_DIRENT_H
-#define _WA_LIBC_DIRENT_H
+#ifndef _DIRENT_H
+#define _DIRENT_H
 
 #include <sys/types.h>
 #include <wasmux/limits.h>
@@ -26,7 +26,7 @@ extern "C" {
 #define DT_SOCK    12
 #define DT_WHT     14
 
-typedef struct dir_struct DIR;
+typedef struct __dir_struct DIR;
 
 struct dirent {
   ino_t d_ino;
@@ -56,4 +56,4 @@ ssize_t getdents(int fd, void* dir_list, size_t count);
 }
 #endif
 
-#endif /* _WA_LIBC_DIRENT_H */
+#endif /* _DIRENT_H */

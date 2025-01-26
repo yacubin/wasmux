@@ -32,7 +32,6 @@ set(libc_HEADERS
   include/assert.h
   include/byteswap.h
   include/ctype.h
-  include/dirent.h
   include/endian.h
   include/errno.h
   include/fcntl.h
@@ -69,7 +68,6 @@ set(libc_HEADERS
   )
 
 set(libc_SOURCES
-  dirent/dirfd.cpp
   stub/apra/inet.cpp
   stub/sys/mman.cpp
   stub/sys/random.cpp
@@ -88,7 +86,6 @@ set(libc_SOURCES
   stub/abort.cpp
   stub/access.cpp
   stub/ctype.cpp
-  stub/dirent.cpp
   stub/environ.cpp
   stub/exit.cpp
   stub/fcntl.cpp

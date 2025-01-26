@@ -5,10 +5,10 @@
  */
 
 #include "config.h"
-#include "dirent.h"
 
-#include <wasmux/assert.h>
+#include <dirent.h>
 #include <errno.h>
+#include <wasmux/assert.h>
 
 struct dirent* readdir(DIR* dir)
 {
