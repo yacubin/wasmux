@@ -481,7 +481,7 @@ async function doActionNode(ctx, config, settings)
     await settings.push("action");
     for (var i = 0; i < output.action.length; ++i) {
       await settings.push(i.toString());
-      await doTargetBuild(ctx, iter, settings);
+      await doTargetBuild(ctx, output.action[i], settings);
       await settings.pop();
     }
     await settings.pop();

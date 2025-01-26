@@ -4,11 +4,11 @@
  *
  */
 
-#ifndef _WA_LIBC_SIGNAL_H
-#define _WA_LIBC_SIGNAL_H
+#ifndef _SIGNAL_H
+#define _SIGNAL_H
 
 #include <wasmux/types.h>
-#include <wasmux/signal.h>
+#include <bits/signal.h>
 #include <setjmp.h>
 
 #ifdef __cplusplus
@@ -94,4 +94,4 @@ int sigaltstack(const stack_t* stack, stack_t* old_stack);
 }
 #endif
 
-#endif /* _WA_LIBC_SIGNAL_H */
+#endif /* _SIGNAL_H */

@@ -51,7 +51,6 @@ set(libc_HEADERS
   include/search.h
   include/setjmp.h
   include/setjmp.h
-  include/signal.h
   include/spawn.h
   include/stdarg.h
   include/stddef.h
@@ -103,7 +102,6 @@ set(libc_SOURCES
   stub/read.cpp
   stub/search.cpp
   stub/setjmp.cpp
-  stub/signal.cpp
   stub/stdlib.cpp
   stub/strtol.cpp
   stub/syscall.cpp

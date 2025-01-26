@@ -4,10 +4,10 @@
  *
  */
 
-#ifndef _WA_LIBC_SETJMP_H
-#define _WA_LIBC_SETJMP_H
+#ifndef _SETJMP_H
+#define _SETJMP_H
 
-#include <wasmux/signal.h>
+#include <bits/signal.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -32,4 +32,4 @@ int sigsetjmp(sigjmp_buf env, int savesigs);
 }
 #endif
 
-#endif /* _WA_LIBC_SETJMP_H */
+#endif /* _SETJMP_H */

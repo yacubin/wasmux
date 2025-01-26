@@ -1,14 +1,14 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_SPAWN_H
-#define _WA_LIBC_SPAWN_H
+#ifndef _SPAWN_H
+#define _SPAWN_H
 
-#include <features.h>
 #include <wasmux/sched.h>
-#include <wasmux/signal.h>
+#include <features.h>
+#include <bits/signal.h>
 
-#endif /* _WA_LIBC_SPAWN_H */
+#endif /* _SPAWN_H */

@@ -5,10 +5,10 @@
  */
 
 #include "config.h"
-#include "signal.h"
 
-#include <wasmux/assert.h>
+#include <signal.h>
 #include <errno.h>
+#include <wasmux/assert.h>
 
 sighandler_t signal(int signum, sighandler_t handler)
 {
@@ -25,13 +25,6 @@ int sigprocmask(int how, const sigset_t* set, sigset_t* oldset)
 }
 
 int sigsuspend(const sigset_t* set)
-{
-  WA_UNREACHABLE();
-  errno = ENOSYS;
-  return -1;
-}
-
-int sigemptyset(sigset_t* set)
 {
   WA_UNREACHABLE();
   errno = ENOSYS;

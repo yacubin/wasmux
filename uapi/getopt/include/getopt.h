@@ -7,7 +7,7 @@
 #ifndef _GETOPT_H
 #define _GETOPT_H
 
-#include <bits/getopt_base.h>
+#include <bits/__getopt_base.h>
 
 #ifdef __cplusplus
 extern "C" {

@@ -1,6 +1,6 @@
 set(getopt_HEADERS
   include/bits/__getopt_version.h
-  include/bits/getopt_base.h
+  include/bits/__getopt_base.h
   include/getopt.h
   )
 
@@ -26,6 +26,7 @@ target_compile_definitions(getopt PRIVATE "${getopt_DEFINITIONS}")
 target_link_libraries(getopt PRIVATE ${getopt_LIBRARIES})
 
 set_target_properties(getopt PROPERTIES GNU_VERSIONS_INCLUDE "#include <bits/__getopt_version.h>")
+set_target_properties(getopt PROPERTIES UNISTD_INCLUDE "#include <bits/__getopt_base.h>")
 
 if (CONFIG_ENABLE_INSTALL_HEADERS)
   WX_INSTALL_HEADERS(HEADERS ${getopt_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
