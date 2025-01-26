@@ -22,6 +22,7 @@ module.exports = {
 
   brk:             { number: 45,  argc: 1,  func: "sys_brk"             },
   ioctl:           { number: 54,  argc: 3,  func: "sys_ioctl"           },
+  dup2:            { number: 63,  argc: 2,  func: "sys_dup2"            },
   gettimeofday:    { number: 78,  argc: 2,  func: "sys_gettimeofday"    },
   _llseek:         { number: 140, argc: 5,  func: "sys_llseek"          },
   readv:           { number: 145, argc: 3,  func: "sys_readv"           },

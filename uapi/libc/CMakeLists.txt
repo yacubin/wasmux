@@ -117,6 +117,7 @@ set(libc_SOURCES
   syscalls/chdir.cpp
   syscalls/close.cpp
   syscalls/creat.cpp
+  syscalls/dup2.cpp
   syscalls/execve.cpp
   syscalls/getcwd.cpp
   syscalls/getegid.cpp

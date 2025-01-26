@@ -65,10 +65,3 @@ int dup(int fd)
   errno = ENOSYS;
   return -1;
 }
-
-int dup2(int oldfd, int newfd)
-{
-  WA_UNREACHABLE();
-  errno = ENOSYS;
-  return -1;
-}
