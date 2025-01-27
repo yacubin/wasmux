@@ -1,11 +1,11 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_GRP_H
-#define _WA_LIBC_GRP_H
+#ifndef _GRP_H
+#define _GRP_H
 
 #include <sys/types.h>
 
@@ -35,4 +35,4 @@ int setgroups(size_t size, const gid_t* list);
 }
 #endif
 
-#endif /* _WA_LIBC_GRP_H */
+#endif /* _GRP_H */

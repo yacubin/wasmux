@@ -38,7 +38,6 @@ set(libc_HEADERS
   include/float.h
   include/fnmatch.h
   include/ftw.h
-  include/grp.h
   include/inttypes.h
   include/libgen.h
   include/limits.h
@@ -90,7 +89,6 @@ set(libc_SOURCES
   stub/fnmatch.cpp
   stub/getenv.cpp
   stub/getmntent.cpp
-  stub/grp.cpp
   stub/libgen.cpp
   stub/pipe.cpp
   stub/poll.cpp

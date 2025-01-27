@@ -5,8 +5,8 @@
  */
 
 #include "config.h"
-#include "grp.h"
 
+#include <grp.h>
 #include <wasmux/assert.h>
 
 struct group* getgrgid(gid_t gid)
