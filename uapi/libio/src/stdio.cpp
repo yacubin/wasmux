@@ -7,6 +7,7 @@
 #include "config.h"
 
 #include <stdio.h>
+#include <unistd.h>
 
 static struct __file_struct s_std_files[] =
 {

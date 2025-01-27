@@ -1,11 +1,11 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_KERNEL_COMPILER_H
-#define _WA_KERNEL_COMPILER_H
+#ifndef _WASMUX_COMPILER_H
+#define _WASMUX_COMPILER_H
 
 #ifndef __has_builtin
 # define __has_builtin(x) 0
@@ -23,5 +23,9 @@
 #define __ATTR_WEAK __attribute__((__weak__))
 #define __ATTR_HIDDEN __attribute__((__visibility__("hidden")))
 #define __ATTR_PRINTF(fmt, args) __attribute__((__format__(printf, fmt, args)))
+#define __ATTR_NORETURN __attribute__((__noreturn__))
 
-#endif /* _WA_KERNEL_COMPILER_H */
+#define __LIKELY(x)   __builtin_expect(!!(x), 1)
+#define __UNLIKELY(x) __builtin_expect(!!(x), 0)
+
+#endif /* _WASMUX_COMPILER_H */

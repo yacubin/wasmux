@@ -206,6 +206,11 @@ static inline long sys_dup2(unsigned int oldfd, unsigned int newfd)
   return __DO_SYSCALL(dup2, oldfd, newfd);
 }
 
+static inline long sys_rt_sigprocmask(int how, /* sigset_t */ void* set, /* sigset_t */ void* oset, size_t sigsetsize)
+{
+  return __DO_SYSCALL(rt_sigprocmask, how, set, oset, sigsetsize);
+}
+
 #ifdef __cplusplus
 }
 #endif

@@ -4,9 +4,10 @@
  *
  */
 
-#ifndef _WA_LIBC_STDLIB_H
-#define _WA_LIBC_STDLIB_H
+#ifndef _STDLIB_H
+#define _STDLIB_H
 
+#include <wasmux/compiler.h>
 #include <wasmux/widechar.h>
 #include <alloca.h>
 #include <malloc.h>
@@ -25,8 +26,8 @@ extern "C" {
 int system(const char* command);
 
 int atexit(void (*function)(void));
-void exit(int status) __attribute__((noreturn));
-void abort(void) __attribute__((noreturn));
+void exit(int status) __ATTR_NORETURN;
+void abort(void) __ATTR_NORETURN;
 
 void* bsearch(const void* key, const void* base, size_t n, size_t size, int (*compar)(const void*, const void*));
 
@@ -65,4 +66,4 @@ char* setstate(char* state);
 }
 #endif
 
-#endif /* _WA_LIBC_STDLIB_H */
+#endif /* _STDLIB_H */

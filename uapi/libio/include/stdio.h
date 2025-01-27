@@ -28,11 +28,6 @@ extern FILE* const stderr;
 #define stdout stdout
 #define stderr stderr
 
-// File descriptors
-#define STDIN_FILENO  0
-#define STDOUT_FILENO 1
-#define STDERR_FILENO 2
-
 #define SEEK_SET 0  // Beginning of the file
 #define SEEK_CUR 1  // Current position in the file
 #define SEEK_END 2  // End of the file

@@ -5,11 +5,13 @@
  */
 
 #include "config.h"
-#include "stdlib.h"
 
+#include <stdlib.h>
 #include <wasmux/assert.h>
 
 void abort(void)
 {
-  WA_UNREACHABLE();
+  while (1) {
+    WA_UNREACHABLE();
+  }
 }

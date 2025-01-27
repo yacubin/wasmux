@@ -8,11 +8,11 @@
 
 #include <signal.h>
 #include <errno.h>
-#include <wasmux/assert.h>
+#include <assert.h>
 
 int sigemptyset(sigset_t* set)
 {
-  WA_UNREACHABLE();
+  assert(0);
   errno = ENOSYS;
   return -1;
 }

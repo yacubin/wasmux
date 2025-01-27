@@ -82,6 +82,7 @@ set(libc_SOURCES
   stub/sys/xattr.cpp
   stub/abort.cpp
   stub/access.cpp
+  stub/assert.cpp
   stub/ctype.cpp
   stub/environ.cpp
   stub/exit.cpp
