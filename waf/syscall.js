@@ -27,6 +27,7 @@ module.exports = {
   _llseek:         { number: 140, argc: 5,  func: "sys_llseek"          },
   readv:           { number: 145, argc: 3,  func: "sys_readv"           },
   writev:          { number: 146, argc: 3,  func: "sys_writev"          },
+  rt_sigaction:    { number: 174, argc: 4,  func: "sys_rt_sigaction"    },
   rt_sigprocmask:  { number: 175, argc: 4,  func: "sys_rt_sigprocmask"  },
   getcwd:          { number: 183, argc: 2,  func: "sys_getcwd"          },
 

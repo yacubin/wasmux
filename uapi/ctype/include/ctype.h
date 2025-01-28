@@ -1,11 +1,11 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_CTYPE_H
-#define _WA_LIBC_CTYPE_H
+#ifndef _CTYPE_H
+#define _CTYPE_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -34,4 +34,4 @@ int isblank(int ch);
 }
 #endif
 
-#endif /* _WA_LIBC_CTYPE_H */
+#endif /* _CTYPE_H */

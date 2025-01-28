@@ -11,6 +11,11 @@ if (CONFIG_ENABLE_LIBC)
     add_subdirectory("${CONFIG_STRING_PATH}" string)
   endif ()
 
+  if (CONFIG_CTYPE_PATH)
+    list(APPEND LIBC_DEPENDENCIES ctype)
+    add_subdirectory("${CONFIG_CTYPE_PATH}" ctype)
+  endif ()
+
   if (CONFIG_STDLIB_PATH)
     list(APPEND LIBC_DEPENDENCIES stdlib)
     add_subdirectory("${CONFIG_STDLIB_PATH}" stdlib)
@@ -94,6 +99,11 @@ if (CONFIG_ENABLE_LIBC)
   if (CONFIG_GLOB_PATH)
     list(APPEND LIBC_DEPENDENCIES glob)
     add_subdirectory("${CONFIG_GLOB_PATH}" glob)
+  endif ()
+
+  if (CONFIG_FNMATCH_PATH)
+    list(APPEND LIBC_DEPENDENCIES fnmatch)
+    add_subdirectory("${CONFIG_FNMATCH_PATH}" fnmatch)
   endif ()
 
   add_subdirectory(libc)

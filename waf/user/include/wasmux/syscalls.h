@@ -66,10 +66,7 @@ long __kernel_syscall6(long number, long arg1, long arg2, long arg3, long arg4, 
 #define __DO_SYSCALL(...) ___DO_SYSCALL(__SC_NR_CAST, __VA_ARGS__)
 #define __DO_SYSCALL_NR(...) ___DO_SYSCALL(__SR_NO_CAST, __VA_ARGS__)
 
-static inline long sys_open(const char* filename, int flags, umode_t mode)
-{
-  return __DO_SYSCALL(open, filename, flags, mode);
-}
+#define __SYSCALL __DO_SYSCALL
 
 static inline long sys_read(unsigned int fd, char* buf, size_t count)
 {

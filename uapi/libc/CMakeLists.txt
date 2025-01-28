@@ -31,12 +31,10 @@ set(libc_HEADERS
   include/ar.h
   include/assert.h
   include/byteswap.h
-  include/ctype.h
   include/endian.h
   include/errno.h
   include/fcntl.h
   include/float.h
-  include/fnmatch.h
   include/ftw.h
   include/inttypes.h
   include/libgen.h
@@ -83,11 +81,9 @@ set(libc_SOURCES
   stub/abort.cpp
   stub/access.cpp
   stub/assert.cpp
-  stub/ctype.cpp
   stub/environ.cpp
   stub/exit.cpp
   stub/fcntl.cpp
-  stub/fnmatch.cpp
   stub/getenv.cpp
   stub/getmntent.cpp
   stub/libgen.cpp

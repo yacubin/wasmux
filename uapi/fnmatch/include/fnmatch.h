@@ -1,11 +1,11 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_FNMATCH_H
-#define _WA_LIBC_FNMATCH_H
+#ifndef _FNMATCH_H
+#define _FNMATCH_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -29,4 +29,4 @@ int fnmatch(const char* pattern, const char* str, int flags);
 }
 #endif
 
-#endif /* _WA_LIBC_FNMATCH_H */
+#endif /* _FNMATCH_H */

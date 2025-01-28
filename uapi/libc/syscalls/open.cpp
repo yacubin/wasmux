@@ -6,23 +6,23 @@
 
 #include "config.h"
 
+#include <stdarg.h>
+#include <errno.h>
 #include <wasmux/compiler.h>
-#include <wasmux/stdarg.h>
-#include <wasmux/thread_data.h>
 #include <wasmux/syscalls.h>
 
 __ATTR_HIDDEN
 extern "C" int __open(const char* path, int flags, ...)
 {
   int ret;
-  umode_t mode;
+  mode_t mode;
 
   va_list args;
   va_start(args, flags);
-  mode = static_cast<umode_t>(va_arg(args, unsigned));
+  mode = va_arg(args, mode_t);
   va_end(args);
 
-  ret = static_cast<int>(sys_open(path, flags, mode));
+  ret = static_cast<int>(__SYSCALL(open, path, flags, mode));
   if (ret < 0) {
     __set_local_errno(-ret);
     return -1;

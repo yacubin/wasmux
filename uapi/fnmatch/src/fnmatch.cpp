@@ -5,12 +5,12 @@
  */
 
 #include "config.h"
-#include "fnmatch.h"
 
-#include <wasmux/assert.h>
+#include <fnmatch.h>
+#include <assert.h>
 
 int fnmatch(const char* pattern, const char* str, int flags)
 {
-  WA_UNREACHABLE();
+  assert(0);
   return -1;
 }
