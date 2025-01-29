@@ -4,19 +4,17 @@
  *
  */
 
-#ifndef _WA_LIBC_LIBGEN_H
-#define _WA_LIBC_LIBGEN_H
-
-#include <wasmux/basename.h>
+#ifndef _BITS___STRING_BASENAME_H
+#define _BITS___STRING_BASENAME_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-char* dirname(char* path);
+char* basename(char* path);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _WA_LIBC_LIBGEN_H */
+#endif /* _BITS___STRING_BASENAME_H */

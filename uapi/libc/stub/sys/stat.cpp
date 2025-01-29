@@ -17,13 +17,6 @@ int fstat(int fd, struct stat* buf)
   return -1;
 }
 
-int stat(const char* path, struct stat* buf)
-{
-  WA_UNREACHABLE();
-  errno = ENOSYS;
-  return -1;
-}
-
 int lstat(const char* path, struct stat* buf)
 {
   WA_UNREACHABLE();

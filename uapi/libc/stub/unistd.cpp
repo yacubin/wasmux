@@ -218,13 +218,6 @@ int getpagesize(void)
   return -1;
 }
 
-int gethostname(char* name, size_t len)
-{
-  WA_UNREACHABLE();
-  errno = ENOSYS;
-  return -1;
-}
-
 int getgroups(int size, gid_t* list)
 {
   WA_UNREACHABLE();

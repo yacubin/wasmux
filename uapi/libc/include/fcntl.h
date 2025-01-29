@@ -51,6 +51,8 @@ extern "C" {
 #define F_WRLCK   1
 #define F_UNLCK   2
 
+#define AT_FDCWD (-100)
+
 struct flock {
   short l_type;
   short l_whence;

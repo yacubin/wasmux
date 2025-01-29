@@ -13,7 +13,6 @@ set(wabase_HEADERS
   include/wasmux/cxx/TypeTraits.h
   include/wasmux/align.h
   include/wasmux/assert.h
-  include/wasmux/basename.h
   include/wasmux/bulk-memory.h
   include/wasmux/byteorder.h
   include/wasmux/compiler.h
@@ -53,7 +52,6 @@ set(wabase_HEADERS
   )
 
 set(wabase_SOURCES
-  src/basename.cpp
   src/bulk-memory.cpp
   src/bulk-memory.S
   src/byteorder.cpp

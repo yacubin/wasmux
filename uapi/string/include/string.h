@@ -7,8 +7,8 @@
 #ifndef _STRING_H
 #define _STRING_H
 
+#include <bits/__string_basename.h>
 #include <strings.h>
-#include <wasmux/basename.h>
 
 #ifdef __cplusplus
 extern "C" {

@@ -7,12 +7,12 @@
 #include "config.h"
 
 #include <string.h>
-#include <wasmux/assert.h>
+#include <assert.h>
 #include <wasmux/compiler.h>
 
 extern "C" char* __stpcpy(char* dst, const char* src)
 {
-  WA_UNREACHABLE();
+  assert(0);
   return nullptr;
 }
 

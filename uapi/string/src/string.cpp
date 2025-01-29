@@ -29,12 +29,6 @@ void* memchr(const void* mem, int ch, size_t n)
   return nullptr;
 }
 
-void* memrchr(const void* mem, int ch, size_t n)
-{
-  WA_UNREACHABLE();
-  return nullptr;
-}
-
 char* strchr(const char* str, int ch)
 {
   return const_cast<char*>(WAF::charactersFind<char,true>(str, ch));
@@ -67,12 +61,6 @@ char* strcpy(char* dst, const char* src)
 }
 
 char* strncpy(char* dst, const char* src, size_t n)
-{
-  WA_UNREACHABLE();
-  return nullptr;
-}
-
-char* strrchr(const char* str, int ch)
 {
   WA_UNREACHABLE();
   return nullptr;

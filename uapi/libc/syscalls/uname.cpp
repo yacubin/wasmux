@@ -6,20 +6,21 @@
 
 #include "config.h"
 
+#include <sys/utsname.h>
+#include <errno.h>
 #include <wasmux/compiler.h>
-#include <wasmux/thread_data.h>
 #include <wasmux/syscalls.h>
 
 __ATTR_HIDDEN
-extern "C" ssize_t __read(int fd, void* buf, size_t count)
+extern "C" int __uname(struct utsname* buf)
 {
-  auto ret = __DO_SYSCALL(read, fd, buf, count);
+  auto ret = __DO_SYSCALL(uname, buf);
   if (ret < 0) {
     __set_local_errno(-static_cast<int>(ret));
     return -1;
   }
 
-  return static_cast<ssize_t>(ret);
+  return static_cast<int>(ret);
 }
 
-extern "C" __ATTR_ALIAS(__read, read) __ATTR_WEAK;
+extern "C" __ATTR_ALIAS(__uname, uname) __ATTR_WEAK;

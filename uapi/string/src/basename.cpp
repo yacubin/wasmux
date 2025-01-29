@@ -5,12 +5,12 @@
  */
 
 #include "config.h"
-#include "libgen.h"
 
-#include <wasmux/assert.h>
+#include <bits/__string_basename.h>
+#include <assert.h>
 
-char* dirname(char* path)
+char* basename(char* path)
 {
-  WA_UNREACHABLE();
+  assert(0);
   return nullptr;
 }

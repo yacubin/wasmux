@@ -37,7 +37,6 @@ set(libc_HEADERS
   include/float.h
   include/ftw.h
   include/inttypes.h
-  include/libgen.h
   include/limits.h
   include/memory.h
   include/mntent.h
@@ -74,7 +73,6 @@ set(libc_SOURCES
   stub/sys/sysinfo.cpp
   stub/sys/sysmacros.cpp
   stub/sys/time.cpp
-  stub/sys/utsname.cpp
   stub/sys/vfs.cpp
   stub/sys/wait.cpp
   stub/sys/xattr.cpp
@@ -86,7 +84,6 @@ set(libc_SOURCES
   stub/fcntl.cpp
   stub/getenv.cpp
   stub/getmntent.cpp
-  stub/libgen.cpp
   stub/pipe.cpp
   stub/poll.cpp
   stub/progname.cpp
@@ -110,6 +107,7 @@ set(libc_SOURCES
   syscalls/creat.cpp
   syscalls/dup2.cpp
   syscalls/execve.cpp
+  syscalls/fstatat.cpp
   syscalls/getcwd.cpp
   syscalls/getegid.cpp
   syscalls/geteuid.cpp
@@ -123,9 +121,12 @@ set(libc_SOURCES
   syscalls/open.cpp
   syscalls/read.cpp
   syscalls/readv.cpp
+  syscalls/uname.cpp
   syscalls/waitpid.cpp
   syscalls/write.cpp
   syscalls/writev.cpp
+  src/sys/stat.cpp
+  src/gethostname.cpp
   src/isatty.cpp
   src/sbrk.cpp
   src/ttyname.cpp

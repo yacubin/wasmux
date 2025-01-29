@@ -1,15 +1,21 @@
 set(string_HEADERS
+  include/bits/__string_basename.h
+  include/libgen.h
   include/string.h
   include/strings.h
   )
 
 set(string_SOURCES
+  src/basename.cpp
+  src/dirname.cpp
   src/memcpy.cpp
+  src/memrchr.cpp
   src/memset.cpp
   src/stpcpy.cpp
   src/strchrnul.cpp
   src/strdup.cpp
   src/string.cpp
+  src/strrchr.cpp
   )
 
 set(string_INCLUDES

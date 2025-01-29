@@ -24,6 +24,7 @@ module.exports = {
   ioctl:           { number: 54,  argc: 3,  func: "sys_ioctl"           },
   dup2:            { number: 63,  argc: 2,  func: "sys_dup2"            },
   gettimeofday:    { number: 78,  argc: 2,  func: "sys_gettimeofday"    },
+  uname:           { number: 122, argc: 1,  func: "sys_newuname"        },
   _llseek:         { number: 140, argc: 5,  func: "sys_llseek"          },
   readv:           { number: 145, argc: 3,  func: "sys_readv"           },
   writev:          { number: 146, argc: 3,  func: "sys_writev"          },
@@ -37,5 +38,6 @@ module.exports = {
   getegid32:       { number: 202, argc: 0,  func: "sys_getegid"         },
 
   gettid:          { number: 224, argc: 0,  func: "sys_gettid"          },
-  futex:           { number: 240, argc: 6,  func: "sys_futex_time32"    },			
+  futex:           { number: 240, argc: 6,  func: "sys_futex_time32"    },
+  fstatat64:       { number: 300, argc: 4,  func: "sys_fstatat64"       },
 }

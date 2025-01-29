@@ -68,11 +68,6 @@ long __kernel_syscall6(long number, long arg1, long arg2, long arg3, long arg4, 
 
 #define __SYSCALL __DO_SYSCALL
 
-static inline long sys_read(unsigned int fd, char* buf, size_t count)
-{
-  return __DO_SYSCALL(read, fd, buf, count);
-}
-
 static inline long sys_write(unsigned int fd, const char* buf, size_t count)
 {
   return __DO_SYSCALL(write, fd, buf, count);
@@ -173,11 +168,6 @@ static inline long sys_gettimeofday(struct timeval* tv, struct timezone* tz)
   return __DO_SYSCALL(gettimeofday, tv, tz);
 }
 
-static inline long sys_readv(unsigned long fd, const struct iovec* vec, unsigned long vlen)
-{
-  return __DO_SYSCALL(readv, fd, vec, vlen);
-}
-
 static inline long sys_writev(unsigned long fd, const struct iovec* vec, unsigned long vlen)
 {
   return __DO_SYSCALL(writev, fd, vec, vlen);
@@ -201,11 +191,6 @@ static inline long sys_time32(time32_t* tloc)
 static inline long sys_dup2(unsigned int oldfd, unsigned int newfd)
 {
   return __DO_SYSCALL(dup2, oldfd, newfd);
-}
-
-static inline long sys_rt_sigprocmask(int how, /* sigset_t */ void* set, /* sigset_t */ void* oset, size_t sigsetsize)
-{
-  return __DO_SYSCALL(rt_sigprocmask, how, set, oset, sigsetsize);
 }
 
 #ifdef __cplusplus
