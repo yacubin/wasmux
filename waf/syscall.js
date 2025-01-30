@@ -23,6 +23,7 @@ module.exports = {
   brk:             { number: 45,  argc: 1,  func: "sys_brk"             },
   ioctl:           { number: 54,  argc: 3,  func: "sys_ioctl"           },
   dup2:            { number: 63,  argc: 2,  func: "sys_dup2"            },
+  getppid:         { number: 64,  argc: 0,  func: "sys_getppid"         },
   gettimeofday:    { number: 78,  argc: 2,  func: "sys_gettimeofday"    },
   uname:           { number: 122, argc: 1,  func: "sys_newuname"        },
   _llseek:         { number: 140, argc: 5,  func: "sys_llseek"          },
@@ -40,4 +41,5 @@ module.exports = {
   gettid:          { number: 224, argc: 0,  func: "sys_gettid"          },
   futex:           { number: 240, argc: 6,  func: "sys_futex_time32"    },
   fstatat64:       { number: 300, argc: 4,  func: "sys_fstatat64"       },
+  statx:           { number: 383, argc: 5,  func: "sys_statx"           },
 }

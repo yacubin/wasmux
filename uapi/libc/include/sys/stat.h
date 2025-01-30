@@ -4,9 +4,10 @@
  *
  */
 
-#ifndef _WA_LIBC_SYS_STAT_H
-#define _WA_LIBC_SYS_STAT_H
+#ifndef _SYS_STAT_H
+#define _SYS_STAT_H
 
+#include <wasmux/stat.h>
 #include <sys/types.h>
 
 #ifdef __cplusplus
@@ -87,8 +88,10 @@ int mkfifo(const char* path, mode_t mode);
 
 mode_t umask(mode_t mask);
 
+int statx(int dirfd, const char* path, int flags, unsigned mask, struct statx* buf);
+
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _WA_LIBC_SYS_STAT_H */
+#endif /* _SYS_STAT_H */

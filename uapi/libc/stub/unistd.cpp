@@ -113,20 +113,6 @@ char* crypt(const char* key, const char* salt)
   return nullptr;
 }
 
-pid_t getpid(void)
-{
-  WA_UNREACHABLE();
-  errno = ENOSYS;
-  return -1;
-}
-
-pid_t getppid(void)
-{
-  WA_UNREACHABLE();
-  errno = ENOSYS;
-  return -1;
-}
-
 int setuid(uid_t uid)
 {
   WA_UNREACHABLE();

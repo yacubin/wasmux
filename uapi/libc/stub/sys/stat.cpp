@@ -24,13 +24,6 @@ int lstat(const char* path, struct stat* buf)
   return -1;
 }
 
-int fstatat(int dirfd, const char* path, struct stat* buf, int flags)
-{
-  WA_UNREACHABLE();
-  errno = ENOSYS;
-  return -1;
-}
-
 int mkdir(const char* path, mode_t mode)
 {
   WA_UNREACHABLE();

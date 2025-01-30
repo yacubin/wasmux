@@ -14,7 +14,12 @@
 extern "C" {
 #endif
 
-typedef unsigned dev_t;
+#if __SIZEOF_LONG__ == 8
+typedef unsigned long dev_t;
+#else
+typedef unsigned long long dev_t;
+#endif
+
 typedef uintptr_t nlink_t;
 typedef long blksize_t;
 typedef int blkcnt_t;

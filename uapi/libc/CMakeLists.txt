@@ -71,7 +71,6 @@ set(libc_SOURCES
   stub/sys/stat.cpp
   stub/sys/statfs.cpp
   stub/sys/sysinfo.cpp
-  stub/sys/sysmacros.cpp
   stub/sys/time.cpp
   stub/sys/vfs.cpp
   stub/sys/wait.cpp
@@ -112,6 +111,8 @@ set(libc_SOURCES
   syscalls/getegid.cpp
   syscalls/geteuid.cpp
   syscalls/getgid.cpp
+  syscalls/getpid.cpp
+  syscalls/getppid.cpp
   syscalls/gettid.cpp
   syscalls/gettimeofday.cpp
   syscalls/getuid.cpp
@@ -121,6 +122,7 @@ set(libc_SOURCES
   syscalls/open.cpp
   syscalls/read.cpp
   syscalls/readv.cpp
+  syscalls/statx.cpp
   syscalls/uname.cpp
   syscalls/waitpid.cpp
   syscalls/write.cpp

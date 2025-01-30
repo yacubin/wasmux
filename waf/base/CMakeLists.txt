@@ -37,6 +37,7 @@ set(wabase_HEADERS
   include/wasmux/socket.h
   include/wasmux/sprintf.h
   include/wasmux/stack_pointer.h
+  include/wasmux/stat.h
   include/wasmux/statfs.h
   include/wasmux/stdarg.h
   include/wasmux/swab.h
