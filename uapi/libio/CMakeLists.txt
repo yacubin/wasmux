@@ -9,6 +9,7 @@ set(libio_SOURCES
   src/_stdio.cpp
   src/fprintf.cpp
   src/libio_wchar.cpp
+  src/putc.cpp
   src/setvbuf.cpp
   src/sprintf.cpp
   src/stdio_ext.cpp

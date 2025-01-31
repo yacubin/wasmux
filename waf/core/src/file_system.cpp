@@ -44,9 +44,10 @@ struct StatSyncData {
 	WEI_Object xhrObj;
 	WebString* path;
 	WebFunction* loadFn;
+	WebFunction* errorFn;
 };
 
-static void onStatLoadRequest(void* userdata, WEI_Object event)
+static void onLoadRequest(void* userdata, WEI_Object event)
 {
 	auto data = reinterpret_cast<StatSyncData*>(userdata);
 
@@ -65,6 +66,21 @@ static void onStatLoadRequest(void* userdata, WEI_Object event)
 	}
 
   WebXMLHttpRequest_removeOnLoad(data->xhrObj, data->loadFn);
+  WebXMLHttpRequest_removeOnLoad(data->xhrObj, data->errorFn);
+	WEI_objectRelease(data->xhrObj);
+	WebString_destroy(data->path);
+
+	notify_waiter_notify(&data->signal);
+}
+
+static void onErrorRequest(void* userdata, WEI_Object event)
+{
+	auto data = reinterpret_cast<StatSyncData*>(userdata);
+
+  data->ec = -ENOENT;
+
+  WebXMLHttpRequest_removeOnLoad(data->xhrObj, data->loadFn);
+  WebXMLHttpRequest_removeOnLoad(data->xhrObj, data->errorFn);
 	WEI_objectRelease(data->xhrObj);
 	WebString_destroy(data->path);
 
@@ -88,7 +104,8 @@ static void onStatHandler(void* userdata, WEI_Object pathObj)
 
   data->path = object_ptr_cast<WebString>(WEI_objectRetain(pathObj));
   data->xhrObj = WebXMLHttpRequest_create();
-  data->loadFn = WebXMLHttpRequest_addOnLoad(data->xhrObj, &onStatLoadRequest, data);
+  data->loadFn = WebXMLHttpRequest_addOnLoad(data->xhrObj, &onLoadRequest, data);
+  data->errorFn = WebXMLHttpRequest_addOnError(data->xhrObj, &onErrorRequest, data);
   WebXMLHttpRequest_setResponseType(data->xhrObj, "arraybuffer");
   WebXMLHttpRequest_openGET(data->xhrObj, data->path);
   WebXMLHttpRequest_send(data->xhrObj, WEI_NULL_OBJECT);

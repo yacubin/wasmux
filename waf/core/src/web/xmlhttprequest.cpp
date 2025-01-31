@@ -118,6 +118,14 @@ WebFunction* WebXMLHttpRequest_addOnLoad(WEI_Object xhr, WEI_PerformCallback1* c
   return object_ptr_cast<WebFunction>(listenerObj);
 }
 
+WebFunction* WebXMLHttpRequest_addOnError(WEI_Object xhr, WEI_PerformCallback1* callback, void* userdata)
+{
+  WebString* type = WebString_create("error");
+  WEI_Object listenerObj = WEI_addEventListener(xhr, object_idx_cast(type), callback, userdata);
+  WebString_destroy(type);
+  return object_ptr_cast<WebFunction>(listenerObj);
+}
+
 int WebXMLHttpRequest_removeOnLoad(WEI_Object xhr, WebFunction* listener)
 {
   WebString* type = WebString_create("load");

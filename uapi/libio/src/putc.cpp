@@ -5,14 +5,14 @@
  */
 
 #include "config.h"
-#include "stdio.h"
 
-#include <wasmux/assert.h>
+#include <stdio.h>
 #include <errno.h>
+#include <assert.h>
 
 int putc(int ch, FILE* file)
 {
   errno = ENOSYS;
-  WA_UNREACHABLE();
+  assert(0);
   return -1;
 }

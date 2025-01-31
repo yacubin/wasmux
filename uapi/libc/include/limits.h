@@ -23,4 +23,7 @@
 #define MB_LEN_MAX 4
 #define NL_ARGMAX 9
 
+/* Max length of a login username (including NIL) */
+#define LOGIN_NAME_MAX 256
+
 #endif /* _LIMITS_H */

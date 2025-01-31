@@ -86,7 +86,6 @@ set(libc_SOURCES
   stub/pipe.cpp
   stub/poll.cpp
   stub/progname.cpp
-  stub/putc.cpp
   stub/qsort.cpp
   stub/read.cpp
   stub/search.cpp

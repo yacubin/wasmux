@@ -15,7 +15,8 @@
 extern "C" {
 #endif
 
-#define MSG_PEEK  2
+#define MSG_PEEK     0x00000002
+#define MSG_NOSIGNAL 0x00004000
 
 #define SOL_SOCKET 1
 
@@ -39,6 +40,8 @@ enum sock_type {
   SOCK_SEQPACKET = 5,
   SOCK_DCCP      = 6,
   SOCK_PACKET    = 10,
+  SOCK_CLOEXEC   = 02000000,
+  SOCK_NONBLOCK  = 00004000,
 };
 
 /* shutdown */
