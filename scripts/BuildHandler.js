@@ -148,7 +148,11 @@ const actionHandlers = {
       }
       else if (config.variables) {
         for (const [key,val] of Object.entries(config.variables)) {
-          if (val === null)
+          if (key === "features" && Array.isArray(val)) {
+            for (const iter of val)
+              params.push(`--${iter}`);
+          }
+          else if (val === null)
             params.push(`--${key}`);
           else
             params.push(`--${key}=${val}`);

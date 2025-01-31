@@ -74,6 +74,10 @@ int ferror(FILE* file);
 void clearerr(FILE* file);
 int fileno(FILE* file);
 int fscanf(FILE* file, const char* fmt, ...);
+int getc_unlocked(FILE* file);
+
+ssize_t getline(char** line, size_t* n, FILE* file);
+ssize_t getdelim(char** line, size_t* n, int delim, FILE* file);
 
 void setbuf(FILE* file, char* buf);
 int setvbuf(FILE* file, char* buf, int mode, size_t size);

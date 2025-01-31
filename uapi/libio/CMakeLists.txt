@@ -8,6 +8,9 @@ set(libio_HEADERS
 set(libio_SOURCES
   src/_stdio.cpp
   src/fprintf.cpp
+  src/getc_unlocked.cpp
+  src/getdelim.cpp
+  src/getline.cpp
   src/libio_wchar.cpp
   src/putc.cpp
   src/setvbuf.cpp

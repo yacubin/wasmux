@@ -13,6 +13,10 @@
 extern "C" {
 #endif
 
+int abs(int i);
+long labs(long i);
+long long llabs(long long i);
+
 void qsort(void* base, size_t n, size_t size, int (*compare) (const void*, const void*));
 void qsort_r(void* base, size_t n, size_t size, int (*compare) (const void*, const void*, void*), void* arg);
 

@@ -3,6 +3,7 @@ set(stdlib_HEADERS
   )
 
 set(stdlib_SOURCES
+  src/abs.cpp
   src/qsort.cpp
   )
 

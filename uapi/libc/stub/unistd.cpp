@@ -5,11 +5,12 @@
  */
 
 #include "config.h"
-#include "unistd.h"
 
+#include <unistd.h>
+#include <errno.h>
+#include <assert.h>
 #include <wasmux/compiler.h>
 #include <wasmux/assert.h>
-#include <errno.h>
 
 int fsync(int fd)
 {

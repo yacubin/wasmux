@@ -1,23 +1,50 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_LANGINFO_H
-#define _WA_LIBC_LANGINFO_H
+#ifndef _LANGINFO_H
+#define _LANGINFO_H
 
-#include <locale.h>
-
-#define _NL_ITEM(category, index) (((category) << 16) | (index))
+#include <bits/locale_category.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+#define _NL_ITEM(category, index) (((category) << 16) | (index))
+
 enum {
-  CODESET,
-#define CODESET CODESET
+  ABDAY_1 = _NL_ITEM(__LC_TIME, 0),
+#define ABDAY_1 ABDAY_1
+  ABDAY_2,
+#define ABDAY_2 ABDAY_2
+  ABDAY_3,
+#define ABDAY_3 ABDAY_3
+  ABDAY_4,
+#define ABDAY_4 ABDAY_4
+  ABDAY_5,
+#define ABDAY_5 ABDAY_5
+  ABDAY_6,
+#define ABDAY_6 ABDAY_6
+  ABDAY_7,
+#define ABDAY_7 ABDAY_7
+
+  DAY_1,
+#define DAY_1 DAY_1
+  DAY_2,
+#define DAY_2 DAY_2
+  DAY_3,
+#define DAY_3 DAY_3
+  DAY_4,
+#define DAY_4 DAY_4
+  DAY_5,
+#define DAY_5 DAY_5
+  DAY_6,
+#define DAY_6 DAY_6
+  DAY_7,
+#define DAY_7 DAY_7
 
   ABMON_1,
 #define ABMON_1 ABMON_1
@@ -69,6 +96,12 @@ enum {
   MON_12,
 #define MON_12 MON_12
 
+  AM_STR,
+#define AM_STR AM_STR
+
+  PM_STR,
+#define PM_STR PM_STR
+
   D_T_FMT,
 #define D_T_FMT D_T_FMT
   D_FMT,
@@ -77,6 +110,19 @@ enum {
 #define T_FMT T_FMT
   T_FMT_AMPM,
 #define T_FMT_AMPM T_FMT_AMPM
+
+  ERA,
+#define ERA ERA
+  ERA_D_FMT,
+#define ERA_D_FMT ERA_D_FMT
+  ALT_DIGITS,
+#define ALT_DIGITS ALT_DIGITS
+  ERA_D_T_FMT,
+#define ERA_D_T_FMT ERA_D_T_FMT
+  ERA_T_FMT,
+#define ERA_T_FMT ERA_T_FMT
+
+  _NL_TIME_ERA_NUM_ENTRIES,
 
   ALTMON_1,
 #define ALTMON_1 ALTMON_1
@@ -107,6 +153,20 @@ enum {
 #define RADIXCHAR RADIXCHAR
   THOUSEP,
 #define THOUSEP THOUSEP
+
+  CODESET,
+#define CODESET CODESET
+
+  _NL_CTYPE_OUTDIGIT0_MB,
+  _NL_CTYPE_OUTDIGIT1_MB,
+  _NL_CTYPE_OUTDIGIT2_MB,
+  _NL_CTYPE_OUTDIGIT3_MB,
+  _NL_CTYPE_OUTDIGIT4_MB,
+  _NL_CTYPE_OUTDIGIT5_MB,
+  _NL_CTYPE_OUTDIGIT6_MB,
+  _NL_CTYPE_OUTDIGIT7_MB,
+  _NL_CTYPE_OUTDIGIT8_MB,
+  _NL_CTYPE_OUTDIGIT9_MB,
 };
 
 typedef int nl_item;
@@ -117,4 +177,4 @@ char* nl_langinfo(nl_item item);
 }
 #endif
 
-#endif /* _WA_LIBC_LANGINFO_H */
+#endif /* _LANGINFO_H */

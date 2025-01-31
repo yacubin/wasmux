@@ -9,6 +9,7 @@ set(libc_HEADERS
   include/sys/ioctl.h
   include/sys/mman.h
   include/sys/param.h
+  include/sys/poll.h
   include/sys/random.h
   include/sys/resource.h
   include/sys/select.h
@@ -131,6 +132,7 @@ set(libc_SOURCES
   src/isatty.cpp
   src/sbrk.cpp
   src/ttyname.cpp
+  src/usleep.cpp
 
   $<TARGET_OBJECTS:wabase>
   $<TARGET_OBJECTS:wauser>
@@ -138,6 +140,7 @@ set(libc_SOURCES
 
 set(libc_DATAFILES
   include/gnu-versions.h.in
+  include/ctype.h.in
   include/stdlib.h.in
   include/unistd.h.in
   )
@@ -159,11 +162,7 @@ foreach (_lib ${LIBC_DEPENDENCIES})
   list(APPEND libc_SOURCES $<TARGET_OBJECTS:${_lib}>)
 endforeach ()
 
-set(GNU_VERSIONS_INCLUDE_LIST "")
-set(STDLIB_INCLUDE_LIST "")
-set(UNISTD_INCLUDE_LIST "")
-
-foreach (_iter GNU_VERSIONS_INCLUDE STDLIB_INCLUDE UNISTD_INCLUDE)
+foreach (_iter GNU_VERSIONS_INCLUDE STDLIB_INCLUDE UNISTD_INCLUDE CTYPE_INCLUDE)
   set(${_iter}_LIST "")
   foreach (_lib ${LIBC_DEPENDENCIES})
     get_target_property(_versions_include ${_lib} ${_iter})
@@ -174,6 +173,7 @@ foreach (_iter GNU_VERSIONS_INCLUDE STDLIB_INCLUDE UNISTD_INCLUDE)
   string(REPLACE ";" "\n" ${_iter}_LIST "${${_iter}_LIST}")
 endforeach ()
 
+configure_file("include/ctype.h.in" "${CMAKE_CURRENT_BINARY_DIR}/include/ctype.h" @ONLY)
 configure_file("include/gnu-versions.h.in" "${CMAKE_CURRENT_BINARY_DIR}/include/gnu-versions.h" @ONLY)
 configure_file("include/stdlib.h.in" "${CMAKE_CURRENT_BINARY_DIR}/include/stdlib.h" @ONLY)
 configure_file("include/unistd.h.in" "${CMAKE_CURRENT_BINARY_DIR}/include/unistd.h" @ONLY)
@@ -197,6 +197,7 @@ install(TARGETS libc
 
 if (CONFIG_ENABLE_INSTALL_HEADERS)
   WX_INSTALL_HEADERS(HEADERS ${libc_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/include/ctype.h" DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
   install(FILES "${CMAKE_CURRENT_BINARY_DIR}/include/features.h" DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
   install(FILES "${CMAKE_CURRENT_BINARY_DIR}/include/gnu-versions.h" DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
   install(FILES "${CMAKE_CURRENT_BINARY_DIR}/include/stdlib.h" DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")

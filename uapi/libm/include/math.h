@@ -40,10 +40,16 @@ double frexp(double x, int* exp);
 double ceil(double x);
 double floor(double x);
 double log(double x);
+
 double sqrt(double x);
+float sqrtf(float x);
+
 double cos(double x);
 double sin(double x);
+
 double fabs(double x);
+long double fabsl(long double x);
+
 double log2(double x);
 double log10(double x);
 

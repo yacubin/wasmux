@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_LIBC_SYS_TYPES_H
-#define _WA_LIBC_SYS_TYPES_H
+#ifndef _SYS_TYPES_H
+#define _SYS_TYPES_H
 
 #include <wasmux/types.h>
 #include <sys/select.h>
@@ -26,8 +26,10 @@ typedef int blkcnt_t;
 
 typedef unsigned char u_char;
 typedef unsigned int u_int;
+typedef unsigned short u_short;
 typedef unsigned long u_long;
 
+typedef uint8_t u_int8_t;
 typedef uint16_t u_int16_t;
 typedef uint32_t u_int32_t;
 
@@ -40,8 +42,10 @@ typedef uint64_t bits64_t;
 typedef uint64_t ino_t;
 typedef uint32_t id_t;
 
+typedef unsigned useconds_t;
+
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _WA_LIBC_SYS_TYPES_H */
+#endif /* _SYS_TYPES_H */

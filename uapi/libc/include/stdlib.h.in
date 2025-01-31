@@ -53,7 +53,7 @@ char* mktemp(char* pattern);
 const char* getprogname(void);
 void setprogname(const char* progname);
 
-int abs(int i);
+#define RAND_MAX 0x7fffffff
 
 void srand(unsigned seed);
 int rand(void);

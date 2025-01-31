@@ -9,13 +9,21 @@
 namespace WAF {
 
 template<typename T>
-const T& min(const T& a, const T& b) {
+T min(T a, T b)
+{
   return b < a ? b : a;
 }
 
 template<typename T>
-const T& max(const T& a, const T& b) {
+T max(T a, T b)
+{
   return b > a ? b : a;
+}
+
+template<typename T>
+T abs(T i)
+{
+  return i < 0 ? -i : i;
 }
 
 }  // namespace WAF

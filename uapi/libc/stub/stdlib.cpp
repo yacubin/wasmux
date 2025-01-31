@@ -16,12 +16,6 @@ int system(const char* command)
   return -1;
 }
 
-int abs(int i)
-{
-  WA_UNREACHABLE();
-  return i;
-}
-
 void srand(unsigned seed)
 {
   WA_UNREACHABLE();
