@@ -1,10 +1,3 @@
-/*
- *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
- *
- */
-
-#include "config.h"
 #include <wasmux/types.h>
 
 .globaltype __stack_pointer, PTR
@@ -17,6 +10,7 @@
 
 .section .text,"",@
 .globl _start_kernel
+.type _start_kernel,@function
 _start_kernel:
   .functype _start_kernel () -> ()
 

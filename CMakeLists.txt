@@ -16,11 +16,9 @@ include_directories("${CMAKE_CURRENT_BINARY_DIR}")
 
 add_subdirectory(waf)
 add_subdirectory(uapi)
+add_subdirectory(kernel)
 
-if (CONFIG_ENABLE_KERNEL)
-  add_subdirectory(kernel)
-endif ()
-
+if (CONFIG_ENABLE_INSTALL_HEADERS)
 file(READ "cmake/toolchain/LinuxSystem.cmake" _TOOLCHAIN_CONTENT1)
 file(READ "cmake/toolchain/UserConfig.cmake" _TOOLCHAIN_CONTENT2)
 file(READ "cmake/toolchain/CommonToolchain.cmake" _TOOLCHAIN_CONTENT3)
@@ -38,3 +36,4 @@ ${_TOOLCHAIN_CONTENT2}
 ${_TOOLCHAIN_CONTENT3}
 ")
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/cmake/${CONFIG_TARGET_SYSTEM}.toolchain.cmake" DESTINATION "share/wasmux")
+endif ()
