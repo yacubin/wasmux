@@ -111,6 +111,11 @@ if (CONFIG_ENABLE_LIBC)
     add_subdirectory("${CONFIG_FNMATCH_PATH}" fnmatch)
   endif ()
 
+  if (CONFIG_ULINUX_PATH)
+    list(APPEND LIBC_DEPENDENCIES ulinux)
+    add_subdirectory("${CONFIG_ULINUX_PATH}" ulinux)
+  endif ()
+
   add_subdirectory(libc)
 endif ()
 

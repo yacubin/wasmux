@@ -4,9 +4,9 @@
  *
  */
 
-#ifndef _WA_LIBC_SYS_SYSCALL_H
-#define _WA_LIBC_SYS_SYSCALL_H
+#ifndef _SYS_SYSCALL_H
+#define _SYS_SYSCALL_H
 
 #include <wasmux/syscalls.h>
 
-#endif /* _WA_LIBC_SYS_SYSCALL_H */
+#endif /* _SYS_SYSCALL_H */

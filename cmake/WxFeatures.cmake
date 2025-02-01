@@ -40,6 +40,7 @@ if (CONFIG_ENABLE_LIBC)
   WX_OPTION(CONFIG_REGEX_PATH      "Path to regex standalone"    "${WASMUX_ROOT_DIR}/uapi/regex"     STRING)
   WX_OPTION(CONFIG_GLOB_PATH       "Path to glob standalone"     "${WASMUX_ROOT_DIR}/uapi/glob"      STRING)
   WX_OPTION(CONFIG_FNMATCH_PATH    "Path to fnmatch standalone"  "${WASMUX_ROOT_DIR}/uapi/fnmatch"   STRING)
+  WX_OPTION(CONFIG_ULINUX_PATH     "Path to ulinux standalone"   "${WASMUX_ROOT_DIR}/uapi/ulinux"    STRING)
 endif ()
 
 set(WASMUX_INSTALL_BINDIR "bin")

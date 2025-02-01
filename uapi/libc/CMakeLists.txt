@@ -1,6 +1,5 @@
 set(libc_HEADERS
   include/arpa/inet.h
-  include/linux/version.h
   include/net/if.h
   include/netinet/in.h
   include/netinet/tcp.h
@@ -51,6 +50,7 @@ set(libc_HEADERS
   include/stdarg.h
   include/stddef.h
   include/stdint.h
+  include/syscall.h
   include/sysexits.h
   include/syslog.h
   include/syslog.h
