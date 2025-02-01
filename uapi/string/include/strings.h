@@ -16,6 +16,8 @@ extern "C" {
 int ffs(int i);
 
 void bcopy(const void* src, void* dst, size_t len);
+char* rindex(const char* str, int ch);
+
 int strcasecmp(const char* str1, const char* str2);
 int strncasecmp(const char* str1, const char* str2, size_t len);
 

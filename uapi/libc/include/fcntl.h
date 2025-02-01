@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_LIBC_FCNTL_H
-#define _WA_LIBC_FCNTL_H
+#ifndef _FCNTL_H
+#define _FCNTL_H
 
 #include <sys/types.h>
 #include <wasmux/fcntl.h>
@@ -25,7 +25,7 @@ extern "C" {
 #define F_SETLK          6    /* Set a lock (non-blocking) */
 #define F_SETLKW         7    /* Set a lock, waiting if necessary */
 #define F_SETOWN         8	  /* Set process to receive SIGIO signals */
-#define F_DUPFD_CLOEXEC  103  /* Duplicate file descriptor with FD_CLOEXEC */
+#define F_DUPFD_CLOEXEC  1030 /* Duplicate file descriptor with FD_CLOEXEC */
 
 /* File access mode masks (for F_GETFL/F_SETFL) */
 #define O_RDONLY   0  /* Open for reading only */
@@ -41,11 +41,6 @@ extern "C" {
 #define O_ASYNC      0x00002000  /* Enables async I/O signals */
 
 #define O_SEARCH     0x00001000
-#define O_NONBLOCK   0x00004000
-#define O_DIRECTORY  0x00010000
-#define O_CLOEXEC    0x00080000
-
-#define O_APPEND     0x00000008
 
 #define F_RDLCK   0
 #define F_WRLCK   1
@@ -61,6 +56,18 @@ struct flock {
   pid_t l_pid;
 };
 
+// Defines constants for identifying the type of owner in file descriptor operations
+#define F_OWNER_TID   0  // Owner is identified by a Thread ID (TID)
+#define F_OWNER_PID   1  // Owner is identified by a Process ID (PID)
+#define F_OWNER_PGRP  2  // Owner is identified by a Process Group ID (PGRP)
+
+#define F_OWNER_GID   F_OWNER_PGRP
+
+struct f_owner_ex {
+  int type;
+  pid_t pid;
+};
+
 int fcntl(int fd, int cmd, ...);
 int open(const char* path, int flags, ...);
 int openat(int dirfd, const char* path, int flags, ...);
@@ -70,4 +77,4 @@ int creat(const char* path, mode_t mode);
 }
 #endif
 
-#endif /* _WA_LIBC_FCNTL_H */
+#endif /* _FCNTL_H */

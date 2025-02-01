@@ -1,11 +1,11 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_MALLOC_H
-#define _WA_LIBC_MALLOC_H
+#ifndef _MALLOC_H
+#define _MALLOC_H
 
 #include <stddef.h>
 
@@ -19,9 +19,10 @@ void* realloc(void* ptr, size_t size);
 void free(void* ptr);
 
 void* aligned_alloc(size_t alignment, size_t size);
+int posix_memalign(void** mem, size_t alignment, size_t size);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _WA_LIBC_MALLOC_H */
+#endif /* _MALLOC_H */

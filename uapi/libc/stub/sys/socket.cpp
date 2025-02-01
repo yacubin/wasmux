@@ -15,6 +15,12 @@ int socket(int domain, int type, int protocol)
   return -1;
 }
 
+int socketpair(int domain, int type, int protocol, int fds[2])
+{
+  WA_UNREACHABLE();
+  return -1;
+}
+
 int connect(int sock, const struct sockaddr* addr, socklen_t addrlen)
 {
   WA_UNREACHABLE();

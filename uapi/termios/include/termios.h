@@ -7,6 +7,7 @@
 #ifndef _TERMIOS_H
 #define _TERMIOS_H
 
+#include <wasmux/types.h>
 #include <wasmux/termios.h>
 
 #ifdef __cplusplus
@@ -43,10 +44,29 @@ extern "C" {
 #define B19200 0x0000000e
 #define B38400 0x0000000f
 
+#define B57600   0x00001001
+#define B115200	 0x00001002
+#define B230400	 0x00001003
+#define B460800	 0x00001004
+#define B500000	 0x00001005
+#define B576000	 0x00001006
+#define B921600	 0x00001007
+#define B1000000 0x00001008
+#define B1152000 0x00001009
+#define B1500000 0x0000100a
+#define B2000000 0x0000100b
+#define B2500000 0x0000100c
+#define B3000000 0x0000100d
+#define B3500000 0x0000100e
+#define B4000000 0x0000100f
+
 #define IUCLC   0x0200
 #define IXON    0x0400
 #define IXOFF   0x1000
 #define IMAXBEL 0x2000
+#define IUTF8   0x4000
+
+#define ONLCR   0x00004
 
 #define CSIZE  0x00000030
 #define CS5    0x00000000
@@ -68,6 +88,7 @@ extern "C" {
 #define ECHOK  0x00020
 #define ECHONL 0x00040
 #define NOFLSH 0x00080
+#define ECHOKE 0x00800
 #define IEXTEN 0x08000
 
 typedef unsigned char cc_t;
@@ -102,6 +123,8 @@ struct termios {
 #define TCSADRAIN 1
 #define TCSAFLUSH 2
 
+#define CRTSCTS 0x80000000
+
 /* Constants are used with the tcflow function to manage data flow */
 #define TCOOFF 0  /* Pause output */
 #define TCOON  1  /* Resume output */
@@ -112,10 +135,12 @@ struct termios {
 #define TCOFLUSH  1
 #define TCIOFLUSH 2
 
+pid_t tcgetsid(int fd);
+int tcdrain(int fd);
 int tcflow(int fd, int action);
+int tcflush(int fd, int queue_selector);
 int tcgetattr(int fd, struct termios* termios);
 int tcsetattr(int fd, int optional_actions, const struct termios* termios);
-int tcflush(int fd, int queue_selector);
 
 speed_t cfgetispeed(const struct termios* termios);
 speed_t cfgetospeed(const struct termios* termios);

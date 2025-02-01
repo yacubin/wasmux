@@ -90,6 +90,9 @@ mode_t umask(mode_t mask);
 
 int statx(int dirfd, const char* path, int flags, unsigned mask, struct statx* buf);
 
+int futimens(int fd, const struct timespec times[2]);
+int utimensat(int dirfd, const char* path, const struct timespec times[2], int flags);
+
 #ifdef __cplusplus
 }
 #endif

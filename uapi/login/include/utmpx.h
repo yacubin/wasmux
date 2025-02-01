@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_LIBC_UTMPX_H
-#define _WA_LIBC_UTMPX_H
+#ifndef _UTMPX_H
+#define _UTMPX_H
 
 #include <utmp.h>
 
@@ -35,4 +35,4 @@ void endutxent(void);
 }
 #endif
 
-#endif /* _WA_LIBC_UTMPX_H */
+#endif /* _UTMPX_H */

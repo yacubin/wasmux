@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_LIBC_SYS_UN_H
-#define _WA_LIBC_SYS_UN_H
+#ifndef _SYS_UN_H
+#define _SYS_UN_H
 
 #include <wasmux/socket.h>
 
@@ -24,4 +24,4 @@ struct sockaddr_un {
 }
 #endif
 
-#endif /* _WA_LIBC_SYS_UN_H */
+#endif /* _SYS_UN_H */

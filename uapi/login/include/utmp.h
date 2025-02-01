@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_LIBC_UTMP_H
-#define _WA_LIBC_UTMP_H
+#ifndef _UTMP_H
+#define _UTMP_H
 
 #include <wasmux/types.h>
 #include <wasmux/time.h>
@@ -37,8 +37,23 @@ struct utmp {
   char __unused[20];
 };
 
+void updwtmp(const char* file, const struct utmp* utmp);
+struct utmp* pututline(const struct utmp* utmp);
+void setutent(void);
+void endutent(void);
+
+#define EMPTY         0
+#define RUN_LVL       1
+#define BOOT_TIME     2
+#define NEW_TIME      3
+#define OLD_TIME      4
+#define INIT_PROCESS  5
+#define LOGIN_PROCESS 6
+#define USER_PROCESS  7
+#define DEAD_PROCESS  8
+
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _WA_LIBC_UTMP_H */
+#endif /* _UTMP_H */

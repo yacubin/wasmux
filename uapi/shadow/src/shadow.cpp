@@ -14,3 +14,9 @@ struct spwd* getspent(void)
   assert(0);
   return nullptr;
 }
+
+struct spwd* getspnam(const char* name)
+{
+  assert(0);
+  return nullptr;
+}

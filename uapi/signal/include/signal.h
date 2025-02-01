@@ -72,6 +72,7 @@ int sigdelset(sigset_t* set, int signum);
 int sigismember(const sigset_t* set, int signum);
 int sigwait(const sigset_t* set, int* signum);
 int sigaction(int signum, const struct sigaction* act, struct sigaction* oldact);
+int siginterrupt(int signum, int interrupt);
 int raise(int signum);
 int killpg(int pidgrp, int signum);
 

@@ -8,10 +8,16 @@
 
 #include <sys/sysinfo.h>
 #include <errno.h>
-#include <wasmux/assert.h>
+#include <assert.h>
+
+int sysinfo(struct sysinfo* info)
+{
+  assert(0);
+  return -1;
+}
 
 int get_nprocs(void)
 {
-  WA_UNREACHABLE();
+  assert(0);
   return -1;
 }

@@ -51,6 +51,26 @@ if (CONFIG_ENABLE_LIBC)
     add_subdirectory("${CONFIG_PWD_PATH}" pwd)
   endif ()
 
+  if (CONFIG_FTW_PATH)
+    list(APPEND LIBC_DEPENDENCIES ftw)
+    add_subdirectory("${CONFIG_FTW_PATH}" ftw)
+  endif ()
+
+  if (CONFIG_WORDEXP_PATH)
+    list(APPEND LIBC_DEPENDENCIES wordexp)
+    add_subdirectory("${CONFIG_WORDEXP_PATH}" wordexp)
+  endif ()
+
+  if (CONFIG_LOGIN_PATH)
+    list(APPEND LIBC_DEPENDENCIES login)
+    add_subdirectory("${CONFIG_LOGIN_PATH}" login)
+  endif ()
+
+  if (CONFIG_MNTENT_PATH)
+    list(APPEND LIBC_DEPENDENCIES mntent)
+    add_subdirectory("${CONFIG_MNTENT_PATH}" mntent)
+  endif ()
+
   if (CONFIG_SHADOW_PATH)
     list(APPEND LIBC_DEPENDENCIES shadow)
     add_subdirectory("${CONFIG_SHADOW_PATH}" shadow)

@@ -9,11 +9,25 @@
 #include <termios.h>
 #include <sys/ioctl.h> // for tcgetattr
 #include <errno.h>
-#include <wasmux/assert.h>
+#include <assert.h>
+
+pid_t tcgetsid(int fd)
+{
+  assert(0);
+  errno = ENOSYS;
+  return -1;
+}
+
+int tcdrain(int fd)
+{
+  assert(0);
+  errno = ENOSYS;
+  return -1;
+}
 
 int tcflow(int fd, int action)
 {
-  WA_UNREACHABLE();
+  assert(0);
   errno = ENOSYS;
   return -1;
 }
@@ -30,42 +44,42 @@ int tcgetattr(int fd, struct termios* termios)
 
 int tcsetattr(int fd, int optional_actions, const struct termios* termios)
 {
-  WA_UNREACHABLE();
+  assert(0);
   errno = ENOSYS;
   return -1;
 }
 
 int tcflush(int fd, int queue_selector)
 {
-  WA_UNREACHABLE();
+  assert(0);
   errno = ENOSYS;
   return -1;
 }
 
 speed_t cfgetispeed(const struct termios* termios)
 {
-  WA_UNREACHABLE();
+  assert(0);
   errno = ENOSYS;
   return -1;
 }
 
 speed_t cfgetospeed(const struct termios* termios)
 {
-  WA_UNREACHABLE();
+  assert(0);
   errno = ENOSYS;
   return -1;
 }
 
 int cfsetispeed(struct termios* termios, speed_t speed)
 {
-  WA_UNREACHABLE();
+  assert(0);
   errno = ENOSYS;
   return -1;
 }
 
 int cfsetospeed(struct termios* termios, speed_t speed)
 {
-  WA_UNREACHABLE();
+  assert(0);
   errno = ENOSYS;
   return -1;
 }

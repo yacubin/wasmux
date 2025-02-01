@@ -4,7 +4,9 @@ set(stdlib_HEADERS
 
 set(stdlib_SOURCES
   src/abs.cpp
+  src/mkostemp.cpp
   src/qsort.cpp
+  src/realpath.cpp
   )
 
 set(stdlib_INCLUDES

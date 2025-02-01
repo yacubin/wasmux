@@ -8,49 +8,49 @@
 
 #include <dirent.h>
 #include <errno.h>
-#include <wasmux/assert.h>
+#include <assert.h>
 
 struct dirent* readdir(DIR* dir)
 {
-  WA_UNREACHABLE();
+  assert(0);
   errno = ENOSYS;
   return nullptr;
 }
 
 DIR* opendir(const char* path)
 {
-  WA_UNREACHABLE();
+  assert(0);
   errno = ENOSYS;
   return nullptr;
 }
 
 int closedir(DIR* dir)
 {
-  WA_UNREACHABLE();
+  assert(0);
   errno = ENOSYS;
   return -1;
 }
 
 void rewinddir(DIR* dir)
 {
-  WA_UNREACHABLE();
+  assert(0);
 }
 
 long telldir(DIR* dir)
 {
-  WA_UNREACHABLE();
+  assert(0);
   errno = ENOSYS;
   return -1;
 }
 
 void seekdir(DIR* dir, long offset)
 {
-  WA_UNREACHABLE();
+  assert(0);
 }
 
 DIR* fdopendir(int fd)
 {
-  WA_UNREACHABLE();
+  assert(0);
   errno = ENOSYS;
   return nullptr;
 }
@@ -59,21 +59,28 @@ int scandir(const char* dirname, struct dirent*** namelist,
             int (*filter)(const struct dirent*),
             int (*compar)(const struct dirent**, const struct dirent**))
 {
-  WA_UNREACHABLE();
+  assert(0);
+  errno = ENOSYS;
+  return -1;
+}
+
+int alphasort(const struct dirent** a, const struct dirent** b)
+{
+  assert(0);
   errno = ENOSYS;
   return -1;
 }
 
 int versionsort(const struct dirent** a, const struct dirent** b)
 {
-  WA_UNREACHABLE();
+  assert(0);
   errno = ENOSYS;
   return -1;
 }
 
 ssize_t getdents(int fd, void* dir_list, size_t count)
 {
-  WA_UNREACHABLE();
+  assert(0);
   errno = ENOSYS;
   return -1;
 }

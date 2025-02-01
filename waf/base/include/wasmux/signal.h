@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_KERNEL_SIGNAL_H
-#define _WA_KERNEL_SIGNAL_H
+#ifndef _WASMUX_SIGNAL_H
+#define _WASMUX_SIGNAL_H
 
 #define __BITS_PER_ULONG (sizeof(unsigned long) * 8)
 
@@ -16,6 +16,7 @@
 #define SIGINT    2
 #define SIGQUIT   3
 #define SIGILL    4
+#define SIGTRAP   5
 #define SIGABRT   6
 #define SIGBUS    7
 #define SIGFPE    8
@@ -33,12 +34,17 @@
 #define SIGTSTP   20
 #define SIGTTIN   21
 #define SIGTTOU   22
+#define SIGURG    23
 #define SIGXCPU   24
 #define SIGXFSZ   25
 #define SIGVTALRM 26
 #define SIGPROF   27
 #define SIGWINCH  28
 #define SIGIO     29
+#define SIGPWR    30
+#define SIGSYS    31
+
+#define SIGPOLL   SIGIO
 
 struct __sigset_struct {
   unsigned long sig[_NSIG_WORDS];
@@ -50,4 +56,4 @@ struct __sigset_struct {
 #define SIG_UNBLOCK  1
 #define SIG_SETMASK  2
 
-#endif /* _WA_KERNEL_SIGNAL_H */
+#endif /* _WASMUX_SIGNAL_H */

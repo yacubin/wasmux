@@ -59,25 +59,61 @@ macro(GEN_KWEBCALLHDR)
   __gen_syscallhdr_impl(webcallhdr ${ARGN})
 endmacro()
 
-macro(GEN_KWEBCALLTBL)
-  cmake_parse_arguments(__gen_webcalltbl
+macro(__gen_kwebcallxxx_impl _script)
+  cmake_parse_arguments(__gen_${_script}
     ""
     "SIDE;INPUT;OUTPUT"
     ""
     ${ARGN}
     )
   add_custom_command(COMMAND "${NODE_EXECUTABLE}"
-      "${__gen_scripts_node_scripts_dir}/run/webcalltbl.js"
-      "${__gen_webcalltbl_SIDE}"
-      "${__gen_webcalltbl_INPUT}"
-      "${__gen_webcalltbl_OUTPUT}"
+      "${__gen_scripts_node_scripts_dir}/run/${_script}.js"
+      "${__gen_${_script}_SIDE}"
+      "${__gen_${_script}_INPUT}"
+      "${__gen_${_script}_OUTPUT}"
     DEPENDS
-      "${__gen_scripts_node_scripts_dir}/run/webcalltbl.js"
-      "${__gen_webcalltbl_INPUT}"
+      "${__gen_scripts_node_scripts_dir}/run/${_script}.js"
+      "${__gen_${_script}_INPUT}"
     OUTPUT
-      "${__gen_webcalltbl_OUTPUT}"
+      "${__gen_${_script}_OUTPUT}"
     WORKING_DIRECTORY
       "${CMAKE_CURRENT_BINARY_DIR}"
     VERBATIM
     )
+endmacro()
+
+macro(GEN_KWEBCALLTBL)
+  __gen_kwebcallxxx_impl(webcalltbl ${ARGN})
+endmacro()
+
+macro(GEN_KWEBCALLESX)
+  __gen_kwebcallxxx_impl(webcallesx ${ARGN})
+endmacro()
+
+macro(__gen_wacustsec_impl _script)
+  cmake_parse_arguments(__gen_${_script}
+    ""
+    "CPU;SECTION;INPUT;OUTPUT"
+    ""
+    ${ARGN}
+    )
+  add_custom_command(COMMAND "${NODE_EXECUTABLE}"
+      "${__gen_scripts_node_scripts_dir}/run/${_script}.js"
+      "${__gen_${_script}_CPU}"
+      "${__gen_${_script}_SECTION}"
+      "${__gen_${_script}_INPUT}"
+      "${__gen_${_script}_OUTPUT}"
+    DEPENDS
+      "${__gen_scripts_node_scripts_dir}/run/${_script}.js"
+      "${__gen_${_script}_INPUT}"
+    OUTPUT
+      "${__gen_${_script}_OUTPUT}"
+    WORKING_DIRECTORY
+      "${CMAKE_CURRENT_BINARY_DIR}"
+    VERBATIM
+    )
+endmacro()
+
+macro(GEN_WACUSTSEC)
+  __gen_wacustsec_impl(wacustsec ${ARGN})
 endmacro()

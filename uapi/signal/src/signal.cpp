@@ -73,6 +73,13 @@ int sigaction(int signum, const struct sigaction* act, struct sigaction* oldact)
   return -1;
 }
 
+int siginterrupt(int signum, int interrupt)
+{
+  assert(0);
+  errno = ENOSYS;
+  return -1;
+}
+
 int raise(int signum)
 {
   assert(0);

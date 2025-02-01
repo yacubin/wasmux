@@ -76,6 +76,10 @@ int fileno(FILE* file);
 int fscanf(FILE* file, const char* fmt, ...);
 int getc_unlocked(FILE* file);
 
+void flockfile(FILE* file);
+int ftrylockfile(FILE* file);
+void funlockfile(FILE* file);
+
 ssize_t getline(char** line, size_t* n, FILE* file);
 ssize_t getdelim(char** line, size_t* n, int delim, FILE* file);
 
@@ -97,6 +101,7 @@ int asprintf(char** str, const char* fmt, ...) __ATTR_PRINTF(2, 3);
 int vasprintf(char** str, const char* fmt, va_list ap) __ATTR_PRINTF(2, 0);
 int printf(const char* fmt, ...);
 int vprintf(const char* fmt, va_list ap);
+int scanf(const char* fmt, ...);
 int sscanf(const char* str, const char* fmt, ...);
 int getchar(void);
 int putc(int ch, FILE* file);

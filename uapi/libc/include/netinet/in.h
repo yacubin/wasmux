@@ -17,15 +17,23 @@ typedef uint32_t in_addr_t;
 #define INADDR_ANY      0x00000000U
 
 enum {
+  IPPROTO_IP = 0,
+#define IPPROTO_IP IPPROTO_IP
+
   IPPROTO_TCP = 6,
 #define IPPROTO_TCP IPPROTO_TCP
 
   IPPROTO_UDP = 17,
 #define IPPROTO_UDP IPPROTO_UDP
 
+  IPPROTO_IPV6 = 41,
+#define IPPROTO_IPV6 IPPROTO_IPV6
+
   IPPROTO_RAW = 255,
 #define IPPROTO_RAW IPPROTO_RAW
 };
+
+#define IPV6_V6ONLY 26
 
 struct in_addr {
   unsigned s_addr;

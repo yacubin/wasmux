@@ -7,7 +7,10 @@ set(libio_HEADERS
 
 set(libio_SOURCES
   src/_stdio.cpp
+  src/flockfile.cpp
   src/fprintf.cpp
+  src/ftrylockfile.cpp
+  src/funlockfile.cpp
   src/getc_unlocked.cpp
   src/getdelim.cpp
   src/getline.cpp

@@ -50,14 +50,15 @@ typedef unsigned uid_t;
 typedef unsigned gid_t;
 typedef int64_t off64_t;
 
-// #if __SIZEOF_LONG__ == 8
-// typedef long off_t;
-// #else
-// typedef long long off_t;
-// #endif
-
 typedef intptr_t off_t;
+
+#if __SIZEOF_LONG__ == 8
+// typedef long off_t;
+typedef long loff_t;
+#else
+// typedef long long off_t;
 typedef long long loff_t;
+#endif
 
 typedef int clockid_t;
 typedef unsigned int mode_t;

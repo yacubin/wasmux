@@ -4,9 +4,9 @@
  *
  */
 
-#ifndef _SCSI_SCSI_H
-#define _SCSI_SCSI_H
+#ifndef _SYS_IPC_H
+#define _SYS_IPC_H
 
 /* Not Implemented */
 
-#endif /* _SCSI_SCSI_H */
+#endif /* _SYS_IPC_H */

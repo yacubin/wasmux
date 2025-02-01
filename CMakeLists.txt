@@ -9,6 +9,11 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 include(WxCommon)
 
+execute_process(COMMAND "${NODE_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/MainScript.js"
+  "--output=${CMAKE_CURRENT_BINARY_DIR}/BuildScript.cmake"
+  )
+include("${CMAKE_CURRENT_BINARY_DIR}/BuildScript.cmake")
+
 set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -D__ASSEMBLY__")
 
 configure_file(config.h.cmake "${CMAKE_CURRENT_BINARY_DIR}/config.h" @ONLY)

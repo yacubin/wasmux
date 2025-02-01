@@ -1,12 +1,14 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_NETINET_IN_H
-#define _WA_LIBC_NETINET_IN_H
+#ifndef _NET_IF_H
+#define _NET_IF_H
 
-/* Not implemented */
+#include <wasmux/if.h>
 
-#endif /* _WA_LIBC_NETINET_IN_H */
+#define IF_NAMESIZE IFNAMSIZ
+
+#endif /* _NET_IF_H */

@@ -9,5 +9,5 @@ if (CONFIG_ENABLE_KERNEL)
     add_subdirectory("${CONFIG_JSDATA_PATH}" jsdata)
   endif ()
 
-  add_subdirectory(kernel)
+  add_subdirectory(walinuz)
 endif ()

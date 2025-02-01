@@ -14,6 +14,8 @@ extern "C" {
 #endif
 
 #define GLOB_NOSORT      (1 << 2)
+#define GLOB_APPEND      (1 << 5)
+#define GLOB_NOESCAPE    (1 << 6)
 #define GLOB_ALTDIRFUNC  (1 << 9)
 
 #define	GLOB_NOSPACE 1

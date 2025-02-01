@@ -120,4 +120,17 @@ const CHAR* charactersFind(const CHAR* characters, CHAR ch, size_t length)
   return WITH_NULL ? nullptr : characters;
 }
 
+template<typename CHAR, bool WITH_NULL>
+const CHAR* charactersReverseFind(const CHAR* characters, CHAR ch, size_t length)
+{
+  auto p = characters + length;
+  while (length != 0) {
+    if (*--p == ch)
+      return p;
+    length--;
+  }
+
+  return WITH_NULL ? nullptr : characters + length;
+}
+
 }  // namespace WAF

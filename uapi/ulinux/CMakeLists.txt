@@ -1,7 +1,8 @@
 set(ulinux_HEADERS
   include/linux/blkpg.h
+  include/linux/magic.h
   include/linux/version.h
-  include/scsi/scsi.h
+  include/linux/vt.h
   )
 
 set(ulinux_SOURCES

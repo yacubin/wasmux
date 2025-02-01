@@ -8,14 +8,18 @@ set(string_HEADERS
 set(string_SOURCES
   src/basename.cpp
   src/dirname.cpp
+  src/memchr.cpp
   src/memcpy.cpp
   src/memrchr.cpp
   src/memset.cpp
+  src/rindex.cpp
   src/stpcpy.cpp
   src/strchrnul.cpp
   src/strdup.cpp
   src/string.cpp
   src/strrchr.cpp
+  src/strsep.cpp
+  src/strtok_r.cpp
   )
 
 set(string_INCLUDES

@@ -49,11 +49,14 @@
 #define EILSEQ         84   /* Invalid or incomplete multibyte or wide character */
 #define ENODATA        86   /* The named attribute does not exist */
 #define ENOTSOCK       88   /* Not a socket */
+#define EMSGSIZE       90   /* Message too long */
 #define ENOTSUP        95   /* Operation not supported */
 #define	EOPNOTSUPP     95   /* Operation not supported on socket */
 #define EAFNOSUPPORT   97   /* Address family not supported */
 #define EADDRNOTAVAIL  99   /* Address not available */
 #define ECONNABORTED   103  /* Connection aborted */
+#define ECONNRESET     104  /* Connection reset */
+#define ENOBUFS        105  /* No buffer space available */
 #define EISCONN        106  /* Socket is connected */
 #define ENOTCONN       107  /* The socket is not connected */
 #define ETIMEDOUT      110  /* Connection timed out */

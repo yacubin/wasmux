@@ -12,7 +12,7 @@
 
 int getc_unlocked(FILE* file)
 {
-  assert();
+  assert(0);
   errno = ENOSYS;
   return -1;
 }

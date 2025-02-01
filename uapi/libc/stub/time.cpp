@@ -5,95 +5,123 @@
  */
 
 #include "config.h"
-#include "time.h"
 
-#include <wasmux/assert.h>
+#include <time.h>
+#include <assert.h>
 #include <errno.h>
+#include <assert.h>
+#include <wasmux/compiler.h>
+
+extern "C" int __daylight = 0;
+extern "C" __ATTR_ALIAS(__daylight, daylight) __ATTR_WEAK;
+
+extern "C" long __timezone = 0L;
+extern "C" __ATTR_ALIAS(__timezone, timezone) __ATTR_WEAK;
+
+static char __tzname_GMT[] = "GMT";
+extern "C" char* __tzname[2] =
+{
+  __tzname_GMT,
+  __tzname_GMT,
+};
+extern "C" __ATTR_ALIAS(__tzname, tzname) __ATTR_WEAK;
 
 time_t time(time_t* time)
 {
-  WA_UNREACHABLE();
+  assert(0);
   errno = ENOSYS;
   return -1;
 }
 
 time_t timegm(struct tm *tm)
 {
-  WA_UNREACHABLE();
+  assert(0);
   errno = ENOSYS;
   return -1;
 }
 
 clock_t clock(void)
 {
-  WA_UNREACHABLE();
+  assert(0);
   errno = ENOSYS;
   return -1;
 }
 
 void tzset(void)
 {
-  WA_UNREACHABLE();
+  assert(0);
 }
 
 size_t strftime(char* buf, size_t n, const char* format, const struct tm* tm)
 {
-  WA_UNREACHABLE();
+  assert(0);
   return 0;
 }
 
 char* ctime(const time_t* time)
 {
-  WA_UNREACHABLE();
+  return ctime_r(time, __get_local_buffer_data());
+}
+
+char* ctime_r(const time_t* time, char* buf)
+{
+  assert(0);
   return nullptr;
 }
 
 time_t mktime(struct tm* tm)
 {
-  WA_UNREACHABLE();
+  assert(0);
   return 0;
 }
 
 struct tm* localtime(const time_t* time)
 {
-  WA_UNREACHABLE();
+  assert(0);
   return nullptr;
 }
 
 struct tm* localtime_r(const time_t* time, struct tm* buf)
 {
-  WA_UNREACHABLE();
+  assert(0);
   return nullptr;
 }
 
 struct tm* gmtime(const time_t* time)
 {
-  WA_UNREACHABLE();
+  assert(0);
   return nullptr;
 }
 
 struct tm* gmtime_r(const time_t* time, struct tm* buf)
 {
-  WA_UNREACHABLE();
+  assert(0);
   return nullptr;
 }
 
 int nanosleep(const struct timespec* duration, struct timespec* remain)
 {
-  WA_UNREACHABLE();
+  assert(0);
   return -1;
 }
 
 int clock_gettime(clockid_t clock_id, struct timespec* ts)
 {
-  WA_UNREACHABLE();
+  assert(0);
+  errno = ENOSYS;
+  return -1;
+}
+
+int clock_nanosleep(clockid_t clock_id, int flags, const struct timespec* req, struct timespec* rem)
+{
+  assert(0);
   errno = ENOSYS;
   return -1;
 }
 
 double difftime(time_t time1, time_t time0)
 {
-  WA_UNREACHABLE();
+  assert(0);
   errno = ENOSYS;
   return 0.0;
 }

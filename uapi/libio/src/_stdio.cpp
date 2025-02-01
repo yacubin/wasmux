@@ -7,8 +7,9 @@
 #include "config.h"
 
 #include <stdio.h>
-#include <wasmux/assert.h>
 #include <errno.h>
+#include <assert.h>
+#include <wasmux/assert.h>
 
 FILE* fdopen(int fd, const char* mode)
 {
@@ -225,6 +226,12 @@ int printf(const char* fmt, ...)
 int vprintf(const char* fmt, va_list ap)
 {
   WA_UNREACHABLE();
+  return -1;
+}
+
+int scanf(const char* fmt, ...)
+{
+  assert(0);
   return -1;
 }
 

@@ -9,9 +9,12 @@
 
 #include <wasmux/types.h>
 
-#define CLOCK_REALTIME  0
-#define CLOCK_MONOTONIC 1
-#define CLOCK_BOOTTIME  7
+#define CLOCK_REALTIME         0
+#define CLOCK_MONOTONIC        1
+#define CLOCK_MONOTONIC_COARSE 6
+#define CLOCK_BOOTTIME         7
+
+#define TIMER_ABSTIME 1
 
 typedef long suseconds_t;
 typedef int32_t time32_t;

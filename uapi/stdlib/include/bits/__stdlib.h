@@ -20,6 +20,9 @@ long long llabs(long long i);
 void qsort(void* base, size_t n, size_t size, int (*compare) (const void*, const void*));
 void qsort_r(void* base, size_t n, size_t size, int (*compare) (const void*, const void*, void*), void* arg);
 
+int mkostemp(char* pattern, int flags);
+char* realpath(const char* filename, char* resolved);
+
 #ifdef __cplusplus
 }
 #endif

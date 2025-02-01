@@ -13,14 +13,9 @@
 
 extern "C" void* __memrchr(const void* mem, int ch, size_t n)
 {
-  auto p = reinterpret_cast<const unsigned char*>(mem) + n;
-  while (n != 0) {
-    if (*--p == ch)
-      return const_cast<unsigned char*>(p);
-    n--;
-  }
-
-  return nullptr;
+  return const_cast<uint8_t*>(WAF::charactersReverseFind<uint8_t,true>(
+    reinterpret_cast<const uint8_t*>(mem),
+    static_cast<uint8_t>(ch), n));
 }
 
 extern "C" __ATTR_ALIAS(__memrchr, memrchr) __ATTR_WEAK;

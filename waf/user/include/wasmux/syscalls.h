@@ -108,11 +108,6 @@ static inline long sys_exit(int error_code)
   return __DO_SYSCALL(exit, error_code);
 }
 
-static inline long sys_waitpid(pid_t pid, int* stat_addr, int options)
-{
-  return __DO_SYSCALL(waitpid, pid, stat_addr, options);
-}
-
 static inline long sys_creat(const char* path, umode_t mode)
 {
   return __DO_SYSCALL(creat, path, mode);

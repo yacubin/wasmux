@@ -1,6 +1,7 @@
 set(wauser_HEADERS
   include/wasmux/syscalls.h
   include/wasmux/thread_data.h
+  include/wasmux/waitstatus.h
   )
 
 set(wauser_SOURCES

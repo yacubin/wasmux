@@ -4,9 +4,13 @@
  *
  */
 
-#ifndef _WA_LIBC_SCHED_H
-#define _WA_LIBC_SCHED_H
+#ifndef _SCHED_H
+#define _SCHED_H
 
+#include <wasmux/types.h>
 #include <wasmux/sched.h>
 
-#endif /* _WA_LIBC_SCHED_H */
+int sched_yield(void);
+int sched_setscheduler(pid_t tid, int policy, const struct sched_param* param);
+
+#endif /* _SCHED_H */

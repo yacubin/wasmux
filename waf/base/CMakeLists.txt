@@ -17,33 +17,45 @@ set(wabase_HEADERS
   include/wasmux/byteorder.h
   include/wasmux/compiler.h
   include/wasmux/errno.h
+  include/wasmux/eventfd.h
+  include/wasmux/eventpoll.h
   include/wasmux/fcntl.h
   include/wasmux/fs.h
+  include/wasmux/if.h
+  include/wasmux/inotify.h
   include/wasmux/int-types.h
+  include/wasmux/ioctl.h
   include/wasmux/ioctls.h
   include/wasmux/limits-base.h
   include/wasmux/limits.h
   include/wasmux/log.h
   include/wasmux/notify_waiter.h
   include/wasmux/mman.h
+  include/wasmux/mount.h
   include/wasmux/mutex.h
   include/wasmux/nullptr.h
   include/wasmux/platform.h
   include/wasmux/posix_types.h
+  include/wasmux/prctl.h
+  include/wasmux/reboot.h
   include/wasmux/sched.h
   include/wasmux/signal.h
+  include/wasmux/signalfd.h
   include/wasmux/sizeof.h
   include/wasmux/sleep_ms.h
   include/wasmux/socket.h
+  include/wasmux/sockios.h
   include/wasmux/sprintf.h
   include/wasmux/stack_pointer.h
   include/wasmux/stat.h
   include/wasmux/statfs.h
   include/wasmux/stdarg.h
   include/wasmux/swab.h
+  include/wasmux/sysinfo.h
   include/wasmux/termios.h
   include/wasmux/time.h
   include/wasmux/time64.h
+  include/wasmux/timerfd.h
   include/wasmux/types.h
   include/wasmux/uio.h
   include/wasmux/wasm_header.h

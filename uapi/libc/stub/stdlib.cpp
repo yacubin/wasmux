@@ -5,62 +5,86 @@
  */
 
 #include "config.h"
-#include "stdlib.h"
 
-#include <wasmux/assert.h>
+#include <stdlib.h>
+#include <assert.h>
 #include <errno.h>
 
 int system(const char* command)
 {
-  WA_UNREACHABLE();
+  assert(0);
   return -1;
 }
 
 void srand(unsigned seed)
 {
-  WA_UNREACHABLE();
+  assert(0);
 }
 
 int rand(void)
 {
-  WA_UNREACHABLE();
+  assert(0);
   return -1;
 }
 
 void srandom(unsigned seed)
 {
-  WA_UNREACHABLE();
+  assert(0);
 }
 
 long random(void)
 {
-  WA_UNREACHABLE();
+  assert(0);
   return -1;
 }
 
 char* initstate(unsigned seed, char* state, size_t n)
 {
-  WA_UNREACHABLE();
+  assert(0);
   errno = ENOSYS;
   return nullptr;
 }
 
 char* setstate(char* state)
 {
-  WA_UNREACHABLE();
+  assert(0);
   errno = ENOSYS;
   return nullptr;
 }
 
+double drand48(void)
+{
+  assert(0);
+  return 0.0;
+}
+
 int mkstemp(char* temp)
 {
-  WA_UNREACHABLE();
+  assert(0);
   return -1;
 }
 
 char* mktemp(char* pattern)
 {
-  WA_UNREACHABLE();
+  assert(0);
   errno = ENOSYS;
   return nullptr;
+}
+
+int grantpt(int fd)
+{
+  assert(0);
+  return -1;
+}
+
+char* ptsname(int fd)
+{
+  assert(0);
+  return nullptr;
+}
+
+int unlockpt(int fd)
+{
+  assert(0);
+  return -1;
 }

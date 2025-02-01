@@ -23,12 +23,6 @@ void* memmove(void* dst, const void* src, size_t n)
   return nullptr;
 }
 
-void* memchr(const void* mem, int ch, size_t n)
-{
-  WA_UNREACHABLE();
-  return nullptr;
-}
-
 char* strchr(const char* str, int ch)
 {
   return const_cast<char*>(WAF::charactersFind<char,true>(str, ch));

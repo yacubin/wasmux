@@ -4,8 +4,11 @@
  *
  */
 
-#ifndef _WA_LIBC_SYSLOG_H
-#define _WA_LIBC_SYSLOG_H
+#ifndef _SYSLOG_H
+#define _SYSLOG_H
+
+#include <stdarg.h>
+#include <wasmux/compiler.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -20,6 +23,11 @@ extern "C" {
 #define LOG_NOTICE   5
 #define LOG_INFO     6
 #define LOG_DEBUG    7
+
+#define LOG_PRIMASK  7
+#define LOG_PRI(priority) ((priority) & LOG_PRIMASK)
+
+#define LOG_UPTO(priority) ((1 << ((priority) + 1)) - 1)
 
 /* facility */
 #define LOG_KERN     (0 << 3)
@@ -51,12 +59,62 @@ extern "C" {
 #define LOG_NOWAIT 0x10
 #define LOG_PERROR 0x20
 
+#define INTERNAL_NOPRI 0x10
+#define INTERNAL_MARK  0x08
+
 void openlog(const char* ident, int option, int facility);
-void syslog(int priority, const char* format, ...);
 void closelog(void);
+int setlogmask(int mask);
+void syslog(int priority, const char* format, ...) __ATTR_PRINTF(2, 3);
+void vsyslog(int priority, const char* message, va_list args) __ATTR_PRINTF(2, 0);
+
+typedef struct {
+  char* c_name;
+  int c_val;
+} CODE;
+
+#define prioritynames ((CODE*)(const CODE[]) { \
+  { "alert",   LOG_ALERT      }, \
+  { "crit",    LOG_CRIT       }, \
+  { "debug",   LOG_DEBUG      }, \
+  { "emerg",   LOG_EMERG      }, \
+  { "err",     LOG_ERR        }, \
+  { "error",   LOG_ERR        }, \
+	{ "info",    LOG_INFO       }, \
+  { "none",    INTERNAL_NOPRI }, \
+	{ "notice",  LOG_NOTICE     }, \
+  { "panic",   LOG_EMERG      }, \
+	{ "warn",    LOG_WARNING    }, \
+  { "warning", LOG_WARNING    }, \
+  { 0, -1 }})
+
+#define facilitynames ((CODE *)(const CODE []){ \
+	{ "auth",     LOG_AUTH      }, \
+  { "authpriv", LOG_AUTHPRIV  }, \
+	{ "cron",     LOG_CRON      }, \
+  { "daemon",   LOG_DAEMON    }, \
+  { "ftp",      LOG_FTP       }, \
+	{ "kern",     LOG_KERN      }, \
+  { "lpr",      LOG_LPR       }, \
+  { "mail",     LOG_MAIL      }, \
+	{ "mark",     INTERNAL_MARK }, \
+  { "news",     LOG_NEWS      }, \
+	{ "security", LOG_AUTH      }, \
+  { "syslog",   LOG_SYSLOG    }, \
+	{ "user",     LOG_USER      }, \
+  { "uucp",     LOG_UUCP      }, \
+	{ "local0",   LOG_LOCAL0    }, \
+  { "local1",   LOG_LOCAL1    }, \
+	{ "local2",   LOG_LOCAL2    }, \
+  { "local3",   LOG_LOCAL3    }, \
+	{ "local4",   LOG_LOCAL4    }, \
+  { "local5",   LOG_LOCAL5    }, \
+	{ "local6",   LOG_LOCAL6    }, \
+  { "local7",   LOG_LOCAL7    }, \
+  { 0, -1 } })
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _WA_LIBC_SYSLOG_H */
+#endif /* _SYSLOG_H */

@@ -4,14 +4,23 @@ set(libc_HEADERS
   include/netinet/in.h
   include/netinet/tcp.h
   include/sys/endian.h
+  include/sys/epoll.h
+  include/sys/eventfd.h
   include/sys/file.h
+  include/sys/inotify.h
   include/sys/ioctl.h
+  include/sys/ipc.h
+  include/sys/klog.h
   include/sys/mman.h
+  include/sys/mount.h
   include/sys/param.h
   include/sys/poll.h
+  include/sys/prctl.h
   include/sys/random.h
+  include/sys/reboot.h
   include/sys/resource.h
   include/sys/select.h
+  include/sys/signalfd.h
   include/sys/socket.h
   include/sys/stat.h
   include/sys/statfs.h
@@ -19,7 +28,9 @@ set(libc_HEADERS
   include/sys/sysinfo.h
   include/sys/sysmacros.h
   include/sys/time.h
+  include/sys/timerfd.h
   include/sys/times.h
+  include/sys/ttydefaults.h
   include/sys/types.h
   include/sys/uio.h
   include/sys/un.h
@@ -32,19 +43,18 @@ set(libc_HEADERS
   include/assert.h
   include/byteswap.h
   include/endian.h
+  include/err.h
   include/errno.h
   include/fcntl.h
   include/float.h
-  include/ftw.h
   include/inttypes.h
   include/limits.h
   include/memory.h
-  include/mntent.h
   include/paths.h
   include/poll.h
   include/sched.h
   include/search.h
-  include/setjmp.h
+  include/semaphore.h
   include/setjmp.h
   include/spawn.h
   include/stdarg.h
@@ -57,22 +67,26 @@ set(libc_HEADERS
   include/time.h
   include/ucontext.h
   include/utime.h
-  include/utmp.h
-  include/utmpx.h
   include/wchar.h
   )
 
 set(libc_SOURCES
   stub/apra/inet.cpp
+  stub/sys/epoll.cpp
+  stub/sys/eventfd.cpp
+  stub/sys/inotify.cpp
   stub/sys/mman.cpp
+  stub/sys/prctl.cpp
   stub/sys/random.cpp
   stub/sys/resource.cpp
   stub/sys/select.cpp
+  stub/sys/signalfd.cpp
   stub/sys/socket.cpp
   stub/sys/stat.cpp
   stub/sys/statfs.cpp
   stub/sys/sysinfo.cpp
   stub/sys/time.cpp
+  stub/sys/timerfd.cpp
   stub/sys/vfs.cpp
   stub/sys/wait.cpp
   stub/sys/xattr.cpp
@@ -80,15 +94,17 @@ set(libc_SOURCES
   stub/access.cpp
   stub/assert.cpp
   stub/environ.cpp
+  stub/err.cpp
   stub/exit.cpp
   stub/fcntl.cpp
   stub/getenv.cpp
-  stub/getmntent.cpp
   stub/pipe.cpp
   stub/poll.cpp
   stub/progname.cpp
   stub/qsort.cpp
   stub/read.cpp
+  stub/sched_setscheduler.cpp
+  stub/sched_yield.cpp
   stub/search.cpp
   stub/setjmp.cpp
   stub/stdlib.cpp
@@ -98,7 +114,6 @@ set(libc_SOURCES
   stub/time.cpp
   stub/unistd.cpp
   stub/utime.cpp
-  stub/utmpx.cpp
   stub/wchar.cpp
   syscalls/brk.cpp
   syscalls/chdir.cpp
@@ -117,19 +132,29 @@ set(libc_SOURCES
   syscalls/gettimeofday.cpp
   syscalls/getuid.cpp
   syscalls/ioctl.cpp
+  syscalls/klogctl.cpp
   syscalls/lseek.cpp
   syscalls/mknod.cpp
+  syscalls/mount.cpp
   syscalls/open.cpp
   syscalls/read.cpp
   syscalls/readv.cpp
+  syscalls/reboot.cpp
+  syscalls/sethostname.cpp
   syscalls/statx.cpp
+  syscalls/sync.cpp
+  syscalls/umount.cpp
+  syscalls/umount2.cpp
   syscalls/uname.cpp
+  syscalls/vhangup.cpp
   syscalls/waitpid.cpp
   syscalls/write.cpp
   syscalls/writev.cpp
+  src/sys/futimens.cpp
   src/sys/stat.cpp
   src/gethostname.cpp
   src/isatty.cpp
+  src/posix_openpt.cpp
   src/sbrk.cpp
   src/ttyname.cpp
   src/usleep.cpp

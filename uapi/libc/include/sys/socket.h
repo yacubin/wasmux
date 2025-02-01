@@ -71,6 +71,7 @@ struct msghdr {
 #define CMSG_LEN(len) (sizeof(struct cmsghdr) + (len))
 
 int socket(int domain, int type, int protocol);
+int socketpair(int domain, int type, int protocol, int fds[2]);
 int connect(int sock, const struct sockaddr* addr, socklen_t addrlen);
 int bind(int sock, const struct sockaddr* addr, socklen_t addrlen);
 int listen(int sock, int backlog);
