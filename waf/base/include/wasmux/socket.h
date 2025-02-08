@@ -1,11 +1,11 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_KERNEL_SOCKET_H
-#define _WA_KERNEL_SOCKET_H
+#ifndef _WASMUX_SOCKET_H
+#define _WASMUX_SOCKET_H
 
 #define AF_UNSPEC 0
 #define AF_UNIX   1
@@ -20,6 +20,8 @@
 #define PF_INET6  AF_INET6
 
 #define __SS_MAXSIZE 128
+
+#define MSG_CMSG_CLOEXEC 0x40000000
 
 typedef unsigned short in_port_t;
 typedef unsigned short sa_family_t;
@@ -40,4 +42,4 @@ struct sockaddr_storage {
   };
 };
 
-#endif /* _WA_KERNEL_SOCKET_H */
+#endif /* _WASMUX_SOCKET_H */

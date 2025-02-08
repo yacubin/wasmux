@@ -11,4 +11,7 @@
 
 #define IF_NAMESIZE IFNAMSIZ
 
+unsigned if_nametoindex(const char* name);
+char* if_indextoname(unsigned index, char* buf);
+
 #endif /* _NET_IF_H */

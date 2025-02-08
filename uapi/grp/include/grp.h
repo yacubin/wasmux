@@ -22,6 +22,7 @@ struct group {
 
 struct group* getgrgid(gid_t gid);
 struct group* getgrnam(const char* name);
+int getgrgid_r(gid_t gid, struct group* grp, char* buf, size_t len, struct group** result);
 int getgrnam_r(const char* name, struct group* grp, char* buf, size_t len, struct group** result);
 
 struct group* getgrent(void);

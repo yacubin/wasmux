@@ -1,16 +1,3 @@
-macro(WX_OPTION _name _desc _value _type)
-  if (${_type} STREQUAL BOOLEAN)
-    option(${_name} "${_desc}" ${_value})
-  elseif ((${_type} STREQUAL STRING) OR (${_type} STREQUAL NUMBER))
-    set(${_name} "${_value}" CACHE STRING "${_desc}")
-  elseif (${_type} STREQUAL ENUM)
-    set(${_name} "${_value}" CACHE STRING "${_desc}")
-    set_property(CACHE ${_name} PROPERTY STRINGS ${ARGN})
-  else ()
-    message(FATAL_ERROR "Unknown '${_type}' type used for '${_name}' option")
-  endif ()
-endmacro()
-
 macro(WX_INSTALL_HEADERS)
   cmake_parse_arguments(__waf_install_headers
     ""

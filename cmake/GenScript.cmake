@@ -1,4 +1,3 @@
-find_program(NODE_EXECUTABLE node REQUIRED)
 get_filename_component(__gen_scripts_node_scripts_dir "${CMAKE_CURRENT_LIST_DIR}/../scripts" ABSOLUTE)
 
 macro(__gen_script_output_impl _script)

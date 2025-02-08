@@ -26,6 +26,11 @@ if (CONFIG_ENABLE_LIBC)
     add_subdirectory("${CONFIG_SIGNAL_PATH}" signal)
   endif ()
 
+  if (CONFIG_SEMAPHORE_PATH)
+    list(APPEND LIBC_DEPENDENCIES semaphore)
+    add_subdirectory("${CONFIG_SEMAPHORE_PATH}" semaphore)
+  endif ()
+
   if (CONFIG_WCSMBS_PATH)
     list(APPEND LIBC_DEPENDENCIES wcsmbs)
     add_subdirectory("${CONFIG_WCSMBS_PATH}" wcsmbs)

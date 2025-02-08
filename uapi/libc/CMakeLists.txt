@@ -3,7 +3,6 @@ set(libc_HEADERS
   include/net/if.h
   include/netinet/in.h
   include/netinet/tcp.h
-  include/sys/endian.h
   include/sys/epoll.h
   include/sys/eventfd.h
   include/sys/file.h
@@ -20,6 +19,7 @@ set(libc_HEADERS
   include/sys/reboot.h
   include/sys/resource.h
   include/sys/select.h
+  include/sys/sendfile.h
   include/sys/signalfd.h
   include/sys/socket.h
   include/sys/stat.h
@@ -54,7 +54,6 @@ set(libc_HEADERS
   include/poll.h
   include/sched.h
   include/search.h
-  include/semaphore.h
   include/setjmp.h
   include/spawn.h
   include/stdarg.h
@@ -72,6 +71,8 @@ set(libc_HEADERS
 
 set(libc_SOURCES
   stub/apra/inet.cpp
+  stub/net/if_indextoname.cpp
+  stub/net/if_nametoindex.cpp
   stub/sys/epoll.cpp
   stub/sys/eventfd.cpp
   stub/sys/inotify.cpp
@@ -103,6 +104,7 @@ set(libc_SOURCES
   stub/progname.cpp
   stub/qsort.cpp
   stub/read.cpp
+  stub/sched_getaffinity.cpp
   stub/sched_setscheduler.cpp
   stub/sched_yield.cpp
   stub/search.cpp
@@ -140,6 +142,8 @@ set(libc_SOURCES
   syscalls/read.cpp
   syscalls/readv.cpp
   syscalls/reboot.cpp
+  syscalls/sched_get_priority_max.cpp
+  syscalls/sched_get_priority_min.cpp
   syscalls/sethostname.cpp
   syscalls/statx.cpp
   syscalls/sync.cpp

@@ -5,26 +5,21 @@ project(wasmux VERSION 0.0.1
   LANGUAGES ASM C CXX
   )
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-
-include(WxCommon)
+find_program(NODE_EXECUTABLE node REQUIRED)
 execute_process(COMMAND "${NODE_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/MainScript.js"
-  "--current-source-dir=${CMAKE_CURRENT_SOURCE_DIR}"
-  "--current-binary-dir=${CMAKE_CURRENT_BINARY_DIR}"
+  "--source-directory=${CMAKE_CURRENT_SOURCE_DIR}"
+  "--build-directory=${CMAKE_CURRENT_BINARY_DIR}"
   "--output=${CMAKE_CURRENT_BINARY_DIR}/BuildScript.cmake"
   OUTPUT_VARIABLE
     _output
   RESULT_VARIABLE
     _result
   )
+if (_result)
+  message(FATAL_ERROR "Build script could not be created\nResult: ${_result}\nOutput: ${_output}")
+endif ()
+
 include("${CMAKE_CURRENT_BINARY_DIR}/BuildScript.cmake")
-
-configure_file(config.h.cmake "${CMAKE_CURRENT_BINARY_DIR}/config.h" @ONLY)
-include_directories("${CMAKE_CURRENT_BINARY_DIR}")
-
-add_subdirectory(waf)
-add_subdirectory(uapi)
-add_subdirectory(kernel)
 
 if (CONFIG_ENABLE_INSTALL_HEADERS)
 file(READ "cmake/toolchain/LinuxSystem.cmake" _TOOLCHAIN_CONTENT1)
