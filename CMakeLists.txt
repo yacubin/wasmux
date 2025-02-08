@@ -8,13 +8,16 @@ project(wasmux VERSION 0.0.1
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 include(WxCommon)
-
 execute_process(COMMAND "${NODE_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/MainScript.js"
+  "--current-source-dir=${CMAKE_CURRENT_SOURCE_DIR}"
+  "--current-binary-dir=${CMAKE_CURRENT_BINARY_DIR}"
   "--output=${CMAKE_CURRENT_BINARY_DIR}/BuildScript.cmake"
+  OUTPUT_VARIABLE
+    _output
+  RESULT_VARIABLE
+    _result
   )
 include("${CMAKE_CURRENT_BINARY_DIR}/BuildScript.cmake")
-
-set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -D__ASSEMBLY__")
 
 configure_file(config.h.cmake "${CMAKE_CURRENT_BINARY_DIR}/config.h" @ONLY)
 include_directories("${CMAKE_CURRENT_BINARY_DIR}")

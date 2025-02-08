@@ -2,19 +2,6 @@ const path = require('node:path');
 const fs = require('node:fs');
 const os = require('node:os');
 
-async function runScript({output})
-{
-  let lines = [];
-
-  lines.push(`message(STATUS "OS arch ${os.arch()}")`);
-  lines.push(`message(STATUS "OS type ${os.type()}")`);
-  lines.push(`message(STATUS "OS version ${os.version()}")`);
-  lines.push(`message(STATUS "OS platform ${os.platform()}")`);
-
-  await fs.promises.mkdir(path.dirname(output), { recursive: true });
-  await fs.promises.writeFile(output, lines.join('\n'), { encoding: "utf8" });
-}
-
 function toCIdentifier(key) {
   let result = "";
 
@@ -48,6 +35,23 @@ function toArgMap(args)
 function currentArgMap()
 {
   return toArgMap(process.argv.slice(2));
+}
+
+async function runScript({output})
+{
+  let lines = [];
+
+  lines.push(`message(STATUS "OS arch: ${os.arch()}")`);
+  lines.push(`message(STATUS "OS type: ${os.type()}")`);
+  lines.push(`message(STATUS "OS version: ${os.version()}")`);
+  lines.push(`message(STATUS "OS platform: ${os.platform()}")`);
+  lines.push(`message(STATUS "ARGS:  ${currentArgMap()}")`);
+  lines.push(``);
+  lines.push('set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -D__ASSEMBLY__")');
+  lines.push(``);
+
+  await fs.promises.mkdir(path.dirname(output), { recursive: true });
+  await fs.promises.writeFile(output, lines.join('\n'), { encoding: "utf8" });
 }
 
 runScript(currentArgMap()).then(() => process.exit(0)).catch((e) => {
