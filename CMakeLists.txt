@@ -7,8 +7,8 @@ project(wasmux VERSION 0.0.1
 
 find_program(NODE_EXECUTABLE node REQUIRED)
 execute_process(COMMAND "${NODE_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/MainScript.js"
-  "--source-directory=${CMAKE_CURRENT_SOURCE_DIR}"
-  "--build-directory=${CMAKE_CURRENT_BINARY_DIR}"
+  "--source-dir=${CMAKE_CURRENT_SOURCE_DIR}"
+  "--binary-dir=${CMAKE_CURRENT_BINARY_DIR}"
   "--output=${CMAKE_CURRENT_BINARY_DIR}/BuildScript.cmake"
   OUTPUT_VARIABLE
     _output

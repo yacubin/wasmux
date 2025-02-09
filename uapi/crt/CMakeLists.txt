@@ -8,7 +8,7 @@ set(crt1_SOURCES
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${crt1_HEADERS} ${crt1_SOURCES})
 add_library(crt1 OBJECT ${crt1_HEADERS} ${crt1_SOURCES})
-target_include_directories(crt1 PRIVATE $<TARGET_PROPERTY:WASMUX::WAF,INTERFACE_INCLUDE_DIRECTORIES>)
+target_include_directories(crt1 PRIVATE $<TARGET_PROPERTY:wabase,INTERFACE_INCLUDE_DIRECTORIES>)
 
 set(crt1_reactor_HEADERS
   )
@@ -20,7 +20,7 @@ set(crt1_reactor_SOURCES
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${crt1_reactor_HEADERS} ${crt1_reactor_SOURCES})
 add_library(crt1_reactor OBJECT ${crt1_reactor_HEADERS} ${crt1_reactor_SOURCES})
-target_include_directories(crt1_reactor PRIVATE $<TARGET_PROPERTY:WASMUX::WAF,INTERFACE_INCLUDE_DIRECTORIES>)
+target_include_directories(crt1_reactor PRIVATE $<TARGET_PROPERTY:wabase,INTERFACE_INCLUDE_DIRECTORIES>)
 
 set(CRuntime_FLAGS
   )

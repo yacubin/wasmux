@@ -1,6 +1,13 @@
 const url = require('url');
 const path = require('path');
 
+function toArray(o)
+{
+  if (o === undefined)
+    return [];
+  return Array.isArray(o) ? o : [o];
+}
+
 class BuildScriptPlugin {
   _filename;
 
@@ -50,9 +57,9 @@ class BuildScriptPlugin {
       }
     
       lines.push('');
-      lines.push(`set(WASMUX_INSTALL_BINDIR "${ctx.variables.install.binDir}")`);
-      lines.push(`set(WASMUX_INSTALL_LIBDIR "${ctx.variables.install.libDir}")`);
-      lines.push(`set(WASMUX_INSTALL_INCLUDEDIR "${ctx.variables.install.includeDir}")`);
+      lines.push(`set(WASMUX_INSTALL_BINDIR "${ctx.global.install.binDir}")`);
+      lines.push(`set(WASMUX_INSTALL_LIBDIR "${ctx.global.install.libDir}")`);
+      lines.push(`set(WASMUX_INSTALL_INCLUDEDIR "${ctx.global.install.includeDir}")`);
       lines.push('');
       lines.push('if (CONFIG_TARGET_SYSTEM MATCHES "-wasi$")');
       lines.push('  set(WASMUX_INSTALL_LIBDIR "${WASMUX_INSTALL_LIBDIR}/${CMAKE_SYSTEM_PROCESSOR}-wasi")');
@@ -65,62 +72,115 @@ class BuildScriptPlugin {
       lines.push('');
 
       for (const filename of ctx.targets) {
-        const currentDir = path.posix.dirname(filename);
         const module = await import(url.pathToFileURL(filename));
         const target = module.default;
         const { name } = target;
 
+        const env = {
+          sourceDir: ctx.path.dirname(filename),
+          binaryDir: ctx.path.resolve(ctx.global.binaryDir, name),
+        };
+        let { entry } = target;
+        if (typeof entry === "function")
+          entry = entry(ctx, env);
+        if (entry instanceof Promise)
+          await entry;
+
         const cmakeResolve = (filename) => {
-          const prefix = path.isAbsolute(filename) ? "" : currentDir;
+          const prefix = path.isAbsolute(filename) ? "" : env.sourceDir;
           const fullname = path.posix.resolve(prefix, filename);
-          const resolvePath = path.relative(ctx.variables.sourceDir, fullname);
+          const resolvePath = path.relative(ctx.global.sourceDir, fullname);
           return resolvePath.startsWith(".") ? fullname : resolvePath;
         };
 
-        lines.push(`set(${name}_HEADERS`);
-        if (target.private?.headers) {
-          for (const filename of target.private.headers)
-            lines.push(`  "${cmakeResolve(filename)}"`);
+        const privateHeaders = [];
+        if (entry.private?.headers) {
+          for (const filename of entry.private.headers)
+            privateHeaders.push(cmakeResolve(filename));
         }
+
+        lines.push(`set(${name}_HEADERS`);
+        for (const filename of privateHeaders)
+          lines.push(`  "${filename}"`);
         lines.push(`  )`);
         lines.push('');
 
         lines.push(`set(${name}_SOURCES`);
-        if (target.private?.sources) {
-          for (const filename of target.private.sources)
+        if (entry.private?.sources) {
+          for (const filename of entry.private.sources)
             lines.push(`  "${cmakeResolve(filename)}"`);
         }
         lines.push(`  )`);
         lines.push('');
 
         lines.push(`set(${name}_INCLUDES`);
-        if (target.private?.includes) {
-          for (const filename of target.private.includes)
+        if (entry.private?.includes) {
+          for (const filename of entry.private.includes)
             lines.push(`  "${cmakeResolve(filename)}"`);
         }
         lines.push(`  )`);
         lines.push('');
 
         lines.push(`set(${name}_PUBLIC_INCLUDES`);
-        if (target.public?.includes) {
-          for (const filename of target.public.includes)
+        if (entry.public?.includes) {
+          for (const filename of entry.public.includes)
             lines.push(`  "${cmakeResolve(filename)}"`);
         }
         lines.push(`  )`);
         lines.push('');
 
-        lines.push(`add_library(${name} STATIC \${${name}_HEADERS} \${${name}_SOURCES})`);
+        lines.push(`set(${name}_PUBLIC_LIBRARIES`);
+        if (entry.public?.libraries) {
+          for (const library of entry.public.libraries)
+            lines.push(`  "${library}"`);
+        }
+        lines.push(`  )`);
+        lines.push('');
+
+        lines.push(`set(${name}_GENFILES`);
+        if (entry.private?.genfiles) {
+          for (const { output } of entry.private.genfiles)
+            lines.push(`  "${cmakeResolve(output)}"`);
+        }
+        lines.push(`  )`);
+        lines.push('');
+
+        if (entry.private?.genfiles) {
+          for (const iter of entry.private.genfiles) {
+            lines.push('add_custom_command(COMMAND "${NODE_EXECUTABLE}"');
+            lines.push(`    "${iter.script}"`);
+            for (const arg of iter.args)
+              lines.push(`    "${arg}"`);
+            lines.push('  DEPENDS');
+            lines.push(`    "${iter.script}"`);
+            lines.push(`    "${iter.input}"`);
+            lines.push('  OUTPUT');
+            lines.push(`    "${iter.output}"`);
+            lines.push('  WORKING_DIRECTORY');
+            lines.push(`    "${iter.workDir}"`);
+            lines.push('  VERBATIM');
+            lines.push('  )');
+            lines.push('');
+          }
+        }
+
+        lines.push(`make_directory(${env.binaryDir})`);
+        lines.push('');
+
+        lines.push(`add_library(${name} STATIC \${${name}_HEADERS} \${${name}_SOURCES} \${${name}_GENFILES})`);
         lines.push(`target_include_directories(${name} PUBLIC \${${name}_PUBLIC_INCLUDES})`);
         lines.push(`target_include_directories(${name} PRIVATE \${${name}_INCLUDES})`);
+        lines.push(`target_link_libraries(${name} PUBLIC \${${name}_PUBLIC_LIBRARIES})`);
         lines.push(`set_target_properties(${name} PROPERTIES LINKER_LANGUAGE CXX)`);
         lines.push('');
 
-        if (target.install?.headers) {
+        if (entry.install?.headers) {
           lines.push('if (CONFIG_ENABLE_INSTALL_HEADERS)');
-          for (const filename of target.install.headers.files) {
-            const src = path.posix.resolve(path.isAbsolute(filename) ? "" : currentDir, filename);
-            const dst =  path.posix.dirname(path.posix.relative(target.install.headers.baseDir, filename));
-            lines.push(`  install(FILES "${src}" DESTINATION "${path.posix.join(ctx.variables.install.includeDir, dst)}")`);
+          for (const iter of toArray(entry.install.headers)) {
+            for (const filename of toArray(iter.files)) {
+              const dst =  ctx.path.dirname(ctx.path.relative(iter.baseDir, filename));
+              lines.push(`  install(FILES "${cmakeResolve(filename)}" DESTINATION "${ctx.path.join(ctx.global.install.includeDir, dst)}")`);
+            }
           }
           lines.push('endif ()');
           lines.push('');

@@ -6,13 +6,6 @@ const { spawnAsync } = require('./utils/ChildProcess.js');
 const cmake  = require('./utils/CMake.js');
 const { requestGet } = require('./utils/HttpRequest.js');
 
-function toArray(o)
-{
-  if (o === undefined)
-    return [];
-  return Array.isArray(o) ? o : [o];
-}
-
 class SettingsStorage {
   _filename;
   _encoding = "utf-8";

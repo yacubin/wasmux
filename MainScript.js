@@ -54,16 +54,24 @@ async function saveIfDifferent(filename, content)
 }
 
 class MainContext {
-  _variables = {};
+  _global = {};
   _package = {};
+  _path = {};
 
-  constructor(sourceDir)
+  constructor(sourceDir, binaryDir)
   {
-    this._variables.sourceDir = sourceDir;
-    this._variables.install = {
+    this._global.sourceDir = sourceDir;
+    this._global.binaryDir = binaryDir;
+    this._global.install = {
       binDir: "bin",
       libDir: "lib",
       includeDir: "include",
+    };
+    this._path = {
+      resolve: path.posix.resolve,
+      dirname: path.posix.dirname,
+      relative: path.posix.relative,
+      join: path.posix.join,
     };
   }
 
@@ -72,7 +80,7 @@ class MainContext {
   }
 
   async _loadPackage() {
-    const filepath = path.resolve(this._variables.sourceDir, "package.json");
+    const filepath = path.resolve(this._global.sourceDir, "package.json");
     const content = await fs.promises.readFile(filepath, "utf-8");
     this._package = JSON.parse(content);
   }
@@ -80,7 +88,7 @@ class MainContext {
   get package() { return this._package; }
   set package(value) { this._package = value; }
 
-  get variables() { return this._variables; }
+  get global() { return this._global; }
 
   _settings = {};
   get settings() { return this._settings; }
@@ -110,16 +118,19 @@ class MainContext {
 
   _targets = [];
   get targets() { return this._targets; }
+
+  get path() { return this._path; }
 };
 
-async function runScript({output})
+async function runScript({sourceDir, binaryDir, output})
 {
-  const ctx = new MainContext(__dirname);
+  const ctx = new MainContext(sourceDir, binaryDir);
   await ctx._init();
 
   ctx.settings = settings;
   ctx.plugins.push(new BuildScriptPlugin({ filename: output }));
   ctx.targets.push(path.resolve(__dirname, "waf/base/MakeScript.mjs"));
+  ctx.targets.push(path.resolve(__dirname, "waf/user/MakeScript.mjs"));
 
   for (const plugin of ctx.plugins)
   {

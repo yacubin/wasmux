@@ -87,19 +87,21 @@ export default {
   type: "static",
   language: "cxx",
 
-  private: {
-    headers,
-    sources,
-  },
+  entry: {
+    private: {
+      headers,
+      sources,
+    },
 
-  public: {
-    includes,
-  },
+    public: {
+      includes,
+    },
 
-  install: {
-    headers: {
-      files: headers,
-      baseDir: "include",
+    install: {
+      headers: {
+        files: headers,
+        baseDir: "include",
+      },
     },
   },
 };

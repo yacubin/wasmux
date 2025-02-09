@@ -146,5 +146,3 @@ add_library(wacore STATIC ${wacore_HEADERS} ${wacore_SOURCES} ${wacore_GENFILES}
 target_include_directories(wacore PUBLIC ${wacore_INCLUDES})
 target_link_libraries(wacore PUBLIC ${wacore_LIBRARIES})
 set_target_properties(wacore PROPERTIES LINKER_LANGUAGE CXX)
-
-add_library(WASMUX::WACORE ALIAS wacore)
