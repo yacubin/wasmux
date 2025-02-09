@@ -22,16 +22,22 @@ struct __cpu_set_struct {
 
 typedef struct __cpu_set_struct cpu_set_t;
 
-#define CPU_COUNT(set)                        \
-  {                                           \
-    size_t i, j;                              \
-    int ret = 0;                              \
-    for (i = 0; i < sizeof(set->__bits); i++) \
-      for (j = 0; j < 8; j++)                 \
-        if (set->__bits[i] & (1 << j))        \
-          ret++;                              \
-    ret;                                      \
+static inline int __sched_cpu_count(const cpu_set_t* set)
+{
+  size_t i, j;
+
+  int ret = 0;
+  for (i = 0; i < sizeof(set->__bits); i++) {
+    for (j = 0; j < 8; j++) {
+      if (set->__bits[i] & (1 << j))
+        ret++;
+    }
   }
+
+  return ret;
+}
+
+#define CPU_COUNT(set) __sched_cpu_count(set)
 
 int sched_get_priority_max(int policy);
 int sched_get_priority_min(int policy);

@@ -36,6 +36,7 @@ module.exports = {
   _llseek:                { number: 140, argc: 5,  func: "sys_llseek"                 },
   readv:                  { number: 145, argc: 3,  func: "sys_readv"                  },
   writev:                 { number: 146, argc: 3,  func: "sys_writev"                 },
+  fdatasync:              { number: 148, argc: 1,  func: "sys_fdatasync"              },
   sched_get_priority_max: { number: 159, argc: 1,  func: "sys_sched_get_priority_max" },
   sched_get_priority_min: { number: 160, argc: 1,  func: "sys_sched_get_priority_min" },
   rt_sigaction:           { number: 174, argc: 4,  func: "sys_rt_sigaction"           },

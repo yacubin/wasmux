@@ -71,6 +71,13 @@ char* mktemp(char* pattern)
   return nullptr;
 }
 
+char* mkdtemp(char* pattern)
+{
+  assert(0);
+  errno = ENOSYS;
+  return nullptr;
+}
+
 int grantpt(int fd)
 {
   assert(0);

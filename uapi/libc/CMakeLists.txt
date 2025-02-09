@@ -81,6 +81,7 @@ set(libc_SOURCES
   stub/sys/random.cpp
   stub/sys/resource.cpp
   stub/sys/select.cpp
+  stub/sys/sendfile.cpp
   stub/sys/signalfd.cpp
   stub/sys/socket.cpp
   stub/sys/stat.cpp
@@ -123,6 +124,7 @@ set(libc_SOURCES
   syscalls/creat.cpp
   syscalls/dup2.cpp
   syscalls/execve.cpp
+  syscalls/fdatasync.cpp
   syscalls/fstatat.cpp
   syscalls/getcwd.cpp
   syscalls/getegid.cpp

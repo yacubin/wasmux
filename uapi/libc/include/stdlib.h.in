@@ -50,6 +50,7 @@ int unsetenv(const char* name);
 
 int mkstemp(char* temp);
 char* mktemp(char* pattern);
+char* mkdtemp(char* pattern);
 
 const char* getprogname(void);
 void setprogname(const char* progname);
