@@ -5,21 +5,34 @@ project(wasmux VERSION 0.0.1
   LANGUAGES ASM C CXX
   )
 
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
 find_program(NODE_EXECUTABLE node REQUIRED)
-execute_process(COMMAND "${NODE_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/MainScript.js"
-  "--source-dir=${CMAKE_CURRENT_SOURCE_DIR}"
-  "--binary-dir=${CMAKE_CURRENT_BINARY_DIR}"
-  "--output=${CMAKE_CURRENT_BINARY_DIR}/BuildScript.cmake"
-  OUTPUT_VARIABLE
-    _output
-  RESULT_VARIABLE
-    _result
-  )
-if (_result)
-  message(FATAL_ERROR "Build script could not be created\nResult: ${_result}\nOutput: ${_output}")
+
+set(WASMUX_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+
+set(WASMUX_INSTALL_BINDIR "bin")
+set(WASMUX_INSTALL_LIBDIR "lib")
+set(WASMUX_INSTALL_INCLUDEDIR "include")
+
+if (CONFIG_TARGET_SYSTEM MATCHES "-wasi$")
+  set(WASMUX_INSTALL_LIBDIR "${WASMUX_INSTALL_LIBDIR}/${CMAKE_SYSTEM_PROCESSOR}-wasi")
 endif ()
 
-include("${CMAKE_CURRENT_BINARY_DIR}/BuildScript.cmake")
+include(WxVariables)
+include(WxMacros)
+include(GenScript)
+
+set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -D__ASSEMBLY__")
+
+WX_VARIABLE_PRINT()
+WX_VARIABLE_SAVE("${CMAKE_CURRENT_BINARY_DIR}/config.h")
+include_directories("${CMAKE_CURRENT_BINARY_DIR}")
+
+add_subdirectory(waf)
+add_subdirectory(uapi)
+add_subdirectory(kernel)
+add_subdirectory(tools)
 
 if (CONFIG_ENABLE_INSTALL_HEADERS)
 file(READ "cmake/toolchain/LinuxSystem.cmake" _TOOLCHAIN_CONTENT1)
