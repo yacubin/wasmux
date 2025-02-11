@@ -141,7 +141,8 @@ function (execute_javescript _script _options _one_value_keyword)
     endif ()
   endforeach ()
 
-  add_custom_command(COMMAND "${NODE_EXECUTABLE}" "${_script}" ${_arg_list}
+  add_custom_command(COMMAND "${NODE_EXECUTABLE}" "${__gen_scripts_node_scripts_dir}/ExecuteLoader.mjs"
+      "${_script}" ${_arg_list}
     DEPENDS
       "${_script}"
       "${_input}"
@@ -154,7 +155,6 @@ function (execute_javescript _script _options _one_value_keyword)
 endfunction ()
 
 macro (GEN_WACUSTSEC)
-  # __gen_wacustsec_impl(wacustsec ${ARGN})
   execute_javescript("${__gen_scripts_node_scripts_dir}/run/wacustsec.js"
     "" "CPU;SECTION;INPUT;OUTPUT" ${ARGN}
     )

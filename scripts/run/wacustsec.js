@@ -2,9 +2,8 @@ const path = require('path');
 const fs = require('fs');
 
 const { generatedScriptNameComment } = require('../utils/CXXHelper.js');
-const { currentArgMap } = require('../utils/ArgMap.js');
 
-async function runScript({cpu,section,input,output})
+module.exports = async function({cpu, section, input, output})
 {
   console.log(`cpu = ${cpu}, section = ${section}, input = ${input}, output = ${output}`)
 
@@ -44,8 +43,3 @@ async function runScript({cpu,section,input,output})
   await fs.promises.mkdir(path.dirname(output), { recursive: true });
   await fs.promises.writeFile(output, lines.join('\n'), { encoding: "utf8" });
 }
-
-runScript(currentArgMap()).then(() => process.exit(0)).catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
