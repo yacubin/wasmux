@@ -24,6 +24,6 @@ target_include_directories(pwd PRIVATE "${pwd_INCLUDES}")
 target_compile_definitions(pwd PRIVATE "${pwd_DEFINITIONS}")
 target_link_libraries(pwd PRIVATE ${pwd_LIBRARIES})
 
-if (CONFIG_ENABLE_INSTALL_HEADERS)
+if (WASMUX_ENABLE_INSTALL_HEADERS)
   WX_INSTALL_HEADERS(HEADERS ${pwd_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()

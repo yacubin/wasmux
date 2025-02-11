@@ -9,7 +9,7 @@
 
 static struct wax_thread_data s_main_thread_data = { 0 };
 
-#if CONFIG_ENABLE_TLS // TODO: CONFIG_ENABLE_THREADS
+#if WASMUX_ENABLE_THREADS
 static thread_local auto s_thread_data = &s_main_thread_data;
 #else
 # define s_thread_data &s_main_thread_data

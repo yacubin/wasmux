@@ -144,7 +144,7 @@ if (CONFIG_ENABLE_LIBC)
   add_subdirectory(libc)
 endif ()
 
-if (CONFIG_ENABLE_LIBGCC)
+if (WASMUX_ENABLE_LIBGCC)
   add_subdirectory(libgcc)
 endif ()
 

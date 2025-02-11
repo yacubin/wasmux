@@ -1,9 +1,7 @@
 import url from 'node:url';
-import { filepathToMacroCIdentifier } from "###/utils/CXXHelper.js"
 
 function toCIdentifier(key) {
   let result = "";
-  console.log(">>>", filepathToMacroCIdentifier("SASDAS-sdsa"))
 
   let pos = 0;
   while (pos < key.length) {

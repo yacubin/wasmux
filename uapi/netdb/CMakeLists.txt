@@ -23,6 +23,6 @@ target_include_directories(netdb PUBLIC "${netdb_INCLUDES}")
 target_compile_definitions(netdb PRIVATE "${netdb_DEFINITIONS}")
 target_link_libraries(netdb PRIVATE ${netdb_LIBRARIES})
 
-if (CONFIG_ENABLE_INSTALL_HEADERS)
+if (WASMUX_ENABLE_INSTALL_HEADERS)
   WX_INSTALL_HEADERS(HEADERS ${netdb_HEADERS} DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()

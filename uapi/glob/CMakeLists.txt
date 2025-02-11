@@ -26,6 +26,6 @@ target_link_libraries(glob PRIVATE ${glob_LIBRARIES})
 
 set_target_properties(glob PROPERTIES GNU_VERSIONS_INCLUDE "#include <bits/__glob_version.h>")
 
-if (CONFIG_ENABLE_INSTALL_HEADERS)
+if (WASMUX_ENABLE_INSTALL_HEADERS)
   WX_INSTALL_HEADERS(HEADERS ${glob_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()

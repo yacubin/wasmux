@@ -7,15 +7,15 @@ export default function(env, argv) {
       generator: "Unix Makefiles",
       cacheVariables: {
         CMAKE_INSTALL_PREFIX: "/usr",
-        CONFIG_ENABLE_TLS: true,
-        CONFIG_ENABLE_KERNEL: false,
+        WASMUX_ENABLE_THREADS: true,
+        WASMUX_ENABLE_KERNEL: false,
         CONFIG_ENABLE_LIBC: true,
         CONFIG_ENABLE_CRT: true,
         CONFIG_ENABLE_LIBM: true,
         CONFIG_ENABLE_DL: true,
         CONFIG_ENABLE_MAIN_ENV_ARG: false,
       },
-            binaryDir: path.resolve(process.cwd(), "build/wasm32-wasi/wasmux"),
+      binaryDir: path.resolve(process.cwd(), "build/wasm32-wasi/wasmux"),
       destDir: path.resolve(process.cwd(), "build/sysroot"),
     },
     output: {

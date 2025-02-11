@@ -11,19 +11,19 @@ export default {
     description: "WASMUX URL",
     value: "${PROJECT_HOMEPAGE_URL}",
   },
-  CONFIG_ENABLE_INSTALL_HEADERS: {
+  WASMUX_ENABLE_INSTALL_HEADERS: {
     description: "Enable install headers",
     value: true,
   },
-  CONFIG_ENABLE_TLS: {
-    description: "Enable thread-local storage",
+  WASMUX_ENABLE_THREADS: {
+    description: "Enable threads",
     value: true,
   },
-  CONFIG_ENABLE_KERNEL: {
+  WASMUX_ENABLE_KERNEL: {
     description: "Enable kernel installation",
     value: false,
   },
-  CONFIG_ENABLE_LIBGCC: {
+  WASMUX_ENABLE_LIBGCC: {
     description: "Enable libgcc library",
     value: true,
   },
@@ -223,7 +223,7 @@ export default {
   },
   CONFIG_JSDATA_PATH: {
     description: "Path to jsdata standalone",
-    depends: "CONFIG_ENABLE_KERNEL",
+    depends: "WASMUX_ENABLE_KERNEL",
     value: "${WASMUX_ROOT_DIR}/kernel/jsdata",
   },
 };

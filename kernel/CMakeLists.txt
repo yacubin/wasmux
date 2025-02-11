@@ -1,4 +1,4 @@
-if (CONFIG_ENABLE_KERNEL)
+if (WASMUX_ENABLE_KERNEL)
   if (CONFIG_WAML_PATH)
     list(APPEND KERNEL_DEPENDENCIES waml)
     add_subdirectory("${CONFIG_WAML_PATH}" waml)

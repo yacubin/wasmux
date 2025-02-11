@@ -41,7 +41,7 @@ add_subdirectory(uapi)
 add_subdirectory(kernel)
 add_subdirectory(tools)
 
-if (CONFIG_ENABLE_INSTALL_HEADERS)
+if (WASMUX_ENABLE_INSTALL_HEADERS)
 file(READ "cmake/toolchain/LinuxSystem.cmake" _TOOLCHAIN_CONTENT1)
 file(READ "cmake/toolchain/UserConfig.cmake" _TOOLCHAIN_CONTENT2)
 file(READ "cmake/toolchain/CommonToolchain.cmake" _TOOLCHAIN_CONTENT3)

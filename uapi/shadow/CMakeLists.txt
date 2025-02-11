@@ -24,6 +24,6 @@ target_include_directories(shadow PRIVATE "${shadow_INCLUDES}")
 target_compile_definitions(shadow PRIVATE "${shadow_DEFINITIONS}")
 target_link_libraries(shadow PRIVATE ${shadow_LIBRARIES})
 
-if (CONFIG_ENABLE_INSTALL_HEADERS)
+if (WASMUX_ENABLE_INSTALL_HEADERS)
   WX_INSTALL_HEADERS(HEADERS ${shadow_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()

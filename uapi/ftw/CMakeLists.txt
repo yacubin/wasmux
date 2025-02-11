@@ -25,6 +25,6 @@ target_include_directories(ftw PRIVATE "${ftw_INCLUDES}")
 target_compile_definitions(ftw PRIVATE "${ftw_DEFINITIONS}")
 target_link_libraries(ftw PRIVATE ${ftw_LIBRARIES})
 
-if (CONFIG_ENABLE_INSTALL_HEADERS)
+if (WASMUX_ENABLE_INSTALL_HEADERS)
   WX_INSTALL_HEADERS(HEADERS ${ftw_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()

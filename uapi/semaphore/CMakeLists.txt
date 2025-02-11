@@ -24,6 +24,6 @@ target_include_directories(semaphore PRIVATE "${semaphore_INCLUDES}")
 target_compile_definitions(semaphore PRIVATE "${semaphore_DEFINITIONS}")
 target_link_libraries(semaphore PRIVATE ${semaphore_LIBRARIES})
 
-if (CONFIG_ENABLE_INSTALL_HEADERS)
+if (WASMUX_ENABLE_INSTALL_HEADERS)
   WX_INSTALL_HEADERS(HEADERS ${semaphore_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()

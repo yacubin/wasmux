@@ -24,6 +24,6 @@ target_include_directories(grp PRIVATE "${grp_INCLUDES}")
 target_compile_definitions(grp PRIVATE "${grp_DEFINITIONS}")
 target_link_libraries(grp PRIVATE ${grp_LIBRARIES})
 
-if (CONFIG_ENABLE_INSTALL_HEADERS)
+if (WASMUX_ENABLE_INSTALL_HEADERS)
   WX_INSTALL_HEADERS(HEADERS ${grp_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()

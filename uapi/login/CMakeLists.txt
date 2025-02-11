@@ -26,6 +26,6 @@ target_include_directories(login PRIVATE "${login_INCLUDES}")
 target_compile_definitions(login PRIVATE "${login_DEFINITIONS}")
 target_link_libraries(login PRIVATE ${login_LIBRARIES})
 
-if (CONFIG_ENABLE_INSTALL_HEADERS)
+if (WASMUX_ENABLE_INSTALL_HEADERS)
   WX_INSTALL_HEADERS(HEADERS ${login_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()

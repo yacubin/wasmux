@@ -24,6 +24,6 @@ target_include_directories(wordexp PRIVATE "${wordexp_INCLUDES}")
 target_compile_definitions(wordexp PRIVATE "${wordexp_DEFINITIONS}")
 target_link_libraries(wordexp PRIVATE ${wordexp_LIBRARIES})
 
-if (CONFIG_ENABLE_INSTALL_HEADERS)
+if (WASMUX_ENABLE_INSTALL_HEADERS)
   WX_INSTALL_HEADERS(HEADERS ${wordexp_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()

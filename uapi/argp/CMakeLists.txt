@@ -23,6 +23,6 @@ target_include_directories(argp PUBLIC "${argp_INCLUDES}")
 target_compile_definitions(argp PRIVATE "${argp_DEFINITIONS}")
 target_link_libraries(argp PRIVATE ${argp_LIBRARIES})
 
-if (CONFIG_ENABLE_INSTALL_HEADERS)
+if (WASMUX_ENABLE_INSTALL_HEADERS)
   WX_INSTALL_HEADERS(HEADERS ${argp_HEADERS} DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()

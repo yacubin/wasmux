@@ -28,6 +28,6 @@ target_link_libraries(getopt PRIVATE ${getopt_LIBRARIES})
 set_target_properties(getopt PROPERTIES GNU_VERSIONS_INCLUDE "#include <bits/__getopt_version.h>")
 set_target_properties(getopt PROPERTIES UNISTD_INCLUDE "#include <bits/__getopt_base.h>")
 
-if (CONFIG_ENABLE_INSTALL_HEADERS)
+if (WASMUX_ENABLE_INSTALL_HEADERS)
   WX_INSTALL_HEADERS(HEADERS ${getopt_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()

@@ -50,6 +50,6 @@ target_link_libraries(wcsmbs PRIVATE ${wcsmbs_LIBRARIES})
 
 set_target_properties(wcsmbs PROPERTIES STDLIB_INCLUDE "#include <bits/wcsmbs_comm.h>")
 
-if (CONFIG_ENABLE_INSTALL_HEADERS)
+if (WASMUX_ENABLE_INSTALL_HEADERS)
   WX_INSTALL_HEADERS(HEADERS ${wcsmbs_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()

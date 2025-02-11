@@ -87,6 +87,6 @@ add_library(wabase STATIC ${wabase_HEADERS} ${wabase_SOURCES})
 target_include_directories(wabase PUBLIC ${wabase_INCLUDES})
 set_target_properties(wabase PROPERTIES LINKER_LANGUAGE CXX)
 
-if (CONFIG_ENABLE_INSTALL_HEADERS)
+if (WASMUX_ENABLE_INSTALL_HEADERS)
   WX_INSTALL_HEADERS(HEADERS ${wabase_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()

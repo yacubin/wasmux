@@ -25,6 +25,6 @@ target_include_directories(signal PRIVATE "${signal_INCLUDES}")
 target_compile_definitions(signal PRIVATE "${signal_DEFINITIONS}")
 target_link_libraries(signal PRIVATE ${signal_LIBRARIES})
 
-if (CONFIG_ENABLE_INSTALL_HEADERS)
+if (WASMUX_ENABLE_INSTALL_HEADERS)
   WX_INSTALL_HEADERS(HEADERS ${signal_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()

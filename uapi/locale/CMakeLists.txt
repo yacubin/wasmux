@@ -32,6 +32,6 @@ target_link_libraries(locale PRIVATE ${locale_LIBRARIES})
 
 set_target_properties(locale PROPERTIES CTYPE_INCLUDE "#include <bits/locale_ctype.h>")
 
-if (CONFIG_ENABLE_INSTALL_HEADERS)
+if (WASMUX_ENABLE_INSTALL_HEADERS)
   WX_INSTALL_HEADERS(HEADERS ${locale_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()

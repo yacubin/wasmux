@@ -23,6 +23,6 @@ target_include_directories(fts PRIVATE "${fts_INCLUDES}")
 target_compile_definitions(fts PRIVATE "${fts_DEFINITIONS}")
 target_link_libraries(fts PRIVATE ${fts_LIBRARIES})
 
-if (CONFIG_ENABLE_INSTALL_HEADERS)
+if (WASMUX_ENABLE_INSTALL_HEADERS)
   WX_INSTALL_HEADERS(HEADERS ${fts_HEADERS} DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()

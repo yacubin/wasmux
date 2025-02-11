@@ -24,6 +24,6 @@ target_include_directories(fnmatch PRIVATE "${fnmatch_INCLUDES}")
 target_compile_definitions(fnmatch PRIVATE "${fnmatch_DEFINITIONS}")
 target_link_libraries(fnmatch PRIVATE ${fnmatch_LIBRARIES})
 
-if (CONFIG_ENABLE_INSTALL_HEADERS)
+if (WASMUX_ENABLE_INSTALL_HEADERS)
   WX_INSTALL_HEADERS(HEADERS ${fnmatch_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()

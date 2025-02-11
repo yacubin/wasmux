@@ -28,6 +28,6 @@ target_include_directories(mntent PRIVATE "${mntent_INCLUDES}")
 target_compile_definitions(mntent PRIVATE "${mntent_DEFINITIONS}")
 target_link_libraries(mntent PRIVATE ${mntent_LIBRARIES})
 
-if (CONFIG_ENABLE_INSTALL_HEADERS)
+if (WASMUX_ENABLE_INSTALL_HEADERS)
   WX_INSTALL_HEADERS(HEADERS ${mntent_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()

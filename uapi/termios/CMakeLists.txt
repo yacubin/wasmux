@@ -24,6 +24,6 @@ target_include_directories(termios PRIVATE "${termios_INCLUDES}")
 target_compile_definitions(termios PRIVATE "${termios_DEFINITIONS}")
 target_link_libraries(termios PRIVATE ${termios_LIBRARIES})
 
-if (CONFIG_ENABLE_INSTALL_HEADERS)
+if (WASMUX_ENABLE_INSTALL_HEADERS)
   WX_INSTALL_HEADERS(HEADERS ${termios_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()
