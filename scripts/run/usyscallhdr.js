@@ -5,7 +5,7 @@ const url = require('url');
 const { filepathToMacroCIdentifier } = require('../utils/CXXHelper.js');
 const { generatedScriptNameComment } = require('../utils/CXXHelper.js');
 
-async function runScript(input, output)
+module.exports = async function({input, output})
 {
   if (!input) {
     throw "Not pass the input filename to the program";
@@ -36,8 +36,3 @@ async function runScript(input, output)
   await fs.promises.mkdir(path.dirname(output), { recursive: true });
   await fs.promises.writeFile(output, lines.join('\n'));
 }
-
-runScript(...process.argv.slice(2)).then(() => process.exit(0)).catch((e) => {
-  console.error(e);
-  process.exit(1);
-});

@@ -3,7 +3,7 @@ const path = require('path');
 
 const { generatedScriptNameComment } = require('../utils/CXXHelper.js');
 
-async function runScript(output)
+module.exports = async function({output})
 {
   const now = new Date();
   const year = now.getUTCFullYear();
@@ -29,8 +29,3 @@ async function runScript(output)
   await fs.promises.mkdir(path.dirname(output), { recursive: true });
   await fs.promises.writeFile(output, lines.join('\n'), { encoding: "utf8" });
 }
-
-runScript(...process.argv.slice(2)).then(() => process.exit(0)).catch((e) => {
-  console.error(e);
-  process.exit(1);
-});

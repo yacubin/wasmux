@@ -5,7 +5,7 @@ const { filepathToMacroCIdentifier } = require('../utils/CXXHelper.js');
 const { generatedScriptNameComment } = require('../utils/CXXHelper.js');
 const { loadWebcalls } = require('../utils/LoadWebcalls.js');
 
-async function runScript(input,output)
+module.exports = async function runScript({input, output})
 {
   const webcalls = await loadWebcalls(input, 'both');
 
@@ -34,8 +34,3 @@ async function runScript(input,output)
   await fs.promises.mkdir(path.dirname(output), { recursive: true });
   await fs.promises.writeFile(output, lines.join('\n'), { encoding: "utf8" });
 }
-
-runScript(...process.argv.slice(2)).then(() => process.exit(0)).catch((e) => {
-  console.error(e);
-  process.exit(1);
-});

@@ -1,7 +1,9 @@
-const url = require('url');
+import url from 'node:url';
+import { filepathToMacroCIdentifier } from "###/utils/CXXHelper.js"
 
 function toCIdentifier(key) {
   let result = "";
+  console.log(">>>", filepathToMacroCIdentifier("SASDAS-sdsa"))
 
   let pos = 0;
   while (pos < key.length) {
@@ -30,13 +32,21 @@ function toArgMap(args)
   return params;
 }
 
-const scriptUrl = url.pathToFileURL(process.argv[2]);
-const argMap = toArgMap(process.argv.slice(3));
+async function runScript()
+{
+  const scriptUrl = url.pathToFileURL(process.argv[2]);
+  const argMap = toArgMap(process.argv.slice(3));
+  
+  const module = await import(scriptUrl);
+  const func = module.default;
+  
+  const result = func(argMap);
+  if (result instanceof Promise) {
+    await result;
+  }
+}
 
-const module = await import(scriptUrl);
-const runScript = module;
-
-runScript(argMap).then(() => process.exit(0)).catch((e) => {
+runScript().then(() => process.exit(0)).catch((e) => {
   console.error(e);
   process.exit(1);
 });
