@@ -1,0 +1,229 @@
+export default {
+  WASMUX_VERSION: {
+    description: "WASMUX Version",
+    value: "${PROJECT_VERSION}",
+  },
+  WASMUX_DESCRIPTION: {
+    description: "${PROJECT_DESCRIPTION}",
+    value: "WASMUX Description",
+  },
+  WASMUX_URL: {
+    description: "WASMUX URL",
+    value: "${PROJECT_HOMEPAGE_URL}",
+  },
+  CONFIG_ENABLE_INSTALL_HEADERS: {
+    description: "Enable install headers",
+    value: true,
+  },
+  CONFIG_ENABLE_TLS: {
+    description: "Enable thread-local storage",
+    value: true,
+  },
+  CONFIG_ENABLE_KERNEL: {
+    description: "Enable kernel installation",
+    value: false,
+  },
+  CONFIG_ENABLE_LIBGCC: {
+    description: "Enable libgcc library",
+    value: true,
+  },
+  CONFIG_ENABLE_LIBC: {
+    description: "Enable libc library",
+    value: true,
+  },
+  CONFIG_ENABLE_CRT: {
+    description: "Enable C Run-Time",
+    value: true,
+  },
+  CONFIG_ENABLE_LIBM: {
+    description: "Enable Math library",
+    value: true,
+  },
+  CONFIG_ENABLE_DL: {
+    description: "Enable Dynamic library",
+    value: true,
+  },
+  CONFIG_ENABLE_DL: {
+    description: "Enable Dynamic library",
+    value: true,
+  },
+  CONFIG_ENABLE_LIBCXX: {
+    description: "Enable libc++ library",
+    value: true,
+  },
+  CONFIG_ENABLE_PTHREAD: {
+    description: "Enable pthread library",
+    value: true,
+  },
+  CONFIG_ENABLE_MAIN_ENV_ARG: {
+    description: "Enable env argument for main function",
+    value: false,
+  },
+  CONFIG_ENABLE_WAEDITOR: {
+    description: "Enable waeditor tool",
+    value: false,
+  },
+  CONFIG_CORE_INIT_PAGES: {
+    description: "Initial size of core pages",
+    value: 16,
+  },
+  CONFIG_CORE_MAX_PAGES: {
+    description: "Maximum size of core pages",
+    value: 124,
+  },
+  CONFIG_TARGET_SYSTEM: {
+    description: "Target system",
+    types: [ "wasm32", "wasm64", "wasm32-wasi", "wasm64-wasi" ],
+    value: "wasm32",
+  },
+  CONFIG_LIBC_FEATURES: {
+    description: "Choosing features for libc",
+    types: [ "none", "glibc", "uclibc" ],
+    value: "glibc",
+  },
+  CONFIG_MALLOC_PATH: {
+    description: "Path to malloc standalone",
+    depends: "CONFIG_ENABLE_LIBC",
+    value: "${WASMUX_ROOT_DIR}/uapi/malloc",
+  },
+  CONFIG_STRING_PATH: {
+    description: "Path to string standalone",
+    depends: "CONFIG_ENABLE_LIBC",
+    value: "${WASMUX_ROOT_DIR}/uapi/string",
+  },
+  CONFIG_CTYPE_PATH: {
+    description: "Path to ctype standalone",
+    depends: "CONFIG_ENABLE_LIBC",
+    value: "${WASMUX_ROOT_DIR}/uapi/ctype",
+  },
+  CONFIG_STDLIB_PATH: {
+    description: "Path to stdlib standalone",
+    depends: "CONFIG_ENABLE_LIBC",
+    value: "${WASMUX_ROOT_DIR}/uapi/stdlib",
+  },
+  CONFIG_SIGNAL_PATH: {
+    description: "Path to signal standalone",
+    depends: "CONFIG_ENABLE_LIBC",
+    value: "${WASMUX_ROOT_DIR}/uapi/signal",
+  },
+  CONFIG_SEMAPHORE_PATH: {
+    description: "Path to semaphore standalone",
+    depends: "CONFIG_ENABLE_LIBC",
+    value: "${WASMUX_ROOT_DIR}/uapi/semaphore",
+  },
+  CONFIG_WCSMBS_PATH: {
+    description: "Path to wcsmbs standalone",
+    depends: "CONFIG_ENABLE_LIBC",
+    value: "${WASMUX_ROOT_DIR}/uapi/wcsmbs",
+  },
+  CONFIG_LIBIO_PATH: {
+    description: "Path to libio standalone",
+    depends: "CONFIG_ENABLE_LIBC",
+    value: "${WASMUX_ROOT_DIR}/uapi/libio",
+  },
+  CONFIG_DIRENT_PATH: {
+    description: "Path to dirent standalone",
+    depends: "CONFIG_ENABLE_LIBC",
+    value: "${WASMUX_ROOT_DIR}/uapi/dirent",
+  },
+  CONFIG_GRP_PATH: {
+    description: "Path to grp standalone",
+    depends: "CONFIG_ENABLE_LIBC",
+    value: "${WASMUX_ROOT_DIR}/uapi/grp",
+  },
+  CONFIG_PWD_PATH: {
+    description: "Path to pwd standalone",
+    depends: "CONFIG_ENABLE_LIBC",
+    value: "${WASMUX_ROOT_DIR}/uapi/pwd",
+  },
+  CONFIG_FTW_PATH: {
+    description: "Path to ftw standalone",
+    depends: "CONFIG_ENABLE_LIBC",
+    value: "${WASMUX_ROOT_DIR}/uapi/ftw",
+  },
+  CONFIG_WORDEXP_PATH: {
+    description: "Path to wordexp standalone",
+    depends: "CONFIG_ENABLE_LIBC",
+    value: "${WASMUX_ROOT_DIR}/uapi/wordexp",
+  },
+  CONFIG_LOGIN_PATH: {
+    description: "Path to login standalone",
+    depends: "CONFIG_ENABLE_LIBC",
+    value: "${WASMUX_ROOT_DIR}/uapi/login",
+  },
+  CONFIG_MNTENT_PATH: {
+    description: "Path to mntent standalone",
+    depends: "CONFIG_ENABLE_LIBC",
+    value: "${WASMUX_ROOT_DIR}/uapi/mntent",
+  },
+  CONFIG_SHADOW_PATH: {
+    description: "Path to shadow standalone",
+    depends: "CONFIG_ENABLE_LIBC",
+    value: "${WASMUX_ROOT_DIR}/uapi/shadow",
+  },
+  CONFIG_TERMIOS_PATH: {
+    description: "Path to termios standalone",
+    depends: "CONFIG_ENABLE_LIBC",
+    value: "${WASMUX_ROOT_DIR}/uapi/termios",
+  },
+  CONFIG_ARGP_PATH: {
+    description: "Path to argp standalone",
+    depends: "CONFIG_ENABLE_LIBC",
+    value: "${WASMUX_ROOT_DIR}/uapi/argp",
+  },
+  CONFIG_FTS_PATH: {
+    description: "Path to fts standalone",
+    depends: "CONFIG_ENABLE_LIBC",
+    value: "${WASMUX_ROOT_DIR}/uapi/fts",
+  },
+  CONFIG_NETDB_PATH: {
+    description: "Path to netdb standalone",
+    depends: "CONFIG_ENABLE_LIBC",
+    value: "${WASMUX_ROOT_DIR}/uapi/netdb",
+  },
+  CONFIG_OBSTACK_PATH: {
+    description: "Path to obstack standalone",
+    depends: "CONFIG_ENABLE_LIBC",
+    value: "${WASMUX_ROOT_DIR}/uapi/obstack",
+  },
+  CONFIG_LIBINTL_PATH: {
+    description: "Path to libintl standalone",
+    depends: "CONFIG_ENABLE_LIBC",
+    value: "${WASMUX_ROOT_DIR}/uapi/libintl",
+  },
+  CONFIG_LOCALE_PATH: {
+    description: "Path to locale standalone",
+    depends: "CONFIG_ENABLE_LIBC",
+    value: "${WASMUX_ROOT_DIR}/uapi/locale",
+  },
+  CONFIG_GETOPT_PATH: {
+    description: "Path to getopt standalone",
+    depends: "CONFIG_ENABLE_LIBC",
+    value: "${WASMUX_ROOT_DIR}/uapi/getopt",
+  },
+  CONFIG_REGEX_PATH: {
+    description: "Path to regex standalone",
+    depends: "CONFIG_ENABLE_LIBC",
+    value: "${WASMUX_ROOT_DIR}/uapi/regex",
+  },
+  CONFIG_GLOB_PATH: {
+    description: "Path to glob standalone",
+    depends: "CONFIG_ENABLE_LIBC",
+    value: "${WASMUX_ROOT_DIR}/uapi/glob",
+  },
+  CONFIG_FNMATCH_PATH: {
+    description: "Path to fnmatch standalone",
+    depends: "CONFIG_ENABLE_LIBC",
+    value: "${WASMUX_ROOT_DIR}/uapi/fnmatch",
+  },
+  CONFIG_ULINUX_PATH: {
+    description: "Path to ulinux standalone",
+    depends: "CONFIG_ENABLE_LIBC",
+    value: "${WASMUX_ROOT_DIR}/uapi/ulinux",
+  },
+  CONFIG_JSDATA_PATH: {
+    description: "Path to jsdata standalone",
+    depends: "CONFIG_ENABLE_KERNEL",
+    value: "${WASMUX_ROOT_DIR}/kernel/jsdata",
+  },
+};
