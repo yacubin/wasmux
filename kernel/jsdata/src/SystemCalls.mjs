@@ -362,9 +362,9 @@ export function sys_WorkerPerform(workerId, callback, userdata, arg1, arg2, arg3
     args: [
       callback,
       userdata,
-      arg1 ? this._objects[arg1] : 0,
-      arg2 ? this._objects[arg2] : 0,
-      arg3 ? this._objects[arg3] : 0,
+      arg1 ? this._objects[arg1] : undefined,
+      arg2 ? this._objects[arg2] : undefined,
+      arg3 ? this._objects[arg3] : undefined,
     ]
   });
 }
@@ -374,9 +374,9 @@ export function sys_PostMessage(callback, userdata, arg1, arg2, arg3, arg4)
   self.postMessage([
     callback,
     userdata,
-    arg1 ? this._objects[arg1] : 0,
-    arg2 ? this._objects[arg2] : 0,
-    arg3 ? this._objects[arg3] : 0,
-    arg4 ? this._objects[arg4] : 0,
+    arg1 ? this._objects[arg1] : undefined,
+    arg2 ? this._objects[arg2] : undefined,
+    arg3 ? this._objects[arg3] : undefined,
+    arg4 ? this._objects[arg4] : undefined,
   ]);
 }
