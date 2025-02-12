@@ -5,7 +5,7 @@ const url = require('url');
 const { filepathToMacroCIdentifier } = require('../utils/CXXHelper.js');
 const { generatedScriptNameComment } = require('../utils/CXXHelper.js');
 
-module.exports = async function({input, output})
+module.exports = async function({script, input, output})
 {
   if (!input) {
     throw "Not pass the input filename to the program";
@@ -20,7 +20,7 @@ module.exports = async function({input, output})
 
   const lines = [];
 
-  lines.push(generatedScriptNameComment(process.argv[1]));
+  lines.push(generatedScriptNameComment(script));
   lines.push(`#ifndef ${pragmaOnce}`);
   lines.push(`#define ${pragmaOnce}`);
   lines.push(``);

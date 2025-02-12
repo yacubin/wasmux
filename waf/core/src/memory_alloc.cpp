@@ -20,7 +20,7 @@ using MemoryManagerHeap = WEI::WasmCurrentHeap;
 using MemoryManagerHeap = WEI::HostHeap;
 #endif
 
-using WasmMemoryManager = WAF::MemoryManager<WA_MEMORY_PAGE_SHIFT, CONFIG_CORE_INIT_PAGES, CONFIG_CORE_MAX_PAGES, MemoryManagerHeap>;
+using WasmMemoryManager = WAF::MemoryManager<WA_MEMORY_PAGE_SHIFT, WASMUX_CORE_INIT_PAGES, WASMUX_CORE_MAX_PAGES, MemoryManagerHeap>;
 
 static StaticStorage<MemoryManagerHeap> s_heap;
 static StaticStorage<WasmMemoryManager> s_memoryManager;
@@ -30,7 +30,7 @@ void WebMemoryAllocInit()
 #ifdef WA_CPU_WASM
   s_heap.initialize();
 #else
-  s_heap.initialize(CONFIG_CORE_INIT_PAGES, CONFIG_CORE_MAX_PAGES);
+  s_heap.initialize(WASMUX_CORE_INIT_PAGES, WASMUX_CORE_MAX_PAGES);
 #endif
   s_memoryManager.initialize(*s_heap);
 }

@@ -389,7 +389,7 @@ async function doConfigNode(ctx, name, binaryDir, config, parentConfig)
     config.sysroot.cacheVariables = config.sysroot.cacheVariables || {};
     config.sysroot.cacheVariables.CMAKE_BUILD_TYPE = config.sysroot.cacheVariables.CMAKE_BUILD_TYPE || config.sysroot.buildType;
     config.sysroot.cacheVariables.CMAKE_INSTALL_PREFIX = config.sysroot.cacheVariables.CMAKE_INSTALL_PREFIX || "/";
-    config.sysroot.cacheVariables.CONFIG_TARGET_SYSTEM = config.sysroot.cacheVariables.CONFIG_TARGET_SYSTEM || config.sysroot.arch;
+    config.sysroot.cacheVariables.WASMUX_TARGET_SYSTEM = config.sysroot.cacheVariables.WASMUX_TARGET_SYSTEM || config.sysroot.arch;
     if (!config.sysroot.cacheVariables.CMAKE_TOOLCHAIN_FILE) {
       const toolchainFile = config.sysroot.arch.includes("wasm64") ? 'cmake/wasm64-toolchain.cmake' : 'cmake/wasm32-toolchain.cmake';
       config.sysroot.cacheVariables.CMAKE_TOOLCHAIN_FILE = path.resolve(config.sysroot.sourceDir, toolchainFile);

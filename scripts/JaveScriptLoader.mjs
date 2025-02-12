@@ -23,7 +23,7 @@ function toArgMap(args)
     if (iter.startsWith("--")) {
       const pos = iter.indexOf("=");
       const key = (pos === -1) ? iter.substring(2) : iter.substring(2, pos);
-      const val = (pos === -1) ? null : iter.substring(pos + 1);
+      const val = (pos === -1) ? true : iter.substring(pos + 1);
       params[toCIdentifier(key)] = val;
     }
   });
@@ -32,8 +32,8 @@ function toArgMap(args)
 
 async function runScript()
 {
-  const scriptUrl = url.pathToFileURL(process.argv[2]);
-  const argMap = toArgMap(process.argv.slice(3));
+  const argMap = toArgMap(process.argv.slice(2));
+  const scriptUrl = url.pathToFileURL(argMap.script);
   
   const module = await import(scriptUrl);
   const func = module.default;

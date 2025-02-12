@@ -3,13 +3,11 @@ const fs = require('fs');
 
 const { generatedScriptNameComment } = require('../utils/CXXHelper.js');
 
-module.exports = async function({cpu, section, input, output})
+module.exports = async function({script, cpu, section, input, output})
 {
-  console.log(`cpu = ${cpu}, section = ${section}, input = ${input}, output = ${output}`)
-
   let lines = [];
 
-  lines.push(generatedScriptNameComment(process.argv[1]));
+  lines.push(generatedScriptNameComment(script));
   switch (cpu) {
   case 'wasm32':
   case 'wasm64':

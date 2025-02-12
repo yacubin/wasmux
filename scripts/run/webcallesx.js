@@ -4,13 +4,13 @@ const fs = require('fs');
 const { generatedScriptNameComment } = require('../utils/CXXHelper.js');
 const { loadWebcalls } = require('../utils/LoadWebcalls.js');
 
-module.exports = async function({side, input, output})
+module.exports = async function({script, side, input, output})
 {
   const webcalls = await loadWebcalls(input, side);
 
   let lines = [];
 
-  lines.push(generatedScriptNameComment(process.argv[1]));
+  lines.push(generatedScriptNameComment(script));
   for (const name of new Set(webcalls))
     lines.push(`import { sys_${name} } from 'src/SystemCalls.mjs';`);
   lines.push('');

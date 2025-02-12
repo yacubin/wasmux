@@ -11,6 +11,18 @@ export default {
     description: "WASMUX URL",
     value: "${PROJECT_HOMEPAGE_URL}",
   },
+  WASMUX_LOADER_SECTION: {
+    description: "Loader section",
+    value: ".jsdata.loader",
+  },
+  WASMUX_WORKER_SECTION: {
+    description: "Worker section",
+    value: ".jsdata.worker",
+  },
+  WASMUX_VERSION_SECTION: {
+    description: "Version section",
+    value: ".jsdata.version",
+  },
   WASMUX_ENABLE_INSTALL_HEADERS: {
     description: "Enable install headers",
     value: true,
@@ -39,46 +51,42 @@ export default {
     description: "Enable Math library",
     value: true,
   },
-  CONFIG_ENABLE_DL: {
+  WASMUX_ENABLE_DL: {
     description: "Enable Dynamic library",
     value: true,
   },
-  CONFIG_ENABLE_DL: {
-    description: "Enable Dynamic library",
-    value: true,
-  },
-  CONFIG_ENABLE_LIBCXX: {
+  WASMUX_ENABLE_LIBCXX: {
     description: "Enable libc++ library",
     value: true,
   },
-  CONFIG_ENABLE_PTHREAD: {
+  WASMUX_ENABLE_PTHREAD: {
     description: "Enable pthread library",
     value: true,
   },
-  CONFIG_ENABLE_MAIN_ENV_ARG: {
+  WASMUX_ENABLE_MAIN_ENV_ARG: {
     description: "Enable env argument for main function",
     value: false,
   },
-  CONFIG_ENABLE_WAEDITOR: {
+  WASMUX_ENABLE_WAEDITOR: {
     description: "Enable waeditor tool",
     value: false,
   },
-  CONFIG_CORE_INIT_PAGES: {
+  WASMUX_CORE_INIT_PAGES: {
     description: "Initial size of core pages",
     value: 16,
   },
-  CONFIG_CORE_MAX_PAGES: {
+  WASMUX_CORE_MAX_PAGES: {
     description: "Maximum size of core pages",
     value: 124,
   },
-  CONFIG_TARGET_SYSTEM: {
+  WASMUX_TARGET_SYSTEM: {
     description: "Target system",
-    types: [ "wasm32", "wasm64", "wasm32-wasi", "wasm64-wasi" ],
+    type: [ "wasm32", "wasm64", "wasm32-wasi", "wasm64-wasi" ],
     value: "wasm32",
   },
-  CONFIG_LIBC_FEATURES: {
+  WASMUX_LIBC_FEATURES: {
     description: "Choosing features for libc",
-    types: [ "none", "glibc", "uclibc" ],
+    type: [ "none", "glibc", "uclibc" ],
     value: "glibc",
   },
   CONFIG_MALLOC_PATH: {

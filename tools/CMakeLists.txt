@@ -1,3 +1,3 @@
-if (CONFIG_ENABLE_WAEDITOR)
+if (WASMUX_ENABLE_WAEDITOR)
   add_subdirectory(waeditor)
 endif ()

@@ -209,7 +209,7 @@ configure_file("include/gnu-versions.h.in" "${CMAKE_CURRENT_BINARY_DIR}/include/
 configure_file("include/stdlib.h.in" "${CMAKE_CURRENT_BINARY_DIR}/include/stdlib.h" @ONLY)
 configure_file("include/unistd.h.in" "${CMAKE_CURRENT_BINARY_DIR}/include/unistd.h" @ONLY)
 
-configure_file("features/${CONFIG_LIBC_FEATURES}-features.h" "${CMAKE_CURRENT_BINARY_DIR}/include/features.h" COPYONLY)
+configure_file("features/${WASMUX_LIBC_FEATURES}-features.h" "${CMAKE_CURRENT_BINARY_DIR}/include/features.h" COPYONLY)
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${libc_HEADERS} ${libc_SOURCES} ${libc_DATAFILES})
 add_library(libc STATIC ${libc_HEADERS} ${libc_SOURCES} ${libc_DATAFILES})

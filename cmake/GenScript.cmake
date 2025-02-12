@@ -1,5 +1,3 @@
-get_filename_component(__gen_scripts_node_scripts_dir "${CMAKE_CURRENT_LIST_DIR}/../scripts" ABSOLUTE)
-
 macro(__gen_script_output_impl _script)
   cmake_parse_arguments(__gen_${_script}
     ""
@@ -8,10 +6,10 @@ macro(__gen_script_output_impl _script)
     ${ARGN}
     )
   add_custom_command(COMMAND "${NODE_EXECUTABLE}"
-      "${__gen_scripts_node_scripts_dir}/run/${_script}.js"
+      "${WASMUX_SCRIPT_DIR}/run/${_script}.js"
       "${__gen_${_script}_OUTPUT}"
     DEPENDS
-      "${__gen_scripts_node_scripts_dir}/run/${_script}.js"
+      "${WASMUX_SCRIPT_DIR}/run/${_script}.js"
     OUTPUT
       "${__gen_${_script}_OUTPUT}"
     WORKING_DIRECTORY
@@ -32,11 +30,11 @@ macro(__gen_syscallhdr_impl _script)
     ${ARGN}
     )
   add_custom_command(COMMAND "${NODE_EXECUTABLE}"
-      "${__gen_scripts_node_scripts_dir}/run/${_script}.js"
+      "${WASMUX_SCRIPT_DIR}/run/${_script}.js"
       "${__gen_${_script}_INPUT}"
       "${__gen_${_script}_OUTPUT}"
     DEPENDS
-      "${__gen_scripts_node_scripts_dir}/run/${_script}.js"
+      "${WASMUX_SCRIPT_DIR}/run/${_script}.js"
       "${__gen_${_script}_INPUT}"
     OUTPUT
       "${__gen_${_script}_OUTPUT}"
@@ -46,10 +44,10 @@ macro(__gen_syscallhdr_impl _script)
     )
 endmacro()
 
-function (execute_javescript _script _options _one_value_keyword)
+function (add_custom_javescript _script _options _one_value_keyword)
   set(_input "")
   set(_output "")
-  set(_arg_list "")
+  set(_arg_list "--script=${_script}")
 
   set(_key "")
   foreach (_iter ${ARGN})
@@ -74,8 +72,7 @@ function (execute_javescript _script _options _one_value_keyword)
     endif ()
   endforeach ()
 
-  add_custom_command(COMMAND "${NODE_EXECUTABLE}" "${__gen_scripts_node_scripts_dir}/JaveScriptLoader.mjs"
-      "${_script}" ${_arg_list}
+  add_custom_command(COMMAND "${NODE_EXECUTABLE}" "${WASMUX_SCRIPT_DIR}/JaveScriptLoader.mjs" ${_arg_list}
     DEPENDS
       "${_script}"
       "${_input}"
@@ -88,25 +85,25 @@ function (execute_javescript _script _options _one_value_keyword)
 endfunction ()
 
 macro(GEN_KSYSCALLHDR)
-  execute_javescript("${__gen_scripts_node_scripts_dir}/run/ksyscallhdr.js" "" "INPUT;OUTPUT" ${ARGN})
+  add_custom_javescript("${WASMUX_SCRIPT_DIR}/run/ksyscallhdr.js" "" "INPUT;OUTPUT" ${ARGN})
 endmacro()
 
 macro(GEN_USYSCALLHDR)
-  execute_javescript("${__gen_scripts_node_scripts_dir}/run/usyscallhdr.js" "" "INPUT;OUTPUT" ${ARGN})
+  add_custom_javescript("${WASMUX_SCRIPT_DIR}/run/usyscallhdr.js" "" "INPUT;OUTPUT" ${ARGN})
 endmacro()
 
 macro(GEN_KWEBCALLHDR)
-  execute_javescript("${__gen_scripts_node_scripts_dir}/run/webcallhdr.js" "" "INPUT;OUTPUT" ${ARGN})
+  add_custom_javescript("${WASMUX_SCRIPT_DIR}/run/webcallhdr.js" "" "INPUT;OUTPUT" ${ARGN})
 endmacro()
 
 macro(GEN_KWEBCALLTBL)
-  execute_javescript("${__gen_scripts_node_scripts_dir}/run/webcalltbl.js" "" "SIDE;INPUT;OUTPUT" ${ARGN})
+  add_custom_javescript("${WASMUX_SCRIPT_DIR}/run/webcalltbl.js" "" "SIDE;INPUT;OUTPUT" ${ARGN})
 endmacro()
 
 macro(GEN_KWEBCALLESX)
-  execute_javescript("${__gen_scripts_node_scripts_dir}/run/webcallesx.js" "" "SIDE;INPUT;OUTPUT" ${ARGN})
+  add_custom_javescript("${WASMUX_SCRIPT_DIR}/run/webcallesx.js" "" "SIDE;INPUT;OUTPUT" ${ARGN})
 endmacro()
 
 macro (GEN_WACUSTSEC)
-  execute_javescript("${__gen_scripts_node_scripts_dir}/run/wacustsec.js" "" "CPU;SECTION;INPUT;OUTPUT" ${ARGN})
+  add_custom_javescript("${WASMUX_SCRIPT_DIR}/run/wacustsec.js" "" "CPU;SECTION;INPUT;OUTPUT" ${ARGN})
 endmacro ()
