@@ -5,7 +5,7 @@
  */
 
 #include <wasmux-config.h>
-#include <cntl.h>
+#include <fcntl.h>
 #include <wasmux/assert.h>
 #include <errno.h>
 

@@ -27,8 +27,9 @@ include(GenScript)
 set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -D__ASSEMBLY__")
 
 # WX_MAKE_VARIABLE(
-#   INPUT scripts/variables.mjs
-#   OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/config.h"
+#   INPUT "${WASMUX_ROOT_DIR}/scripts/variables.mjs"
+#   OUTPUT_HEADER "${CMAKE_CURRENT_BINARY_DIR}/wasmux-config.h"
+#   OUTPUT_JSON "${CMAKE_CURRENT_BINARY_DIR}/wasmux-config.json"
 #   PRINT
 #   )
 

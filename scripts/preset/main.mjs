@@ -13,9 +13,9 @@ export default function(env, argv) {
       cacheVariables: {
         CMAKE_INSTALL_PREFIX: "/usr",
         WASMUX_ENABLE_THREADS: true,
-        CONFIG_ENABLE_LIBC: true,
-        CONFIG_ENABLE_CRT: true,
-        CONFIG_ENABLE_LIBM: true,
+        WASMUX_ENABLE_LIBC: true,
+        WASMUX_ENABLE_CRT: true,
+        WASMUX_ENABLE_LIBM: true,
         CONFIG_ENABLE_DL: true,
         CONFIG_ENABLE_MAIN_ENV_ARG: false,
       },

@@ -1,4 +1,4 @@
-if (CONFIG_ENABLE_LIBC)
+if (WASMUX_ENABLE_LIBC)
   set(LIBC_DEPENDENCIES "")
 
   if (CONFIG_MALLOC_PATH)
@@ -148,7 +148,7 @@ if (WASMUX_ENABLE_LIBGCC)
   add_subdirectory(libgcc)
 endif ()
 
-if (CONFIG_ENABLE_CRT)
+if (WASMUX_ENABLE_CRT)
   add_subdirectory(crt)
 endif ()
 
@@ -157,7 +157,7 @@ if (CONFIG_ENABLE_LIBCXX)
   add_subdirectory(libcxxabi)
 endif ()
 
-if (CONFIG_ENABLE_LIBM)
+if (WASMUX_ENABLE_LIBM)
   add_subdirectory(libm)
 endif ()
 
