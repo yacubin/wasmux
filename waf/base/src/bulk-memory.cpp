@@ -4,7 +4,7 @@
  *
  */
 
-#include "config.h"
+#include <wasmux-config.h>
 #include <wasmux/bulk-memory.h>
 
 #ifndef __wasm__

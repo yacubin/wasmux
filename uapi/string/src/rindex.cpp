@@ -4,8 +4,7 @@
  *
  */
 
-#include "config.h"
-
+#include <wasmux-config.h>
 #include <string.h>
 
 char* rindex(const char* str, int ch)

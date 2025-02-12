@@ -4,8 +4,7 @@
  *
  */
 
-#include "config.h"
-
+#include <wasmux-config.h>
 #include <sys/timerfd.h>
 #include <errno.h>
 #include <assert.h>

@@ -4,8 +4,7 @@
  *
  */
 
-#include "config.h"
-
+#include <wasmux-config.h>
 #include <wasmux/web/worker.h>
 #include <wasmux/web/string.h>
 #include <wasmux/cxx/ObjectCast.h>

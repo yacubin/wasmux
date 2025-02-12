@@ -4,8 +4,7 @@
  *
  */
 
-#include "config.h"
-
+#include <wasmux-config.h>
 #include <sys/klog.h>
 #include <errno.h>
 #include <wasmux/compiler.h>

@@ -4,8 +4,7 @@
  *
  */
 
-#include "config.h"
-
+#include <wasmux-config.h>
 #include <sys/stat.h>
 #include <wasmux/compiler.h>
 #include <wasmux/thread_data.h>

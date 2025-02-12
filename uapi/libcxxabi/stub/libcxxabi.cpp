@@ -4,8 +4,7 @@
  *
  */
 
-#include "config.h"
-
+#include <wasmux-config.h>
 #include <wasmux/assert.h>
 
 __attribute__((visibility("hidden")))

@@ -4,8 +4,7 @@
  *
  */
 
-#include "config.h"
-
+#include <wasmux-config.h>
 #include <termios.h>
 #include <wasmux/compiler.h>
 

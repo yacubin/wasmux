@@ -4,8 +4,7 @@
  *
  */
 
-#include "config.h"
-
+#include <wasmux-config.h>
 #include <sys/stat.h>
 
 int futimens(int fd, const struct timespec times[2])

@@ -5,8 +5,7 @@
  *
  */
 
-#include "config.h"
-
+#include <wasmux-config.h>
 #include <wasmux/cxx/Section.h>
 
 WA_CUSTOM_SECTION_STR(".wasmux.version", WASMUX_VERSION);

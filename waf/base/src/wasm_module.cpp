@@ -4,8 +4,7 @@
  *
  */
 
-#include "config.h"
-
+#include <wasmux-config.h>
 #include <wasmux/wasm_module.h>
 #include <wasmux/wasm_header.h>
 #include <wasmux/cxx/Leb128.h>

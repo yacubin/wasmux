@@ -4,7 +4,7 @@
  *
  */
 
-#include "config.h"
+#include <wasmux-config.h>
 #include <wasmux/types.h>
 #include <wasmux/compiler.h>
 #include <wasmux/assert.h>

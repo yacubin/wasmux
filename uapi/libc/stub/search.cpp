@@ -4,9 +4,8 @@
  *
  */
 
-#include "config.h"
-#include "search.h"
-
+#include <wasmux-config.h>
+#include <search.h>
 #include <wasmux/assert.h>
 
 void* tsearch(const void* key, void** root, int (*compare)(const void*, const void*))

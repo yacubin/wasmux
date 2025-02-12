@@ -4,9 +4,8 @@
  *
  */
 
-#include "config.h"
-#include "fp_lib.h"
-
+#include <wasmux-config.h>
+#include <fp_lib.h>
 #include <wasmux/compiler.h>
 #include <wasmux/assert.h>
 

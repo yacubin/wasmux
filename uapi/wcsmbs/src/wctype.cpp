@@ -4,9 +4,8 @@
  *
  */
 
-#include "config.h"
-#include "wctype.h"
-
+#include <wasmux-config.h>
+#include <wctype.h>
 #include <wasmux/assert.h>
 
 wctype_t wctype(const char* name)

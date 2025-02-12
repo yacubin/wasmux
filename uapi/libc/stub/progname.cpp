@@ -4,8 +4,8 @@
  *
  */
 
-#include "config.h"
-#include "errno.h"
+#include <wasmux-config.h>
+#include <errno.h>
 
 char* program_invocation_name = nullptr;
 char* program_invocation_short_name = nullptr;

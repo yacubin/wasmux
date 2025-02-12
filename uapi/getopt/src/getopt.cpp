@@ -4,9 +4,8 @@
  *
  */
 
-#include "config.h"
-#include "getopt.h"
-
+#include <wasmux-config.h>
+#include <getopt.h>
 #include <wasmux/assert.h>
 
 int optind = 1;

@@ -4,8 +4,7 @@
  *
  */
 
-#include "config.h"
-
+#include <wasmux-config.h>
 #include <wasmux/cxx/PrintTo.h>
 #include <wasmux/cxx/Characters.h>
 

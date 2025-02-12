@@ -4,8 +4,7 @@
  *
  */
 
-#include "config.h"
-
+#include <wasmux-config.h>
 #include <wasmux/web/getrandombytes.h>
 #include <wasmux/bulk-memory.h>
 #include <wasmux/wei.h>

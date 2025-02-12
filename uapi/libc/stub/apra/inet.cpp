@@ -4,9 +4,8 @@
  *
  */
 
-#include "config.h"
-#include "arpa/inet.h"
-
+#include <wasmux-config.h>
+#include <arpa/inet.h>
 #include <wasmux/assert.h>
 
 char* inet_ntoa(struct in_addr in)

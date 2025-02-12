@@ -4,7 +4,7 @@
  *
  */
 
-#include "config.h"
+#include <wasmux-config.h>
 #include <wasmux/sleep_ms.h>
 
 void kernel_sleep_ms(int ms)

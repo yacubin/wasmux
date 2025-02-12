@@ -4,9 +4,8 @@
  *
  */
 
-#include "config.h"
-#include "sys/random.h"
-
+#include <wasmux-config.h>
+#include <sys/random.h>
 #include <wasmux/assert.h>
 #include <errno.h>
 

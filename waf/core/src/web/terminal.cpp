@@ -4,8 +4,7 @@
  *
  */
 
-#include "config.h"
-
+#include <wasmux-config.h>
 #include <wasmux/web/terminal.h>
 #include <wasmux/errno.h>
 #include <wasmux/notify_waiter.h>

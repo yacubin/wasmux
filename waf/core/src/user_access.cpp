@@ -4,8 +4,7 @@
  *
  */
 
-#include "config.h"
-
+#include <wasmux-config.h>
 #include <wasmux/user_access.h>
 #include <wasmux/web/object.h>
 #include <wasmux/worker_instance.h>

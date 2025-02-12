@@ -4,7 +4,7 @@
  *
  */
 
-#include "config.h"
+#include <wasmux-config.h>
 
 #include "NJSObject.h"
 #include "OSMalloc.h"

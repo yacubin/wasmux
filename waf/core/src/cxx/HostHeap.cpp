@@ -4,8 +4,7 @@
  *
  */
 
-#include "config.h"
-
+#include <wasmux-config.h>
 #include <wasmux/cxx/HostHeap.h>
 #include <wasmux/platform.h>
 

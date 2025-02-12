@@ -4,9 +4,8 @@
  *
  */
 
-#include "config.h"
-#include "dlfcn.h"
-
+#include <wasmux-config.h>
+#include <dlfcn.h>
 #include <wasmux/assert.h>
 
 void* dlopen(const char* filename, int flag)

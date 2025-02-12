@@ -4,8 +4,7 @@
  *
  */
 
-#include "config.h"
-
+#include <wasmux-config.h>
 #include <wasmux/web/xmlhttprequest.h>
 #include <wasmux/assert.h>
 #include <wasmux/web/string.h>

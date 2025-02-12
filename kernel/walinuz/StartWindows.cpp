@@ -1,5 +1,10 @@
-#include "config.h"
+/*
+ *
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *
+ */
 
+#include <wasmux-config.h>
 #include <wasmux/memory_alloc.h>
 #include <wasmux/wasm_page.h>
 #include <wasmux/sprintf.h>

@@ -4,8 +4,7 @@
  *
  */
 
-#include "config.h"
-
+#include <wasmux-config.h>
 #include <wasmux/alert.h>
 #include <wasmux/cxx/Characters.h>
 #include <wasmux/cxx/ObjectCast.h>

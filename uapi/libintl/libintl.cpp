@@ -4,9 +4,8 @@
  *
  */
 
-#include "config.h"
-#include "libintl.h"
-
+#include <wasmux-config.h>
+#include <libintl.h>
 #include <wasmux/assert.h>
 
 char* gettext(const char* msgid)

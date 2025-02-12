@@ -4,8 +4,7 @@
  *
  */
 
-#include "config.h"
-
+#include <wasmux-config.h>
 #include <wasmux/sprintf.h>
 #include <wasmux/bulk-memory.h>
 #include <wasmux/cxx/PrintTo.h>

@@ -4,9 +4,8 @@
  *
  */
 
-#include "config.h"
-#include "regex.h"
-
+#include <wasmux-config.h>
+#include <regex.h>
 #include <wasmux/assert.h>
 
 int regcomp(regex_t* regex, const char* pattern, int flags)

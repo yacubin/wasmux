@@ -4,7 +4,7 @@
  *
  */
 
-#include "config.h"
+#include <wasmux-config.h>
 
 #include "Looper.h"
 #include "BaseThreadContext.h"

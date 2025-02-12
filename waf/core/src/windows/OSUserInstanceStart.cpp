@@ -4,9 +4,7 @@
  *
  */
 
-#include "config.h"
-
-
+#include <wasmux-config.h>
 #include <wasmux/wei.h>
 #include <wasmux/platform.h>
 

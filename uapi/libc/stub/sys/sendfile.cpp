@@ -4,11 +4,10 @@
  *
  */
 
- #include "config.h"
-
- #include <sys/signalfd.h>
- #include <assert.h>
- #include <errno.h>
+#include <wasmux-config.h>
+#include <sys/signalfd.h>
+#include <assert.h>
+#include <errno.h>
  
 ssize_t sendfile(int out_fd, int in_fd, off_t* ofs, size_t count)
  {

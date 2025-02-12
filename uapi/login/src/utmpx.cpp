@@ -4,9 +4,8 @@
  *
  */
 
-#include "config.h"
+#include <wasmux-config.h>
 #include <utmpx.h>
-
 #include <wasmux/assert.h>
 
 struct utmpx* getutxent(void)

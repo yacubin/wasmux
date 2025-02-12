@@ -5,7 +5,7 @@
  *
  */
 
-#include "config.h"
+#include <wasmux-config.h>
 
 __attribute__((export_name("_initialize")))
 void _initialize(void)

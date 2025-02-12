@@ -4,9 +4,8 @@
  *
  */
 
-#include "config.h"
-#include "glob.h"
-
+#include <wasmux-config.h>
+#include <glob.h>
 #include <wasmux/assert.h>
 
 int glob(const char* pattern, int flags, int (*errcb)(const char* epath, int eerrno), glob_t* glob)

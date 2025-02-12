@@ -4,9 +4,8 @@
  *
  */
 
-#include "config.h"
-#include "fts.h"
-
+#include <wasmux-config.h>
+#include <fts.h>
 #include <wasmux/compiler.h>
 #include <wasmux/assert.h>
 

@@ -1,3 +1,4 @@
+#include <wasmux-config.h>
 #include <wasmux/types.h>
 
 .globaltype __stack_pointer, PTR

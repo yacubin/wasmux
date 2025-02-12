@@ -4,9 +4,8 @@
  *
  */
 
-#include "config.h"
-#include "langinfo.h"
-
+#include <wasmux-config.h>
+#include <langinfo.h>
 #include <wasmux/assert.h>
 
 char* nl_langinfo(nl_item item)

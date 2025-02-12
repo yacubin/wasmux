@@ -4,9 +4,8 @@
  *
  */
 
-#include "config.h"
-#include "setjmp.h"
-
+#include <wasmux-config.h>
+#include <setjmp.h>
 #include <wasmux/assert.h>
 #include <errno.h>
 

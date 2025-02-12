@@ -1,12 +1,11 @@
 /*
- *-2025
+ *
  *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#include "config.h"
-#include "fcntl.h"
-
+#include <wasmux-config.h>
+#include <cntl.h>
 #include <wasmux/assert.h>
 #include <errno.h>
 

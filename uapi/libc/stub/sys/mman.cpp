@@ -4,8 +4,7 @@
  *
  */
 
-#include "config.h"
-
+#include <wasmux-config.h>
 #include <sys/mman.h>
 #include <assert.h>
 #include <errno.h>

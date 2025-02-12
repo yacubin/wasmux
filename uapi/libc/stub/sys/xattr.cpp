@@ -4,9 +4,8 @@
  *
  */
 
-#include "config.h"
-#include "sys/xattr.h"
-
+#include <wasmux-config.h>
+#include <sys/xattr.h>
 #include <wasmux/assert.h>
 
 ssize_t fgetxattr(int fd, const char* name, void* value, size_t size)

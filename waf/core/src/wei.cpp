@@ -4,8 +4,7 @@
  *
  */
 
-#include "config.h"
-
+#include <wasmux-config.h>
 #include <wasmux/wei.h>
 #include <wasmux/assert.h>
 #include <wasmux/webcall-nums.h>

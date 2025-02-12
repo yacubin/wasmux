@@ -5,7 +5,7 @@
  *
  */
 
-#include "config.h"
+#include <wasmux-config.h>
 #include <wasmux/compiler.h>
 
 __ATTR_WEAK

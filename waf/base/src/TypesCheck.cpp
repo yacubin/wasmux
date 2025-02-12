@@ -4,7 +4,7 @@
  *
  */
 
-#include "config.h"
+#include <wasmux-config.h>
 #include <wasmux/types.h>
 
 static_assert (sizeof(int8_t) == 1, "Type int8_t is not equal to 1");

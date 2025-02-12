@@ -33,7 +33,7 @@ set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -D__ASSEMBLY__")
 #   )
 
 WX_VARIABLE_PRINT()
-WX_VARIABLE_SAVE("${CMAKE_CURRENT_BINARY_DIR}/config.h")
+WX_VARIABLE_SAVE("${CMAKE_CURRENT_BINARY_DIR}/wasmux-config.h")
 include_directories("${CMAKE_CURRENT_BINARY_DIR}")
 
 add_subdirectory(waf)

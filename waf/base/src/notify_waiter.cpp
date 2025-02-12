@@ -4,9 +4,8 @@
  *
  */
 
-#include "config.h"
+#include <wasmux-config.h>
 #include <wasmux/notify_waiter.h>
-
 #include <wasmux/platform.h>
 #include <wasmux/assert.h>
 

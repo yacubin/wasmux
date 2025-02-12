@@ -4,9 +4,8 @@
  *
  */
 
-#include "config.h"
-#include "poll.h"
-
+#include <wasmux-config.h>
+#include <poll.h>
 #include <wasmux/assert.h>
 #include <errno.h>
 

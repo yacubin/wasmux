@@ -4,8 +4,7 @@
  *
  */
 
-#include "config.h"
-
+#include <wasmux-config.h>
 #include <wasmux/web/getcurrenttimer.h>
 #include <wasmux/wei.h>
 

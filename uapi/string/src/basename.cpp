@@ -4,8 +4,7 @@
  *
  */
 
-#include "config.h"
-
+#include <wasmux-config.h>
 #include <bits/__string_basename.h>
 #include <assert.h>
 

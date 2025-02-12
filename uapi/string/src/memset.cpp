@@ -4,7 +4,7 @@
  *
  */
 
-#include "config.h"
+#include <wasmux-config.h>
 #include <string.h>
 
 void* memset(void* mem, int ch, size_t n)
