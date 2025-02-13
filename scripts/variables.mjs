@@ -89,6 +89,10 @@ export default {
     type: [ "none", "glibc", "uclibc" ],
     value: "glibc",
   },
+  WASMUX_INJECT_SCRIPT_LIST: {
+    description: "Injections to build",
+    value: "",
+  },
   CONFIG_MALLOC_PATH: {
     description: "Path to malloc standalone",
     depends: "WASMUX_ENABLE_LIBC",
