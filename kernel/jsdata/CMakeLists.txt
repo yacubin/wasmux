@@ -30,8 +30,8 @@ add_custom_command(
     --config webpack.config.mjs
     --env "buildType=${CMAKE_BUILD_TYPE}"
     --env "buildDirectory=${CMAKE_CURRENT_BINARY_DIR}"
-    --env "settings=${CMAKE_CURRENT_SOURCE_DIR}/settings.mjs"
-  DEPENDS ${jsdata_SOURCES} ${jsdata_GENFILES} "${CMAKE_CURRENT_SOURCE_DIR}/settings.mjs"
+    --env "settings=${WASMUX_CONFIG_OBJECT}"
+  DEPENDS ${jsdata_SOURCES} ${jsdata_GENFILES}
   OUTPUT
     "${CMAKE_CURRENT_BINARY_DIR}/dist/loader.js"
     "${CMAKE_CURRENT_BINARY_DIR}/dist/worker.js"
@@ -41,14 +41,14 @@ add_custom_command(
 
 GEN_WACUSTSEC(
   CPU "${CMAKE_SYSTEM_PROCESSOR}"
-  SECTION ".jsdata.loader"
+  SECTION "${WASMUX_LOADER_SECTION}"
   INPUT "${CMAKE_CURRENT_BINARY_DIR}/dist/loader.js"
   OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/loader.S"
   )
 
 GEN_WACUSTSEC(
   CPU "${CMAKE_SYSTEM_PROCESSOR}"
-  SECTION ".jsdata.worker"
+  SECTION "${WASMUX_WORKER_SECTION}"
   INPUT "${CMAKE_CURRENT_BINARY_DIR}/dist/worker.js"
   OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/worker.S"
   )

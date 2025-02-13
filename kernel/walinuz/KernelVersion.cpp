@@ -7,4 +7,4 @@
 #include <wasmux-config.h>
 #include <wasmux/cxx/Section.h>
 
-WA_CUSTOM_SECTION_STR(".jsdata.version", WASMUX_VERSION);
+WA_CUSTOM_SECTION_STR(WASMUX_VERSION_SECTION, WASMUX_VERSION);

@@ -26,12 +26,12 @@ export class Kernel {
     }
   
     const kernelMemory = new WebAssembly.Memory({
-      initial: process.env.KPSL_INIT_PAGE_ORDER,
-      maximum: process.env.KPSL_MAX_PAGE_ORDER,
+      initial: process.env.WASMUX_CORE_INIT_PAGES,
+      maximum: process.env.WASMUX_CORE_MAX_PAGES,
       shared: true,
     });
 
-    const workerList = WebAssembly.Module.customSections(kernelModule, process.env.KPSL_WORKER_SECTION);
+    const workerList = WebAssembly.Module.customSections(kernelModule, process.env.WASMUX_WORKER_SECTION);
     const workerBlob = new Blob(workerList, { type: 'application/javascript' });
     this._workerUrl = URL.createObjectURL(workerBlob);
 
