@@ -86,6 +86,18 @@ async function fileList(dirname, options)
   return list;
 }
 
+async function saveIfDifferent(filename, content)
+{
+  if (await fileExists(filename)) {
+    const oldContent = await fs.promises.readFile(filename, { encoding: "utf8" });
+    if (content == oldContent)
+      return;
+  }
+
+  await fs.promises.mkdir(path.dirname(filename), { recursive: true });
+  await fs.promises.writeFile(filename, content, { encoding: "utf8" });
+}
+
 module.exports = {
   pathExists,
   pathExistsSync,
@@ -95,4 +107,5 @@ module.exports = {
   directoryExistsSync,
   extname,
   fileList,
+  saveIfDifferent,
 };

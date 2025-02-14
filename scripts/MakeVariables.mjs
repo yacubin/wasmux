@@ -1,21 +1,7 @@
-import fs from 'node:fs';
-import path from 'node:path';
 import url from 'node:url';
 
 import { generatedScriptNameComment } from "###/utils/CXXHelper.js";
-import { fileExists } from "###/utils/FileSystem.js";
-
-async function saveIfDifferent(filename, content)
-{
-  if (await fileExists(filename)) {
-    const oldContent = await fs.promises.readFile(filename, { encoding: "utf8" });
-    if (content == oldContent)
-      return;
-  }
-
-  await fs.promises.mkdir(path.dirname(filename), { recursive: true });
-  await fs.promises.writeFile(filename, content, { encoding: "utf8" });
-}
+import { saveIfDifferent } from "###/utils/FileSystem.js";
 
 async function linesSaveTo(filename, lines)
 {
