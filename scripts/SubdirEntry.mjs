@@ -13,7 +13,7 @@ export default async function({script, configScript, sourceDir, binaryDir, plugi
     throw "Not pass the output";
   }
 
-  const ctx = new InjectContext;
+  const ctx = new InjectContext(script);
 
   if (configScript) {
     await ctx.loadConfig(configScript);
@@ -32,5 +32,6 @@ export default async function({script, configScript, sourceDir, binaryDir, plugi
 
   await ctx.initPlugins();
   await ctx.triggerLibraries();
+
   await ctx.saveSubdirEntry(output);
 }

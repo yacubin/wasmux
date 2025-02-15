@@ -188,14 +188,14 @@ set(libc_LIBRARIES
   wauser
   )
 
-foreach (_lib ${LIBC_DEPENDENCIES})
+foreach (_lib ${libc_OBJLIB_LIST})
   list(APPEND libc_INCLUDES $<TARGET_PROPERTY:${_lib},INTERFACE_INCLUDE_DIRECTORIES>)
   list(APPEND libc_SOURCES $<TARGET_OBJECTS:${_lib}>)
 endforeach ()
 
 foreach (_iter GNU_VERSIONS_INCLUDE STDLIB_INCLUDE UNISTD_INCLUDE CTYPE_INCLUDE)
   set(${_iter}_LIST "")
-  foreach (_lib ${LIBC_DEPENDENCIES})
+  foreach (_lib ${libc_OBJLIB_LIST})
     get_target_property(_versions_include ${_lib} ${_iter})
     if (_versions_include)
       list(APPEND ${_iter}_LIST "${_versions_include}")

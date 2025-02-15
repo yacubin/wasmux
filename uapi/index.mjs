@@ -1,5 +1,6 @@
 export default {
   libc: {
+    depends: "WASMUX_ENABLE_LIBC",
     objlibs: {
       malloc:    { cmakeDir: "malloc"    },
       string:    { cmakeDir: "string"    },
@@ -30,5 +31,26 @@ export default {
       fnmatch:   { cmakeDir: "fnmatch"   },
       ulinux:    { cmakeDir: "ulinux"    },
     },
+  },
+  libgcc: {
+    depends: "WASMUX_ENABLE_LIBGCC",
+  },
+  crt: {
+    depends: "WASMUX_ENABLE_CRT",
+  },
+  libcxx: {
+    depends: "WASMUX_ENABLE_LIBCXX",
+  },
+  libcxxabi: {
+    depends: "WASMUX_ENABLE_LIBCXX",
+  },
+  libm: {
+    depends: "WASMUX_ENABLE_LIBM",
+  },
+  dl: {
+    depends: "WASMUX_ENABLE_DL",
+  },
+  pthread: {
+    depends: "WASMUX_ENABLE_PTHREAD",
   },
 };
