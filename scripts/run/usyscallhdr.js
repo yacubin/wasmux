@@ -2,8 +2,8 @@ const path = require('path');
 const fs = require('fs');
 const url = require('url');
 
-const { filepathToMacroCIdentifier } = require('../utils/CXXHelper.js');
-const { generatedScriptNameComment } = require('../utils/CXXHelper.js');
+const { filepathToMacroCIdentifier } = require('../utils/CXX.js');
+const { generatedScriptNameComment } = require('../utils/CXX.js');
 
 module.exports = async function({input, output})
 {

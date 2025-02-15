@@ -30,6 +30,7 @@ void _start(void)
 {
   int argc = 0;
   const char* argv[] = { 0 };
+
 #if WASMUX_ENABLE_MAIN_ENV_ARG
   main(argc, (char**)argv, (char**)argv);
 #else

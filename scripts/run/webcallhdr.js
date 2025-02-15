@@ -1,8 +1,8 @@
 const path = require('path');
 const fs = require('fs');
 
-const { filepathToMacroCIdentifier } = require('../utils/CXXHelper.js');
-const { generatedScriptNameComment } = require('../utils/CXXHelper.js');
+const { filepathToMacroCIdentifier } = require('../utils/CXX.js');
+const { generatedScriptNameComment } = require('../utils/CXX.js');
 const { loadWebcalls } = require('../utils/LoadWebcalls.js');
 
 module.exports = async function runScript({input, output})

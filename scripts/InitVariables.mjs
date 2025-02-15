@@ -7,7 +7,7 @@ export default async function({script, input, pluginList, outputHeader, outputOb
   }
 
   const ctx = new InjectContext(script);
-  ctx.loadInitConfig(input);
+  await ctx.loadInitConfig(input);
 
   if (pluginList) {
     for (const filename of pluginList.split(";")) {

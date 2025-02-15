@@ -93,11 +93,6 @@ static inline long sys_ioctl(unsigned int fd, unsigned int cmd, unsigned long ar
   return __DO_SYSCALL(ioctl, fd, cmd, arg);
 }
 
-static inline long sys_brk(unsigned long brk)
-{
-  return __DO_SYSCALL(brk, brk);
-}
-
 static inline long sys_fork(void)
 {
   return __DO_SYSCALL(fork);

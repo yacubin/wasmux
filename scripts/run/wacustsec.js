@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 
-const { generatedScriptNameComment } = require('../utils/CXXHelper.js');
+const { generatedScriptNameComment } = require('../utils/CXX.js');
 
 module.exports = async function({script, cpu, section, input, output})
 {

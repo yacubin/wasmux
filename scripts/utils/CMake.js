@@ -1,4 +1,6 @@
-const os = require('os');
+const os = require('node:os');
+const fs = require('node:fs');
+const path = require('node:path');
 const { spawnAsync } = require('./ChildProcess.js');
 
 function toVarValue(obj)
@@ -139,10 +141,38 @@ async function extract(args)
   }
 }
 
+async function getProjectInfo(source)
+{
+  const stat = await fs.promises.stat(source);
+  if (stat.isDirectory())
+    source = path.resolve(source, 'CMakeLists.txt');
+  const content = await fs.promises.readFile(source, { encoding: 'utf8' });
+
+  const projectPattern = /project *\( *([^ ]+) *([^)]*)\)/;
+  const versionPattern = /VERSION +([^ ]+)/;
+  let match = content.match(projectPattern);
+  const name = match[1];
+  const projectContent = match[2];
+  match = projectContent.match(versionPattern);
+  const version = match[1];
+
+  return {
+    name,
+    version,
+  };
+}
+
+function generatedScriptNameComment(filename)
+{
+  return `# Generated from ${path.basename(filename)}`;
+}
+
 module.exports = {
   configure,
   build,
   install,
   ctest,
   extract,
+  getProjectInfo,
+  generatedScriptNameComment,
 };

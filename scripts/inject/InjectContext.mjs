@@ -2,7 +2,8 @@ import path from 'node:path';
 import url from 'node:url';
 
 import { saveIfDifferent } from "###/utils/FileSystem.js";
-import { generatedScriptNameComment } from "###/utils/CXXHelper.js";
+import * as CXX from "###/utils/CXX.js";
+import * as CMake from "###/utils/CMake.js";
 
 async function linesSaveTo(filename, lines)
 {
@@ -33,7 +34,7 @@ class InjectHook {
       }
     }
   }
-}
+};
 
 export class InjectContext {
   _entryScript;
@@ -156,6 +157,7 @@ export class InjectContext {
   
     const lines = [];
   
+    lines.push(CMake.generatedScriptNameComment(this._entryScript));
     for (const [name, entry] of Object.entries(this._initConfig)) {
       const space = entry.depends ? "  " : "";
       if (entry.depends) {
@@ -194,7 +196,7 @@ export class InjectContext {
   {
     const lines = [];
   
-    lines.push(generatedScriptNameComment(this._entryScript));
+    lines.push(CXX.generatedScriptNameComment(this._entryScript));
     lines.push("");
   
     for (const [name, entry] of Object.entries(this._initConfig)) {
@@ -223,6 +225,7 @@ export class InjectContext {
   {
     const lines = [];
   
+    lines.push(CXX.generatedScriptNameComment(this._entryScript));
     lines.push("export default {");
   
     for (const [name, entry] of Object.entries(this._initConfig)) {

@@ -129,7 +129,7 @@ if (CONFIG_EXPORT_DYNAMIC)
   list(APPEND _WASMUX_SHARED_LINKER_FLAGS -Wl,--export-dynamic)
 endif ()
 
-if (CONFIG_SHARED_MEMORY)
+if (WASMUX_SHARED_MEMORY)
   list(APPEND _WASM_EXE_LINKER_FLAGS -Wl,--shared-memory)
   list(APPEND _WASMUX_SHARED_LINKER_FLAGS -Wl,--shared-memory)
 endif ()

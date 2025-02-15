@@ -69,3 +69,8 @@ ${_TOOLCHAIN_CONTENT3}
 ")
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/cmake/${WASMUX_TARGET_SYSTEM}.toolchain.cmake" DESTINATION "share/wasmux")
 endif ()
+
+set(WASMUX_INSTALL_SCRIPT "${CMAKE_CURRENT_BINARY_DIR}/InstallScript.cmake")
+configure_file("cmake/InstallScript.cmake.in" "${WASMUX_INSTALL_SCRIPT}" @ONLY)
+
+install(SCRIPT "${WASMUX_INSTALL_SCRIPT}")

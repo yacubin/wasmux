@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_KERNEL_TYPES_H
-#define _WA_KERNEL_TYPES_H
+#ifndef _WASMUX_TYPES_H
+#define _WASMUX_TYPES_H
 
 #include <wasmux/sizeof.h>
 
@@ -66,4 +66,4 @@ typedef unsigned short umode_t;
 
 #endif
 
-#endif /* _WA_KERNEL_TYPES_H */
+#endif /* _WASMUX_TYPES_H */

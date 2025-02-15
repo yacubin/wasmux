@@ -29,7 +29,7 @@ macro (WX_SUBDIR_ENTRY)
       _result
     )
   if (_result)
-    message(FATAL_ERROR "Unable to process subdir entry")
+    message(FATAL_ERROR "Unable to process subdir entry, result ${_result}")
   endif ()
   include("${CMAKE_CURRENT_BINARY_DIR}/SubdirEntry.cmake")
 endmacro ()
