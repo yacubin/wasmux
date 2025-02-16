@@ -19,14 +19,14 @@ export default async function({script, configScript, sourceDir, binaryDir, outpu
     await ctx.loadConfig(configScript);
   }
 
-  const indexPath = ctx.path.join(sourceDir, "index.mjs");
-  if (await fileExists(indexPath)) {
-    await ctx.loadIndex(indexPath);
-  }
-
   await ctx.loadPlugins();
   await ctx.initPlugins();
-  await ctx.triggerLibraries();
 
-  await ctx.saveSubdirEntry(output);
+  const indexPath = ctx.path.join(sourceDir, "index.mjs");
+  if (await fileExists(indexPath)) {
+    await ctx.libraries.loadIndex(indexPath);
+  }
+
+  await ctx.libraries.triggerEvent();
+  await ctx.libraries.saveSubdirEntry(output);
 }

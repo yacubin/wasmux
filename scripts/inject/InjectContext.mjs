@@ -134,101 +134,26 @@ class ErrnoModule {
   }
 };
 
-export class InjectContext {
-  _entryScript;
-  _initConfig = {};
+class LibrariesModule {
+  _ctx;
   _config = {};
-  _libraries = {};
-  _plugins = [];
-  _errno;
 
-  _hooks = new InjectHooks;
-
-  _path = {
-    join: path.posix.join,
-    dirname: path.posix.dirname,
-  };
-
-  constructor(entryScript)
+  constructor(ctx)
   {
-    this._entryScript = entryScript;
-    this._errno = new ErrnoModule(this);
-  }
-
-  get hooks()
-  {
-    return this._hooks;
-  }
-
-  get errno()
-  {
-    return this._errno;
-  }
-
-  get path()
-  {
-    return this._path;
-  }
-
-  get entryScript()
-  {
-    return this._entryScript;
-  }
-
-  async loadInitConfig(filename)
-  {
-    const fileUrl = url.pathToFileURL(filename);
-    const module = await import(fileUrl);
-    this._initConfig = module.default;
-  }
-
-  async loadConfig(filename)
-  {
-    const fileUrl = url.pathToFileURL(filename);
-    const module = await import(fileUrl);
-    this._config = transformCMakeConfigToObject(module.default);
+    this._ctx = ctx;
   }
 
   async loadIndex(filename)
   {
     const fileUrl = url.pathToFileURL(filename);
     const module = await import(fileUrl);
-    this._libraries = module.default;
+    this._config = module.default;
   }
 
-  async loadPlugin(filename)
+  async triggerEvent()
   {
-    const fileUrl = url.pathToFileURL(filename);
-    const module = await import(fileUrl);
-    const Plugin = module.default;
-    this._plugins.push(new Plugin);
-  }
-
-  async loadPlugins()
-  {
-    for (const filename of (this._config.WASMUX_INJECT_SCRIPT_LIST || [])) {
-      await this.loadPlugin(filename);
-    }
-  }
-
-  async initPlugins()
-  {
-    for (const plugin of this._plugins) {
-      const res = plugin.entry(this);
-      if (res instanceof Promise)
-        await res;
-    }
-  }
-
-  async triggerInitConfig()
-  {
-    await this._hooks.emit("variables.init", this._initConfig);
-  }
-
-  async triggerLibraries()
-  {
-    for (const [key, val] of Object.entries(this._libraries)) {
-      await this._hooks.emit(`libraries.${key}`, val);
+    for (const [key, val] of Object.entries(this._config)) {
+      await this._ctx.hooks.emit(`libraries.${key}`, val);
     }
   }
 
@@ -236,7 +161,7 @@ export class InjectContext {
   {
     const lines = [];
 
-    for (const [name, entry] of Object.entries(this._libraries)) {
+    for (const [name, entry] of Object.entries(this._config)) {
       const space = entry.depends ? "  " : "";
       if (entry.depends) {
         lines.push(`if (${entry.depends})`);
@@ -261,6 +186,28 @@ export class InjectContext {
   
     await linesSaveTo(filename, lines);
   }
+};
+
+class VariablesModule {
+  _ctx;
+  _initConfig = {};
+
+  constructor(ctx)
+  {
+    this._ctx = ctx;
+  }
+
+  async loadConfig(filename)
+  {
+    const fileUrl = url.pathToFileURL(filename);
+    const module = await import(fileUrl);
+    this._initConfig = module.default;
+  }
+
+  async triggerEvent()
+  {
+    await this._ctx.hooks.emit("variables.init", this._initConfig);
+  }
 
   async saveInitConfigAsCMake(filename, print)
   {
@@ -271,7 +218,7 @@ export class InjectContext {
   
     const lines = [];
   
-    lines.push(CMake.generatedScriptNameComment(this._entryScript));
+    lines.push(CMake.generatedScriptNameComment(this._ctx.entryScript));
     for (const [name, entry] of Object.entries(this._initConfig)) {
       const space = entry.depends ? "  " : "";
       if (entry.depends) {
@@ -313,7 +260,7 @@ export class InjectContext {
   {
     const lines = [];
   
-    lines.push(CXX.generatedScriptNameComment(this._entryScript));
+    lines.push(CXX.generatedScriptNameComment(this._ctx.entryScript));
     lines.push("");
   
     for (const [name, entry] of Object.entries(this._initConfig)) {
@@ -345,7 +292,7 @@ export class InjectContext {
   {
     const lines = [];
 
-    lines.push(CXX.generatedScriptNameComment(this._entryScript));
+    lines.push(CXX.generatedScriptNameComment(this._ctx.entryScript));
     lines.push("export default {");
 
     for (const [name, entry] of Object.entries(this._initConfig)) {
@@ -384,5 +331,90 @@ export class InjectContext {
     lines.push("");
 
     await linesSaveTo(filename, lines);
+  }
+};
+
+export class InjectContext {
+  _entryScript;
+  _config = {};
+  _plugins = [];
+  _errno;
+  _libraries;
+  _variables;
+
+  _hooks = new InjectHooks;
+
+  _path = {
+    join: path.posix.join,
+    dirname: path.posix.dirname,
+  };
+
+  constructor(entryScript)
+  {
+    this._entryScript = entryScript;
+    this._errno = new ErrnoModule(this);
+    this._libraries = new LibrariesModule(this);
+    this._variables = new VariablesModule(this);
+  }
+
+  get hooks()
+  {
+    return this._hooks;
+  }
+
+  get errno()
+  {
+    return this._errno;
+  }
+
+  get libraries()
+  {
+    return this._libraries;
+  }
+
+  get variables()
+  {
+    return this._variables;
+  }
+
+  get path()
+  {
+    return this._path;
+  }
+
+  get entryScript()
+  {
+    return this._entryScript;
+  }
+
+  async loadConfig(filename)
+  {
+    const fileUrl = url.pathToFileURL(filename);
+    const module = await import(fileUrl);
+    this._config = transformCMakeConfigToObject(module.default);
+  }
+
+  async loadPlugin(filename)
+  {
+    const fileUrl = url.pathToFileURL(filename);
+    const module = await import(fileUrl);
+    const Plugin = module.default;
+    this._plugins.push(new Plugin);
+  }
+
+  async loadPlugins()
+  {
+    for (const filename of (this._config.WASMUX_INJECT_SCRIPT_LIST || [])) {
+      await this.loadPlugin(filename);
+    }
+  }
+
+  async initPlugins()
+  {
+    for (const plugin of this._plugins) {
+      const res = plugin.entry(this);
+      if (res instanceof Promise)
+        await res;
+    }
   }
 };

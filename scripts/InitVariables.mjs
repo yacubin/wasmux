@@ -7,7 +7,6 @@ export default async function({script, input, pluginList, outputHeader, outputOb
   }
 
   const ctx = new InjectContext(script);
-  await ctx.loadInitConfig(input);
 
   if (pluginList) {
     for (const filename of pluginList.split(";")) {
@@ -16,17 +15,19 @@ export default async function({script, input, pluginList, outputHeader, outputOb
   }
 
   await ctx.initPlugins();
-  await ctx.triggerInitConfig();
+
+  await ctx.variables.loadConfig(input);
+  await ctx.variables.triggerEvent();
 
   if (outputScript) {
-    await ctx.saveInitConfigAsCMake(outputScript, print);
+    await ctx.variables.saveInitConfigAsCMake(outputScript, print);
   }
 
   if (outputHeader) {
-    await ctx.saveInitConfigAsCHeader(outputHeader);
+    await ctx.variables.saveInitConfigAsCHeader(outputHeader);
   }
 
   if (outputObject) {
-    await ctx.saveInitConfigAsModule(outputObject);
+    await ctx.variables.saveInitConfigAsModule(outputObject);
   }
 }
