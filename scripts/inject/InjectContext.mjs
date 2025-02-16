@@ -10,12 +10,8 @@ async function linesSaveTo(filename, lines)
   await saveIfDifferent(filename, lines.join('\n'));
 }
 
-export class InjectHook {
+class InjectHooks {
   _callbacks = {};
-
-  constructor()
-  {
-  }
 
   on(name, callback)
   {
@@ -72,7 +68,6 @@ class ErrnoModule {
   constructor(ctx)
   {
     this._ctx = ctx;
-    ctx.hooks.errno = new InjectHook;
   }
 
   async loadConfig(filename)
@@ -87,7 +82,7 @@ class ErrnoModule {
 
   async triggerEvent()
   {
-    await this._ctx.hooks.errno.emit("config", this._config);
+    await this._ctx.hooks.emit("errno.config", this._config);
   }
 
   async saveHeader(filename)
@@ -147,10 +142,7 @@ export class InjectContext {
   _plugins = [];
   _errno;
 
-  _hooks = {
-    variables: new InjectHook,
-    libraries: new InjectHook,
-  };
+  _hooks = new InjectHooks;
 
   _path = {
     join: path.posix.join,
@@ -230,13 +222,13 @@ export class InjectContext {
 
   async triggerInitConfig()
   {
-    await this._hooks.variables.emit("init", this._initConfig);
+    await this._hooks.emit("variables.init", this._initConfig);
   }
 
   async triggerLibraries()
   {
     for (const [key, val] of Object.entries(this._libraries)) {
-      await this._hooks.libraries.emit(key, val);
+      await this._hooks.emit(`libraries.${key}`, val);
     }
   }
 
