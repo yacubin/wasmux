@@ -36,6 +36,32 @@ class InjectHook {
   }
 };
 
+function transformCMakeConfigToObject(config)
+{
+  const result = {};
+  for (const [key, entry] of Object.entries(config)) {
+    if (entry.type === "boolean") {
+      result[key] = entry.value.toUpperCase() === "ON" || entry.value.toUpperCase() === "TRUE";
+    }
+    else if (entry.type === "number") {
+      result[key] = entry.value;
+    }
+    else if (entry.type === "string") {
+      result[key] = entry.value;
+    }
+    else if (entry.type === "strings") {
+      result[key] = entry.value ? entry.value.split(";") : [];
+    }
+    else if (Array.isArray(entry.type)) {
+      result[key] = entry.value;
+    }
+    else {
+      throw `Not supported type ${entry.type}`;
+    }
+  }
+  return result;
+}
+
 export class InjectContext {
   _entryScript;
   _initConfig = {};
@@ -79,7 +105,7 @@ export class InjectContext {
   {
     const fileUrl = url.pathToFileURL(filename);
     const module = await import(fileUrl);
-    this._config = module.default;
+    this._config = transformCMakeConfigToObject(module.default);
   }
 
   async loadIndex(filename)
@@ -95,6 +121,13 @@ export class InjectContext {
     const module = await import(fileUrl);
     const Plugin = module.default;
     this._plugins.push(new Plugin);
+  }
+
+  async loadPlugins()
+  {
+    for (const filename of (this._config.WASMUX_INJECT_SCRIPT_LIST || [])) {
+      await this.loadPlugin(filename);
+    }
   }
 
   async initPlugins()
@@ -177,6 +210,9 @@ export class InjectContext {
           lines.push(`${space}set_property(CACHE ${name} PROPERTY STRINGS ${strings})`);
         }
       }
+      else if (Array.isArray(entry.value)) {
+        lines.push(`${space}set(${name} "${entry.value}" CACHE STRING "${description}")`);
+      }
       else {
         throw `Not supported value of ${entry.value}`;
       }
@@ -212,6 +248,9 @@ export class InjectContext {
       else if (typeof entry.value === "string") {
         lines.push(`#define ${name} "@${name}@"`);
       }
+      else if (Array.isArray(entry.value)) {
+        lines.push(`#define ${name} "@${name}@"`);
+      }
       else {
         throw `Not supported value of ${entry.value}`;
       }
@@ -224,30 +263,45 @@ export class InjectContext {
   async saveInitConfigAsModule(filename)
   {
     const lines = [];
-  
+
     lines.push(CXX.generatedScriptNameComment(this._entryScript));
     lines.push("export default {");
-  
+
     for (const [name, entry] of Object.entries(this._initConfig)) {
-      let val;
-      if (typeof entry.value === "boolean") {
-        val = `"@${name}@" === "ON"`;
+      let type = entry.type;
+      let value = `@${name}@`;
+
+      if (type === undefined) {
+        if (typeof entry.value === "boolean") {
+          type = "boolean";
+        }
+        else if (typeof entry.value === "number") {
+          type = "number";
+        }
+        else if (typeof entry.value === "string") {
+          type = "string";
+        }
+        else if (Array.isArray(entry.value)) {
+          type = "strings";
+        }
+        else {
+          throw `Not supported value of ${entry.value}`;
+        }
       }
-      else if (typeof entry.value === "number") {
-        val = `@${name}@`;
+
+      if (type !== "number") {
+        value = '"' + value + '"';
       }
-      else if (typeof entry.value === "string") {
-        val = `"@${name}@"`;
-      }
-      else {
-        throw `Not supported value of ${entry.value}`;
-      }
-      lines.push(`  ${name}: ${val},`);
+
+      lines.push(`  ${name}: {`);
+      lines.push(`    type: ${JSON.stringify(type)},`);
+      lines.push(`    value: ${value},`);
+      lines.push(`  },`);
     }
-  
+
     lines.push("};");
     lines.push("");
-  
+
     await linesSaveTo(filename, lines);
   }
 };

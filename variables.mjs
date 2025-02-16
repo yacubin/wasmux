@@ -91,7 +91,7 @@ export default {
   },
   WASMUX_INJECT_SCRIPT_LIST: {
     description: "Injections to build",
-    value: "",
+    value: [],
   },
   CONFIG_JSDATA_PATH: {
     description: "Path to jsdata standalone",

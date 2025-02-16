@@ -12,8 +12,6 @@ find_program(NODE_EXECUTABLE node REQUIRED)
 set(WASMUX_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
 set(WASMUX_SCRIPT_DIR "${CMAKE_CURRENT_LIST_DIR}/scripts")
 
-include(WxVariables)
-
 set(WASMUX_INSTALL_BINDIR "bin")
 set(WASMUX_INSTALL_LIBDIR "lib")
 set(WASMUX_INSTALL_INCLUDEDIR "include")
@@ -22,10 +20,9 @@ if (WASMUX_TARGET_SYSTEM MATCHES "-wasi$")
   set(WASMUX_INSTALL_LIBDIR "${WASMUX_INSTALL_LIBDIR}/${CMAKE_SYSTEM_PROCESSOR}-wasi")
 endif ()
 
+include(WxVariables)
 include(WxMacros)
 include(GenScript)
-
-set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -D__ASSEMBLY__")
 
 set(WASMUX_CONFIG_HEADER "${CMAKE_CURRENT_BINARY_DIR}/wasmux-config.h")
 set(WASMUX_CONFIG_OBJECT "${CMAKE_CURRENT_BINARY_DIR}/wasmux-config.mjs")
@@ -44,6 +41,8 @@ configure_file("${WASMUX_CONFIG_HEADER}.in" "${WASMUX_CONFIG_HEADER}" @ONLY)
 configure_file("${WASMUX_CONFIG_OBJECT}.in" "${WASMUX_CONFIG_OBJECT}" @ONLY)
 
 include_directories("${CMAKE_CURRENT_BINARY_DIR}")
+
+set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -D__ASSEMBLY__")
 
 add_subdirectory(waf)
 add_subdirectory(uapi)
