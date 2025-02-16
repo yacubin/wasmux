@@ -5,8 +5,10 @@ const { filepathToMacroCIdentifier } = require('../utils/CXX.js');
 const { generatedScriptNameComment } = require('../utils/CXX.js');
 const { loadWebcalls } = require('../utils/LoadWebcalls.js');
 
-module.exports = async function runScript({input, output})
+module.exports = async function(ctx)
 {
+  const {input, output} = ctx.args;
+
   const webcalls = await loadWebcalls(input, 'both');
 
   let lines = [];

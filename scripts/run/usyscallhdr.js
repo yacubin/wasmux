@@ -5,8 +5,10 @@ const url = require('url');
 const { filepathToMacroCIdentifier } = require('../utils/CXX.js');
 const { generatedScriptNameComment } = require('../utils/CXX.js');
 
-module.exports = async function({input, output})
+module.exports = async function(ctx)
 {
+  const {input, output} = ctx.args;
+
   if (!input) {
     throw "Not pass the input filename to the program";
   }

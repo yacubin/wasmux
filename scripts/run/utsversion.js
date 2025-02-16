@@ -3,8 +3,10 @@ const path = require('path');
 
 const { generatedScriptNameComment } = require('../utils/CXX.js');
 
-module.exports = async function({output})
+module.exports = async function(ctx)
 {
+  const {output} = ctx.args;
+
   const now = new Date();
   const year = now.getUTCFullYear();
   const date = now.getUTCDate();

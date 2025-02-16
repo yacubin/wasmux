@@ -7,7 +7,7 @@ function (WX_INIT_VARIABLES)
     set(__print_arg "--print")
   endif ()
   execute_process(COMMAND "${NODE_EXECUTABLE}" "${WASMUX_SCRIPT_DIR}/JaveScriptLoader.mjs"
-      "--script=${WASMUX_SCRIPT_DIR}/InitVariables.mjs"
+      "--script=${WASMUX_SCRIPT_DIR}/run/InitVariables.mjs"
       "--plugin-list=${WASMUX_INJECT_SCRIPT_LIST}"
       "--input=${__mk_var_INPUT}"
       "--output-header=${__mk_var_OUTPUT_HEADER}"

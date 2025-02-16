@@ -3,11 +3,13 @@ const fs = require('fs');
 
 const { generatedScriptNameComment } = require('../utils/CXX.js');
 
-module.exports = async function({script, cpu, section, input, output})
+module.exports = async function(ctx)
 {
+  const {cpu, section, input, output} = ctx;
+
   let lines = [];
 
-  lines.push(generatedScriptNameComment(script));
+  lines.push(generatedScriptNameComment(ctx.entryScript));
   switch (cpu) {
   case 'wasm32':
   case 'wasm64':

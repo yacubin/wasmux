@@ -1,8 +1,9 @@
 import { fileExists } from "###/utils/FileSystem.js";
-import { InjectContext } from "###/inject/InjectContext.mjs";
 
-export default async function({script, configScript, sourceDir, binaryDir, output})
+export default async function(ctx)
 {
+  const {sourceDir, binaryDir, output} = ctx.args;
+
   if (!sourceDir) {
     throw "Not pass the source dir";
   }
@@ -12,15 +13,6 @@ export default async function({script, configScript, sourceDir, binaryDir, outpu
   if (!output) {
     throw "Not pass the output";
   }
-
-  const ctx = new InjectContext(script);
-
-  if (configScript) {
-    await ctx.loadConfig(configScript);
-  }
-
-  await ctx.loadPlugins();
-  await ctx.initPlugins();
 
   const indexPath = ctx.path.join(sourceDir, "index.mjs");
   if (await fileExists(indexPath)) {

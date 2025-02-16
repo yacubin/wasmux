@@ -17,7 +17,8 @@ endmacro()
 
 macro (WX_SUBDIR_ENTRY)
   execute_process(COMMAND "${NODE_EXECUTABLE}" "${WASMUX_SCRIPT_DIR}/JaveScriptLoader.mjs"
-      "--script=${WASMUX_SCRIPT_DIR}/SubdirEntry.mjs"
+      "--script=${WASMUX_SCRIPT_DIR}/run/SubdirEntry.mjs"
+      "--plugin-list=${WASMUX_INJECT_SCRIPT_LIST}"
       "--config-script=${WASMUX_CONFIG_OBJECT}"
       "--source-dir=${CMAKE_CURRENT_SOURCE_DIR}"
       "--binary-dir=${CMAKE_CURRENT_BINARY_DIR}"

@@ -1,53 +1,11 @@
-macro(__gen_script_output_impl _script)
-  cmake_parse_arguments(__gen_${_script}
-    ""
-    "OUTPUT"
-    ""
-    ${ARGN}
-    )
-  add_custom_command(COMMAND "${NODE_EXECUTABLE}"
-      "${WASMUX_SCRIPT_DIR}/run/${_script}.js"
-      "${__gen_${_script}_OUTPUT}"
-    DEPENDS
-      "${WASMUX_SCRIPT_DIR}/run/${_script}.js"
-    OUTPUT
-      "${__gen_${_script}_OUTPUT}"
-    WORKING_DIRECTORY
-      "${CMAKE_CURRENT_BINARY_DIR}"
-    VERBATIM
-    )
-endmacro()
-
-macro(GEN_KUTSVERSION)
-  __gen_script_output_impl(utsversion ${ARGN})
-endmacro()
-
-macro(__gen_syscallhdr_impl _script)
-  cmake_parse_arguments(__gen_${_script}
-    ""
-    "INPUT;OUTPUT"
-    ""
-    ${ARGN}
-    )
-  add_custom_command(COMMAND "${NODE_EXECUTABLE}"
-      "${WASMUX_SCRIPT_DIR}/run/${_script}.js"
-      "${__gen_${_script}_INPUT}"
-      "${__gen_${_script}_OUTPUT}"
-    DEPENDS
-      "${WASMUX_SCRIPT_DIR}/run/${_script}.js"
-      "${__gen_${_script}_INPUT}"
-    OUTPUT
-      "${__gen_${_script}_OUTPUT}"
-    WORKING_DIRECTORY
-      "${CMAKE_CURRENT_BINARY_DIR}"
-    VERBATIM
-    )
-endmacro()
-
 function (add_custom_javescript _script _options _one_value_keyword)
   set(_input "")
   set(_output "")
-  set(_arg_list "--config-script=${WASMUX_CONFIG_OBJECT}" "--script=${_script}")
+  set(_arg_list
+    "--script=${_script}"
+    "--plugin-list=${WASMUX_INJECT_SCRIPT_LIST}"
+    "--config-script=${WASMUX_CONFIG_OBJECT}"
+    )
   set(_work_dir "${CMAKE_CURRENT_BINARY_DIR}")
 
   set(_key "")
@@ -92,27 +50,31 @@ function (add_custom_javescript _script _options _one_value_keyword)
 endfunction ()
 
 macro(GEN_KSYSCALLHDR)
-  add_custom_javescript("${WASMUX_SCRIPT_DIR}/run/ksyscallhdr.js" "" "INPUT;OUTPUT" ${ARGN})
+  add_custom_javescript("${WASMUX_SCRIPT_DIR}/run/ksyscallhdr.js" "" "INPUT;OUTPUT;WORK_DIR" ${ARGN})
+endmacro()
+
+macro(GEN_KUTSVERSION)
+  add_custom_javescript("${WASMUX_SCRIPT_DIR}/run/utsversion.js" "" "OUTPUT;WORK_DIR" ${ARGN})
 endmacro()
 
 macro(GEN_USYSCALLHDR)
-  add_custom_javescript("${WASMUX_SCRIPT_DIR}/run/usyscallhdr.js" "" "INPUT;OUTPUT" ${ARGN})
+  add_custom_javescript("${WASMUX_SCRIPT_DIR}/run/usyscallhdr.js" "" "INPUT;OUTPUT;WORK_DIR" ${ARGN})
 endmacro()
 
 macro(GEN_KWEBCALLHDR)
-  add_custom_javescript("${WASMUX_SCRIPT_DIR}/run/webcallhdr.js" "" "INPUT;OUTPUT" ${ARGN})
+  add_custom_javescript("${WASMUX_SCRIPT_DIR}/run/webcallhdr.js" "" "INPUT;OUTPUT;WORK_DIR" ${ARGN})
 endmacro()
 
 macro(GEN_KWEBCALLTBL)
-  add_custom_javescript("${WASMUX_SCRIPT_DIR}/run/webcalltbl.js" "" "SIDE;INPUT;OUTPUT" ${ARGN})
+  add_custom_javescript("${WASMUX_SCRIPT_DIR}/run/webcalltbl.js" "" "SIDE;INPUT;OUTPUT;WORK_DIR" ${ARGN})
 endmacro()
 
 macro(GEN_KWEBCALLESX)
-  add_custom_javescript("${WASMUX_SCRIPT_DIR}/run/webcallesx.js" "" "SIDE;INPUT;OUTPUT" ${ARGN})
+  add_custom_javescript("${WASMUX_SCRIPT_DIR}/run/webcallesx.js" "" "SIDE;INPUT;OUTPUT;WORK_DIR" ${ARGN})
 endmacro()
 
 macro (GEN_WACUSTSEC)
-  add_custom_javescript("${WASMUX_SCRIPT_DIR}/run/wacustsec.js" "" "CPU;SECTION;INPUT;OUTPUT" ${ARGN})
+  add_custom_javescript("${WASMUX_SCRIPT_DIR}/run/wacustsec.js" "" "CPU;SECTION;INPUT;OUTPUT;WORK_DIR" ${ARGN})
 endmacro ()
 
 macro(GEN_ERRNO_HEADER)

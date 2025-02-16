@@ -1,4 +1,5 @@
 import url from 'node:url';
+import { InjectContext } from "###/inject/InjectContext.mjs";
 
 function toCIdentifier(key) {
   let result = "";
@@ -32,13 +33,27 @@ function toArgMap(args)
 
 async function runScript()
 {
-  const argMap = toArgMap(process.argv.slice(2));
-  const scriptUrl = url.pathToFileURL(argMap.script);
+  const args = toArgMap(process.argv.slice(2));
+  const scriptUrl = url.pathToFileURL(args.script);
   
   const module = await import(scriptUrl);
   const func = module.default;
-  
-  const result = func(argMap);
+
+  const ctx = new InjectContext(args);
+
+  if (args.pluginList) {
+    for (const filename of args.pluginList.split(";")) {
+      await ctx.loadPlugin(filename);
+    }
+  }
+
+  await ctx.initPlugins();
+
+  if (ctx.configScript) {
+    await ctx.loadConfig(ctx.configScript);
+  }
+
+  const result = func(ctx, args);
   if (result instanceof Promise) {
     await result;
   }

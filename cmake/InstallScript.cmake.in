@@ -1,5 +1,5 @@
 execute_process(COMMAND "@NODE_EXECUTABLE@" "@WASMUX_SCRIPT_DIR@/JaveScriptLoader.mjs"
-  "--script=@WASMUX_SCRIPT_DIR@/InstallCode.mjs"
+  "--script=@WASMUX_SCRIPT_DIR@/run/InstallCode.mjs"
   "--plugin-list=@WASMUX_INJECT_SCRIPT_LIST@"
   "--config-script=@WASMUX_CONFIG_OBJECT@"
 WORKING_DIRECTORY

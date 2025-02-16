@@ -335,6 +335,7 @@ class VariablesModule {
 };
 
 export class InjectContext {
+  _args;
   _entryScript;
   _config = {};
   _plugins = [];
@@ -349,12 +350,18 @@ export class InjectContext {
     dirname: path.posix.dirname,
   };
 
-  constructor(entryScript)
+  constructor(args)
   {
-    this._entryScript = entryScript;
+    this._args = args;
+    this._entryScript = args.script;
     this._errno = new ErrnoModule(this);
     this._libraries = new LibrariesModule(this);
     this._variables = new VariablesModule(this);
+  }
+
+  get args()
+  {
+    return this._args;
   }
 
   get hooks()
