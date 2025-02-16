@@ -5,7 +5,7 @@ const { generatedScriptNameComment } = require('../utils/CXX.js');
 
 module.exports = async function(ctx)
 {
-  const {cpu, section, input, output} = ctx;
+  const {cpu, section, input, output} = ctx.args;
 
   let lines = [];
 
@@ -40,6 +40,5 @@ module.exports = async function(ctx)
   line && lines.push(line);
   lines.push('');
 
-  await fs.promises.mkdir(path.dirname(output), { recursive: true });
-  await fs.promises.writeFile(output, lines.join('\n'), { encoding: "utf8" });
+  await ctx.fs.linesSaveTo(output, lines);
 }

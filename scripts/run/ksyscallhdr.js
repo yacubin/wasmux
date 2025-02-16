@@ -7,7 +7,7 @@ const { generatedScriptNameComment } = require('../utils/CXX.js');
 
 module.exports = async function(ctx)
 {
-  const {script, input, output} = ctx.args;
+  const {input, output} = ctx.args;
 
   if (!input) {
     throw "Not pass the input filename to the program";
@@ -22,7 +22,7 @@ module.exports = async function(ctx)
 
   const lines = [];
 
-  lines.push(generatedScriptNameComment(script));
+  lines.push(generatedScriptNameComment(ctx.entryScript));
   lines.push(`#ifndef ${pragmaOnce}`);
   lines.push(`#define ${pragmaOnce}`);
   lines.push(``);
@@ -41,6 +41,5 @@ module.exports = async function(ctx)
   lines.push(`#endif /* ${pragmaOnce} */`);
   lines.push(``);
 
-  await fs.promises.mkdir(path.dirname(output), { recursive: true });
-  await fs.promises.writeFile(output, lines.join('\n'));
+  await ctx.fs.linesSaveTo(output, lines);
 }

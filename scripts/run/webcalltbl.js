@@ -15,6 +15,5 @@ module.exports = async function(ctx)
   for (const name of webcalls)
     lines.push(`__WEBCALL(${index++}, ${name})`);
 
-  await fs.promises.mkdir(path.dirname(output), { recursive: true });
-  await fs.promises.writeFile(output, lines.join('\n'), { encoding: "utf8" });
+  await ctx.fs.linesSaveTo(output, lines);
 }

@@ -24,7 +24,7 @@ export default async (env, argv) => {
     const settings = module.default;
     for (const key of Object.keys(settings)) {
       const name = "process.env." + key;
-      envDefineMap[name] = JSON.stringify(settings[key]);
+      envDefineMap[name] = JSON.stringify(settings[key].value);
     }
   }
 
