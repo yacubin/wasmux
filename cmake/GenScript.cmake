@@ -47,16 +47,19 @@ endmacro()
 function (add_custom_javescript _script _options _one_value_keyword)
   set(_input "")
   set(_output "")
-  set(_arg_list "--script=${_script}")
+  set(_arg_list "--config-script=${WASMUX_CONFIG_OBJECT}" "--script=${_script}")
+  set(_work_dir "${CMAKE_CURRENT_BINARY_DIR}")
 
   set(_key "")
   foreach (_iter ${ARGN})
     if (_key)
       list(APPEND _arg_list "--${_key}=${_iter}")
-      if ("${_key}" STREQUAL input)
+      if ("${_key}" STREQUAL "input")
         set(_input "${_iter}")
-      elseif ("${_key}" STREQUAL output)
+      elseif ("${_key}" STREQUAL "output")
         set(_output "${_iter}")
+      elseif ("${_key}" STREQUAL "work-dir")
+        set(_work_dir "${_iter}")
       endif ()
       set(_key "")
     else ()
@@ -72,6 +75,10 @@ function (add_custom_javescript _script _options _one_value_keyword)
     endif ()
   endforeach ()
 
+  if (_output AND NOT IS_ABSOLUTE "${_output}")
+    set(_output "${_work_dir}/${_output}")
+  endif ()
+
   add_custom_command(COMMAND "${NODE_EXECUTABLE}" "${WASMUX_SCRIPT_DIR}/JaveScriptLoader.mjs" ${_arg_list}
     DEPENDS
       "${_script}"
@@ -79,7 +86,7 @@ function (add_custom_javescript _script _options _one_value_keyword)
     OUTPUT
       "${_output}"
     WORKING_DIRECTORY
-      "${CMAKE_CURRENT_BINARY_DIR}"
+      "${_work_dir}"
     VERBATIM
     )
 endfunction ()
@@ -107,3 +114,7 @@ endmacro()
 macro (GEN_WACUSTSEC)
   add_custom_javescript("${WASMUX_SCRIPT_DIR}/run/wacustsec.js" "" "CPU;SECTION;INPUT;OUTPUT" ${ARGN})
 endmacro ()
+
+macro(GEN_ERRNO_HEADER)
+  add_custom_javescript("${WASMUX_SCRIPT_DIR}/run/GenErrnoHeader.mjs" "" "INPUT;OUTPUT;WORK_DIR" ${ARGN})
+endmacro()

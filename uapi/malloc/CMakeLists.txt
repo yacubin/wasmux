@@ -15,6 +15,7 @@ set(malloc_DEFINITIONS
   )
 
 set(malloc_LIBRARIES
+  wauser
   )
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${malloc_HEADERS} ${malloc_SOURCES})

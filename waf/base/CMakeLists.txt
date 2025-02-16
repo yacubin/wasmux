@@ -16,7 +16,6 @@ set(wabase_HEADERS
   include/wasmux/bulk-memory.h
   include/wasmux/byteorder.h
   include/wasmux/compiler.h
-  include/wasmux/errno.h
   include/wasmux/eventfd.h
   include/wasmux/eventpoll.h
   include/wasmux/fcntl.h
@@ -79,14 +78,28 @@ set(wabase_SOURCES
   )
 
 set(wabase_INCLUDES
+  "${CMAKE_CURRENT_BINARY_DIR}/include"
   "${CMAKE_CURRENT_SOURCE_DIR}/include"
   )
 
+set(wabase_GENFILES
+  "${CMAKE_CURRENT_BINARY_DIR}/include/wasmux/errno.h"
+  )
+
+make_directory("${CMAKE_CURRENT_BINARY_DIR}/include")
+
+GEN_ERRNO_HEADER(
+  INPUT "${WASMUX_ROOT_DIR}/data/errno.mjs"
+  OUTPUT "wasmux/errno.h"
+  WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}/include"
+  )
+
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${wabase_HEADERS} ${wabase_SOURCES})
-add_library(wabase STATIC ${wabase_HEADERS} ${wabase_SOURCES})
+add_library(wabase STATIC ${wabase_HEADERS} ${wabase_SOURCES} ${wabase_GENFILES})
 target_include_directories(wabase PUBLIC ${wabase_INCLUDES})
 set_target_properties(wabase PROPERTIES LINKER_LANGUAGE CXX)
 
 if (WASMUX_ENABLE_INSTALL_HEADERS)
   WX_INSTALL_HEADERS(HEADERS ${wabase_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+  WX_INSTALL_HEADERS(HEADERS ${wabase_GENFILES} BASE_DIR "${CMAKE_CURRENT_BINARY_DIR}/include" DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()

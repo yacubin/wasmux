@@ -16,6 +16,7 @@ set(signal_DEFINITIONS
   )
 
 set(signal_LIBRARIES
+  wauser
   )
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${signal_HEADERS} ${signal_SOURCES})

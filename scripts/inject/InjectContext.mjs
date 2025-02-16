@@ -10,7 +10,7 @@ async function linesSaveTo(filename, lines)
   await saveIfDifferent(filename, lines.join('\n'));
 }
 
-class InjectHook {
+export class InjectHook {
   _callbacks = {};
 
   constructor()
@@ -62,12 +62,90 @@ function transformCMakeConfigToObject(config)
   return result;
 }
 
+class ErrnoModule {
+  _ctx;
+  _config = {
+    errors: {},
+    aliases: {},
+  };
+
+  constructor(ctx)
+  {
+    this._ctx = ctx;
+    ctx.hooks.errno = new InjectHook;
+  }
+
+  async loadConfig(filename)
+  {
+    const fileUrl = url.pathToFileURL(filename);
+    const module = await import(fileUrl);
+    if (module.errors)
+      this._config.errors = module.errors;
+    if (module.aliases)
+      this._config.aliases = module.aliases;
+  }
+
+  async triggerEvent()
+  {
+    await this._ctx.hooks.errno.emit("config", this._config);
+  }
+
+  async saveHeader(filename)
+  {
+    let errors = [];
+    let aliases = [];
+
+    let maxNameLength = 0;
+    let maxCodeLength = 0;
+    for (const [name, entry] of Object.entries(this._config.errors)) {
+      maxNameLength = Math.max(maxNameLength, name.length);
+      maxCodeLength = Math.max(maxCodeLength, entry.code.toString().length);
+      errors.push({ name, ...entry });
+    }
+
+    for (const [name, alias] of Object.entries(this._config.aliases)) {
+      maxNameLength = Math.max(maxNameLength, name.length);
+      const entry = this._config.errors[alias];
+      aliases.push({ name, ...entry, alias });
+    }
+
+    let nameSpace = " ".repeat(maxNameLength);
+    let codeSpace = " ".repeat(maxNameLength);
+    errors = errors.sort((a, b) => a.code - b.code);
+    aliases = aliases.sort((a, b) => a.code - b.code);
+
+    const lines = [];
+
+    const pragmaOnce = CXX.filepathToMacroCIdentifier(filename);
+    lines.push(CXX.generatedScriptNameComment(this._ctx.entryScript));
+    lines.push("");
+    lines.push(`#ifndef ${pragmaOnce}`);
+    lines.push(`#define ${pragmaOnce}`);
+    lines.push("");
+    for (const {name, code, description} of errors) {
+      const desc = description ? `/* ${description} */` : "";
+      lines.push(`#define ${name}${nameSpace.substring(name.length)} ${code} ${codeSpace.substring(code.length)}${desc}`);
+    }
+    lines.push("");
+    for (const {name, alias} of aliases) {
+      const desc = alias.description ? `/* ${alias.description} */` : "";
+      lines.push(`#define ${name}${nameSpace.substring(name.length)} ${alias}${desc}`);
+    }
+    lines.push("");
+    lines.push(`#endif /* ${pragmaOnce} */`);
+    lines.push("");
+
+    await linesSaveTo(filename, lines);
+  }
+};
+
 export class InjectContext {
   _entryScript;
   _initConfig = {};
   _config = {};
   _libraries = {};
   _plugins = [];
+  _errno;
 
   _hooks = {
     variables: new InjectHook,
@@ -82,6 +160,7 @@ export class InjectContext {
   constructor(entryScript)
   {
     this._entryScript = entryScript;
+    this._errno = new ErrnoModule(this);
   }
 
   get hooks()
@@ -89,9 +168,19 @@ export class InjectContext {
     return this._hooks;
   }
 
+  get errno()
+  {
+    return this._errno;
+  }
+
   get path()
   {
     return this._path;
+  }
+
+  get entryScript()
+  {
+    return this._entryScript;
   }
 
   async loadInitConfig(filename)
