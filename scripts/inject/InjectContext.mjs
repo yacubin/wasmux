@@ -58,60 +58,6 @@ function transformCMakeConfigToObject(config)
   return result;
 }
 
-class LibrariesModule {
-  _ctx;
-  _config = {};
-
-  constructor(ctx)
-  {
-    this._ctx = ctx;
-  }
-
-  async loadIndex(filename)
-  {
-    const fileUrl = url.pathToFileURL(filename);
-    const module = await import(fileUrl);
-    this._config = module.default;
-  }
-
-  async triggerEvent()
-  {
-    for (const [key, val] of Object.entries(this._config)) {
-      await this._ctx.hooks.emit(`libraries.${key}`, val);
-    }
-  }
-
-  async saveSubdirEntry(filename)
-  {
-    const lines = [];
-
-    for (const [name, entry] of Object.entries(this._config)) {
-      const space = entry.depends ? "  " : "";
-      if (entry.depends) {
-        lines.push(`if (${entry.depends})`);
-      }
-      lines.push(`${space}set(${name}_OBJLIB_LIST "")`);
-      if (entry.objlibs) {
-        for (const [key, lib] of Object.entries(entry.objlibs)) {
-          if (!lib) continue;
-          if (key === lib.cmakeDir)
-            lines.push(`${space}add_subdirectory(${key})`);
-          else
-            lines.push(`${space}add_subdirectory("${lib.cmakeDir}" ${key})`);
-          lines.push(`${space}list(APPEND ${name}_OBJLIB_LIST ${key})`);
-        }
-      }
-      lines.push(`${space}add_subdirectory(${name})`);
-      if (entry.depends) {
-        lines.push(`endif ()`);
-      }
-      lines.push("");
-    }
-  
-    await linesSaveTo(filename, lines);
-  }
-};
-
 class VariablesModule {
   _ctx;
   _initConfig = {};
@@ -263,7 +209,6 @@ export class InjectContext {
   _entryScript;
   _config = {};
   _plugins = [];
-  _libraries;
   _variables;
 
   _hooks = new InjectHooks;
@@ -281,7 +226,6 @@ export class InjectContext {
   {
     this._args = args;
     this._entryScript = args.script;
-    this._libraries = new LibrariesModule(this);
     this._variables = new VariablesModule(this);
   }
 
@@ -293,11 +237,6 @@ export class InjectContext {
   get hooks()
   {
     return this._hooks;
-  }
-
-  get libraries()
-  {
-    return this._libraries;
   }
 
   get variables()
