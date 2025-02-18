@@ -17,11 +17,12 @@ export default async function(ctx)
   const module = await import(inputUrl);
 
   const config = {
+    success: module.success || {},
     errors: module.errors || {},
     aliases: module.aliases || {},
   };
 
-  ctx.hooks.emit("errno.config", config);
+  ctx.hooks.emit("errno.h", config);
 
   let errors = [];
   let aliases = [];

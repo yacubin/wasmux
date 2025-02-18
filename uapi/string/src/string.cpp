@@ -119,12 +119,6 @@ int strcoll(const char* s1, const char* s2)
   return 0;
 }
 
-char* strerror(int errnum)
-{
-  WA_UNREACHABLE();
-  return nullptr;
-}
-
 char* strsignal(int sig)
 {
   WA_UNREACHABLE();

@@ -33,16 +33,71 @@ function toArgMap(args)
 
 async function runScript()
 {
-  const args = toArgMap(process.argv.slice(2));
-  const scriptUrl = url.pathToFileURL(args.script);
+  const argsMain = process.argv.slice(2);
+  const indexOfUserArgs = argsMain.findIndex((i) => i === "--");
+  const argsMap = toArgMap(indexOfUserArgs === -1 ? argsMain : argsMain.slice(0, indexOfUserArgs));
+  const entryScript = argsMap.script;
+  const scriptUrl = url.pathToFileURL(entryScript);
   
   const module = await import(scriptUrl);
   const func = module.default;
 
-  const ctx = new InjectContext(args);
+  let args = {};
+  if (argsMap.type === "add_custom_script") {
+    const desc = {
+      SCRIPT: {
+        type: "string",
+      },
+      WORK_DIR: {
+        type: "string",
+        optional: true,
+      },
+      ...module.ARGS,
+    };
 
-  if (args.pluginList) {
-    for (const filename of args.pluginList.split(";")) {
+    const argsUser = indexOfUserArgs === -1 ? [] : argsMain.slice(indexOfUserArgs + 1);
+    let key;
+    const vals = {};
+    for (const iter of argsUser) {
+      if (desc.hasOwnProperty(iter)) {
+        key = iter;
+        continue;
+      }
+      if (!key) {
+        throw `Unknown argument ${iter}`;
+      }
+      switch (desc[key].type) {
+      case "string":
+        if (vals[key])
+          throw `Argument ${key} support only one value`;
+        vals[key] = iter;
+        break;
+      default:
+        throw `Unknown type ${desc[key].type} for ${key}`;
+      }
+    }
+
+    for (const [ key, {name, optional} ] of Object.entries(desc)) {
+      if (!vals.hasOwnProperty(key)) {
+        if (optional)
+          continue;
+        throw `Missing argument ${key}`;
+      }
+      if (!name)
+        continue;
+      if (args[name])
+        throw `Duplicate name ${name} of ${key}`;
+      args[name] = vals[key];
+    }
+  }
+  else {
+    args = argsMap;
+  }
+
+  const ctx = new InjectContext(entryScript, args);
+
+  if (argsMap.pluginList) {
+    for (const filename of argsMap.pluginList.split(";")) {
       await ctx.loadPlugin(filename);
     }
   }

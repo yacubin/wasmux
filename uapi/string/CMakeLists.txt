@@ -33,8 +33,19 @@ set(string_LIBRARIES
   wauser
   )
 
+set(string_GENFILES
+  "${CMAKE_CURRENT_BINARY_DIR}/src/strerror.cpp"
+  )
+
+add_custom_script(
+  SCRIPT src/strerror.mjs
+  INPUT "${WASMUX_ROOT_DIR}/data/errno.mjs"
+  OUTPUT strerror.cpp
+  WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}/src"
+  )
+
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${string_HEADERS} ${string_SOURCES})
-add_library(string STATIC ${string_HEADERS} ${string_SOURCES})
+add_library(string STATIC ${string_HEADERS} ${string_SOURCES} ${string_GENFILES})
 target_include_directories(string PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
 target_include_directories(string PRIVATE "${string_INCLUDES}")
 target_compile_definitions(string PRIVATE "${string_DEFINITIONS}")

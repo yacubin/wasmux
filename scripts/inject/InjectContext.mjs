@@ -47,10 +47,10 @@ export class InjectContext {
     linesSaveTo,
   };
 
-  constructor(args)
+  constructor(entryScript, args)
   {
+    this._entryScript = entryScript;
     this._args = args;
-    this._entryScript = args.script;
   }
 
   get args()

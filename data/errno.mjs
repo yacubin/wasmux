@@ -1,5 +1,7 @@
 const E = (code, description) => { return { code, description } };
 
+export const success = E(0, "No error information");
+
 export const errors = {
   EPERM:          E(1,   "Operation not permitted"),
   ENOENT:         E(2,   "No such file or directory"),
