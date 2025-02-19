@@ -115,7 +115,7 @@ endif ()
 
 # TODO: Move to linux dep
 GEN_KSYSCALLHDR(
-  INPUT "${WASMUX_ROOT_DIR}/data/syscall.js"
+  INPUT "${WASMUX_ROOT_DIR}/data/syscall.mjs"
   OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/include/uapi/asm/unistd.h"
 )
 
