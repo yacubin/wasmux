@@ -21,9 +21,11 @@ set(wauser_GENFILES
   "${CMAKE_CURRENT_BINARY_DIR}/include/wasmux/syscall-nums.h"
   )
 
-GEN_USYSCALLHDR(
+add_custom_script(
+  SCRIPT src/syscall-nums.h.mjs
   INPUT "${WASMUX_ROOT_DIR}/data/syscall.js"
-  OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/include/wasmux/syscall-nums.h"
+  OUTPUT wasmux/syscall-nums.h
+  WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}/include"
   )
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${wauser_HEADERS} ${wauser_SOURCES})
