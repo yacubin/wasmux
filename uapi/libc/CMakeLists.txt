@@ -159,6 +159,7 @@ set(libc_SOURCES
   syscalls/writev.cpp
   src/sys/futimens.cpp
   src/sys/stat.cpp
+  src/exit.cpp
   src/gethostname.cpp
   src/isatty.cpp
   src/posix_openpt.cpp
