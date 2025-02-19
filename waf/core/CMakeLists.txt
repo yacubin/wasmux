@@ -125,19 +125,19 @@ GEN_KUTSVERSION(
 )
 
 GEN_KWEBCALLHDR(
-  INPUT "${WASMUX_ROOT_DIR}/data/webcalls.js"
+  INPUT "${WASMUX_ROOT_DIR}/data/webcalls.mjs"
   OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/include/wasmux/webcall-nums.h"
 )
 
 GEN_KWEBCALLTBL(
   SIDE main
-  INPUT "${WASMUX_ROOT_DIR}/data/webcalls.js"
+  INPUT "${WASMUX_ROOT_DIR}/data/webcalls.mjs"
   OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/include/wasmux/webcall-main.h"
 )
 
 GEN_KWEBCALLTBL(
   SIDE worker
-  INPUT "${WASMUX_ROOT_DIR}/data/webcalls.js"
+  INPUT "${WASMUX_ROOT_DIR}/data/webcalls.mjs"
   OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/include/wasmux/webcall-worker.h"
 )
 

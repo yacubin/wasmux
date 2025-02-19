@@ -1,5 +1,5 @@
 // Web calls used by the kernel
-module.exports = [
+export default [
   { name: 'ConsoleWrite',        side: 'both'   },
   { name: 'ObjectRelease',       side: 'both'   },
   { name: 'MemoryCreate',        side: 'both'   },

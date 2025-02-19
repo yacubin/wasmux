@@ -12,16 +12,20 @@ set(jsdata_GENFILES
   "${CMAKE_CURRENT_BINARY_DIR}/generated/WorkerCalls.mjs"
   )
 
-GEN_KWEBCALLESX(
+add_custom_script(
+  SCRIPT webcallesx.mjs
   SIDE "main"
-  INPUT "${WASMUX_ROOT_DIR}/data/webcalls.js"
-  OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/generated/MainCalls.mjs"
+  INPUT "${WASMUX_ROOT_DIR}/data/webcalls.mjs"
+  OUTPUT generated/MainCalls.mjs
+  WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}"
   )
 
-GEN_KWEBCALLESX(
+add_custom_script(
+  SCRIPT webcallesx.mjs
   SIDE "worker"
-  INPUT "${WASMUX_ROOT_DIR}/data/webcalls.js"
-  OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/generated/WorkerCalls.mjs"
+  INPUT "${WASMUX_ROOT_DIR}/data/webcalls.mjs"
+  OUTPUT generated/WorkerCalls.mjs
+  WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}"
   )
 
 find_program(NPX_EXECUTABLE npx REQUIRED)

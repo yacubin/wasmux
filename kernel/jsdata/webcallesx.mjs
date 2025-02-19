@@ -1,13 +1,23 @@
-const path = require('path');
-const fs = require('fs');
+import { generatedScriptNameComment } from "###/utils/CXX.js";
+import { loadWebcalls } from "###/utils/LoadWebcalls.js";
 
-const { generatedScriptNameComment } = require('../utils/CXX.js');
-const { loadWebcalls } = require('../utils/LoadWebcalls.js');
+export const ARGS = {
+  SIDE: {
+    type: "string",
+    name: "side",
+  },
+  INPUT: {
+    type: "string",
+    name: "input",
+  },
+  OUTPUT: {
+    type: "string",
+    name: "output",
+  },
+};
 
-module.exports = async function(ctx)
+export default async function(ctx, {side, input, output})
 {
-  const {side, input, output} = ctx.args;
-
   const webcalls = await loadWebcalls(input, side);
 
   let lines = [];

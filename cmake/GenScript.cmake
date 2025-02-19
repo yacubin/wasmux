@@ -113,7 +113,3 @@ endmacro()
 macro(GEN_KWEBCALLTBL)
   add_custom_javescript("${WASMUX_SCRIPT_DIR}/run/webcalltbl.js" "" "SIDE;INPUT;OUTPUT;WORK_DIR" ${ARGN})
 endmacro()
-
-macro(GEN_KWEBCALLESX)
-  add_custom_javescript("${WASMUX_SCRIPT_DIR}/run/webcallesx.js" "" "SIDE;INPUT;OUTPUT;WORK_DIR" ${ARGN})
-endmacro()
