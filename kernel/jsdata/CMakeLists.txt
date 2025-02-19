@@ -14,13 +14,13 @@ set(jsdata_GENFILES
 
 GEN_KWEBCALLESX(
   SIDE "main"
-  INPUT "${WASMUX_ROOT_DIR}/waf/webcalls.js"
+  INPUT "${WASMUX_ROOT_DIR}/data/webcalls.js"
   OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/generated/MainCalls.mjs"
   )
 
 GEN_KWEBCALLESX(
   SIDE "worker"
-  INPUT "${WASMUX_ROOT_DIR}/waf/webcalls.js"
+  INPUT "${WASMUX_ROOT_DIR}/data/webcalls.js"
   OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/generated/WorkerCalls.mjs"
   )
 
@@ -39,18 +39,22 @@ add_custom_command(
     "${CMAKE_CURRENT_SOURCE_DIR}"
   )
 
-GEN_WACUSTSEC(
+add_custom_script(
+  SCRIPT mkcustsec.mjs
   CPU "${CMAKE_SYSTEM_PROCESSOR}"
   SECTION "${WASMUX_LOADER_SECTION}"
   INPUT "${CMAKE_CURRENT_BINARY_DIR}/dist/loader.js"
-  OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/loader.S"
+  OUTPUT loader.S
+  WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}"
   )
 
-GEN_WACUSTSEC(
+add_custom_script(
+  SCRIPT mkcustsec.mjs
   CPU "${CMAKE_SYSTEM_PROCESSOR}"
   SECTION "${WASMUX_WORKER_SECTION}"
   INPUT "${CMAKE_CURRENT_BINARY_DIR}/dist/worker.js"
-  OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/worker.S"
+  OUTPUT worker.S
+  WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}"
   )
 
 add_library(jsdata OBJECT "${CMAKE_CURRENT_BINARY_DIR}/loader.S" "${CMAKE_CURRENT_BINARY_DIR}/worker.S")

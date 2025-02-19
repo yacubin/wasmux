@@ -1,4 +1,5 @@
 import path from 'node:path';
+import fs from 'node:fs';
 import url from 'node:url';
 
 import { saveIfDifferent } from "###/utils/FileSystem.js";
@@ -45,6 +46,7 @@ export class InjectContext {
 
   _fs = {
     linesSaveTo,
+    readFile: fs.promises.readFile,
   };
 
   constructor(entryScript, args)

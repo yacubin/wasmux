@@ -22,7 +22,7 @@ set(wauser_GENFILES
   )
 
 GEN_USYSCALLHDR(
-  INPUT "${WASMUX_ROOT_DIR}/waf/syscall.js"
+  INPUT "${WASMUX_ROOT_DIR}/data/syscall.js"
   OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/include/wasmux/syscall-nums.h"
   )
 

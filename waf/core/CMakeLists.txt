@@ -115,7 +115,7 @@ endif ()
 
 # TODO: Move to linux dep
 GEN_KSYSCALLHDR(
-  INPUT "${WASMUX_ROOT_DIR}/waf/syscall.js"
+  INPUT "${WASMUX_ROOT_DIR}/data/syscall.js"
   OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/include/uapi/asm/unistd.h"
 )
 
@@ -125,19 +125,19 @@ GEN_KUTSVERSION(
 )
 
 GEN_KWEBCALLHDR(
-  INPUT "${WASMUX_ROOT_DIR}/waf/webcalls.js"
+  INPUT "${WASMUX_ROOT_DIR}/data/webcalls.js"
   OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/include/wasmux/webcall-nums.h"
 )
 
 GEN_KWEBCALLTBL(
   SIDE main
-  INPUT "${WASMUX_ROOT_DIR}/waf/webcalls.js"
+  INPUT "${WASMUX_ROOT_DIR}/data/webcalls.js"
   OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/include/wasmux/webcall-main.h"
 )
 
 GEN_KWEBCALLTBL(
   SIDE worker
-  INPUT "${WASMUX_ROOT_DIR}/waf/webcalls.js"
+  INPUT "${WASMUX_ROOT_DIR}/data/webcalls.js"
   OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/include/wasmux/webcall-worker.h"
 )
 

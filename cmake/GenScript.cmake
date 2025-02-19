@@ -117,7 +117,3 @@ endmacro()
 macro(GEN_KWEBCALLESX)
   add_custom_javescript("${WASMUX_SCRIPT_DIR}/run/webcallesx.js" "" "SIDE;INPUT;OUTPUT;WORK_DIR" ${ARGN})
 endmacro()
-
-macro (GEN_WACUSTSEC)
-  add_custom_javescript("${WASMUX_SCRIPT_DIR}/run/wacustsec.js" "" "CPU;SECTION;INPUT;OUTPUT;WORK_DIR" ${ARGN})
-endmacro ()

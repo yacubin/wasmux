@@ -1,13 +1,27 @@
-const path = require('path');
-const fs = require('fs');
+import { generatedScriptNameComment } from "###/utils/CXX.js";
 
-const { generatedScriptNameComment } = require('../utils/CXX.js');
+export const ARGS = {
+  CPU: {
+    type: "string",
+    name: "cpu",
+  },
+  SECTION: {
+    type: "string",
+    name: "section",
+  },
+  INPUT: {
+    type: "string",
+    name: "input",
+  },
+  OUTPUT: {
+    type: "string",
+    name: "output",
+  },
+};
 
-module.exports = async function(ctx)
+export default async function(ctx, {cpu, section, input, output})
 {
-  const {cpu, section, input, output} = ctx.args;
-
-  let lines = [];
+  const lines = [];
 
   lines.push(generatedScriptNameComment(ctx.entryScript));
   switch (cpu) {
@@ -22,7 +36,7 @@ module.exports = async function(ctx)
     throw `Unknown '${cpu}' cpu name`;
   }
 
-  const buffer = await fs.promises.readFile(input);
+  const buffer = await ctx.fs.readFile(input);
 
   let line = '';
   for (let i = 0; i < buffer.length; i++) {
