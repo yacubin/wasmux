@@ -86,11 +86,10 @@ set(wabase_GENFILES
   "${CMAKE_CURRENT_BINARY_DIR}/include/wasmux/errno.h"
   )
 
-make_directory("${CMAKE_CURRENT_BINARY_DIR}/include")
-
-GEN_ERRNO_HEADER(
+add_custom_script(
+  SCRIPT src/errno.h.mjs
   INPUT "${WASMUX_ROOT_DIR}/data/errno.mjs"
-  OUTPUT "wasmux/errno.h"
+  OUTPUT wasmux/errno.h
   WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}/include"
   )
 

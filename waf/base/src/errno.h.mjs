@@ -1,10 +1,19 @@
 import url from 'node:url';
 import * as CXX from "###/utils/CXX.js";
 
-export default async function(ctx)
-{
-  const {input, output} = ctx.args;
+export const ARGS = {
+  INPUT: {
+    type: "string",
+    name: "input",
+  },
+  OUTPUT: {
+    type: "string",
+    name: "output",
+  },
+};
 
+export default async function(ctx, {input, output})
+{
   if (!input) {
     throw "Not pass the binary dir";
   }

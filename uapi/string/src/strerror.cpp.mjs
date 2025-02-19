@@ -12,10 +12,8 @@ export const ARGS = {
   },
 };
 
-export default async function(ctx)
+export default async function(ctx, {input, output})
 {
-  const {input, output} = ctx.args;
-
   if (!input) {
     throw "Not pass the binary dir";
   }
@@ -33,7 +31,7 @@ export default async function(ctx)
     aliases: module.aliases || {},
   };
 
-  ctx.hooks.emit("strerror.c", config);
+  ctx.hooks.emit("strerror.cpp", config);
 
   const unkErrorStr = "Unknown error";
 
