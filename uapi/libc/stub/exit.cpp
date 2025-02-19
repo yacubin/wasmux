@@ -8,20 +8,15 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include <wasmux/assert.h>
+#include <assert.h>
 
 int atexit(void (*function)(void))
 {
-  WA_UNREACHABLE();
+  assert(0);
   return -1;
 }
 
 void exit(int status)
 {
-  WA_UNREACHABLE();
-}
-
-void _exit(int status)
-{
-  WA_UNREACHABLE();
+  assert(0);
 }

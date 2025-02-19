@@ -50,6 +50,7 @@ module.exports = {
 
   gettid:                 { number: 224, argc: 0,  func: "sys_gettid"                 },
   futex:                  { number: 240, argc: 6,  func: "sys_futex_time32"           },
+  exit_group:             { number: 252, argc: 1,  func: "sys_exit_group"             },
   fstatat64:              { number: 300, argc: 4,  func: "sys_fstatat64"              },
   statx:                  { number: 383, argc: 5,  func: "sys_statx"                  },
 };

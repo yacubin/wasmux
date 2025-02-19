@@ -118,6 +118,7 @@ set(libc_SOURCES
   stub/unistd.cpp
   stub/utime.cpp
   stub/wchar.cpp
+  syscalls/_exit.cpp
   syscalls/brk.cpp
   syscalls/chdir.cpp
   syscalls/close.cpp

@@ -28,6 +28,7 @@ int system(const char* command);
 
 int atexit(void (*function)(void));
 void exit(int status) __ATTR_NORETURN;
+void _Exit(int status) __ATTR_NORETURN;
 void abort(void) __ATTR_NORETURN;
 
 void* bsearch(const void* key, const void* base, size_t n, size_t size, int (*compar)(const void*, const void*));
