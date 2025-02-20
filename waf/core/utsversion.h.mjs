@@ -1,9 +1,10 @@
-const fs = require('fs');
-const path = require('path');
+import { generatedScriptNameComment } from "###/utils/CXX.js";
 
-const { generatedScriptNameComment } = require('../utils/CXX.js');
+export const ARGS = {
+  OUTPUT:  { type: "string", name: "output"  },
+};
 
-module.exports = async function(ctx)
+export default async function(ctx)
 {
   const {output} = ctx.args;
 

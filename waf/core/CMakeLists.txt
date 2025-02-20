@@ -122,9 +122,11 @@ add_custom_script(
   )
 
 # TODO: Move to linux dep
-GEN_KUTSVERSION(
-  OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/include/utsversion.h"
-)
+add_custom_script(
+  SCRIPT utsversion.h.mjs
+  OUTPUT utsversion.h
+  WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}/include"
+  )
 
 add_custom_script(
   SCRIPT src/webcall-nums.h.mjs
@@ -133,17 +135,19 @@ add_custom_script(
   WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}/include"
   )
 
-GEN_KWEBCALLTBL(
-  SIDE main
+add_custom_script(
+  SCRIPT src/webcall-main.h.mjs
   INPUT "${WASMUX_ROOT_DIR}/data/webcalls.mjs"
-  OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/include/wasmux/webcall-main.h"
-)
+  OUTPUT wasmux/webcall-main.h
+  WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}/include"
+  )
 
-GEN_KWEBCALLTBL(
-  SIDE worker
+add_custom_script(
+  SCRIPT src/webcall-worker.h.mjs
   INPUT "${WASMUX_ROOT_DIR}/data/webcalls.mjs"
-  OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/include/wasmux/webcall-worker.h"
-)
+  OUTPUT wasmux/webcall-worker.h
+  WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}/include"
+  )
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${wacore_HEADERS} ${wacore_SOURCES})
 add_library(wacore STATIC ${wacore_HEADERS} ${wacore_SOURCES} ${wacore_GENFILES})

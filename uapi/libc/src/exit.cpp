@@ -9,5 +9,5 @@
 
 void exit(int status)
 {
-  _Exit(code);
+  _Exit(status);
 }

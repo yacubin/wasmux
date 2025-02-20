@@ -22,7 +22,7 @@ endif ()
 
 include(WxVariables)
 include(WxMacros)
-include(GenScript)
+include(AddCustomScript)
 
 set(WASMUX_CONFIG_HEADER "${CMAKE_CURRENT_BINARY_DIR}/wasmux-config.h")
 set(WASMUX_CONFIG_OBJECT "${CMAKE_CURRENT_BINARY_DIR}/wasmux-config.mjs")

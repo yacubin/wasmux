@@ -97,7 +97,6 @@ set(libc_SOURCES
   stub/assert.cpp
   stub/environ.cpp
   stub/err.cpp
-  stub/exit.cpp
   stub/fcntl.cpp
   stub/getenv.cpp
   stub/pipe.cpp

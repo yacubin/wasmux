@@ -7,10 +7,8 @@ export const ARGS = {
   OUTPUT: { type: "string", name: "output" },
 };
 
-export default async function(ctx)
+export default async function(ctx, {input, output})
 {
-  const {input, output} = ctx.args;
-
   const webcalls = await loadWebcalls(input, 'both');
 
   let lines = [];
