@@ -114,10 +114,12 @@ if (WIN32)
 endif ()
 
 # TODO: Move to linux dep
-GEN_KSYSCALLHDR(
+add_custom_script(
+  SCRIPT unistd.h.mjs
   INPUT "${WASMUX_ROOT_DIR}/data/syscall.mjs"
-  OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/include/uapi/asm/unistd.h"
-)
+  OUTPUT uapi/asm/unistd.h
+  WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}/include"
+  )
 
 # TODO: Move to linux dep
 GEN_KUTSVERSION(

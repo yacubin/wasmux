@@ -1,14 +1,15 @@
-const path = require('path');
-const fs = require('fs');
-const url = require('url');
+import url from 'node:url';
 
-const { filepathToMacroCIdentifier } = require('../utils/CXX.js');
-const { generatedScriptNameComment } = require('../utils/CXX.js');
+import { filepathToMacroCIdentifier } from "###/utils/CXX.js";
+import { generatedScriptNameComment } from "###/utils/CXX.js";
 
-module.exports = async function(ctx)
+export const ARGS = {
+  INPUT:   { type: "string", name: "input"   },
+  OUTPUT:  { type: "string", name: "output"  },
+};
+
+export default async function(ctx, {input, output})
 {
-  const {input, output} = ctx.args;
-
   if (!input) {
     throw "Not pass the input filename to the program";
   }
