@@ -43,7 +43,7 @@ async function runScript()
   const func = module.default;
 
   let args = {};
-  if (argsMap.type === "add_custom_script") {
+  if (argsMap.type === "add_custom_script" || argsMap.type === "execute_script") {
     const desc = {
       SCRIPT: {
         type: "string",

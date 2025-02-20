@@ -1,26 +1,16 @@
-import url from 'node:url';
-import { fileExists } from "###/utils/FileSystem.js";
+export const ARGS = {
+  SOURCE_DIR: { type: "string", name: "sourceDir"   },
+  BINARY_DIR: { type: "string", name: "binaryDir"   },
+  OUTPUT:     { type: "string", name: "output"      },
+};
 
-export default async function(ctx)
+export default async function(ctx, {sourceDir, binaryDir, output})
 {
-  const {sourceDir, binaryDir, output} = ctx.args;
-
-  if (!sourceDir) {
-    throw "Not pass the source dir";
-  }
-  if (!binaryDir) {
-    throw "Not pass the binary dir";
-  }
-  if (!output) {
-    throw "Not pass the output";
-  }
-
   let config = {};
 
   const indexPath = ctx.path.join(sourceDir, "index.mjs");
-  if (await fileExists(indexPath)) {
-    const fileUrl = url.pathToFileURL(indexPath);
-    const module = await import(fileUrl);
+  if (await ctx.fs.fileExists(indexPath)) {
+    const module = await ctx.fs.loadScript(indexPath);
     config = module.default;
   }
 

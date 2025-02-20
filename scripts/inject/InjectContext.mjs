@@ -3,10 +3,17 @@ import fs from 'node:fs';
 import url from 'node:url';
 
 import { saveIfDifferent } from "###/utils/FileSystem.js";
+import { fileExists } from "###/utils/FileSystem.js";
 
 async function linesSaveTo(filename, lines)
 {
   await saveIfDifferent(filename, lines.join('\n'));
+}
+
+async function loadScript(filename)
+{
+  const fileUrl = url.pathToFileURL(filename);
+  return await import(fileUrl);
 }
 
 class InjectHooks {
@@ -39,13 +46,23 @@ export class InjectContext {
 
   _hooks = new InjectHooks;
 
+  _cmake = {
+
+  };
+
+  _cxx = {
+
+  };
+
   _path = {
     join: path.posix.join,
     dirname: path.posix.dirname,
   };
 
   _fs = {
+    fileExists,
     linesSaveTo,
+    loadScript,
     readFile: fs.promises.readFile,
   };
 
@@ -65,16 +82,6 @@ export class InjectContext {
     return this._hooks;
   }
 
-  get libraries()
-  {
-    return this._libraries;
-  }
-
-  get variables()
-  {
-    return this._variables;
-  }
-
   get path()
   {
     return this._path;
@@ -83,6 +90,16 @@ export class InjectContext {
   get fs()
   {
     return this._fs;
+  }
+
+  get cmake()
+  {
+    return this._cmake;
+  }
+
+  get cxx()
+  {
+    return this._cxx;
   }
 
   get entryScript()

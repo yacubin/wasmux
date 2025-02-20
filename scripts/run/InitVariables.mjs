@@ -1,4 +1,3 @@
-import url from 'node:url';
 import * as CXX from "###/utils/CXX.js";
 import * as CMake from "###/utils/CMake.js";
 
@@ -10,8 +9,7 @@ export default async function(ctx)
     throw "Not pass the input filename to the program";
   }
 
-  const fileUrl = url.pathToFileURL(input);
-  const module = await import(fileUrl);
+  const module = await ctx.fs.loadScript(input);
   const config = module.default;
 
   await ctx.hooks.emit("variables.init", config);

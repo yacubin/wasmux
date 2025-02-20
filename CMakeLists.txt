@@ -7,8 +7,6 @@ project(wasmux VERSION 0.0.1
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
-find_program(NODE_EXECUTABLE node REQUIRED)
-
 set(WASMUX_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
 set(WASMUX_SCRIPT_DIR "${CMAKE_CURRENT_LIST_DIR}/scripts")
 
@@ -20,9 +18,8 @@ if (WASMUX_TARGET_SYSTEM MATCHES "-wasi$")
   set(WASMUX_INSTALL_LIBDIR "${WASMUX_INSTALL_LIBDIR}/${CMAKE_SYSTEM_PROCESSOR}-wasi")
 endif ()
 
-include(WxVariables)
 include(WxMacros)
-include(AddCustomScript)
+include(WxVariables)
 
 set(WASMUX_CONFIG_HEADER "${CMAKE_CURRENT_BINARY_DIR}/wasmux-config.h")
 set(WASMUX_CONFIG_OBJECT "${CMAKE_CURRENT_BINARY_DIR}/wasmux-config.mjs")
