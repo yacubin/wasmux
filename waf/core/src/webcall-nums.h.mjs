@@ -1,11 +1,13 @@
-const path = require('path');
-const fs = require('fs');
+import { filepathToMacroCIdentifier } from "###/utils/CXX.js";
+import { generatedScriptNameComment } from "###/utils/CXX.js";
+import { loadWebcalls } from '###/utils/LoadWebcalls.js';
 
-const { filepathToMacroCIdentifier } = require('../utils/CXX.js');
-const { generatedScriptNameComment } = require('../utils/CXX.js');
-const { loadWebcalls } = require('../utils/LoadWebcalls.js');
+export const ARGS = {
+  INPUT:  { type: "string", name: "input"  },
+  OUTPUT: { type: "string", name: "output" },
+};
 
-module.exports = async function(ctx)
+export default async function(ctx)
 {
   const {input, output} = ctx.args;
 

@@ -124,10 +124,12 @@ GEN_KUTSVERSION(
   OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/include/utsversion.h"
 )
 
-GEN_KWEBCALLHDR(
+add_custom_script(
+  SCRIPT src/webcall-nums.h.mjs
   INPUT "${WASMUX_ROOT_DIR}/data/webcalls.mjs"
-  OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/include/wasmux/webcall-nums.h"
-)
+  OUTPUT wasmux/webcall-nums.h
+  WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}/include"
+  )
 
 GEN_KWEBCALLTBL(
   SIDE main

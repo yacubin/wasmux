@@ -102,10 +102,6 @@ macro(GEN_KUTSVERSION)
   add_custom_javescript("${WASMUX_SCRIPT_DIR}/run/utsversion.js" "" "OUTPUT;WORK_DIR" ${ARGN})
 endmacro()
 
-macro(GEN_KWEBCALLHDR)
-  add_custom_javescript("${WASMUX_SCRIPT_DIR}/run/webcallhdr.js" "" "INPUT;OUTPUT;WORK_DIR" ${ARGN})
-endmacro()
-
 macro(GEN_KWEBCALLTBL)
   add_custom_javescript("${WASMUX_SCRIPT_DIR}/run/webcalltbl.js" "" "SIDE;INPUT;OUTPUT;WORK_DIR" ${ARGN})
 endmacro()
