@@ -24,8 +24,6 @@ target_compile_definitions(libgcc PRIVATE "${libgcc_DEFINITIONS}")
 target_link_libraries(libgcc PRIVATE ${libgcc_LIBRARIES})
 set_target_properties(libgcc PROPERTIES PREFIX "")
 
-add_library(WASMUX::LIBGCC ALIAS libgcc)
-
 install(TARGETS libgcc
   RUNTIME DESTINATION "${WASMUX_INSTALL_BINDIR}"
   LIBRARY DESTINATION "${WASMUX_INSTALL_LIBDIR}"

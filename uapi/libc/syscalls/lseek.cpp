@@ -14,7 +14,7 @@ __ATTR_HIDDEN
 extern "C" off_t __lseek(int fd, off_t offset, int whence)
 {
   loff_t result;
-  auto ret = sys_llseek(static_cast<unsigned>(fd), static_cast<uint64_t>(offset) >> 32, offset, &result, whence);
+  auto ret = __DO_SYSCALL(_llseek, fd, static_cast<uint64_t>(offset) >> 32, static_cast<uint32_t>(offset), &result, whence);
   if (ret < 0) {
     __set_local_errno(-static_cast<int>(ret));
     return -1;

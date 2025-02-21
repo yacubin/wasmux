@@ -23,8 +23,6 @@ target_include_directories(dl PUBLIC "${dl_INCLUDES}")
 target_compile_definitions(dl PRIVATE "${dl_DEFINITIONS}")
 target_link_libraries(dl PUBLIC ${dl_LIBRARIES})
 
-add_library(WASMUX::DL ALIAS dl)
-
 install(TARGETS dl
   RUNTIME DESTINATION "${WASMUX_INSTALL_BINDIR}"
   LIBRARY DESTINATION "${WASMUX_INSTALL_LIBDIR}"

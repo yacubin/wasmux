@@ -2,14 +2,8 @@ import url from 'node:url';
 import * as CXX from "###/utils/CXX.js";
 
 export const ARGS = {
-  INPUT: {
-    type: "string",
-    name: "input",
-  },
-  OUTPUT: {
-    type: "string",
-    name: "output",
-  },
+  INPUT:  { type: "string", name: "input"  },
+  OUTPUT: { type: "string", name: "output" },
 };
 
 export default async function(ctx, {input, output})
@@ -51,7 +45,7 @@ export default async function(ctx, {input, output})
   lines.push("#include <wasmux/compiler.h>");
   lines.push("#include <wasmux/thread_data.h>");
   lines.push("");
-  lines.push(`static char* s_errors[${errors.length}] =`);
+  lines.push(`static const char* s_errors[${errors.length}] =`);
   lines.push("{");
   for (let code = 0; code < errors.length; ++code) {
     const desc = errors[code] ? `"${errors[code]}"` : "nullptr";
@@ -62,7 +56,7 @@ export default async function(ctx, {input, output})
   lines.push('extern "C" char* __strerror(int errnum)');
   lines.push("{");
   lines.push(`  if (errnum < ${errors.length} && s_errors[errnum]) {`);
-  lines.push("    return s_errors[errnum];");
+  lines.push("    return const_cast<char*>(s_errors[errnum]);");
   lines.push("  }");
   lines.push(`  memcpy(__get_local_buffer_data(), "${unkErrorStr}", ${unkErrorStr.length + 1});`);
   /* TODO: Unknown error + atoi(errnum) */

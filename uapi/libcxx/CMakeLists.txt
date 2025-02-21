@@ -27,8 +27,6 @@ target_compile_definitions(libcxx PRIVATE "${libcxx_DEFINITIONS}")
 target_link_libraries(libcxx PRIVATE ${libcxx_LIBRARIES})
 set_target_properties(libcxx PROPERTIES OUTPUT_NAME "c++")
 
-add_library(WASMUX::LIBCXX ALIAS libcxx)
-
 install(TARGETS libcxx
   RUNTIME DESTINATION "${WASMUX_INSTALL_BINDIR}"
   LIBRARY DESTINATION "${WASMUX_INSTALL_LIBDIR}"

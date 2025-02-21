@@ -13,7 +13,7 @@
 __ATTR_HIDDEN
 extern "C" ssize_t __writev(int fd, const struct iovec* iov, int count)
 {
-  long ret = sys_writev(static_cast<unsigned>(fd), iov, static_cast<unsigned long>(count));
+  auto ret = __SYSCALL(writev, fd, iov, count);
   if (ret < 0) {
     __set_local_errno(-static_cast<int>(ret));
     return -1;

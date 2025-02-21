@@ -75,9 +75,11 @@ function (execute_script)
     set(__arg_WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}")
   endif ()
 
+  string(REGEX REPLACE ";" "\\\;" __plugin_list "${WASMUX_INJECT_SCRIPT_LIST}")
+
   set(_script_args
     "--script=${__arg_SCRIPT}"
-    "--plugin-list=${WASMUX_INJECT_SCRIPT_LIST}"
+    "--plugin-list=${__plugin_list}"
     )
   if (NOT __arg_NOCONFIG)
     list(APPEND _script_args "--config-script=${WASMUX_CONFIG_OBJECT}")

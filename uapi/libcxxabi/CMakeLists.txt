@@ -22,8 +22,6 @@ target_compile_definitions(libcxxabi PRIVATE "${libcxxabi_DEFINITIONS}")
 target_link_libraries(libcxxabi PRIVATE ${libcxxabi_LIBRARIES})
 set_target_properties(libcxxabi PROPERTIES OUTPUT_NAME "c++abi")
 
-add_library(WASMUX::LIBCXXABI ALIAS libcxxabi)
-
 install(TARGETS libcxxabi
   RUNTIME DESTINATION "${WASMUX_INSTALL_BINDIR}"
   LIBRARY DESTINATION "${WASMUX_INSTALL_LIBDIR}"

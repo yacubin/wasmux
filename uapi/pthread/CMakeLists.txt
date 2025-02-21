@@ -23,8 +23,6 @@ target_include_directories(pthread PRIVATE "${pthread_INCLUDES}")
 target_compile_definitions(pthread PRIVATE "${pthread_DEFINITIONS}")
 target_link_libraries(pthread PRIVATE ${pthread_LIBRARIES})
 
-add_library(WASMUX::Pthread ALIAS pthread)
-
 install(TARGETS pthread
   RUNTIME DESTINATION "${WASMUX_INSTALL_BINDIR}"
   LIBRARY DESTINATION "${WASMUX_INSTALL_LIBDIR}"

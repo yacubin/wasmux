@@ -25,8 +25,6 @@ target_compile_definitions(libm PRIVATE "${libm_DEFINITIONS}")
 target_link_libraries(libm PRIVATE ${libm_LIBRARIES})
 set_target_properties(libm PROPERTIES PREFIX "")
 
-add_library(WASMUX::LIBM ALIAS libm)
-
 install(TARGETS libm
   RUNTIME DESTINATION "${WASMUX_INSTALL_BINDIR}"
   LIBRARY DESTINATION "${WASMUX_INSTALL_LIBDIR}"

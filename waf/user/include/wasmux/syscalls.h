@@ -158,21 +158,6 @@ static inline long sys_gettimeofday(struct timeval* tv, struct timezone* tz)
   return __DO_SYSCALL(gettimeofday, tv, tz);
 }
 
-static inline long sys_writev(unsigned long fd, const struct iovec* vec, unsigned long vlen)
-{
-  return __DO_SYSCALL(writev, fd, vec, vlen);
-}
-
-static inline long sys_llseek(unsigned int fd, unsigned long offset_high, unsigned long offset_low, loff_t* result, unsigned int whence)
-{
-  return __DO_SYSCALL(_llseek, fd, offset_high, offset_low, result, whence);
-}
-
-static inline long sys_futex_time32(uint32_t* uaddr, int op, uint32_t val, const struct timespec32* utime, uint32_t* uaddr2, uint32_t val3)
-{
-  return __DO_SYSCALL(futex, uaddr, op, val, utime, uaddr2, val3);
-}
-
 #ifdef __cplusplus
 }
 #endif

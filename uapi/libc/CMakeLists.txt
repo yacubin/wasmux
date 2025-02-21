@@ -93,6 +93,7 @@ set(libc_SOURCES
   stub/abort.cpp
   stub/access.cpp
   stub/assert.cpp
+  stub/atexit.cpp
   stub/environ.cpp
   stub/err.cpp
   stub/fcntl.cpp
@@ -227,8 +228,6 @@ target_include_directories(libc PUBLIC ${libc_INCLUDES})
 target_compile_definitions(libc PRIVATE ${libc_DEFINITIONS})
 target_link_libraries(libc PUBLIC ${libc_LIBRARIES})
 set_target_properties(libc PROPERTIES PREFIX "")
-
-add_library(WASMUX::LIBC ALIAS libc)
 
 install(TARGETS libc
   RUNTIME DESTINATION "${WASMUX_INSTALL_BINDIR}"
