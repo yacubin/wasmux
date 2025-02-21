@@ -1,12 +1,13 @@
-execute_process(COMMAND "@NODE_EXECUTABLE@" "@WASMUX_SCRIPT_DIR@/JaveScriptLoader.mjs"
-  "--script=@WASMUX_SCRIPT_DIR@/run/InstallCode.mjs"
-  "--plugin-list=@WASMUX_INJECT_SCRIPT_LIST@"
-  "--config-script=@WASMUX_CONFIG_OBJECT@"
-WORKING_DIRECTORY
-  "${CMAKE_CURRENT_BINARY_DIR}"
-RESULT_VARIABLE
-  _result
-)
+execute_process(COMMAND "@NODE_EXECUTABLE@"
+    "@WASMUX_SCRIPT_DIR@/JaveScriptLoader.mjs"
+    "--script=@WASMUX_SCRIPT_DIR@/run/InstallCode.mjs"
+    "--plugin-list=@WASMUX_INJECT_SCRIPT_LIST@"
+    "--config-script=@WASMUX_CONFIG_OBJECT@"
+  WORKING_DIRECTORY
+    "${CMAKE_CURRENT_BINARY_DIR}"
+  RESULT_VARIABLE
+    _result
+  )
 if (_result)
   message(FATAL_ERROR "Unable to process install code")
 endif ()

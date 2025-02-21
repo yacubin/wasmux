@@ -19,16 +19,18 @@ if (WASMUX_TARGET_SYSTEM MATCHES "-wasi$")
 endif ()
 
 include(WxMacros)
-include(WxVariables)
 
 set(WASMUX_CONFIG_HEADER "${CMAKE_CURRENT_BINARY_DIR}/wasmux-config.h")
 set(WASMUX_CONFIG_OBJECT "${CMAKE_CURRENT_BINARY_DIR}/wasmux-config.mjs")
 
-WX_INIT_VARIABLES(
+execute_script(
+  SCRIPT "${WASMUX_SCRIPT_DIR}/run/InitVariables.mjs"
   INPUT "${WASMUX_ROOT_DIR}/data/variables.mjs"
   OUTPUT_HEADER "${WASMUX_CONFIG_HEADER}.in"
   OUTPUT_OBJECT "${WASMUX_CONFIG_OBJECT}.in"
-  OUTPUT_SCRIPT "${CMAKE_CURRENT_BINARY_DIR}/wasmux-config.cmake"
+  OUTPUT_SCRIPT wasmux-config.cmake
+  WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}"
+  NOCONFIG
   PRINT
   )
 

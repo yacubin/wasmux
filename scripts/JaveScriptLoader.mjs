@@ -36,6 +36,7 @@ async function runScript()
   const argsMain = process.argv.slice(2);
   const indexOfUserArgs = argsMain.findIndex((i) => i === "--");
   const argsMap = toArgMap(indexOfUserArgs === -1 ? argsMain : argsMain.slice(0, indexOfUserArgs));
+  const argsUser = indexOfUserArgs === -1 ? [] : argsMain.slice(indexOfUserArgs + 1);
   const entryScript = argsMap.script;
   const scriptUrl = url.pathToFileURL(entryScript);
   
@@ -43,55 +44,53 @@ async function runScript()
   const func = module.default;
 
   let args = {};
-  if (argsMap.type === "add_custom_script" || argsMap.type === "execute_script") {
-    const desc = {
-      SCRIPT: {
-        type: "string",
-      },
-      WORK_DIR: {
-        type: "string",
-        optional: true,
-      },
-      ...module.ARGS,
-    };
 
-    const argsUser = indexOfUserArgs === -1 ? [] : argsMain.slice(indexOfUserArgs + 1);
-    let key;
-    const vals = {};
-    for (const iter of argsUser) {
-      if (desc.hasOwnProperty(iter)) {
-        key = iter;
-        continue;
-      }
-      if (!key) {
-        throw `Unknown argument ${iter}`;
-      }
-      switch (desc[key].type) {
-      case "string":
-        if (vals[key])
-          throw `Argument ${key} support only one value`;
-        vals[key] = iter;
-        break;
-      default:
-        throw `Unknown type ${desc[key].type} for ${key}`;
-      }
+  const desc = {
+    SCRIPT:   { type: "string", optional: true  },
+    WORK_DIR: { type: "string", optional: true },
+    NOCONFIG: { type: "boolean" },
+    ...module.ARGS,
+  };
+
+  let key;
+  const vals = {};
+  for (const iter of argsUser) {
+    if (desc.hasOwnProperty(iter)) {
+      key = iter;
+      continue;
     }
-
-    for (const [ key, {name, optional} ] of Object.entries(desc)) {
-      if (!vals.hasOwnProperty(key)) {
-        if (optional)
-          continue;
-        throw `Missing argument ${key}`;
-      }
-      if (!name)
-        continue;
-      if (args[name])
-        throw `Duplicate name ${name} of ${key}`;
-      args[name] = vals[key];
+    if (!key) {
+      throw `Unknown argument ${iter}`;
+    }
+    if (vals.hasOwnProperty(key)) {
+      throw `Argument ${key} support only one value`;
+    }
+    switch (desc[key].type) {
+    case "boolean":
+      vals[key] = true;
+      break;
+    case "string":
+      vals[key] = iter;
+      break;
+    default:
+      throw `Unknown type ${desc[key].type} for ${key}`;
     }
   }
-  else {
-    args = argsMap;
+
+  for (const [ key, {name, optional} ] of Object.entries(desc)) {
+    if (!vals.hasOwnProperty(key)) {
+      if (optional)
+        continue;
+      else if (desc[key].type === "boolean")
+        vals[key] = false;
+      else
+        throw `Missing argument ${key}`;
+    }
+    if (!name)
+      continue;
+    if (args[name])
+      throw `Duplicate name ${name} of ${key}`;
+    args[name] = vals[key];
   }
 
   const ctx = new InjectContext(entryScript, args);

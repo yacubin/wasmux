@@ -44,7 +44,6 @@ function (add_custom_script)
 
   add_custom_command(COMMAND "${NODE_EXECUTABLE}"
       "${WASMUX_SCRIPT_DIR}/JaveScriptLoader.mjs"
-      "--type=add_custom_script"
       "--script=${__arg_SCRIPT}"
       "--plugin-list=${WASMUX_INJECT_SCRIPT_LIST}"
       "--config-script=${WASMUX_CONFIG_OBJECT}"
@@ -62,7 +61,7 @@ function (add_custom_script)
 endfunction ()
 
 function (execute_script)
-  cmake_parse_arguments(__arg "" "SCRIPT;WORK_DIR" "" ${ARGN})
+  cmake_parse_arguments(__arg "NOCONFIG" "SCRIPT;WORK_DIR" "" ${ARGN})
 
   if (NOT __arg_SCRIPT)
     message(FATAL_ERROR "SCRIPT argument is mandatory")
@@ -76,12 +75,17 @@ function (execute_script)
     set(__arg_WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}")
   endif ()
 
+  set(_script_args
+    "--script=${__arg_SCRIPT}"
+    "--plugin-list=${WASMUX_INJECT_SCRIPT_LIST}"
+    )
+  if (NOT __arg_NOCONFIG)
+    list(APPEND _script_args "--config-script=${WASMUX_CONFIG_OBJECT}")
+  endif ()
+
   execute_process(COMMAND "${NODE_EXECUTABLE}"
       "${WASMUX_SCRIPT_DIR}/JaveScriptLoader.mjs"
-      "--type=execute_script"
-      "--script=${__arg_SCRIPT}"
-      "--plugin-list=${WASMUX_INJECT_SCRIPT_LIST}"
-      "--config-script=${WASMUX_CONFIG_OBJECT}"
+      ${_script_args}
       "--"
       ${ARGN}
     WORKING_DIRECTORY

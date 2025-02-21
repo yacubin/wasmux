@@ -1,13 +1,17 @@
 import * as CXX from "###/utils/CXX.js";
 import * as CMake from "###/utils/CMake.js";
 
+export const ARGS = {
+  INPUT:         { type: "string",  name: "input"        },
+  OUTPUT_HEADER: { type: "string",  name: "outputHeader" },
+  OUTPUT_OBJECT: { type: "string",  name: "outputObject" },
+  OUTPUT_SCRIPT: { type: "string",  name: "outputScript" },
+  PRINT:         { type: "boolean", name: "isPrint"      },
+};
+
 export default async function(ctx)
 {
-  const {input, outputHeader, outputObject, outputScript, print} = ctx.args;
-
-  if (!input) {
-    throw "Not pass the input filename to the program";
-  }
+  const {input, outputHeader, outputObject, outputScript, isPrint} = ctx.args;
 
   const module = await ctx.fs.loadScript(input);
   const config = module.default;
@@ -48,7 +52,7 @@ export default async function(ctx)
       else {
         throw `Not supported value of ${entry.value}`;
       }
-      if (print) {
+      if (isPrint) {
         lines.push(`${space}message(STATUS "${name}:${leader.substring(name.length)} \${${name}}")`);
       }
       if (entry.depends) {
