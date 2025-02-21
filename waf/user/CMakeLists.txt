@@ -18,13 +18,13 @@ set(wauser_LIBRARIES
   )
 
 set(wauser_GENFILES
-  "${CMAKE_CURRENT_BINARY_DIR}/include/wasmux/syscall-nums.h"
+  "${CMAKE_CURRENT_BINARY_DIR}/include/wasmux/arch-syscall.h"
   )
 
 add_custom_script(
-  SCRIPT src/syscall-nums.h.mjs
+  SCRIPT src/arch-syscall.h.mjs
   INPUT "${WASMUX_ROOT_DIR}/data/syscall.mjs"
-  OUTPUT wasmux/syscall-nums.h
+  OUTPUT wasmux/arch-syscall.h
   WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}/include"
   )
 

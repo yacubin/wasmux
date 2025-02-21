@@ -24,7 +24,6 @@ set(libc_HEADERS
   include/sys/socket.h
   include/sys/stat.h
   include/sys/statfs.h
-  include/sys/syscall.h
   include/sys/sysinfo.h
   include/sys/sysmacros.h
   include/sys/time.h
@@ -59,7 +58,6 @@ set(libc_HEADERS
   include/stdarg.h
   include/stddef.h
   include/stdint.h
-  include/syscall.h
   include/sysexits.h
   include/syslog.h
   include/syslog.h
@@ -189,6 +187,17 @@ set(libc_LIBRARIES
   wauser
   )
 
+set(libc_GENFILES
+  "${CMAKE_CURRENT_BINARY_DIR}/include/sys/syscall.h"
+  )
+
+add_custom_script(
+  SCRIPT src/sys/syscall.h.mjs
+  INPUT "${WASMUX_ROOT_DIR}/data/syscall.mjs"
+  OUTPUT sys/syscall.h
+  WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}/include"
+  )
+
 foreach (_lib ${libc_OBJLIB_LIST})
   list(APPEND libc_INCLUDES $<TARGET_PROPERTY:${_lib},INTERFACE_INCLUDE_DIRECTORIES>)
   list(APPEND libc_SOURCES $<TARGET_OBJECTS:${_lib}>)
@@ -213,7 +222,7 @@ configure_file("include/unistd.h.in" "${CMAKE_CURRENT_BINARY_DIR}/include/unistd
 configure_file("features/${WASMUX_LIBC_FEATURES}-features.h" "${CMAKE_CURRENT_BINARY_DIR}/include/features.h" COPYONLY)
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${libc_HEADERS} ${libc_SOURCES} ${libc_DATAFILES})
-add_library(libc STATIC ${libc_HEADERS} ${libc_SOURCES} ${libc_DATAFILES})
+add_library(libc STATIC ${libc_HEADERS} ${libc_SOURCES} ${libc_GENFILES} ${libc_DATAFILES})
 target_include_directories(libc PUBLIC ${libc_INCLUDES})
 target_compile_definitions(libc PRIVATE ${libc_DEFINITIONS})
 target_link_libraries(libc PUBLIC ${libc_LIBRARIES})

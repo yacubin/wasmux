@@ -1,4 +1,4 @@
-execute_process(COMMAND "@NODE_EXECUTABLE@"
+execute_process (COMMAND "@NODE_EXECUTABLE@"
     "@WASMUX_SCRIPT_DIR@/JaveScriptLoader.mjs"
     "--script=@WASMUX_SCRIPT_DIR@/run/InstallCode.mjs"
     "--plugin-list=@WASMUX_INJECT_SCRIPT_LIST@"

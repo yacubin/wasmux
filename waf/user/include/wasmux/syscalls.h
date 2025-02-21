@@ -9,7 +9,7 @@
 
 #include <wasmux/types.h>
 #include <wasmux/time.h>
-#include <wasmux/syscall-nums.h>
+#include <wasmux/arch-syscall.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -59,7 +59,7 @@ long __kernel_syscall6(long number, long arg1, long arg2, long arg3, long arg4, 
 #define __SYSCALL_CALL(m, name, a1, a2, a3, a4, a5, a6, n, ...) \
   __kernel_syscall##n(__SYSCALL_ARG##n(m(name), a1, a2, a3, a4, a5, a6))
 
-#define __SC_NR_CAST(name) SYS_##name
+#define __SC_NR_CAST(name) __NR_##name
 #define __SR_NO_CAST(name) name
 
 #define ___DO_SYSCALL(...) __SYSCALL_CALL(__VA_ARGS__, 6, 5, 4, 3, 2, 1, 0)

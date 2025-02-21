@@ -162,9 +162,19 @@ async function getProjectInfo(source)
   };
 }
 
+function lineToSinglComment(line)
+{
+  return "# " + line;
+}
+
+function lineToMultipleComment(line)
+{
+  return `#[===[ ${line} ]===]`;
+}
+
 function generatedScriptNameComment(filename)
 {
-  return `# Generated from ${path.basename(filename)}`;
+  return lineToSinglComment("Generated from " + path.basename(filename));
 }
 
 module.exports = {
@@ -174,5 +184,7 @@ module.exports = {
   ctest,
   extract,
   getProjectInfo,
+  lineToSinglComment,
+  lineToMultipleComment,
   generatedScriptNameComment,
 };

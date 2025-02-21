@@ -109,8 +109,7 @@ export class InjectContext {
 
   async loadConfig(filename)
   {
-    const fileUrl = url.pathToFileURL(filename);
-    const module = await import(fileUrl);
+    const module = await loadScript(filename);
     const originConfig = module.default;
 
     const config = {};
@@ -140,8 +139,7 @@ export class InjectContext {
 
   async loadPlugin(filename)
   {
-    const fileUrl = url.pathToFileURL(filename);
-    const module = await import(fileUrl);
+    const module = await loadScript(filename);
     const Plugin = module.default;
     this._plugins.push(new Plugin);
   }
