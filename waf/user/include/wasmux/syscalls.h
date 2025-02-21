@@ -173,11 +173,6 @@ static inline long sys_futex_time32(uint32_t* uaddr, int op, uint32_t val, const
   return __DO_SYSCALL(futex, uaddr, op, val, utime, uaddr2, val3);
 }
 
-static inline long sys_time32(time32_t* tloc)
-{
-  return __DO_SYSCALL(time, tloc);
-}
-
 #ifdef __cplusplus
 }
 #endif
