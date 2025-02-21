@@ -178,11 +178,6 @@ static inline long sys_time32(time32_t* tloc)
   return __DO_SYSCALL(time, tloc);
 }
 
-static inline long sys_dup2(unsigned int oldfd, unsigned int newfd)
-{
-  return __DO_SYSCALL(dup2, oldfd, newfd);
-}
-
 #ifdef __cplusplus
 }
 #endif

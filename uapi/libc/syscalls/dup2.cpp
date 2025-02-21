@@ -13,7 +13,7 @@
 __ATTR_HIDDEN
 extern "C" int __dup2(int oldfd, int newfd)
 {
-  int ret = static_cast<int>(sys_dup2(oldfd, newfd));
+  int ret = static_cast<int>(__DO_SYSCALL(dup2, oldfd, newfd));
   if (ret < 0) {
     __set_local_errno(-ret);
     return -1;
