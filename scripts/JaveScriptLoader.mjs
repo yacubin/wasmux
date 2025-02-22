@@ -31,6 +31,11 @@ function toArgMap(args)
   return params;
 }
 
+function isIntegerString(str)
+{
+  return /^[-+]?[0-9]+$/.test(str);
+}
+
 async function runScript()
 {
   const argsMain = process.argv.slice(2);
@@ -62,17 +67,26 @@ async function runScript()
     if (!key) {
       throw `Unknown argument ${iter}`;
     }
-    if (vals.hasOwnProperty(key)) {
+    const {type} = desc[key];
+    if (type === "string[]") {
+      vals[key] = vals[key] || [];
+      vals[key].push(iter.toString());
+    }
+    else if (vals.hasOwnProperty(key)) {
       throw `Argument ${key} support only one value`;
     }
-    switch (desc[key].type) {
-    case "boolean":
+    else if (type === "boolean") {
       vals[key] = true;
-      break;
-    case "string":
-      vals[key] = iter;
-      break;
-    default:
+    }
+    else if (type === "string") {
+      vals[key] = iter.toString();
+    }
+    else if (type === "integer") {
+      if (!isIntegerString(iter))
+        throw `Argument ${iter} is not an integer`;
+      vals[key] = Number.parseInt(iter);
+    }
+    else {
       throw `Unknown type ${desc[key].type} for ${key}`;
     }
   }

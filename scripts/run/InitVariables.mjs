@@ -116,7 +116,7 @@ export default async function(ctx)
           type = "string";
         }
         else if (Array.isArray(entry.value)) {
-          type = "strings";
+          type = "string[]";
         }
         else {
           throw `Not supported value of ${entry.value}`;

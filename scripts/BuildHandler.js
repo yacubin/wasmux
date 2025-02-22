@@ -53,7 +53,6 @@ class SettingsStorage {
   async load()
   {
     try {
-      const stat = await fs.promises.stat(this._filename);
       const content = await fs.promises.readFile(this._filename, this._encoding);
       this._settings = JSON.parse(content);
     }

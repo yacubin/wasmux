@@ -126,7 +126,7 @@ export class InjectContext {
       else if (entry.type === "string") {
         config[key] = entry.value;
       }
-      else if (entry.type === "strings") {
+      else if (entry.type === "string[]") {
         config[key] = entry.value ? entry.value.split(";") : [];
       }
       else if (Array.isArray(entry.type)) {

@@ -5,9 +5,6 @@ const fs = require('fs');
 
 async function loadSyscallTable(filename, abis)
 {
-  if (typeof abis === 'string')
-    abis = abis.split(',');
-
   const content = await fs.promises.readFile(filename, 'utf8');
 
   const result = [];
