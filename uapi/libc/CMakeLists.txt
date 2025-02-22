@@ -90,7 +90,6 @@ set(libc_SOURCES
   stub/sys/vfs.cpp
   stub/sys/wait.cpp
   stub/sys/xattr.cpp
-  stub/abort.cpp
   stub/access.cpp
   stub/assert.cpp
   stub/atexit.cpp
@@ -157,6 +156,8 @@ set(libc_SOURCES
   syscalls/writev.cpp
   src/sys/futimens.cpp
   src/sys/stat.cpp
+  src/sys/unistd/getpgrp.cpp
+  src/abort.cpp
   src/exit.cpp
   src/gethostname.cpp
   src/isatty.cpp
