@@ -6,14 +6,14 @@
 
 #include <wasmux-config.h>
 #include <sys/time.h>
+#include <errno.h>
 #include <wasmux/compiler.h>
-#include <wasmux/thread_data.h>
 #include <wasmux/syscalls.h>
 
 __ATTR_HIDDEN
 extern "C" int __gettimeofday(struct timeval* tv, struct timezone* tz)
 {
-  long ret = sys_gettimeofday(tv, tz);
+  auto ret = __DO_SYSCALL(gettimeofday, tv, tz);
   if (ret < 0) {
     __set_local_errno(-static_cast<int>(ret));
     return -1;
