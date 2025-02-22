@@ -157,6 +157,7 @@ set(libc_SOURCES
   src/sys/futimens.cpp
   src/sys/stat.cpp
   src/sys/unistd/getpgrp.cpp
+  src/sys/unistd/tcgetpgrp.cpp # TODO: Move to termios library (and unistd)
   src/abort.cpp
   src/exit.cpp
   src/gethostname.cpp

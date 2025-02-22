@@ -175,13 +175,6 @@ pid_t setsid(void)
   return -1;
 }
 
-pid_t tcgetpgrp(int fd)
-{
-  abort();
-  errno = ENOSYS;
-  return -1;
-}
-
 int tcsetpgrp(int fd, pid_t pidgrp)
 {
   abort();
