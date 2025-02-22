@@ -132,3 +132,11 @@ int WebXMLHttpRequest_removeOnLoad(WEI_Object xhr, WebFunction* listener)
   WebString_destroy(type);
   return res;
 }
+
+int WebXMLHttpRequest_removeOnError(WEI_Object xhr, WebFunction* listener)
+{
+  WebString* type = WebString_create("error");
+  int res = WEI_removeEventListener(xhr, object_idx_cast(type), object_idx_cast(listener));
+  WebString_destroy(type);
+  return res;
+}

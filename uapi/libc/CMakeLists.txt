@@ -44,7 +44,6 @@ set(libc_HEADERS
   include/endian.h
   include/err.h
   include/errno.h
-  include/fcntl.h
   include/float.h
   include/inttypes.h
   include/limits.h
@@ -95,7 +94,6 @@ set(libc_SOURCES
   stub/atexit.cpp
   stub/environ.cpp
   stub/err.cpp
-  stub/fcntl.cpp
   stub/getenv.cpp
   stub/pipe.cpp
   stub/poll.cpp
@@ -119,7 +117,6 @@ set(libc_SOURCES
   syscalls/brk.cpp
   syscalls/chdir.cpp
   syscalls/close.cpp
-  syscalls/creat.cpp
   syscalls/dup2.cpp
   syscalls/execve.cpp
   syscalls/fdatasync.cpp
@@ -138,7 +135,6 @@ set(libc_SOURCES
   syscalls/lseek.cpp
   syscalls/mknod.cpp
   syscalls/mount.cpp
-  syscalls/open.cpp
   syscalls/read.cpp
   syscalls/readv.cpp
   syscalls/reboot.cpp

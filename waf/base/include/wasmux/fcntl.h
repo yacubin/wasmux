@@ -22,6 +22,12 @@
 #define O_CLOEXEC   02000000
 #endif
 
+#ifndef __O_TMPFILE
+#define __O_TMPFILE 020000000
+#endif
+
+#define O_TMPFILE (__O_TMPFILE | O_DIRECTORY)
+
 #define FD_CLOEXEC 1
 
 #endif /* _WASMUX_FCNTL_H */

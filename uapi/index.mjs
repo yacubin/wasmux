@@ -3,6 +3,7 @@ export default {
     depends: "WASMUX_ENABLE_LIBC",
     objlibs: {
       malloc:    { cmakeDir: "malloc"    },
+      fcntl:     { cmakeDir: "fcntl"     },
       string:    { cmakeDir: "string"    },
       ctype:     { cmakeDir: "ctype"     },
       stdlib:    { cmakeDir: "stdlib"    },

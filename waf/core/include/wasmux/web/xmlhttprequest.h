@@ -37,6 +37,7 @@ int WebXMLHttpRequest_addOnReadyStateChange(WEI_Object xhr, WEI_PerformCallback1
 WebFunction* WebXMLHttpRequest_addOnLoad(WEI_Object xhr, WEI_PerformCallback1* callback, void* userdata);
 WebFunction* WebXMLHttpRequest_addOnError(WEI_Object xhr, WEI_PerformCallback1* callback, void* userdata);
 int WebXMLHttpRequest_removeOnLoad(WEI_Object xhr, WebFunction* listener);
+int WebXMLHttpRequest_removeOnError(WEI_Object xhr, WebFunction* listener);
 
 #ifdef __cplusplus
 }

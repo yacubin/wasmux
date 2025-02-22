@@ -103,11 +103,6 @@ static inline long sys_exit(int error_code)
   return __DO_SYSCALL(exit, error_code);
 }
 
-static inline long sys_creat(const char* path, umode_t mode)
-{
-  return __DO_SYSCALL(creat, path, mode);
-}
-
 static inline long sys_link(const char* oldname, const char* newname)
 {
   return __DO_SYSCALL(link, oldname, newname);

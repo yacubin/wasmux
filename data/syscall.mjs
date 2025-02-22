@@ -122,9 +122,11 @@ export default {
   geteuid32:              SC(201, 0,  "sys_geteuid"                ),
   getegid32:              SC(202, 0,  "sys_getegid"                ),
 
+  fcntl64:                SC(221, 3,  "sys_fcntl64"                ),
   gettid:                 SC(224, 0,  "sys_gettid"                 ),
   futex:                  SC(240, 6,  "sys_futex_time32"           ),
   exit_group:             SC(252, 1,  "sys_exit_group"             ),
+  openat:                 SC(295, 4,  "sys_openat"                 ),
   fstatat64:              SC(300, 4,  "sys_fstatat64"              ),
   statx:                  SC(383, 5,  "sys_statx"                  ),
 };
