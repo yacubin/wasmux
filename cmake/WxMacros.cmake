@@ -47,6 +47,7 @@ function (add_custom_script)
       "--script=${__arg_SCRIPT}"
       "--plugin-list=${WASMUX_INJECT_SCRIPT_LIST}"
       "--config-script=${WASMUX_CONFIG_OBJECT}"
+      # --command=<cmd> COMMAND
       "--"
       ${__ARG_LIST}
     DEPENDS
@@ -79,6 +80,7 @@ function (execute_script)
 
   set(_script_args
     "--script=${__arg_SCRIPT}"
+    # --command=<cmd> COMMAND
     "--plugin-list=${__plugin_list}"
     )
   if (NOT __arg_NOCONFIG)
