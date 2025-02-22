@@ -60,8 +60,6 @@ set(wacore_LIBRARIES
   )
 
 set(wacore_GENFILES
-  "${CMAKE_CURRENT_BINARY_DIR}/include/uapi/asm/unistd.h"
-  "${CMAKE_CURRENT_BINARY_DIR}/include/utsversion.h"
   "${CMAKE_CURRENT_BINARY_DIR}/include/wasmux/webcall-nums.h"
   "${CMAKE_CURRENT_BINARY_DIR}/include/wasmux/webcall-main.h"
   "${CMAKE_CURRENT_BINARY_DIR}/include/wasmux/webcall-worker.h"
@@ -112,21 +110,6 @@ if (WIN32)
     src/windows/WorkerThreadContext.cpp
     )
 endif ()
-
-# TODO: Move to linux dep
-add_custom_script(
-  SCRIPT unistd.h.mjs
-  INPUT "${WASMUX_ROOT_DIR}/data/syscall.mjs"
-  OUTPUT uapi/asm/unistd.h
-  WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}/include"
-  )
-
-# TODO: Move to linux dep
-add_custom_script(
-  SCRIPT utsversion.h.mjs
-  OUTPUT utsversion.h
-  WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}/include"
-  )
 
 add_custom_script(
   SCRIPT src/webcall-nums.h.mjs

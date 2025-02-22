@@ -31,5 +31,6 @@ module.exports = {
   lineToSinglComment,
   lineToMultipleComment,
   filepathToMacroCIdentifier,
+  filenameToPragmaOnceMacro: filepathToMacroCIdentifier,
   generatedScriptNameComment,
 };

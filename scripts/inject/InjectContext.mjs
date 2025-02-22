@@ -2,6 +2,8 @@ import path from 'node:path';
 import fs from 'node:fs';
 import url from 'node:url';
 
+import { generatedScriptNameComment } from "###/utils/CXX.js";
+import { filenameToPragmaOnceMacro } from "###/utils/CXX.js";
 import { saveIfDifferent } from "###/utils/FileSystem.js";
 import { fileExists } from "###/utils/FileSystem.js";
 
@@ -51,7 +53,8 @@ export class InjectContext {
   };
 
   _cxx = {
-
+    generatedScriptNameComment,
+    filenameToPragmaOnceMacro,
   };
 
   _path = {
