@@ -5,74 +5,7 @@ const { fileExists, directoryExists }  = require('./utils/FileSystem.js');
 const { spawnAsync } = require('./utils/ChildProcess.js');
 const cmake  = require('./utils/CMake.js');
 const { requestGet } = require('./utils/HttpRequest.js');
-
-class SettingsStorage {
-  _filename;
-  _encoding = "utf-8";
-  _settings;
-  _current;
-
-  constructor(filename)
-  {
-    this._filename = filename;
-  }
-
-  async push(name)
-  {
-    if (!this._settings)
-      await this.load();
-    let object = this._current.object[name];
-    if (!object)
-      object = this._current.object[name] = {};
-    this._current = { parent: this._current, object };
-  }
-
-  async pop()
-  {
-    if (!this._settings)
-      await this.load();
-    console.assert(this._current.parent);
-    this._current = this._current.parent;
-  }
-
-  async get(name)
-  {
-    if (!this._settings)
-      await this.load();
-    return this._current.object[name];
-  }
-
-  async set(name, value)
-  {
-    if (!this._settings)
-      await this.load();
-    this._current.object[name] = value;
-    await this.save();
-  }
-
-  async load()
-  {
-    try {
-      const content = await fs.promises.readFile(this._filename, this._encoding);
-      this._settings = JSON.parse(content);
-    }
-    catch (e) {
-      this._settings = {};
-    }
-    this._current =
-    {
-      parent: null,
-      object: this._settings,
-    };
-  }
-
-  async save()
-  {
-    const space = 2;
-    const content = JSON.stringify(this._settings, undefined, space);
-    await fs.promises.writeFile(this._filename, content, { encoding: this._encoding, flag: 'w', flush: true });
-  }
-};
+const { SettingsStorage } = require("./utils/SettingsStorage.js");
 
 function mergeEnvironment(...args)
 {
@@ -262,13 +195,13 @@ async function doExtractArchive(ctx, config, settings)
 {
   if (!config.sourceUrl)
     throw "Unknown sourceUrl";
-  if (!config.arcDir)
-    throw "Unknown arcDir";
+  if (!config.archiveDir)
+    throw "Unknown archiveDir";
   if (!config.extractDir)
     throw "Unknown extractDir";
 
-  if (!await directoryExists(config.arcDir))
-    await fs.promises.mkdir(config.arcDir, { recursive: true });
+  if (!await directoryExists(config.archiveDir))
+    await fs.promises.mkdir(config.archiveDir, { recursive: true });
 
   if (!await directoryExists(config.tempDir))
     await fs.promises.mkdir(config.tempDir, { recursive: true });
@@ -280,7 +213,7 @@ async function doExtractArchive(ctx, config, settings)
   if (downloadUrls[config.sourceUrl])
     arcFile = downloadUrls[config.sourceUrl];
   else {
-    arcFile = path.join(config.arcDir, arcName);
+    arcFile = path.join(config.archiveDir, arcName);
     await tryRequestGet(config.sourceUrl, arcFile, ctx.requestAttempts);
     downloadUrls[config.sourceUrl] = arcFile;
     await settings.set("downloadUrls", downloadUrls);
@@ -359,7 +292,7 @@ async function doConfigNode(ctx, name, binaryDir, config, parentConfig)
   config.environment = mergeEnvironment(config.environment, parentConfig.environment);
   config.buildType = config.buildType || parentConfig.buildType;
   config.destDir = config.destDir || parentConfig.destDir;
-  config.arcDir = config.arcDir || parentConfig.arcDir;
+  config.archiveDir = config.archiveDir || parentConfig.archiveDir;
   config.tempDir = config.tempDir || parentConfig.tempDir;
   config.wasmuxDir = config.wasmuxDir || parentConfig.wasmuxDir;
   config.workDir = config.workDir || parentConfig.workDir;
@@ -381,7 +314,7 @@ async function doConfigNode(ctx, name, binaryDir, config, parentConfig)
     }
 
     config.sysroot.binaryDir = config.sysroot.binaryDir || path.resolve(binaryDir, binaryDirName);
-    config.sysroot.arcDir = config.sysroot.arcDir || config.arcDir || path.resolve(binaryDir, "sysroot-arc");
+    config.sysroot.archiveDir = config.sysroot.archiveDir || config.archiveDir || path.resolve(binaryDir, "sysroot-arc");
     config.sysroot.tempDir = config.sysroot.tempDir || config.tempDir || path.resolve(binaryDir, "sysroot-tmp");
     config.sysroot.destDir = config.sysroot.destDir || config.destDir || path.resolve(binaryDir, "sysroot-dest");
     config.sysroot.action = 'cmake';
@@ -420,7 +353,7 @@ async function doConfigNode(ctx, name, binaryDir, config, parentConfig)
   else {
     output.binaryDir = output.binaryDir || path.resolve(binaryDir, `output-build`);
   }
-  output.arcDir = output.arcDir || config.arcDir || path.resolve(binaryDir, `output-arc`);
+  output.archiveDir = output.archiveDir || config.archiveDir || path.resolve(binaryDir, `output-arc`);
   output.tempDir = output.tempDir || config.tempDir || path.resolve(binaryDir, `output-tmp`);
   output.destDir = output.destDir || config.destDir;
   output.sysroot = output.sysroot || config.sysroot;
@@ -433,7 +366,7 @@ async function doConfigNode(ctx, name, binaryDir, config, parentConfig)
       iter.sourceDir = iter.sourceDir || output.sourceDir;
       iter.binaryDir =(iter.binaryDir === null) ? iter.sourceDir : (iter.binaryDir || output.binaryDir);
       iter.destDir = iter.destDir || output.destDir;
-      iter.arcDir = iter.arcDir || output.arcDir;
+      iter.archiveDir = iter.archiveDir || output.archiveDir;
       iter.tempDir = iter.tempDir || output.tempDir;
       prepearAction(iter);
     }
