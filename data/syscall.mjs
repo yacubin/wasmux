@@ -104,8 +104,15 @@ export default {
   ioperm:                 SC(101, 3,  "sys_ioperm"                 ),
   socketcall:             SC(102, 2,  "sys_socketcall"             ),
   syslog:                 SC(103, 3,  "sys_syslog"                 ),
-
+  setitimer:              SC(104, 3,  "sys_setitimer"              ),
+  getitimer:              SC(105, 2,  "sys_getitimer"              ),
+  stat:                   SC(106, 2,  "sys_newstat"                ),
+  lstat:                  SC(107, 2,  "sys_newlstat"               ),
+  fstat:                  SC(108, 4,  "sys_newfstat"               ),
+  olduname:               SC(109, 1,  "sys_uname"                  ),
+  iopl:                   SC(110, 1,  "sys_iopl"                   ),
   vhangup:                SC(111, 0,  "sys_vhangup"                ),
+
   uname:                  SC(122, 1,  "sys_newuname"               ),
   _llseek:                SC(140, 5,  "sys_llseek"                 ),
   readv:                  SC(145, 3,  "sys_readv"                  ),
