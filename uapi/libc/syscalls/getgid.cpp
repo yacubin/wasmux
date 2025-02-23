@@ -12,7 +12,7 @@
 __ATTR_HIDDEN
 extern "C" gid_t __getgid()
 {
-  return static_cast<gid_t>(sys_getgid());
+  return static_cast<gid_t>(__SYSCALL(getgid32));
 }
 
 extern "C" __ATTR_ALIAS(__getgid, getgid) __ATTR_WEAK;

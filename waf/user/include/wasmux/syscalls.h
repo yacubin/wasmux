@@ -133,11 +133,6 @@ static inline long sys_getuid(void)
   return __DO_SYSCALL(getuid32);
 }
 
-static inline long sys_getgid(void)
-{
-  return __DO_SYSCALL(getgid32);
-}
-
 #ifdef __cplusplus
 }
 #endif

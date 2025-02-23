@@ -112,8 +112,17 @@ export default {
   olduname:               SC(109, 1,  "sys_uname"                  ),
   iopl:                   SC(110, 1,  "sys_iopl"                   ),
   vhangup:                SC(111, 0,  "sys_vhangup"                ),
-
+  idle:                   SC(112, 0,  null                         ),
+  wait4:                  SC(114, 4,  "sys_wait4"                  ),
+  swapoff:                SC(115, 1,  "sys_swapoff"                ),
+  sysinfo:                SC(116, 1,  "sys_sysinfo"                ),
+  ipc:                    SC(117, 6,  "sys_ipc"                    ),
+  fsync:                  SC(118, 1,  "sys_fsync"                  ),
+  sigreturn:              SC(119, 0,  "sys_sigreturn"              ),
+  clone:                  SC(120, 5,  "sys_clone"                  ),
+  setdomainname:          SC(121, 2,  "sys_setdomainname"          ),
   uname:                  SC(122, 1,  "sys_newuname"               ),
+
   _llseek:                SC(140, 5,  "sys_llseek"                 ),
   readv:                  SC(145, 3,  "sys_readv"                  ),
   writev:                 SC(146, 3,  "sys_writev"                 ),
