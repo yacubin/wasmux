@@ -1,4 +1,4 @@
-set(CONFIG_TARGET_TRIPLET wasm64-unknown-unknown)
+set(WASMUX_TARGET_TRIPLET wasm64-unknown-unknown)
 
 include("${CMAKE_CURRENT_LIST_DIR}/toolchain/WasmProcessor64.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/toolchain/LinuxSystem.cmake")

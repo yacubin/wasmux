@@ -91,11 +91,12 @@ async function saveIfDifferent(filename, content)
   if (await fileExists(filename)) {
     const oldContent = await fs.promises.readFile(filename, { encoding: "utf8" });
     if (content == oldContent)
-      return;
+      return false;
   }
 
   await fs.promises.mkdir(path.dirname(filename), { recursive: true });
   await fs.promises.writeFile(filename, content, { encoding: "utf8" });
+  return true;
 }
 
 module.exports = {

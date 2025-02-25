@@ -7,11 +7,6 @@ import { filenameToPragmaOnceMacro } from "###/utils/CXX.js";
 import { saveIfDifferent } from "###/utils/FileSystem.js";
 import { fileExists } from "###/utils/FileSystem.js";
 
-async function linesSaveTo(filename, lines)
-{
-  await saveIfDifferent(filename, lines.join('\n'));
-}
-
 async function loadScript(filename)
 {
   const fileUrl = url.pathToFileURL(filename);
@@ -40,6 +35,16 @@ class InjectHooks {
   }
 };
 
+function shrinkPath(filepath, deep)
+{
+  let components = path.normalize(filepath).split(path.sep);
+  if (deep !== undefined) {
+    if (components.length > deep)
+      components = components.slice(components.length - deep);
+  }
+  return components.join(path.posix.sep);
+}
+
 export class InjectContext {
   _args;
   _entryScript;
@@ -64,9 +69,16 @@ export class InjectContext {
 
   _fs = {
     fileExists,
-    linesSaveTo,
+    linesSaveTo: async (filename, lines) => {
+      if (await saveIfDifferent(filename, lines.join('\n')))
+        console.log(`echo "[object Object]" > ${shrinkPath(filename, 3)}`);
+    },
     loadScript,
     readFile: fs.promises.readFile,
+    mkdir: async (path, options) => {
+      console.log("mkdir " + (options && options.recursive) ? "-p" : "" + path);
+      await fs.promises.mkdir(path, options);
+    },
   };
 
   constructor(entryScript, args)

@@ -9,7 +9,6 @@ const handlerMap = {
   default: "./BuildHandler.mjs",
   init: "./InitHandler.mjs",
   build: "./BuildHandler.mjs",
-  make: "./MakeHandler.mjs",
 };
 
 function toOptionKey(name)

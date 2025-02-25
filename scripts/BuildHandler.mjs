@@ -6,6 +6,7 @@ import { requestGet } from "###/utils/HttpRequest.js";
 import { makePatch } from "###/utils/MakePatch.mjs";
 import { saveIfDifferent, directoryExists } from "###/utils/FileSystem.js";
 import { SettingsStorage } from "###/utils/SettingsStorage.js";
+import { spawnAsync } from "###/utils/ChildProcess.js";
 
 function copyObject(o) {
   if (!o || typeof o !== 'object')
@@ -127,42 +128,68 @@ function rebaseConfig(config) {
   return baseConfig;
 }
 
-function resolveConfigStrings(config, entryConfig, rootConfig) {
+function resolveStringWithVariable(config, entryConfig, rootConfig, val) {
+  return val.replace(/\$\{([^}]+)\}/g, (match, value) => {
+    let sel;
+    for (const name of value.split(".")) {
+      if (sel === undefined) {
+        if (config.hasOwnProperty(name)) {
+          sel = config[name];
+        }
+        else if (config !== entryConfig && entryConfig.hasOwnProperty(name)) {
+          sel = entryConfig[name];
+        }
+        else if (config !== rootConfig && rootConfig.hasOwnProperty(name)) {
+          sel = rootConfig[name];
+        }
+      }
+      else if (sel.hasOwnProperty(name)) {
+        sel = sel[name];
+      }
+      else {
+        sel = undefined;
+        break;
+      }
+    }
+    if (sel === undefined)
+      throw `The ${value} variable does not exist"`;
+    return sel;
+  });
+}
+
+function resolveConfigStringsImpl(config, entryConfig, rootConfig) {
   let count = 0;
   for (const [key, val] of Object.entries(config)) {
     if (val && typeof val === "object")
-      count += resolveConfigStrings(val, entryConfig, rootConfig);
+      count += resolveConfigStringsImpl(val, entryConfig, rootConfig);
     else if (typeof val === "string") {
-      config[key] = val.replace(/\$\{([^}]+)\}/g, (match, value) => {
-        let sel;
-        for (const name of value.split(".")) {
-          if (sel === undefined) {
-            if (config.hasOwnProperty(name)) {
-              sel = config[name];
-            }
-            else if (config !== entryConfig && entryConfig.hasOwnProperty(name)) {
-              sel = entryConfig[name];
-            }
-            else if (rootConfig.hasOwnProperty(name)) {
-              sel = rootConfig[name];
-            }
-          }
-          else if (sel.hasOwnProperty(name)) {
-            sel = sel[name];
-          }
-          else {
-            sel = undefined;
-            break;
-          }
-        }
-        if (sel === undefined)
-          throw `The ${value} variable does not exist"`;
+      const v = resolveStringWithVariable(config, entryConfig, rootConfig, val);
+      if (val !== v) {
+        config[key] = v;
         count++;
-        return sel;
-      });
+      }
     }
   }
   return count;
+}
+
+function resolveConfigStrings(config) {
+  for (;;) {
+    let count = 0;
+    for (const [key, val] of Object.entries(config)) {
+      if (val && typeof val === "object")
+        count += resolveConfigStringsImpl(val, val, config);
+      else  if (typeof val === "string") {
+        const v = resolveStringWithVariable(config, config, config, val);
+        if (val !== v) {
+          config[key] = v;
+          count++;
+        }
+      }
+    }
+    if (!count)
+      break;
+  }
 }
 
 function makeBuildConfig(ctx, config) {
@@ -203,8 +230,7 @@ function makeBuildConfig(ctx, config) {
     }
   }
 
-  while (resolveConfigStrings(rootConfig, rootConfig, rootConfig))
-    /* */;
+  resolveConfigStrings(rootConfig);
 
   return rootConfig;
 }
@@ -358,6 +384,10 @@ const actionHandlers = {
             params.push(`--${key}=${val}`);
         }
       }
+      if (config.features) {
+        for (const key of config.features)
+          params.push(`--${key}`);
+      }
       const res1 = await spawnAsync(command, params, {
         cwd: config.binaryDir,
         env: environment,
@@ -428,11 +458,55 @@ const actionHandlers = {
 
 async function doTargetBuild(ctx, environment, config, settings)
 {
-  if (!await directoryExists(config.binaryDir)) {
-    await fs.promises.mkdir(config.binaryDir, { recursive: true });
+  if (config.preAction) {
+    await settings.push("preAction");
+    const newConfig = {};
+    assignObject(newConfig, config);
+    delete newConfig.action;
+    delete newConfig.preAction;
+    delete newConfig.postAction;
+    assignObject(newConfig, config.preAction);
+    const newEnvironment = mergeEnvironment(config.preAction.environment, environment);
+    await doTargetBuild(ctx, newEnvironment, newConfig, settings);
+    await settings.pop();
   }
-  if (actionHandlers[config.action]) {
-    await actionHandlers[config.action](config, environment, settings);
+
+  if (Array.isArray(config.action)) {
+    await settings.push("action");
+    for (var i = 0; i < config.action.length; ++i) {
+      await settings.push(i);
+      const newConfig = {};
+      assignObject(newConfig, config);
+      delete newConfig.action;
+      delete newConfig.preAction;
+      delete newConfig.postAction;
+      assignObject(newConfig, config.action[i]);
+      const newEnvironment = mergeEnvironment(config.action[i].environment, environment);
+      await doTargetBuild(ctx, newEnvironment, newConfig, settings);
+      await settings.pop();
+    }
+    await settings.pop();
+  }
+  else {
+    if (!await directoryExists(config.binaryDir)) {
+      await fs.promises.mkdir(config.binaryDir, { recursive: true });
+    }
+    if (actionHandlers[config.action]) {
+      await actionHandlers[config.action](config, environment, settings);
+    }
+  }
+
+  if (config.postAction) {
+    await settings.push("postAction");
+    const newConfig = {};
+    assignObject(newConfig, config);
+    delete newConfig.action;
+    delete newConfig.preAction;
+    delete newConfig.postAction;
+    assignObject(newConfig, config.postAction);
+    const newEnvironment = mergeEnvironment(config.postAction.environment, environment);
+    await doTargetBuild(ctx, newEnvironment, newConfig, settings);
+    await settings.pop();
   }
 }
 
@@ -448,27 +522,20 @@ export default async function(ctx) {
   const settings = new SettingsStorage(settingsFilename);
 
   for (const [key, entry] of Object.entries(buildConfig)) {
-    if (entry && typeof entry === "object" && entry.action) {
-      console.log(`Started action: ${key}`);
+    if (entry && typeof entry === "object" && entry.action && !entry.disabled) {
       await settings.push(key);
-      const environment = mergeEnvironment(entry.environment, process.env);
-      if (entry.sourceUrl) {
-        await doExtractArchive(ctx, environment, entry, settings);
-      }
-      if (Array.isArray(entry.action)) {
-        await settings.push("action");
-        for (var i = 0; i < entry.action.length; ++i) {
-          await settings.push(i.toString());
-          await doTargetBuild(ctx, environment, entry.action[i], settings);
-          await settings.pop();
+      const completed = await settings.get("completed");
+      if (entry.rebuild || !completed) {
+        console.log(`Started action: ${key}`);
+        const environment = mergeEnvironment(entry.environment, process.env);
+        if (entry.sourceUrl) {
+          await doExtractArchive(ctx, environment, entry, settings);
         }
-        await settings.pop();
-      }
-      else {
         await doTargetBuild(ctx, environment, entry, settings);
+        await settings.set("completed", true);
+        console.log(`Completed action: ${key}`);
       }
       await settings.pop();
-      console.log(`Completed action: ${key}`);
     }
   }
 }

@@ -82,7 +82,7 @@ export default {
   WASMUX_TARGET_SYSTEM: {
     description: "Target system",
     type: [ "wasm32", "wasm64", "wasm32-wasi", "wasm64-wasi" ],
-    value: "wasm32",
+    value: "${CMAKE_SYSTEM_PROCESSOR}",
   },
   WASMUX_LIBC_FEATURES: {
     description: "Choosing features for libc",
@@ -92,10 +92,5 @@ export default {
   WASMUX_INJECT_SCRIPT_LIST: {
     description: "Injections to build",
     value: [],
-  },
-  CONFIG_JSDATA_PATH: {
-    description: "Path to jsdata standalone",
-    depends: "WASMUX_ENABLE_KERNEL",
-    value: "${WASMUX_ROOT_DIR}/kernel/jsdata",
   },
 };
