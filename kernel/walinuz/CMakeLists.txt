@@ -10,8 +10,11 @@ set(walinuz_DEFINITIONS
 
 set(walinuz_LIBRARIES
   wacore
-  ${KERNEL_DEPENDENCIES}
   )
+
+foreach (_lib ${walinuz_OBJLIB_LIST})
+  list(APPEND walinuz_LIBRARIES ${_lib})
+endforeach ()
 
 if (CMAKE_SYSTEM_PROCESSOR MATCHES "wasm(32|64)")
   list(APPEND walinuz_SOURCES StartKernel.S)

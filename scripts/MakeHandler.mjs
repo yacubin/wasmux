@@ -146,7 +146,6 @@ function resolveConfigStrings(config, entryConfig, rootConfig) {
             else if (rootConfig.hasOwnProperty(name)) {
               sel = rootConfig[name];
             }
-            break;
           }
           else if (sel.hasOwnProperty(name)) {
             sel = sel[name];
