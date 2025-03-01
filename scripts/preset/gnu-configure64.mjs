@@ -1,45 +1,66 @@
-import path from "node:path";
+export default {
+  version: 2,
 
-export default function(env, argv) {
-  return {
-    sysroot: {
-      arch: "wasm64",
-      generator: "Unix Makefiles",
-      cacheVariables: {
-        CMAKE_INSTALL_PREFIX: "/usr",
-        WASMUX_ENABLE_THREADS: true,
-        WASMUX_ENABLE_KERNEL: false,
-        WASMUX_ENABLE_LIBC: true,
-        WASMUX_ENABLE_CRT: true,
-        WASMUX_ENABLE_LIBM: true,
-        WASMUX_ENABLE_DL: true,
-        WASMUX_ENABLE_MAIN_ENV_ARG: false,
-      },
-      binaryDir: path.resolve(process.cwd(), "build/wasm64/wasmux"),
-      destDir: path.resolve(process.cwd(), "build/sysroot"),
+  "bundle:wasmux": {
+    action: "cmake",
+    generator: "Unix Makefiles",
+    cacheVariables: {
+      CMAKE_TOOLCHAIN_FILE: "${wasmuxRoot}/cmake/wasm64-toolchain.cmake",
+      CMAKE_INSTALL_PREFIX: "/usr",
+      WASMUX_ENABLE_THREADS: true,
+      WASMUX_ENABLE_KERNEL: false,
+      WASMUX_ENABLE_LIBC: true,
+      WASMUX_ENABLE_CRT: true,
+      WASMUX_ENABLE_LIBM: true,
+      WASMUX_ENABLE_DL: true,
+      WASMUX_ENABLE_MAIN_ENV_ARG: false,
     },
-    output: {
-      action: "configure",
-      variables: {
-        build: "x86_64-pc-linux-gnu",
-        host: "wasm64",
-        target: "wasm64",
-        prefix: "/usr",
-      },
-      environment: {
-        CC: "clang",
-        CXX: "clang++",
-        LD: "wasm-ld",
-        AR: "llvm-ar",
-        NM: "llvm-nm",
-        STRIP: "llvm-strip",
-        RANLIB: "llvm-ranlib",
-        CFLAGS: `--target=wasm64 -matomics -mmultivalue -mbulk-memory -O3 --sysroot=${path.resolve(process.cwd(), "build/sysroot/usr")}`,
-        CXXFLAGS: `--target=wasm64 -matomics -mmultivalue -mbulk-memory -O3 --sysroot=${path.resolve(process.cwd(), "build/sysroot/usr")}`,
-        LDFLAGS: "-Wl,--max-memory=2147483648 -Wl,--export-dynamic -Wl,--import-memory -Wl,--stack-first -z stack-size=131072 -rtlib=libgcc",
-      },
-      binaryDir: path.resolve(process.cwd(), "build/wasm64/output"),
-      destDir: path.resolve(process.cwd(), "build/output"),
+    sourceDir: "${wasmuxRoot}",
+    destDir: "${binaryRoot}/sysroot",
+  },
+
+  "bundle:output": {
+    action: "configure",
+    variables: {
+      build: "x86_64-pc-linux-gnu",
+      host: "wasm64",
+      target: "wasm64",
+      prefix: "/usr",
     },
-  };
-}
+    environment: {
+      CC: "clang",
+      CXX: "clang++",
+      LD: "wasm-ld",
+      AR: "llvm-ar",
+      NM: "llvm-nm",
+      STRIP: "llvm-strip",
+      RANLIB: "llvm-ranlib",
+      CFLAGS: [
+        "--target=wasm64",
+        "-matomics",
+        "-mmultivalue",
+        "-mbulk-memory",
+        "-O3",
+        "--sysroot=${bundle:wasmux.destDir}/usr",
+      ],
+      CXXFLAGS: [
+        "--target=wasm64",
+        "-matomics",
+        "-mmultivalue",
+        "-mbulk-memory",
+        "-O3",
+        "--sysroot=${bundle:wasmux.destDir}/usr",
+      ],
+      LDFLAGS: [
+        "-Wl,--max-memory=2147483648",
+        "-Wl,--export-dynamic",
+        "-Wl,--import-memory",
+        "-Wl,--stack-first",
+        "-z", "stack-size=131072",
+        "-rtlib=libgcc",
+      ],
+    },
+    sourceDir: "${sourceRoot}",
+    destDir: "${binaryRoot}/output",
+  },
+};

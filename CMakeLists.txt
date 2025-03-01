@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20.0)
-project(wasmux VERSION 0.0.1
+project(wasmux VERSION 0.0.3
   DESCRIPTION "WebAssembly Software Development Kit"
   HOMEPAGE_URL "https://github.com/ykbin/wasmux"
   LANGUAGES ASM C CXX
