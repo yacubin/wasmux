@@ -1,33 +1,22 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_SYS_SOCKET_H
-#define _WA_LIBC_SYS_SOCKET_H
+#ifndef _SYS_SOCKET_H
+#define _SYS_SOCKET_H
 
-#include <kernel/types.h>
-#include <kernel/socket.h>
+#include <wasmux/types.h>
+#include <wasmux/socket.h>
 #include <sys/uio.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#define AF_UNSPEC 0
-#define AF_UNIX   1
-#define AF_LOCAL  1
-#define AF_INET   2
-#define AF_INET6  10
-
-#define PF_UNSPEC AF_UNSPEC
-#define PF_UNIX   AF_UNIX
-#define PF_LOCAL  AF_LOCAL
-#define PF_INET   AF_INET
-#define PF_INET6  AF_INET6
-
-#define MSG_PEEK  2
+#define MSG_PEEK     0x00000002
+#define MSG_NOSIGNAL 0x00004000
 
 #define SOL_SOCKET 1
 
@@ -51,6 +40,8 @@ enum sock_type {
   SOCK_SEQPACKET = 5,
   SOCK_DCCP      = 6,
   SOCK_PACKET    = 10,
+  SOCK_CLOEXEC   = 02000000,
+  SOCK_NONBLOCK  = 00004000,
 };
 
 /* shutdown */
@@ -80,10 +71,14 @@ struct msghdr {
 #define CMSG_LEN(len) (sizeof(struct cmsghdr) + (len))
 
 int socket(int domain, int type, int protocol);
+int socketpair(int domain, int type, int protocol, int fds[2]);
 int connect(int sock, const struct sockaddr* addr, socklen_t addrlen);
 int bind(int sock, const struct sockaddr* addr, socklen_t addrlen);
 int listen(int sock, int backlog);
 int accept(int sock, struct sockaddr* addr, socklen_t* addrlen);
+int accept4(int sock, struct sockaddr* addr, socklen_t* addrlen, int flags);
+ssize_t recv(int sock, void* buf, size_t len, int flags);
+ssize_t send(int sock, const void* buf, size_t len, int flags);
 ssize_t recvfrom(int sock, void* data, size_t size, int flags, struct sockaddr* addr, socklen_t* addrlen);
 ssize_t sendto(int sock, const void* data, size_t size, int flags, const struct sockaddr* addr, socklen_t addrlen);
 ssize_t recvmsg(int sock, struct msghdr* message, int flags);
@@ -98,4 +93,4 @@ int setsockopt(int sock, int level, int name, const void* data, socklen_t size);
 }
 #endif
 
-#endif /* _WA_LIBC_SYS_SOCKET_H */
+#endif /* _SYS_SOCKET_H */

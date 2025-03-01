@@ -1,25 +1,35 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#include "config.h"
-#include "syslog.h"
-
-#include <kernel/assert.h>
+#include <wasmux-config.h>
+#include <syslog.h>
+#include <assert.h>
 
 void openlog(const char* ident, int option, int facility)
 {
-  WA_UNREACHABLE();
-}
-
-void syslog(int priority, const char* format, ...)
-{
-  WA_UNREACHABLE();
+  assert(0);
 }
 
 void closelog(void)
 {
-  WA_UNREACHABLE();
+  assert(0);
+}
+
+int setlogmask(int mask)
+{
+  assert(0);
+  return -1;
+}
+
+void syslog(int priority, const char* format, ...)
+{
+  assert(0);
+}
+
+void vsyslog(int priority, const char* message, va_list args)
+{
+  assert(0);
 }

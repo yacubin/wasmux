@@ -1,0 +1,78 @@
+/*
+ *
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *
+ */
+
+#ifndef _STDLIB_H
+#define _STDLIB_H
+
+#include <wasmux/compiler.h>
+#include <wasmux/widechar.h>
+#include <wasmux/waitstatus.h>
+#include <alloca.h>
+#include <malloc.h>
+@STDLIB_INCLUDE_LIST@
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#define EXIT_SUCCESS 0 // successful program termination
+#define EXIT_FAILURE 1 // unsuccessful program termination
+
+#define MB_LEN_MAX 4
+#define MB_CUR_MAX 2
+
+int system(const char* command);
+
+int atexit(void (*function)(void));
+void exit(int status) __ATTR_NORETURN;
+void _Exit(int status) __ATTR_NORETURN;
+void abort(void) __ATTR_NORETURN;
+
+void* bsearch(const void* key, const void* base, size_t n, size_t size, int (*compar)(const void*, const void*));
+
+long strtol(const char* str, char** end, int base);
+long long strtoll(const char* str, char** end, int base);
+unsigned long strtoul(const char* str, char** end, int base);
+unsigned long long strtoull(const char* str, char** end, int base);
+float strtof(const char* str, char** end);
+double strtod(const char* str, char** end);
+
+int atoi(const char* str);
+long atol(const char* str);
+double atof(const char* str);
+
+char* getenv(const char* name);
+int setenv(const char* name, const char* value, int overwrite);
+int putenv(char* name);
+int unsetenv(const char* name);
+
+int mkstemp(char* temp);
+char* mktemp(char* pattern);
+char* mkdtemp(char* pattern);
+
+const char* getprogname(void);
+void setprogname(const char* progname);
+
+#define RAND_MAX 0x7fffffff
+
+void srand(unsigned seed);
+int rand(void);
+void srandom(unsigned seed);
+long random(void);
+char* initstate(unsigned seed, char* state, size_t n);
+char* setstate(char* state);
+double drand48(void);
+
+int posix_openpt(int flags);
+int grantpt(int fd);
+char* ptsname(int fd);
+int unlockpt(int fd);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* _STDLIB_H */

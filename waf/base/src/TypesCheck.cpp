@@ -1,11 +1,11 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#include "config.h"
-#include <kernel/types.h>
+#include <wasmux-config.h>
+#include <wasmux/types.h>
 
 static_assert (sizeof(int8_t) == 1, "Type int8_t is not equal to 1");
 static_assert (sizeof(uint8_t) == 1, "Type uint8_t is not equal to 1");

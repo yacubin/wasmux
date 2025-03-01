@@ -1,15 +1,14 @@
 #!/usr/bin/env node
 
-const path = require('path');
+const url = require('node:url');
+const path = require('node:path');
 
 const wasmux = require('./Context.js');
-const initHandler = require('./InitHandler.js');
-const buildHandler = require('./BuildHandler.js');
 
 const handlerMap = {
-  default: buildHandler,
-  init: initHandler,
-  build: buildHandler,
+  default: "./BuildHandler.mjs",
+  init: "./InitHandler.mjs",
+  build: "./BuildHandler.mjs",
 };
 
 function toOptionKey(name)
@@ -100,7 +99,19 @@ async function runScript()
   }
 
   const context = wasmux(options);
-  await handlerMap[options.handler](context);
+
+  let handler = handlerMap[options.handler];
+  if (typeof handler === "string") {
+    const filename = path.isAbsolute(handler) ? handler : path.resolve(__dirname, handler);
+    const fileUrl = url.pathToFileURL(filename);
+    const module = await import(fileUrl);
+    handler = module.default;
+  }
+
+  const res = handler(context);
+  if (res instanceof Promise) {
+    await res;
+  }
 }
 
 runScript().then(() => process.exit(0)).catch((e) => {

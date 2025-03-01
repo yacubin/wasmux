@@ -1,18 +1,12 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#include "config.h"
-#include "stdlib.h"
-
-#include <kernel/assert.h>
-
-void qsort(void* base, size_t n, size_t size, int (*compar) (const void*, const void*))
-{
-  WA_UNREACHABLE();
-}
+#include <wasmux-config.h>
+#include <stdlib.h>
+#include <wasmux/assert.h>
 
 void* bsearch(const void* key, const void* base, size_t n, size_t size, int (*compar)(const void*, const void*))
 {

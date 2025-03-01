@@ -1,14 +1,13 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#include "config.h"
-#include "stdlib.h"
-
-#include <kernel/assert.h>
-#include <kernel/compiler.h>
+#include <wasmux-config.h>
+#include <stdlib.h>
+#include <wasmux/assert.h>
+#include <wasmux/compiler.h>
 
 long strtol(const char* str, char** endstr, int base)
 {

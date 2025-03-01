@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const { fileExists } = require('./FileSystem.js');
+const { fileExists } = require('./utils/FileSystem.js');
 const { DEFAULT_PRESET } = require('./Constants.js');
 
 module.exports = async function(wasmux)

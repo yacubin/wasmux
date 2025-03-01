@@ -1,14 +1,13 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#include "config.h"
-#include "fp_lib.h"
-
-#include <kernel/compiler.h>
-#include <kernel/assert.h>
+#include <wasmux-config.h>
+#include <fp_lib.h>
+#include <wasmux/compiler.h>
+#include <wasmux/assert.h>
 
 int __letf2(fp_t a, fp_t b)
 {
@@ -116,4 +115,10 @@ int __unordtf2(fp_t a, fp_t b)
 void __ashlti3(ti_int* r, ti_int a, int b)
 {
   WA_UNREACHABLE();
+}
+
+unsigned __fixunstfsi(fp_t a)
+{
+  WA_UNREACHABLE();
+  return 0;
 }

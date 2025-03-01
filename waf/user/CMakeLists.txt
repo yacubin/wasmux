@@ -1,7 +1,7 @@
 set(wauser_HEADERS
-  include/kernel/stream.h
-  include/kernel/syscalls.h
-  include/kernel/thread_data.h
+  include/wasmux/syscalls.h
+  include/wasmux/thread_data.h
+  include/wasmux/waitstatus.h
   )
 
 set(wauser_SOURCES
@@ -18,12 +18,14 @@ set(wauser_LIBRARIES
   )
 
 set(wauser_GENFILES
-  "${CMAKE_CURRENT_BINARY_DIR}/include/kernel/syscall-nums.h"
+  "${CMAKE_CURRENT_BINARY_DIR}/include/wasmux/arch-syscall.h"
   )
 
-GEN_USYSCALLHDR(
-  INPUT "${WASMUX_ROOT_DIR}/waf/syscall.json"
-  OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/include/kernel/syscall-nums.h"
+add_custom_script(
+  SCRIPT src/arch-syscall.h.mjs
+  INPUT "${WASMUX_ROOT_DIR}/data/syscall.mjs"
+  OUTPUT wasmux/arch-syscall.h
+  WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}/include"
   )
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${wauser_HEADERS} ${wauser_SOURCES})
@@ -32,8 +34,7 @@ target_include_directories(wauser PUBLIC ${wauser_INCLUDES})
 target_link_libraries(wauser PUBLIC ${wauser_LIBRARIES})
 set_target_properties(wauser PROPERTIES LINKER_LANGUAGE CXX)
 
-add_library(WASMUX::WAF ALIAS wauser)
-add_library(WASMUX::WAUSER ALIAS wauser)
-
-WASMUX_INSTALL_HEADERS(HEADERS ${wauser_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
-WASMUX_INSTALL_HEADERS(HEADERS ${wauser_GENFILES} BASE_DIR "${CMAKE_CURRENT_BINARY_DIR}/include" DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+if (WASMUX_ENABLE_INSTALL_HEADERS)
+  WX_INSTALL_HEADERS(HEADERS ${wauser_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+  WX_INSTALL_HEADERS(HEADERS ${wauser_GENFILES} BASE_DIR "${CMAKE_CURRENT_BINARY_DIR}/include" DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+endif ()

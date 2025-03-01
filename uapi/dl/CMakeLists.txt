@@ -14,16 +14,14 @@ set(dl_DEFINITIONS
   )
 
 set(dl_LIBRARIES
-  WASMUX::WAF
+  wauser
   )
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${dl_HEADERS} ${dl_SOURCES})
 add_library(dl STATIC ${dl_HEADERS} ${dl_SOURCES})
-target_include_directories(dl PRIVATE "${dl_INCLUDES}")
+target_include_directories(dl PUBLIC "${dl_INCLUDES}")
 target_compile_definitions(dl PRIVATE "${dl_DEFINITIONS}")
 target_link_libraries(dl PUBLIC ${dl_LIBRARIES})
-
-add_library(WASMUX::DL ALIAS dl)
 
 install(TARGETS dl
   RUNTIME DESTINATION "${WASMUX_INSTALL_BINDIR}"
@@ -31,4 +29,6 @@ install(TARGETS dl
   ARCHIVE DESTINATION "${WASMUX_INSTALL_LIBDIR}"
   )
 
-WASMUX_INSTALL_HEADERS(HEADERS ${dl_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+if (WASMUX_ENABLE_INSTALL_HEADERS)
+  WX_INSTALL_HEADERS(HEADERS ${dl_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+endif ()

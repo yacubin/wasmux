@@ -1,13 +1,12 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#include "config.h"
-#include "pthread.h"
-
-#include <kernel/assert.h>
+#include <wasmux-config.h>
+#include <pthread.h>
+#include <wasmux/assert.h>
 
 int pthread_mutexattr_init(pthread_mutexattr_t *attr)
 {
@@ -289,6 +288,12 @@ int pthread_setschedparam(pthread_t thread, int policy, const struct sched_param
 }
 
 int pthread_getschedparam(pthread_t thread, int* policy, struct sched_param* param)
+{
+  WA_UNREACHABLE();
+  return -1;
+}
+
+int pthread_setcancelstate(int state, int* oldstate)
 {
   WA_UNREACHABLE();
   return -1;

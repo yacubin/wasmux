@@ -1,17 +1,23 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #ifndef _WA_LIBC_SYS_PARAM_H
 #define _WA_LIBC_SYS_PARAM_H
 
+#include <wasmux/limits.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/* Not Implemented */
+#define MAXPATHLEN PATH_MAX
+#define MIN(a,b) (((a) < (b)) ? (a) : (b))
+#define MAX(a,b) (((a) > (b)) ? (a) : (b))
+
+#define powerof2(n) ((((n) - 1) & (n)) == 0)
 
 #ifdef __cplusplus
 }

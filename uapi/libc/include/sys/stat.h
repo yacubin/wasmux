@@ -1,12 +1,13 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_SYS_STAT_H
-#define _WA_LIBC_SYS_STAT_H
+#ifndef _SYS_STAT_H
+#define _SYS_STAT_H
 
+#include <wasmux/stat.h>
 #include <sys/types.h>
 
 #ifdef __cplusplus
@@ -49,6 +50,10 @@ extern "C" {
 #define S_IRUSR 0400
 #define S_IRWXU 0700
 
+#define S_IEXEC  S_IXUSR
+#define S_IWRITE S_IWUSR
+#define S_IREAD  S_IRUSR
+
 struct stat {
   dev_t     st_dev;         /* ID of device containing file */
   ino_t     st_ino;         /* Inode number */
@@ -71,18 +76,25 @@ struct stat {
 };
 
 int fstat(int fd, struct stat* buf);
-
 int stat(const char* path, struct stat* buf);
 int lstat(const char* path, struct stat* buf);
+int fstatat(int dirfd, const char* path, struct stat* buf, int flags);
 int mkdir(const char* path, mode_t mode);
 int fchmod(int fd, mode_t mode);
 int chmod(const char* path, mode_t mode);
 int mknod(const char* path, mode_t mode, dev_t dev);
+int mkdirat(int dirfd, const char* path, mode_t mode);
+int mkfifo(const char* path, mode_t mode);
 
 mode_t umask(mode_t mask);
+
+int statx(int dirfd, const char* path, int flags, unsigned mask, struct statx* buf);
+
+int futimens(int fd, const struct timespec times[2]);
+int utimensat(int dirfd, const char* path, const struct timespec times[2], int flags);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _WA_LIBC_SYS_STAT_H */
+#endif /* _SYS_STAT_H */

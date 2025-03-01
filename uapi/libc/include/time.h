@@ -1,13 +1,14 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_TIME_H
-#define _WA_LIBC_TIME_H
+#ifndef _TIME_H
+#define _TIME_H
 
-#include <kernel/time.h>
+#include <wasmux/time.h>
+#include <wasmux/time64.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -28,7 +29,12 @@ struct tm {
 };
 
 typedef long clock_t;
+typedef int clockid_t;
 #define CLOCKS_PER_SEC ((clock_t)1000000)
+
+extern char* tzname[2];
+extern int daylight;
+extern long timezone;
 
 time_t time(time_t* time);
 time_t timegm(struct tm *tm);
@@ -37,6 +43,7 @@ void tzset(void);
 size_t strftime(char* buf, size_t n, const char* format, const struct tm* tm);
 
 char* ctime(const time_t* time);
+char* ctime_r(const time_t* time, char* buf);
 time_t mktime(struct tm* tm);
 
 struct tm* localtime(const time_t* time);
@@ -48,11 +55,18 @@ struct tm* gmtime_r(const time_t* time, struct tm* buf);
 int timespec_get(struct timespec* ts, int base);
 int nanosleep(const struct timespec* duration, struct timespec* remain);
 
-int clock_gettime(clockid_t clock_id, struct timespec* tp);
 double difftime(time_t time1, time_t time0);
+
+struct itimerspec {
+  struct timespec it_interval;
+  struct timespec it_value;
+};
+
+int clock_gettime(clockid_t clock_id, struct timespec* ts);
+int clock_nanosleep(clockid_t clock_id, int flags, const struct timespec* req, struct timespec* rem);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _WA_LIBC_TIME_H */
+#endif /* _TIME_H */

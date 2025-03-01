@@ -1,22 +1,36 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_SYS_RESOURCE_H
-#define _WA_LIBC_SYS_RESOURCE_H
+#ifndef _SYS_RESOURCE_H
+#define _SYS_RESOURCE_H
 
-#include <kernel/time.h>
+#include <wasmux/time.h>
 #include <sys/types.h> // for id_t
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#define RLIMIT_DATA   2
-#define RLIMIT_STACK  3
-#define RLIMIT_NOFILE 7
+#define RLIMIT_CPU        0
+#define RLIMIT_FSIZE      1
+#define RLIMIT_DATA       2
+#define RLIMIT_STACK      3
+#define RLIMIT_CORE       4
+#define RLIMIT_RSS        5
+#define RLIMIT_NPROC      6
+#define RLIMIT_NOFILE     7
+#define RLIMIT_MEMLOCK    8
+#define RLIMIT_AS         9
+#define RLIMIT_LOCKS      10
+#define RLIMIT_SIGPENDING 11
+#define RLIMIT_MSGQUEUE   12
+#define RLIMIT_NICE       13
+#define RLIMIT_RTPRIO     14
+#define RLIMIT_RTTIME     15
+#define RLIMIT_NLIMITS    16
 
 #define RLIM_INFINITY (~0UL)
 
@@ -70,4 +84,4 @@ int setpriority(int which, id_t who, int value);
 }
 #endif
 
-#endif /* _WA_LIBC_SYS_RESOURCE_H */
+#endif /* _SYS_RESOURCE_H */

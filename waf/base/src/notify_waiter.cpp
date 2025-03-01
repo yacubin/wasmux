@@ -1,14 +1,13 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#include "config.h"
-#include <kernel/notify_waiter.h>
-
-#include <kernel/platform.h>
-#include <kernel/assert.h>
+#include <wasmux-config.h>
+#include <wasmux/notify_waiter.h>
+#include <wasmux/platform.h>
+#include <wasmux/assert.h>
 
 void notify_waiter_init(notify_waiter_t* thiz)
 {

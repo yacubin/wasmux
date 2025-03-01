@@ -1,24 +1,35 @@
 set(libc_HEADERS
   include/arpa/inet.h
-  include/linux/version.h
   include/net/if.h
   include/netinet/in.h
   include/netinet/tcp.h
-  include/sys/endian.h
+  include/sys/epoll.h
+  include/sys/eventfd.h
   include/sys/file.h
+  include/sys/inotify.h
   include/sys/ioctl.h
+  include/sys/ipc.h
+  include/sys/klog.h
   include/sys/mman.h
+  include/sys/mount.h
   include/sys/param.h
+  include/sys/poll.h
+  include/sys/prctl.h
   include/sys/random.h
+  include/sys/reboot.h
   include/sys/resource.h
   include/sys/select.h
+  include/sys/sendfile.h
+  include/sys/signalfd.h
   include/sys/socket.h
   include/sys/stat.h
-  include/sys/syscall.h
+  include/sys/statfs.h
   include/sys/sysinfo.h
   include/sys/sysmacros.h
   include/sys/time.h
+  include/sys/timerfd.h
   include/sys/times.h
+  include/sys/ttydefaults.h
   include/sys/types.h
   include/sys/uio.h
   include/sys/un.h
@@ -30,132 +41,141 @@ set(libc_HEADERS
   include/ar.h
   include/assert.h
   include/byteswap.h
-  include/ctype.h
-  include/dirent.h
   include/endian.h
+  include/err.h
   include/errno.h
-  include/fcntl.h
-  include/features.h
-  include/fnmatch.h
-  include/ftw.h
-  include/glob.h
-  include/grp.h
+  include/float.h
   include/inttypes.h
-  include/langinfo.h
-  include/libgen.h
-  include/libintl.h
   include/limits.h
-  include/locale.h
-  include/malloc.h
   include/memory.h
-  include/mntent.h
   include/paths.h
   include/poll.h
-  include/pwd.h
-  include/regex.h
-  include/regex.h
   include/sched.h
   include/search.h
   include/setjmp.h
-  include/setjmp.h
-  include/signal.h
+  include/spawn.h
   include/stdarg.h
   include/stddef.h
   include/stdint.h
-  include/stdio_ext.h
-  include/stdio.h
-  include/stdlib.h
-  include/string.h
-  include/strings.h
+  include/sysexits.h
   include/syslog.h
   include/syslog.h
-  include/termios.h
   include/time.h
   include/ucontext.h
-  include/unistd.h
   include/utime.h
   include/wchar.h
-  include/wctype.h
   )
 
 set(libc_SOURCES
   stub/apra/inet.cpp
+  stub/net/if_indextoname.cpp
+  stub/net/if_nametoindex.cpp
+  stub/sys/epoll.cpp
+  stub/sys/eventfd.cpp
+  stub/sys/inotify.cpp
   stub/sys/mman.cpp
+  stub/sys/prctl.cpp
   stub/sys/random.cpp
   stub/sys/resource.cpp
   stub/sys/select.cpp
+  stub/sys/sendfile.cpp
+  stub/sys/signalfd.cpp
   stub/sys/socket.cpp
   stub/sys/stat.cpp
-  stub/sys/sysmacros.cpp
+  stub/sys/statfs.cpp
+  stub/sys/sysinfo.cpp
   stub/sys/time.cpp
-  stub/sys/utsname.cpp
+  stub/sys/timerfd.cpp
   stub/sys/vfs.cpp
   stub/sys/wait.cpp
   stub/sys/xattr.cpp
-  stub/abort.cpp
   stub/access.cpp
-  stub/ctype.cpp
-  stub/dirent.cpp
+  stub/assert.cpp
+  stub/atexit.cpp
   stub/environ.cpp
-  stub/exit.cpp
-  stub/fcntl.cpp
-  stub/fnmatch.cpp
-  stub/fprintf.cpp
+  stub/err.cpp
   stub/getenv.cpp
-  stub/getmntent.cpp
-  stub/glob.cpp
-  stub/grp.cpp
-  stub/langinfo.cpp
-  stub/libgen.cpp
-  stub/libintl.cpp
-  stub/locale.cpp
-  stub/lseek.cpp
-  stub/malloc.cpp
   stub/pipe.cpp
   stub/poll.cpp
   stub/progname.cpp
-  stub/putc.cpp
-  stub/pwd.cpp
   stub/qsort.cpp
   stub/read.cpp
-  stub/regex.cpp
+  stub/sched_getaffinity.cpp
+  stub/sched_setscheduler.cpp
+  stub/sched_yield.cpp
   stub/search.cpp
   stub/setjmp.cpp
-  stub/signal.cpp
-  stub/sprintf.cpp
-  stub/stdio_ext.cpp
-  stub/stdio.cpp
   stub/stdlib.cpp
-  stub/string.cpp
   stub/strtol.cpp
+  stub/syscall.cpp
   stub/syslog.cpp
-  stub/termios.cpp
   stub/time.cpp
   stub/unistd.cpp
   stub/utime.cpp
   stub/wchar.cpp
-  stub/wctype.cpp
-  sys/ioctl.cpp
-  brk.cpp
-  close.cpp
-  creat.cpp
-  getcwd.cpp
-  gettid.cpp
-  isatty.cpp
-  memcpy.cpp
-  memset.cpp
-  open.cpp
-  write.cpp
+  syscalls/_exit.cpp
+  syscalls/brk.cpp
+  syscalls/chdir.cpp
+  syscalls/close.cpp
+  syscalls/dup2.cpp
+  syscalls/execve.cpp
+  syscalls/fdatasync.cpp
+  syscalls/fstatat.cpp
+  syscalls/getcwd.cpp
+  syscalls/getegid.cpp
+  syscalls/geteuid.cpp
+  syscalls/getgid.cpp
+  syscalls/getpid.cpp
+  syscalls/getppid.cpp
+  syscalls/gettid.cpp
+  syscalls/gettimeofday.cpp
+  syscalls/getuid.cpp
+  syscalls/ioctl.cpp
+  syscalls/klogctl.cpp
+  syscalls/lseek.cpp
+  syscalls/mknod.cpp
+  syscalls/mount.cpp
+  syscalls/read.cpp
+  syscalls/readv.cpp
+  syscalls/reboot.cpp
+  syscalls/sched_get_priority_max.cpp
+  syscalls/sched_get_priority_min.cpp
+  syscalls/sethostname.cpp
+  syscalls/statx.cpp
+  syscalls/sync.cpp
+  syscalls/umount.cpp
+  syscalls/umount2.cpp
+  syscalls/uname.cpp
+  syscalls/vhangup.cpp
+  syscalls/waitpid.cpp
+  syscalls/write.cpp
+  syscalls/writev.cpp
+  src/sys/futimens.cpp
+  src/sys/stat.cpp
+  src/sys/unistd/getpgrp.cpp
+  src/sys/unistd/tcgetpgrp.cpp # TODO: Move to termios library (and unistd)
+  src/abort.cpp
+  src/exit.cpp
+  src/gethostname.cpp
+  src/isatty.cpp
+  src/posix_openpt.cpp
+  src/sbrk.cpp
+  src/ttyname.cpp
+  src/usleep.cpp
 
   $<TARGET_OBJECTS:wabase>
   $<TARGET_OBJECTS:wauser>
-  $<TARGET_OBJECTS:argp>
-  $<TARGET_OBJECTS:fts>
-  $<TARGET_OBJECTS:netdb>
-  $<TARGET_OBJECTS:obstack>
+  )
+
+set(libc_DATAFILES
+  include/gnu-versions.h.in
+  include/ctype.h.in
+  include/stdlib.h.in
+  include/unistd.h.in
   )
 
 set(libc_INCLUDES
+  "${CMAKE_CURRENT_BINARY_DIR}/include"
   "${CMAKE_CURRENT_SOURCE_DIR}/include"
   )
 
@@ -166,22 +186,46 @@ set(libc_LIBRARIES
   wauser
   )
 
-if (TARGET getopt)
-  list(APPEND libc_INCLUDES $<TARGET_PROPERTY:getopt,INTERFACE_INCLUDE_DIRECTORIES>)
-  list(APPEND libc_SOURCES $<TARGET_OBJECTS:getopt>)
-else ()
-  list(APPEND libc_INCLUDES "${CMAKE_CURRENT_SOURCE_DIR}/nogetopt")
-  WASMUX_INSTALL_HEADERS(HEADERS nogetopt/getopt_core.h BASE_DIR nogetopt DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
-endif ()
+set(libc_GENFILES
+  "${CMAKE_CURRENT_BINARY_DIR}/include/sys/syscall.h"
+  )
 
-source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${libc_HEADERS} ${libc_SOURCES})
-add_library(libc STATIC ${libc_HEADERS} ${libc_SOURCES})
-target_include_directories(libc PRIVATE ${libc_INCLUDES})
+add_custom_script(
+  SCRIPT src/sys/syscall.h.mjs
+  INPUT "${WASMUX_ROOT_DIR}/data/syscall.mjs"
+  OUTPUT sys/syscall.h
+  WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}/include"
+  )
+
+foreach (_lib ${libc_OBJLIB_LIST})
+  list(APPEND libc_INCLUDES $<TARGET_PROPERTY:${_lib},INTERFACE_INCLUDE_DIRECTORIES>)
+  list(APPEND libc_SOURCES $<TARGET_OBJECTS:${_lib}>)
+endforeach ()
+
+foreach (_iter GNU_VERSIONS_INCLUDE STDLIB_INCLUDE UNISTD_INCLUDE CTYPE_INCLUDE)
+  set(${_iter}_LIST "")
+  foreach (_lib ${libc_OBJLIB_LIST})
+    get_target_property(_versions_include ${_lib} ${_iter})
+    if (_versions_include)
+      list(APPEND ${_iter}_LIST "${_versions_include}")
+    endif ()
+  endforeach ()
+  string(REPLACE ";" "\n" ${_iter}_LIST "${${_iter}_LIST}")
+endforeach ()
+
+configure_file("include/ctype.h.in" "${CMAKE_CURRENT_BINARY_DIR}/include/ctype.h" @ONLY)
+configure_file("include/gnu-versions.h.in" "${CMAKE_CURRENT_BINARY_DIR}/include/gnu-versions.h" @ONLY)
+configure_file("include/stdlib.h.in" "${CMAKE_CURRENT_BINARY_DIR}/include/stdlib.h" @ONLY)
+configure_file("include/unistd.h.in" "${CMAKE_CURRENT_BINARY_DIR}/include/unistd.h" @ONLY)
+
+configure_file("features/${WASMUX_LIBC_FEATURES}-features.h" "${CMAKE_CURRENT_BINARY_DIR}/include/features.h" COPYONLY)
+
+source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${libc_HEADERS} ${libc_SOURCES} ${libc_DATAFILES})
+add_library(libc STATIC ${libc_HEADERS} ${libc_SOURCES} ${libc_GENFILES} ${libc_DATAFILES})
+target_include_directories(libc PUBLIC ${libc_INCLUDES})
 target_compile_definitions(libc PRIVATE ${libc_DEFINITIONS})
 target_link_libraries(libc PUBLIC ${libc_LIBRARIES})
 set_target_properties(libc PROPERTIES PREFIX "")
-
-add_library(WASMUX::LIBC ALIAS libc)
 
 install(TARGETS libc
   RUNTIME DESTINATION "${WASMUX_INSTALL_BINDIR}"
@@ -189,4 +233,12 @@ install(TARGETS libc
   ARCHIVE DESTINATION "${WASMUX_INSTALL_LIBDIR}"
   )
 
-WASMUX_INSTALL_HEADERS(HEADERS ${libc_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+if (WASMUX_ENABLE_INSTALL_HEADERS)
+  WX_INSTALL_HEADERS(HEADERS ${libc_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/include/ctype.h" DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/include/features.h" DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/include/gnu-versions.h" DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/include/stdlib.h" DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/include/unistd.h" DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/include/sys/syscall.h" DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}/sys")
+endif ()

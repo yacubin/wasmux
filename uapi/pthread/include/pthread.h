@@ -1,15 +1,15 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #ifndef _WA_PTHREAD_PTHREAD_H
 #define _WA_PTHREAD_PTHREAD_H
 
-#include <kernel/types.h>
-#include <kernel/time.h>
-#include <kernel/sched.h>
+#include <wasmux/types.h>
+#include <wasmux/time.h>
+#include <wasmux/sched.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -122,6 +122,13 @@ void pthread_cleanup_push(void (*routine)(void*), void* arg);
 void pthread_cleanup_pop(int execute);
 int pthread_setschedparam(pthread_t thread, int policy, const struct sched_param* param);
 int pthread_getschedparam(pthread_t thread, int* policy, struct sched_param* param);
+
+enum __pthread_cancel_state {
+  PTHREAD_CANCEL_ENABLE,
+  PTHREAD_CANCEL_DISABLE,
+};
+
+int pthread_setcancelstate(int state, int* oldstate);
 
 int pthread_equal(pthread_t a, pthread_t b);
 

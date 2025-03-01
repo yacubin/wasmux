@@ -1,14 +1,14 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #ifndef _WA_LIBC_STDINT_H
 #define _WA_LIBC_STDINT_H
 
-#include <kernel/types.h>
-#include <kernel/limits.h>
+#include <wasmux/types.h>
+#include <wasmux/limits.h>
 
 typedef signed char int_fast8_t;
 typedef unsigned char uint_fast8_t;

@@ -1,14 +1,13 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#include "config.h"
-#include "argp.h"
-
-#include <kernel/compiler.h>
-#include <kernel/assert.h>
+#include <wasmux-config.h>
+#include <argp.h>
+#include <wasmux/compiler.h>
+#include <wasmux/assert.h>
 
 __ATTR_HIDDEN extern "C"
 int __argp_parse(struct argp* argp, int argc, char** argv, unsigned flags, int* index, void* input)

@@ -1,18 +1,17 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#include "config.h"
-#include <kernel/log.h>
-
-#include <kernel/platform.h>
+#include <wasmux-config.h>
+#include <wasmux/log.h>
+#include <wasmux/platform.h>
 
 #ifdef WA_OS_WINDOWS
 
 #include <windows.h>
-#include <waf/PrintTo.h>
+#include <wasmux/cxx/PrintTo.h>
 
 static void log_write(void* ptr, const char* data, unsigned size)
 {

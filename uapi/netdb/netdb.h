@@ -1,20 +1,31 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_NETDB_H
-#define _WA_LIBC_NETDB_H
+#ifndef _NETDB_H
+#define _NETDB_H
 
-#include <kernel/types.h>
-#include <kernel/socket.h>
+#include <wasmux/types.h>
+#include <wasmux/socket.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#define AI_PASSIVE 1
+#define AI_PASSIVE     0x0001  /* Socket address for binding (server-side) */
+#define AI_CANONNAME   0x0002  /* Request for canonical name */
+#define AI_NUMERICHOST 0x0004  /* Prevent hostname resolution, only allow numeric IP */
+
+#define EAI_BADFLAGS    -1   /* Invalid value for `ai_flags` */
+#define EAI_NONAME      -2   /* Name or service is not known */
+#define EAI_AGAIN       -3   /* Temporary failure in name resolution, try again */
+#define EAI_FAIL        -4   /* A non-recoverable error occurred */
+#define EAI_FAMILY      -6   /* The requested address family is not supported */
+#define EAI_SOCKTYPE    -7   /* The requested socket type is not supported */
+#define EAI_MEMORY      -10  /* Memory allocation failure */
+#define EAI_SYSTEM      -11  /* A system error occurred (check `errno`) */
 
 #define NI_MAXHOST 1025
 #define NI_MAXSERV 32
@@ -65,8 +76,10 @@ const char* gai_strerror(int error_code);
 int getnameinfo(const struct sockaddr* addr, socklen_t addrlen, char* host,
                 size_t hostlen, char* serv, size_t servlen, int flags);
 
+struct servent* getservbyport(int port, const char* proto);
+
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _WA_LIBC_NETDB_H */
+#endif /* _NETDB_H */

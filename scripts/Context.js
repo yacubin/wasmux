@@ -2,7 +2,8 @@ const path = require('path');
 const url = require('url');
 
 const { USER_CONFIG, DEFAULT_PRESET } = require('./Constants.js');
-const { fileExists }  = require('./FileSystem.js');
+const { REQUEST_ATTEMPTS } = require('./Constants.js');
+const { fileExists }  = require('./utils/FileSystem.js');
 
 class WafpackContext {
   _nodeExecutable;
@@ -110,6 +111,11 @@ class WafpackContext {
       this._userConfig = userConfig;
     }
     return this._userConfig;
+  }
+
+  get requestAttempts()
+  {
+    return REQUEST_ATTEMPTS;
   }
 };
 

@@ -1,28 +1,31 @@
 set(obstack_HEADERS
-  obstack.h
+  include/bits/__obstack_version.h
+  include/obstack.h
   )
 
 set(obstack_SOURCES
-  obstack.cpp
+  src/obstack.cpp
   )
 
 set(obstack_INCLUDES
-  "${CMAKE_CURRENT_SOURCE_DIR}"
+  $<TARGET_PROPERTY:libc,INTERFACE_INCLUDE_DIRECTORIES>
   )
 
 set(obstack_DEFINITIONS
   )
 
 set(obstack_LIBRARIES
-  WASMUX::WAF
   )
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${obstack_HEADERS} ${obstack_SOURCES})
 add_library(obstack STATIC ${obstack_HEADERS} ${obstack_SOURCES})
+target_include_directories(obstack PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
 target_include_directories(obstack PRIVATE "${obstack_INCLUDES}")
 target_compile_definitions(obstack PRIVATE "${obstack_DEFINITIONS}")
 target_link_libraries(obstack PRIVATE ${obstack_LIBRARIES})
 
-add_library(WASMUX::OBSTACK ALIAS obstack)
+set_target_properties(obstack PROPERTIES GNU_VERSIONS_INCLUDE "#include <bits/__obstack_version.h>")
 
-WASMUX_INSTALL_HEADERS(HEADERS ${obstack_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+if (WASMUX_ENABLE_INSTALL_HEADERS)
+  WX_INSTALL_HEADERS(HEADERS ${obstack_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+endif ()

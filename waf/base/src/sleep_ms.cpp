@@ -1,11 +1,11 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#include "config.h"
-#include <kernel/sleep_ms.h>
+#include <wasmux-config.h>
+#include <wasmux/sleep_ms.h>
 
 void kernel_sleep_ms(int ms)
 {

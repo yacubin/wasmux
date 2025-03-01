@@ -1,22 +1,21 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_SYS_IOCTL_H
-#define _WA_LIBC_SYS_IOCTL_H
+#ifndef _SYS_IOCTL_H
+#define _SYS_IOCTL_H
 
-#include <kernel/types.h>
-#include <kernel/ioctls.h>
+#include <wasmux/types.h>
+#include <wasmux/ioctl.h>
+#include <wasmux/ioctls.h>
+#include <wasmux/sockios.h>
+#include <wasmux/termios.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#define _IOR(t, nr, type) 0
-#define _IOW(t, nr, type) 0
-#define _IOWR(t, nr, type) 0
 
 int ioctl(int fd, int request, ...);
 
@@ -24,4 +23,4 @@ int ioctl(int fd, int request, ...);
 }
 #endif
 
-#endif /* _WA_LIBC_SYS_IOCTL_H */
+#endif /* _SYS_IOCTL_H */

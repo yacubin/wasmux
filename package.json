@@ -1,11 +1,14 @@
 {
   "name": "wasmux",
-  "version": "0.0.3-develop.1",
+  "version": "0.0.3-develop.2",
   "description": "WebAssembly Software Development Kit",
   "author": "Yurii Yakubin",
   "homepage": "https://github.com/ykbin/wasmux#readme",
   "exports": {
     "./make-webpack-plugin": "./scripts/make-webpack-plugin.js"
+  },
+  "imports": {
+    "###/*": "./scripts/*"
   },
   "repository": {
     "type": "git",
@@ -20,6 +23,8 @@
   "bin": {
     "wasmux": "scripts/wasmux-cli.js"
   },
-  "devDependencies": {
+  "dependencies": {
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
   }
 }

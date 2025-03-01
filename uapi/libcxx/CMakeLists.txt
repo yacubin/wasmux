@@ -15,7 +15,7 @@ set(libcxx_DEFINITIONS
   )
 
 set(libcxx_LIBRARIES
-  WASMUX::WAF
+  wauser
   )
 
 set_source_files_properties(stub/new.cpp PROPERTIES COMPILE_FLAGS -fvisibility-global-new-delete=force-hidden)
@@ -27,12 +27,12 @@ target_compile_definitions(libcxx PRIVATE "${libcxx_DEFINITIONS}")
 target_link_libraries(libcxx PRIVATE ${libcxx_LIBRARIES})
 set_target_properties(libcxx PROPERTIES OUTPUT_NAME "c++")
 
-add_library(WASMUX::LIBCXX ALIAS libcxx)
-
 install(TARGETS libcxx
   RUNTIME DESTINATION "${WASMUX_INSTALL_BINDIR}"
   LIBRARY DESTINATION "${WASMUX_INSTALL_LIBDIR}"
   ARCHIVE DESTINATION "${WASMUX_INSTALL_LIBDIR}"
   )
 
-WASMUX_INSTALL_HEADERS(HEADERS ${libcxx_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+if (WASMUX_ENABLE_INSTALL_HEADERS)
+  WX_INSTALL_HEADERS(HEADERS ${libcxx_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+endif ()

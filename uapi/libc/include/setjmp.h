@@ -1,13 +1,13 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_SETJMP_H
-#define _WA_LIBC_SETJMP_H
+#ifndef _SETJMP_H
+#define _SETJMP_H
 
-#include <kernel/signal.h>
+#include <bits/signal.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -32,4 +32,4 @@ int sigsetjmp(sigjmp_buf env, int savesigs);
 }
 #endif
 
-#endif /* _WA_LIBC_SETJMP_H */
+#endif /* _SETJMP_H */

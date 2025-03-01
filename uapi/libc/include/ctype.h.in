@@ -1,0 +1,12 @@
+/*
+ *
+ *  Copyright (C) 2025  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *
+ */
+
+#ifndef _CTYPE_H
+#define _CTYPE_H
+
+@CTYPE_INCLUDE_LIST@
+
+#endif /* _CTYPE_H */

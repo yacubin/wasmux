@@ -7,11 +7,13 @@ const pluginName = 'MakeWebpackPlugin';
 class MakeWebpackPlugin {
   _options;
 
-  constructor(options = {}) {
+  constructor(options = {})
+  {
     this._options = options;
   }
 
-  apply(compiler) {
+  apply(compiler)
+  {
     const options = {
       handler: "default",
       nodeExecutable: null,

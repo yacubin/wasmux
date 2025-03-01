@@ -1,12 +1,17 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_NETINET_IN_H
-#define _WA_LIBC_NETINET_IN_H
+#ifndef _NET_IF_H
+#define _NET_IF_H
 
-/* Not implemented */
+#include <wasmux/if.h>
 
-#endif /* _WA_LIBC_NETINET_IN_H */
+#define IF_NAMESIZE IFNAMSIZ
+
+unsigned if_nametoindex(const char* name);
+char* if_indextoname(unsigned index, char* buf);
+
+#endif /* _NET_IF_H */
