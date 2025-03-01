@@ -1,11 +1,12 @@
-const path = require('path');
-const url = require('url');
+import path from "node:path";
+import url from "node:url";
 
-const { USER_CONFIG, DEFAULT_PRESET } = require('./Constants.js');
-const { REQUEST_ATTEMPTS } = require('./Constants.js');
-const { fileExists }  = require('./utils/FileSystem.js');
+import { fileExists } from "###/utils/FileSystem.js";
+import constants from "###/Constants.js";
 
-class WafpackContext {
+const { USER_CONFIG, DEFAULT_PRESET, REQUEST_ATTEMPTS } = constants;
+
+export class RunScriptContext {
   _nodeExecutable;
   _currentScript;
   _scriptDir;
@@ -118,7 +119,3 @@ class WafpackContext {
     return REQUEST_ATTEMPTS;
   }
 };
-
-module.exports = function(...args) {
-  return new WafpackContext(...args);
-}

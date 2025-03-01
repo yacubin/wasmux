@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 
-const url = require('node:url');
-const path = require('node:path');
+import url from "node:url";
+import path from "node:path";
 
-const wasmux = require('./Context.js');
+import { RunScriptContext } from "./RunScriptContext.mjs";
+
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const handlerMap = {
   default: "./BuildHandler.mjs",
@@ -98,7 +101,7 @@ async function runScript()
     }
   }
 
-  const context = wasmux(options);
+  const context = new RunScriptContext(options);
 
   let handler = handlerMap[options.handler];
   if (typeof handler === "string") {
@@ -115,6 +118,12 @@ async function runScript()
 }
 
 runScript().then(() => process.exit(0)).catch((e) => {
-  console.error(e);
+  if (e instanceof Error) {
+    console.error("Message: " + e.message);
+    console.error(e.stack);
+  }
+  else {
+    console.error(e);
+  }
   process.exit(1);
 });

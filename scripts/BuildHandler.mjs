@@ -7,39 +7,11 @@ import { makePatch } from "###/utils/MakePatch.mjs";
 import { saveIfDifferent, directoryExists } from "###/utils/FileSystem.js";
 import { SettingsStorage } from "###/utils/SettingsStorage.js";
 import { spawnAsync } from "###/utils/ChildProcess.js";
+import { actionMakeScript } from "###/MakeScriptContext.js";
+import { arrayWrapper, assignObject } from "###/utils/Primitives.js";
+import constants from "###/Constants.js";
 
-function copyObject(o) {
-  if (!o || typeof o !== 'object')
-    return o;
-  if (Array.isArray(o)) {
-    const result = [];
-    for (const iter of o)
-      result.push(copyObject(iter));
-    return result;
-  }
-  else {
-    const result = {};
-    for (const [key,val] of Object.entries(o))
-      result[key] = copyObject(val);
-    return result;
-  }
-}
-
-function assignObject(target, source) {
-  if (Array.isArray(target) && Array.isArray(source)) {
-    for (const iter of source)
-      target.push(iter);
-  }
-  else {
-    for (const key of Object.keys(source)) {
-      const a = target[key], b = source[key];
-      if (a && typeof a === "object" && b && typeof b === "object")
-        assignObject(a, b);
-      else
-        target[key] = copyObject(b);
-    }
-  }
-}
+const { BUILD_CONFIG_FILE, BUILD_SETTINGS_FILE } = constants;
 
 function mergeEnvironment(...args) {
   const environment = {};
@@ -73,12 +45,6 @@ function mergeEnvironment(...args) {
     }
   }
   return environment;
-}
-
-function arrayWrapper(value) {
-  if (value === undefined || Array.isArray(value))
-    return value;
-  return [ value ];
 }
 
 function rebaseConfig(config) {
@@ -454,6 +420,7 @@ const actionHandlers = {
       throw `process returned status ${res.status}`;
     }
   },
+  "make-script": actionMakeScript,
 };
 
 async function doTargetBuild(ctx, environment, config, settings)
@@ -515,10 +482,10 @@ export default async function(ctx) {
   const buildConfig = makeBuildConfig(ctx, userConfig);
 
   const jsonConfig = JSON.stringify(buildConfig, null, 2);
-  const dumpConfigPath = path.posix.join(buildConfig.binaryRoot, "BuildConfig.json");
+  const dumpConfigPath = path.posix.join(buildConfig.binaryRoot, BUILD_CONFIG_FILE);
   await saveIfDifferent(dumpConfigPath, jsonConfig);
 
-  const settingsFilename = path.resolve(buildConfig.binaryRoot, "BuildSettings.json");
+  const settingsFilename = path.resolve(buildConfig.binaryRoot, BUILD_SETTINGS_FILE);
   const settings = new SettingsStorage(settingsFilename);
 
   for (const [key, entry] of Object.entries(buildConfig)) {

@@ -1,5 +1,5 @@
 import url from 'node:url';
-import { InjectContext } from "###/inject/InjectContext.mjs";
+import { InjectContext } from "###/InjectContext.mjs";
 
 function toCIdentifier(key) {
   let result = "";
