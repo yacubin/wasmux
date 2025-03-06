@@ -39,7 +39,7 @@ set(string_GENFILES
 
 add_custom_script(
   SCRIPT src/strerror.cpp.mjs
-  INPUT "${WASMUX_ROOT_DIR}/data/errno.mjs"
+  INPUT "${WASMUX_ROOT_DIR}/data/errno.js"
   OUTPUT strerror.cpp
   WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}/src"
   )

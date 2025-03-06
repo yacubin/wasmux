@@ -17,13 +17,7 @@ export default async function(ctx, {input, output})
   }
 
   const inputUrl = url.pathToFileURL(input);
-  const module = await import(inputUrl);
-
-  const config = {
-    success: module.success || {},
-    errors: module.errors || {},
-    aliases: module.aliases || {},
-  };
+  const config = await import(inputUrl);
 
   ctx.hooks.emit("strerror.cpp", config);
 

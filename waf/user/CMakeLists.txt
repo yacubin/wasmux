@@ -23,7 +23,7 @@ set(wauser_GENFILES
 
 add_custom_script(
   SCRIPT src/arch-syscall.h.mjs
-  INPUT "${WASMUX_ROOT_DIR}/data/syscall.mjs"
+  INPUT "${WASMUX_ROOT_DIR}/data/syscall.js"
   OUTPUT wasmux/arch-syscall.h
   WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}/include"
   )

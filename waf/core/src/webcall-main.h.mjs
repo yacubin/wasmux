@@ -1,4 +1,4 @@
-import { loadWebcalls } from '###/utils/LoadWebcalls.js';
+import base from "./webcall-main.h.js";
 
 export const ARGS = {
   INPUT:  { type: "string", name: "input"  },
@@ -7,11 +7,5 @@ export const ARGS = {
 
 export default async function(ctx, {input, output})
 {
-  const webcalls = await loadWebcalls(input, "main");
-
-  let lines = [];
-  for (let i = 0; i < webcalls.length; i++)
-    lines.push(`__WEBCALL(${i}, ${webcalls[i]})`);
-
-  await ctx.fs.linesSaveTo(output, lines);
+  base({ depends: input, output });
 }

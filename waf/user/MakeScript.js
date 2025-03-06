@@ -1,34 +1,36 @@
-module.exports = (scope) => {
-  const wauser = scope.addStaticLibrary("wauser");
+"use strict";
 
+module.exports = (mk) => {
   const headers = [
     "include/wasmux/syscalls.h",
     "include/wasmux/thread_data.h",
     "include/wasmux/waitstatus.h",
   ];
 
-  wauser.addSources(
+  const sources = [
     "src/thread_data.cpp",
-  );
+  ];
 
-  wauser.addPublicIncludes(
-    scope.BINARY_DIR.join("include"),
-    scope.SOURCE_DIR.join("include"),
-  );
+  const includes = [
+    mk.BINARY_DIR.join("include"),
+    mk.SOURCE_DIR.join("include"),
+  ];
 
-  wauser.addPublicLibraries(
-    "wabase",
-  );
+  const libraries = [
+    mk.target("wabase"),
+  ];
 
-  const arch_syscall_h = scope.BINARY_DIR.join("include/wasmux/arch-syscall.h");
-  scope.addCustomTarget("<wasmux/arch-syscall.h>", {
-    script: "src/arch-syscall.h.mjs",
-    depends: scope.PROJECT_DIR.join("data/syscall.mjs"),
-    output: arch_syscall_h,
+  const arch_syscall_h = mk.addCustomScript("src/arch-syscall.h.js", {
+    name: "<wasmux/arch-syscall.h>",
+    depends: mk.PROJECT_SOURCE_DIR.join("data/syscall.js"),
+    output: mk.BINARY_DIR.join("include/wasmux/arch-syscall.h"),
   });
 
-  wauser.addSources(arch_syscall_h);
-  wauser.addInstallHeaders(arch_syscall_h, { baseDir: scope.BINARY_DIR });
-  wauser.addSources(headers);
-  wauser.addInstallHeaders(headers, { baseDir: "include" });
+  const wauser = mk.addStaticLibrary("wauser", headers, sources, arch_syscall_h);
+  wauser.addPublicIncludes(includes);
+  wauser.getSourceFiles(headers).setInstallBaseDir("include");
+  wauser.getSourceFiles(headers).setInstallDestination(mk.INSTALL_INCLUDEDIR);
+  wauser.getSourceFiles(arch_syscall_h).setInstallBaseDir(mk.BINARY_DIR.join("include"));
+  wauser.getSourceFiles(arch_syscall_h).setInstallDestination(mk.INSTALL_INCLUDEDIR);
+  wauser.addPublicLibraries(libraries);
 }

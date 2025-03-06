@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   WASMUX_VERSION: {
     description: "WASMUX Version",
     value: "${PROJECT_VERSION}",

@@ -1,13 +1,13 @@
 set(libgcc_HEADERS
-  fp_lib.h
+  include/fp_lib.h
   )
 
 set(libgcc_SOURCES
-  fp_lib.cpp
+  src/fp_lib.cpp
   )
 
 set(libgcc_INCLUDES
-  "${CMAKE_CURRENT_SOURCE_DIR}"
+  "${CMAKE_CURRENT_SOURCE_DIR}/include"
   )
 
 set(libgcc_DEFINITIONS

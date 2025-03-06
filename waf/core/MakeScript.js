@@ -1,6 +1,6 @@
-module.exports = (scope) => {
-  const target = scope.addStaticLibrary("wacore");
+"use strict";
 
+module.exports = (make) => {
   const headers = [
     "include/wasmux/cxx/HostHeap.h",
     "include/wasmux/cxx/ObjectCast.h",
@@ -28,7 +28,7 @@ module.exports = (scope) => {
     "include/wasmux/worker_thread.h",
   ];
 
-  target.addSources(
+  const sources = [
     "src/cxx/HostHeap.cpp",
     "src/web/arraybuffer.cpp",
     "src/web/console.cpp",
@@ -51,18 +51,18 @@ module.exports = (scope) => {
     "src/worker_instance.cpp",
     "src/worker_instanceInit.S",
     "src/worker_thread.cpp",
-  );
+  ];
 
-  target.addPublicIncludes(
-    scope.BINARY_DIR.join("include"),
-    scope.SOURCE_DIR.join("include"),
-  );
+  const includes = [
+    make.BINARY_DIR.join("include"),
+    make.SOURCE_DIR.join("include"),
+  ];
 
-  target.addPublicLibraries(
-    "wabase",
-  );
+  const libraries = [
+    make.target("wabase"),
+  ];
 
-  if (scope.SYSTEM_NAME === "Windows") {
+  if (make.SYSTEM_NAME === "Windows") {
     headers.push(
       "src/windows/BaseThreadContext.h",
       "src/windows/Looper.h",
@@ -73,7 +73,7 @@ module.exports = (scope) => {
       "src/windows/OSMalloc.h",
       "src/windows/WorkerThreadContext.h",
     );
-    target.addSources(
+    sources.push(
       "src/windows/BaseThreadContext.cpp",
       "src/windows/Looper.cpp",
       "src/windows/MainThreadContext.cpp",
@@ -108,29 +108,26 @@ module.exports = (scope) => {
     );
   }
 
-  const webcall_nums_h = scope.BINARY_DIR.join("include/wasmux/webcall-nums.h");
-  scope.addCustomTarget("<wasmux/webcall-nums.h>", {
-    script: "src/webcall-nums.h.mjs",
-    depends: scope.PROJECT_DIR.join("data/webcalls.mjs"),
-    output: webcall_nums_h,
+  const webcall_nums_h = make.addCustomScript("src/webcall-nums.h.js", {
+    name: "<wasmux/webcall-nums.h>",
+    depends: make.PROJECT_SOURCE_DIR.join("data/webcalls.js"),
+    output: make.BINARY_DIR.join("include/wasmux/webcall-nums.h"),
   });
 
-  const webcall_main_h = scope.BINARY_DIR.join("include/wasmux/webcall-main.h");
-  scope.addCustomTarget("<wasmux/webcall-main.h>", {
-    script: "src/webcall-main.h.mjs",
-    depends: scope.PROJECT_DIR.join("data/webcalls.mjs"),
-    output: webcall_main_h,
+  const webcall_main_h = make.addCustomScript("src/webcall-main.h.js", {
+    name: "<wasmux/webcall-main.h>",
+    depends: make.PROJECT_SOURCE_DIR.join("data/webcalls.js"),
+    output: make.BINARY_DIR.join("include/wasmux/webcall-main.h"),
   });
 
-  const webcall_worker_h = scope.BINARY_DIR.join("include/wasmux/webcall-worker.h");
-  scope.addCustomTarget("<wasmux/webcall-worker.h>", {
-    script: "src/webcall-worker.h.mjs",
-    depends: scope.PROJECT_DIR.join("data/webcalls.mjs"),
-    output: webcall_worker_h,
+  const webcall_worker_h = make.addCustomScript("src/webcall-worker.h.js", {
+    name: "<wasmux/webcall-worker.h>",
+    depends: make.PROJECT_SOURCE_DIR.join("data/webcalls.js"),
+    output: make.BINARY_DIR.join("include/wasmux/webcall-worker.h"),
   });
 
-  target.addSources(headers);
-  target.addSources(webcall_nums_h);
-  target.addSources(webcall_main_h);
-  target.addSources(webcall_worker_h);
+  const target = make.addStaticLibrary("wacore", sources, headers);
+  target.addSources(webcall_nums_h, webcall_main_h, webcall_worker_h);
+  target.addPublicIncludes(includes);
+  target.addPublicLibraries(libraries);
 }

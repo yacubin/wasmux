@@ -1,18 +1,25 @@
-module.exports = (scope) => {
-  scope.addVariables("data/variables.mjs");
+"use strict";
 
-  scope.MODULE_PATH.push(scope.PROJECT_DIR.join("scripts"));
+module.exports = (make) => {
+  make.addCacheVariables("data/variables.js");
 
-  scope.INSTALL_BINDIR = "bin";
-  scope.INSTALL_LIBDIR = "lib";
-  scope.INSTALL_INCLUDEDIR = "include";
+  make.MODULE_PATH.push(make.PROJECT_SOURCE_DIR.join("scripts"));
 
-  scope.ASM_FLAGS.push("-D__ASSEMBLY__");
+  make.INSTALL_BINDIR = "bin";
+  make.INSTALL_LIBDIR = "lib";
+  make.INSTALL_INCLUDEDIR = "include";
 
-  scope.addIncludeDirectories(scope.CURRENT_BINARY_DIR);
+  make.ASM_FLAGS.push("-D__ASSEMBLY__");
 
-  scope.addSubdirectory("waf");
-  scope.addSubdirectory("uapi");
-  // scope.addSubdirectory("kernel");
-  scope.addSubdirectory("tools");
+  make.executeScript("wasmux-config.h.js", {
+    input: make.getCacheVariables(),
+    output: make.BINARY_DIR.join("wasmux-config.h"),
+  });
+
+  make.addIncludeDirectories(make.BINARY_DIR);
+
+  make.addSubdirectory("waf");
+  make.addSubdirectory("uapi");
+  // mk.addSubdirectory("kernel");
+  make.addSubdirectory("tools");
 }

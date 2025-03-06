@@ -1,54 +1,57 @@
-module.exports = (scope) => {
-  if (scope.WASMUX_ENABLE_LIBC) {
-    scope.addSubdirectory("malloc");
-    scope.addSubdirectory("fcntl");
-    /*scope.addSubdirectory("string");
-    scope.addSubdirectory("ctype");
-    scope.addSubdirectory("stdlib");
-    scope.addSubdirectory("signal");
-    scope.addSubdirectory("semaphore");
-    scope.addSubdirectory("wcsmbs");
-    scope.addSubdirectory("libio");
-    scope.addSubdirectory("dirent");
-    scope.addSubdirectory("grp");
-    scope.addSubdirectory("pwd");
-    scope.addSubdirectory("ftw");
-    scope.addSubdirectory("wordexp");
-    scope.addSubdirectory("login");
-    scope.addSubdirectory("mntent");
-    scope.addSubdirectory("shadow");
-    scope.addSubdirectory("termios");
-    scope.addSubdirectory("argp");
-    scope.addSubdirectory("fts");
-    scope.addSubdirectory("netdb");
-    scope.addSubdirectory("obstack");
-    scope.addSubdirectory("libintl");
-    scope.addSubdirectory("locale");
-    scope.addSubdirectory("getopt");
-    scope.addSubdirectory("regex");
-    scope.addSubdirectory("glob");
-    scope.addSubdirectory("fnmatch");
-    scope.addSubdirectory("ulinux");*/
+"use strict";
+
+module.exports = (mk) => {
+  if (mk.WASMUX_ENABLE_LIBC) {
+    // mk.addSubdirectory("malloc");
+    // mk.addSubdirectory("fcntl");
+    /*mk.addSubdirectory("string");
+    mk.addSubdirectory("ctype");
+    mk.addSubdirectory("stdlib");
+    mk.addSubdirectory("signal");
+    mk.addSubdirectory("semaphore");
+    mk.addSubdirectory("wcsmbs");
+    mk.addSubdirectory("libio");
+    mk.addSubdirectory("dirent");
+    mk.addSubdirectory("grp");
+    mk.addSubdirectory("pwd");
+    mk.addSubdirectory("ftw");
+    mk.addSubdirectory("wordexp");
+    mk.addSubdirectory("login");
+    mk.addSubdirectory("mntent");
+    mk.addSubdirectory("shadow");
+    mk.addSubdirectory("termios");
+    mk.addSubdirectory("argp");
+    mk.addSubdirectory("fts");
+    mk.addSubdirectory("netdb");
+    mk.addSubdirectory("obstack");
+    mk.addSubdirectory("libintl");
+    mk.addSubdirectory("locale");
+    mk.addSubdirectory("getopt");
+    mk.addSubdirectory("regex");
+    mk.addSubdirectory("glob");
+    mk.addSubdirectory("fnmatch");
+    mk.addSubdirectory("ulinux");*/
+    mk.addSubdirectory("libc");
   }
-  /*if (scope.WASMUX_ENABLE_LIBGCC) {
-    scope.addSubdirectory("libgcc");
+  if (mk.WASMUX_ENABLE_LIBGCC) {
+    mk.addSubdirectory("libgcc");
   }
-  if (scope.WASMUX_ENABLE_CRT) {
-    scope.addSubdirectory("crt");
-  }
-  if (scope.WASMUX_ENABLE_LIBCXX) {
-    scope.addSubdirectory("libcxx");
-  }
-  if (scope.WASMUX_ENABLE_LIBCXX) {
-    scope.addSubdirectory("libcxxabi");
-  }
-  if (scope.WASMUX_ENABLE_LIBM) {
-    scope.addSubdirectory("libm");
-  }
-  if (scope.WASMUX_ENABLE_DL) {
-    scope.addSubdirectory("dl");
-  }
-  if (scope.WASMUX_ENABLE_PTHREAD) {
-    scope.addSubdirectory("pthread");
+  /*if (mk.WASMUX_ENABLE_CRT) {
+    mk.addSubdirectory("crt");
   }*/
+  if (mk.WASMUX_ENABLE_LIBCXX) {
+    mk.addSubdirectory("libcxx");
+  }
+  if (mk.WASMUX_ENABLE_LIBCXX) {
+    mk.addSubdirectory("libcxxabi");
+  }
+  /*if (mk.WASMUX_ENABLE_LIBM) {
+    mk.addSubdirectory("libm");
+  }*/
+  if (mk.WASMUX_ENABLE_DL) {
+    mk.addSubdirectory("dl");
+  }
+  if (mk.WASMUX_ENABLE_PTHREAD) {
+    mk.addSubdirectory("pthread");
+  }
 }

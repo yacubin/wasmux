@@ -59,7 +59,6 @@ set(libc_HEADERS
   include/stdint.h
   include/sysexits.h
   include/syslog.h
-  include/syslog.h
   include/time.h
   include/ucontext.h
   include/utime.h
@@ -192,7 +191,7 @@ set(libc_GENFILES
 
 add_custom_script(
   SCRIPT src/sys/syscall.h.mjs
-  INPUT "${WASMUX_ROOT_DIR}/data/syscall.mjs"
+  INPUT "${WASMUX_ROOT_DIR}/data/syscall.js"
   OUTPUT sys/syscall.h
   WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}/include"
   )

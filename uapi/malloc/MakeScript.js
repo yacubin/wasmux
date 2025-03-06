@@ -1,4 +1,6 @@
-module.exports = (scope) => {
+"use strict";
+
+module.exports = (mk) => {
   const headers = [
     "malloc.h",
   ];
@@ -8,17 +10,16 @@ module.exports = (scope) => {
   ];
 
   const includes = [
-    scope.SOURCE_DIR.join("include"),
-    "${libc.INCLUDE_DIRECTORIES}",
+    mk.SOURCE_DIR.join("include"),
   ];
 
   const libraries = [
-    "wauser",
+    mk.target("wauser"),
   ];
 
-  const target = scope.addStaticLibrary("malloc");
-  target.addSources(headers, sources);
-  target.addIncludeDirectories(includes, { public: true });
-  target.addLinkLibraries(libraries, { public: true });
-  target.addInstallHeaders(headers);
+  const malloc = mk.addStaticLibrary("malloc", headers, sources);
+  malloc.addIncludes(mk.target("wauser").INCLUDES);
+  malloc.addPublicIncludes(includes);
+  malloc.addPublicLibraries(libraries);
+  malloc.addInstallHeaders(headers);
 }

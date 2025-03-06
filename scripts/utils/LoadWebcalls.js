@@ -1,15 +1,12 @@
-const url = require('url');
-
 const NOT_IMPLEMENTED = 'NotImplemented';
 const BOTH = 'both';
 
-async function loadWebcalls(input, side)
+module.exports.loadWebcalls = function(input, side)
 {
   if (side !== BOTH && side !== 'main' && side !== 'worker')
     throw `Unknown '${side}' side name`;
 
-  const module = await import(url.pathToFileURL(input));
-  const arr = module.default;
+  const arr = require(input);
   
   const result = [];
   for (const iter of arr) {
@@ -19,7 +16,3 @@ async function loadWebcalls(input, side)
 
   return result;
 }
-
-module.exports = {
-  loadWebcalls,
-};

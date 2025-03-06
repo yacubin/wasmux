@@ -88,7 +88,7 @@ set(wabase_GENFILES
 
 add_custom_script(
   SCRIPT src/errno.h.mjs
-  INPUT "${WASMUX_ROOT_DIR}/data/errno.mjs"
+  INPUT "${WASMUX_ROOT_DIR}/data/errno.js"
   OUTPUT wasmux/errno.h
   WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}/include"
   )

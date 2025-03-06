@@ -420,7 +420,7 @@ const actionHandlers = {
       throw `process returned status ${res.status}`;
     }
   },
-  "make-script": actionMakeScript,
+  bitmake: actionMakeScript,
 };
 
 async function doTargetBuild(ctx, environment, config, settings)

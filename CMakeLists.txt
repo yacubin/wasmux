@@ -25,7 +25,7 @@ set(WASMUX_CONFIG_OBJECT "${CMAKE_CURRENT_BINARY_DIR}/wasmux-config.mjs")
 
 execute_script(
   SCRIPT "${WASMUX_SCRIPT_DIR}/run/InitVariables.mjs"
-  INPUT "${WASMUX_ROOT_DIR}/data/variables.mjs"
+  INPUT "${WASMUX_ROOT_DIR}/data/variables.js"
   OUTPUT_HEADER "${WASMUX_CONFIG_HEADER}.in"
   OUTPUT_OBJECT "${WASMUX_CONFIG_OBJECT}.in"
   OUTPUT_SCRIPT wasmux-config.cmake

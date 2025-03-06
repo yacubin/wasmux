@@ -113,21 +113,21 @@ endif ()
 
 add_custom_script(
   SCRIPT src/webcall-nums.h.mjs
-  INPUT "${WASMUX_ROOT_DIR}/data/webcalls.mjs"
+  INPUT "${WASMUX_ROOT_DIR}/data/webcalls.js"
   OUTPUT wasmux/webcall-nums.h
   WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}/include"
   )
 
 add_custom_script(
   SCRIPT src/webcall-main.h.mjs
-  INPUT "${WASMUX_ROOT_DIR}/data/webcalls.mjs"
+  INPUT "${WASMUX_ROOT_DIR}/data/webcalls.js"
   OUTPUT wasmux/webcall-main.h
   WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}/include"
   )
 
 add_custom_script(
   SCRIPT src/webcall-worker.h.mjs
-  INPUT "${WASMUX_ROOT_DIR}/data/webcalls.mjs"
+  INPUT "${WASMUX_ROOT_DIR}/data/webcalls.js"
   OUTPUT wasmux/webcall-worker.h
   WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}/include"
   )

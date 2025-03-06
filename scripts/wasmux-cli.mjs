@@ -2,6 +2,9 @@
 
 import url from "node:url";
 import path from "node:path";
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
 
 import { RunScriptContext } from "./RunScriptContext.mjs";
 
@@ -119,7 +122,6 @@ async function runScript()
 
 runScript().then(() => process.exit(0)).catch((e) => {
   if (e instanceof Error) {
-    console.error("Message: " + e.message);
     console.error(e.stack);
   }
   else {

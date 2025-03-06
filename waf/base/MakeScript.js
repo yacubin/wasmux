@@ -1,4 +1,6 @@
-module.exports = (scope) => {
+"use strict";
+
+module.exports = (mk) => {
   const headers = [
     "include/wasmux/cxx/Atomic.h",
     "include/wasmux/cxx/BitVector.h",
@@ -79,19 +81,21 @@ module.exports = (scope) => {
   ];
 
   const includes = [
-    scope.BINARY_DIR.join("include"),
-    scope.SOURCE_DIR.join("include"),
+    mk.BINARY_DIR.join("include"),
+    mk.SOURCE_DIR.join("include"),
   ];
 
-  const errno_h = scope.BINARY_DIR.join("include/wasmux/errno.h");
-  scope.addCustomTarget("<errno.h>", {
-    script: "src/errno.h.mjs",
-    depends: scope.PROJECT_DIR.join("data/errno.mjs"),
+  const errno_h = mk.BINARY_DIR.join("include/wasmux/errno.h");
+  mk.addCustomScript("src/errno.h.js", {
+    name: "<errno.h>",
+    depends: mk.PROJECT_SOURCE_DIR.join("data/errno.js"),
     output: errno_h,
   });
-  
-  const wabase = scope.addStaticLibrary("wabase", headers, sources, errno_h);
+
+  const wabase = mk.addStaticLibrary("wabase", headers, sources, errno_h);
   wabase.addPublicIncludes(includes);
-  wabase.addInstallHeaders(headers, { baseDir: "include" });
-  wabase.addInstallHeaders(errno_h, { baseDir: scope.BINARY_DIR });
+  wabase.getSourceFiles(headers).setInstallBaseDir("include");
+  wabase.getSourceFiles(headers).setInstallDestination(mk.INSTALL_INCLUDEDIR);
+  wabase.getSourceFiles(errno_h).setInstallBaseDir(mk.BINARY_DIR.join("include"));
+  wabase.getSourceFiles(errno_h).setInstallDestination(mk.INSTALL_INCLUDEDIR);
 }

@@ -1,3 +1,27 @@
+function equalValue(a, b) {
+  if (a === b)
+    return true;
+
+  if (a === undefined || b === undefined)
+    return false;
+
+  if (typeof a !== "object" || typeof b !== "object")
+    return false;
+
+  const k1 = Object.keys(a);
+  const k2 = Object.keys(b);
+
+  if (k1.length != k2.length)
+    return false;
+
+  for (const key of k1) {
+    if (!Object.hasOwn(b, key) || !equalValue(a[key], b[key]))
+      return false;
+  }
+
+  return true;
+}
+
 function copyObject(o) {
   if (!o || typeof o !== 'object')
     return o;
@@ -38,6 +62,8 @@ function arrayWrapper(value) {
 }
 
 module.exports = {
+  equalValue,
+  copyValue: copyObject,
   copyObject,
   assignObject,
   arrayWrapper,

@@ -1,5 +1,7 @@
-module.exports = (scope) => {
-  scope.addSubdirectory("base");
-  scope.addSubdirectory("core");
-  scope.addSubdirectory("user");
+"use strict";
+
+module.exports = (mk) => {
+  mk.addSubdirectory("base");
+  mk.addSubdirectory("core");
+  mk.addSubdirectory("user");
 }

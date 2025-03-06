@@ -18,7 +18,7 @@ export const ARGS = {
 
 export default async function(ctx, {side, input, output})
 {
-  const webcalls = await loadWebcalls(input, side);
+  const webcalls = loadWebcalls(input, side);
 
   let lines = [];
 

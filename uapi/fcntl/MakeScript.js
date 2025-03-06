@@ -1,27 +1,31 @@
-module.exports = (scope) => {
-  const fcntl = scope.addStaticLibrary("fcntl");
+"use strict";
 
-  const headers = fcntl.addSources(
+module.exports = (mk) => {
+  const headers = [
     "include/fcntl.h",
-  );
+  ];
 
-  fcntl.addSources(
+  const sources = [
     "internal/fcntl.h",
     "src/creat.cpp",
     "src/fcntl.cpp",
     "src/open.cpp",
     "src/openat.cpp",
-  );
+  ];
 
-  fcntl.addPublicIncludes(
-    scope.SOURCE_DIR.join("internal"),
-    scope.SOURCE_DIR.join("include"),
-  );
+  const includes = [
+    mk.SOURCE_DIR.join("internal"),
+    mk.SOURCE_DIR.join("include"),
+  ];
 
-  fcntl.addPublicLibraries(
-    "wauser",
-  );
+  const libraries = [
+    mk.target("wauser"),
+  ];
 
-  fcntl.addIncludes("${libc.INCLUDE_DIRECTORIES}");
-  fcntl.addInstallHeaders(headers, { baseDir: "include" });
+  const fcntl = mk.addStaticLibrary("fcntl", headers, sources);
+  fcntl.addIncludes(mk.target("libc").INCLUDES);
+  fcntl.addPublicIncludes(includes);
+  fcntl.addPublicLibraries(libraries);
+  fcntl.getSourceFiles(headers).setInstallBaseDir("include");
+  fcntl.getSourceFiles(headers).setInstallDestination(mk.INSTALL_INCLUDEDIR);
 }

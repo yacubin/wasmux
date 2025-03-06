@@ -11,7 +11,7 @@ class AbsolutePath {
   }
 
   join(...paths) {
-    const filepath = path.posix.join(this._filepath, ...paths);
+    const filepath = path.posix.join(this._filepath, ...paths.map(i => i.toString()));
     return new AbsolutePath(filepath);
   }
 
@@ -19,11 +19,19 @@ class AbsolutePath {
     return new AbsolutePath(path.posix.dirname(this._filepath));
   }
 
+  basename() {
+    return path.basename(this._filepath);
+  }
+
   relative(to) {
     if (to instanceof AbsolutePath)
       to = to._filepath;
     const filepath = path.posix.relative(this._filepath, to);
     return filepath;
+  }
+
+  resolve(...paths) {
+    return new AbsolutePath(path.posix.resolve(this._filepath, ...paths.map(i => i.toString())));
   }
 
   toURL() {
@@ -38,8 +46,24 @@ class AbsolutePath {
     return this._filepath;
   }
 
+  valueOf() {
+    return this._filepath;
+  }
+
+  toJSON() {
+    return this._filepath;
+  }
+
   static isAbsolute(filepath) {
     return path.isAbsolute(filepath.toString());
+  }
+
+  static create(filepath) {
+    if (filepath instanceof AbsolutePath)
+      return filepath;
+    if (typeof filepath !== "string")
+      throw new Error(`Not correct type of ${filepath}`);
+    return new AbsolutePath(filepath);
   }
 };
 

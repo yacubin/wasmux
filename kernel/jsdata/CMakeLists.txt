@@ -15,7 +15,7 @@ set(jsdata_GENFILES
 add_custom_script(
   SCRIPT webcallesx.mjs
   SIDE "main"
-  INPUT "${WASMUX_ROOT_DIR}/data/webcalls.mjs"
+  INPUT "${WASMUX_ROOT_DIR}/data/webcalls.js"
   OUTPUT generated/MainCalls.mjs
   WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}"
   )
@@ -23,7 +23,7 @@ add_custom_script(
 add_custom_script(
   SCRIPT webcallesx.mjs
   SIDE "worker"
-  INPUT "${WASMUX_ROOT_DIR}/data/webcalls.mjs"
+  INPUT "${WASMUX_ROOT_DIR}/data/webcalls.js"
   OUTPUT generated/WorkerCalls.mjs
   WORK_DIR "${CMAKE_CURRENT_BINARY_DIR}"
   )

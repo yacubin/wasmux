@@ -1,6 +1,6 @@
 const SC = (number, argc, func) => { return { number, argc, func } };
 
-export default {
+module.exports = {
   restart_syscall:        SC(0,   0,  "sys_restart_syscall"        ),
   exit:                   SC(1,   1,  "sys_exit"                   ),
   fork:                   SC(2,   0,  "sys_fork"                   ),

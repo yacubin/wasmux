@@ -1,16 +1,16 @@
-module.exports = (scope) => {
-  const exec = scope.addExecutable("waeditor");
+"use strict";
 
-  exec.addSources([
+module.exports = (make) => {
+  const sources = [
     "waeditor.cpp",
-  ]);
+  ];
 
-  exec.addIncludeDirectories([
-    scope.BINARY_DIR.join("include"),
-    scope.SOURCE_DIR.join("include"),
-  ]);
+  const includes = [
+    make.BINARY_DIR.join("include"),
+    make.SOURCE_DIR.join("include"),
+  ];
 
-  exec.addInstallDestination({
-    RUNTIME: scope.INSTALL_BINDIR,
-  });
+  const waeditor = make.addExecutable("waeditor", sources);
+  waeditor.addIncludes(includes);
+  waeditor.addInstallDestination(make.INSTALL_BINDIR);
 }
