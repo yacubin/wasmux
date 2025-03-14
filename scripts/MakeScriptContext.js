@@ -380,10 +380,6 @@ function createMakeScriptContext()
     fs.writeFileSync(filename, content, { encoding: "utf8" });
   }
 
-  const STATIC_TYPE = "StaticLibrary";
-  const SHARED_TYPE = "SharedLibrary";
-  const EXECUTABLE_TYPE = "Executable";
-
   MakeScriptContext.prototype.__addTarget = function(name, target) {
     this.logDebug(currentFunctionName(), name);
 
@@ -503,7 +499,7 @@ function createMakeScriptContext()
         _priv.goals.addExec(output, [ ...datafiles, s.FILE ], command, args, cwd, msg);
       }
 
-      if (target.TYPE === STATIC_TYPE) {
+      if (target instanceof bitmake.StaticLibrary) {
         const args = [ "rc", target.FILE_NAME ];
         for (const iter of depends) {
           if (iter.endsWith(".o") || iter.endsWith(".obj"))
@@ -514,11 +510,11 @@ function createMakeScriptContext()
         _priv.goals.addExec(target.FILE.toString(), depends, this.AR, args, cwd, msg);
       }
 
-      if (target.TYPE === SHARED_TYPE) {
+      if (target instanceof bitmake.SharedLibrary) {
         throw new Error("Not implemented");
       }
 
-      if (target.TYPE === EXECUTABLE_TYPE) {
+      if (target instanceof bitmake.Executable) {
         const msg = `Linking CXX executable ${target.FILE_NAME}`;
       }
 

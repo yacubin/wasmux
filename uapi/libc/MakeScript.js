@@ -78,10 +78,10 @@ module.exports = (mk) => {
     "stub/sys/mman.cpp",
     "stub/sys/prctl.cpp",
     "stub/sys/random.cpp",
-    // "stub/sys/resource.cpp",
-    // "stub/sys/select.cpp",
-    // "stub/sys/sendfile.cpp",
-    // "stub/sys/signalfd.cpp",
+    "stub/sys/resource.cpp",
+    "stub/sys/select.cpp",
+    "stub/sys/sendfile.cpp",
+    "stub/sys/signalfd.cpp",
     "stub/sys/socket.cpp",
     "stub/sys/stat.cpp",
     "stub/sys/statfs.cpp",
@@ -175,17 +175,37 @@ module.exports = (mk) => {
     mk.target("wauser"),
   ];
 
-  const syscall_h = mk.BINARY_DIR.join("include/sys/syscall.h");
-  mk.addCustomScript("src/sys/syscall.h.js", {
-    name: "<sys/syscall.h>",
-    depends: mk.PROJECT_SOURCE_DIR.join("data/syscall.js"),
-    output: syscall_h,
+  const syscall_h = mk.addCustomTarget("<sys/syscall.h>");
+  syscall_h.addScript("src/sys/syscall.h.js");
+  syscall_h.addInput(mk.PROJECT_SOURCE_DIR.join("data/syscall.js"));
+  syscall_h.addOutput(mk.BINARY_DIR.join("include/sys/syscall.h"));
+  sources.push(syscall_h.OUTPUTS);
+
+  const ctype_h = mk.addCustomTarget("<ctype.h>");
+  syscall_h.addScript("configure_file");
+  ctype_h.addInput("include/ctype.h.in");
+  ctype_h.addOutput(mk.BINARY_DIR.join("include/ctype.h"));
+
+  const gnu_versions_h = mk.addConfigureFile("<gnu-versions.h>", {
+    depends: mk.SOURCE_DIR.join("include/gnu-versions.h.in"),
+    output: mk.BINARY_DIR.join("include/gnu-versions.h"),
   });
 
-  const libc = mk.addStaticLibrary("libc", headers, sources, syscall_h);
+  const stdlib_h = mk.addConfigureFile("<stdlib.h>", {
+    depends: mk.SOURCE_DIR.join("include/stdlib.h.in"),
+    output: mk.BINARY_DIR.join("include/stdlib.h"),
+  });
+
+  const unistd_h = mk.addConfigureFile("<unistd.h>", {
+    depends: mk.SOURCE_DIR.join("include/unistd.h.in"),
+    output: mk.BINARY_DIR.join("include/unistd.h"),
+  });
+
+  const libc = mk.addStaticLibrary("libc", headers, sources, ctype_h, gnu_versions_h, stdlib_h, unistd_h);
   libc.addPublicIncludes(includes);
   libc.addPublicLibraries(libraries);
   libc.addInstallDestination(mk.INSTALL_LIBDIR);
+  libc.PREFIX = "";
   libc.getSourceFiles(headers).setInstallBaseDir("include");
   libc.getSourceFiles(headers).setInstallDestination(mk.INSTALL_INCLUDEDIR);
   libc.getSourceFiles(syscall_h).setInstallBaseDir(mk.BINARY_DIR.join("include"));

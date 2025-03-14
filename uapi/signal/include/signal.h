@@ -8,7 +8,7 @@
 #define _SIGNAL_H
 
 #include <wasmux/types.h>
-#include <bits/signal.h>
+#include <wasmux/signal.h>
 #include <setjmp.h>
 
 #ifdef __cplusplus

@@ -1,5 +1,4 @@
 set(signal_HEADERS
-  include/bits/signal.h
   include/signal.h
   )
 

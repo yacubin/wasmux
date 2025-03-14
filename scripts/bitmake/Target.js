@@ -96,10 +96,6 @@ BaseTarget.prototype = Object.create(Object.prototype, {
     get() { return this[COMPILE_OPTIONS]; },
     enumerable: true,
   },
-  TYPE: {
-    get() { return this.constructor.name; },
-    enumerable: true,
-  },
   FILE_DIR: {
     get() { return this[TARGET_SCOPE].BINARY_DIR; },
     enumerable: true,

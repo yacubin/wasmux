@@ -46,9 +46,9 @@
 
 #define SIGPOLL   SIGIO
 
-struct __sigset_struct {
+typedef struct {
   unsigned long sig[_NSIG_WORDS];
-};
+} sigset_t;
 
 #define sigmask(signum) (1UL << ((signum) - 1))
 
