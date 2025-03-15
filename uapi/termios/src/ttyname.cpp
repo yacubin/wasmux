@@ -5,10 +5,10 @@
  */
 
 #include <wasmux-config.h>
+#include <termios.h>
 #include <sys/stat.h>
 #include <paths.h>
 #include <errno.h>
-#include <termios.h>
 #include <unistd.h>
 #include <dirent.h>
 #include <string.h>

@@ -24,6 +24,8 @@ target_include_directories(malloc PUBLIC "${malloc_INCLUDES}")
 target_compile_definitions(malloc PRIVATE "${malloc_DEFINITIONS}")
 target_link_libraries(malloc PRIVATE ${malloc_LIBRARIES})
 
+set_target_properties(malloc PROPERTIES STDLIB_INCLUDE "#include <alloca.h>;#include <malloc.h>")
+
 if (WASMUX_ENABLE_INSTALL_HEADERS)
   WX_INSTALL_HEADERS(HEADERS ${malloc_HEADERS} DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()

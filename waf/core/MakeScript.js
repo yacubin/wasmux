@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = (make) => {
+module.exports = (mk) => {
   const headers = [
     "include/wasmux/cxx/HostHeap.h",
     "include/wasmux/cxx/ObjectCast.h",
@@ -54,15 +54,15 @@ module.exports = (make) => {
   ];
 
   const includes = [
-    make.BINARY_DIR.join("include"),
-    make.SOURCE_DIR.join("include"),
+    mk.BINARY_DIR.join("include"),
+    mk.SOURCE_DIR.join("include"),
   ];
 
   const libraries = [
-    make.target("wabase"),
+    mk.target("wabase"),
   ];
 
-  if (make.SYSTEM_NAME === "Windows") {
+  if (mk.SYSTEM_NAME === "Windows") {
     headers.push(
       "src/windows/BaseThreadContext.h",
       "src/windows/Looper.h",
@@ -108,25 +108,28 @@ module.exports = (make) => {
     );
   }
 
-  const webcall_nums_h = make.addCustomScript("src/webcall-nums.h.js", {
-    name: "<wasmux/webcall-nums.h>",
-    depends: make.PROJECT_SOURCE_DIR.join("data/webcalls.js"),
-    output: make.BINARY_DIR.join("include/wasmux/webcall-nums.h"),
+  const webcall_nums_h = mk.BINARY_DIR.join("include/wasmux/webcall-nums.h");
+  mk.addCustomTarget("<wasmux/webcall-nums.h>", {
+    script: "src/webcall-nums.h.js",
+    input:  mk.PROJECT_SOURCE_DIR.join("data/webcalls.js"),
+    output: webcall_nums_h,
   });
 
-  const webcall_main_h = make.addCustomScript("src/webcall-main.h.js", {
-    name: "<wasmux/webcall-main.h>",
-    depends: make.PROJECT_SOURCE_DIR.join("data/webcalls.js"),
-    output: make.BINARY_DIR.join("include/wasmux/webcall-main.h"),
+  const webcall_main_h = mk.BINARY_DIR.join("include/wasmux/webcall-main.h");
+  mk.addCustomTarget("<wasmux/webcall-main.h>", {
+    script: "src/webcall-main.h.js",
+    input: mk.PROJECT_SOURCE_DIR.join("data/webcalls.js"),
+    output: webcall_main_h,
   });
 
-  const webcall_worker_h = make.addCustomScript("src/webcall-worker.h.js", {
-    name: "<wasmux/webcall-worker.h>",
-    depends: make.PROJECT_SOURCE_DIR.join("data/webcalls.js"),
-    output: make.BINARY_DIR.join("include/wasmux/webcall-worker.h"),
+  const webcall_worker_h = mk.BINARY_DIR.join("include/wasmux/webcall-worker.h");
+  mk.addCustomTarget("<wasmux/webcall-worker.h>", {
+    script: "src/webcall-worker.h.js",
+    input: mk.PROJECT_SOURCE_DIR.join("data/webcalls.js"),
+    output: webcall_worker_h,
   });
 
-  const target = make.addStaticLibrary("wacore", sources, headers);
+  const target = mk.addStaticLibrary("wacore", sources, headers);
   target.addSources(webcall_nums_h, webcall_main_h, webcall_worker_h);
   target.addPublicIncludes(includes);
   target.addPublicLibraries(libraries);

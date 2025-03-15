@@ -3,9 +3,9 @@ const path = require("node:path");
 
 const cxx = require("###/utils/CXX.js");
 
-module.exports = function({depends, output})
+module.exports = function({input, output})
 {
-  const config = require(depends);
+  const config = require(input);
   const syscalls = Object.entries(config).sort((a, b) => a[1].number - b[1].number);
   const pragmaOnce = cxx.filepathToMacroCIdentifier(output);
 

@@ -7,5 +7,5 @@ export const ARGS = {
 
 export default async function(ctx, {input, output})
 {
-  base({ depends: input, output });
+  base({ input, output });
 }

@@ -1,5 +1,7 @@
 "use strict";
 
+const { cloneBoolean } = require("###/bitmake/StrictType.js");
+
 const TARGET_SCOPE        = Symbol("TARGET_SCOPE");
 const LANGUAGE            = Symbol("LANGUAGE");
 const HEADER_FILE_ONLY    = Symbol("HEADER_FILE_ONLY");
@@ -30,19 +32,7 @@ function getFileLanguage(filename) {
   return "";
 }
 
-function mustBeBoolean(value) {
-  if (typeof value === "boolean")
-    return value;
-  throw new Error(`Value ${value} is not a boolean`);
-}
-
-function mustBeString(value) {
-  if (typeof value === "string")
-    return value;
-  throw new Error(`Value ${value} is not a string`);
-}
-
-function mustBeLanguage(value) {
+function makeLanguage(value) {
   if (isSupportLanguage(value))
     return value;
   throw new Error(`Language "${value}" is not supported`);
@@ -76,12 +66,12 @@ SourceFile.prototype = Object.create(Object.prototype, {
   },
   LANGUAGE: {
     get () { return this[LANGUAGE]; },
-    set(value) { this[LANGUAGE] = mustBeLanguage(value); },
+    set(value) { this[LANGUAGE] = makeLanguage(value); },
     enumerable: true,
   },
   HEADER_FILE_ONLY: {
     get() { return this[HEADER_FILE_ONLY]; },
-    set(value) { this[HEADER_FILE_ONLY] = mustBeBoolean(value); },
+    set(value) { this[HEADER_FILE_ONLY] = cloneBoolean(value); },
     enumerable: true,
   },
   COMPILE_FLAGS: {

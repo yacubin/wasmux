@@ -4,9 +4,9 @@ const path = require("node:path");
 const cxx = require("###/utils/CXX.js");
 const { loadWebcalls } = require("###/utils/LoadWebcalls.js");
 
-module.exports = function({depends, output})
+module.exports = function({input, output})
 {
-  const webcalls = loadWebcalls(depends, 'both');
+  const webcalls = loadWebcalls(input, 'both');
 
   let lines = [];
 

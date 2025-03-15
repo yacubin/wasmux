@@ -98,6 +98,8 @@ class GoalList {
   }
 
   addScript(script, name, depends, output, params, msg) {
+    if (this.hasScriptByOutput(output.toString()))
+      throw new Error(`Output "${output}" exists`);
     this._list.push({ name, type: SCRIPT_GOAL, script, output, depends, params, msg });
   }
 
@@ -291,31 +293,16 @@ function createMakeScriptContext()
     this.__syncCacheVariables();
   }
 
-  MakeScriptContext.prototype.addCustomScript = function(script, params) {
-    this.logDebug(currentFunctionName(), scopeValueAsPrimitives(script));
+  MakeScriptContext.prototype.addCustomTarget = function(name, params) {
+    this.logDebug(currentFunctionName(), name);
 
-    script = this.SOURCE_DIR.resolve(script);
-
-    const name = params.name || "";
-    if (name && _priv.goals.hasGoal(name))
-      throw new Error(`Name "${name}" exists`);
-
-    const { output } = params;
-    if (!params.output)
-      throw new Error("Output parameter missing");
-
-    if (!AbsolutePath.isAbsolute(output))
-      throw new Error(`Output "${output}" parameter is not an absolute path`);
-
-    if (_priv.goals.hasScriptByOutput(output.toString()))
-      throw new Error(`Output "${output}" exists`);
-
-    const depends = arrayWrapper(params.depends || []).map(i => this.SOURCE_DIR.resolve(i));
-    depends.push(script);
-    const msg = `Generating ${this.BINARY_DIR.relative(output).toString()}`;
-    _priv.goals.addScript(script, name, depends, output.toString(), scopeValueAsPrimitives(params), msg);
-
-    return params.output; // Or ${SCRIPT}
+    const target = bitmake.CustomTarget.create(this, name);
+    this.__addTarget(name, target);
+    if (params && params.script)
+      target.addScript(params.script, params);
+    else
+      throw new Error(`Uknown params ${JSON.stringify(params)}`);
+    return target;
   }
 
   MakeScriptContext.prototype.target = function(name) {
@@ -323,11 +310,10 @@ function createMakeScriptContext()
 
     let target = _priv.refTrgets[name];
     if (!target) {
-      target = bitmake.RefTarget.create(name);
-      _priv.refTrgets[name] = target;
+      _priv.refTrgets[name] = true;
     }
 
-    return target;
+    return name;
   }
 
   MakeScriptContext.prototype.dump = function() {
@@ -391,8 +377,7 @@ function createMakeScriptContext()
   MakeScriptContext.prototype.addStaticLibrary = function(name, ...sources) {
     this.logDebug(currentFunctionName(), name);
 
-    const targetScope = bitmake.Scope.create(this);
-    const target = bitmake.StaticLibrary.create(targetScope, name);
+    const target = bitmake.StaticLibrary.create(this, name);
     this.__addTarget(name, target);
 
     target.addSources(...sources);
@@ -402,8 +387,7 @@ function createMakeScriptContext()
   MakeScriptContext.prototype.addSharedLibrary = function(name, ...sources) {
     this.logDebug(currentFunctionName(), name);
 
-    const targetScope = bitmake.Scope.create(this);
-    const target = bitmake.SharedLibrary.create(targetScope, name);
+    const target = bitmake.SharedLibrary.create(this, name);
     this.__addTarget(name, target);
 
     target.addSources(...sources);
@@ -413,8 +397,7 @@ function createMakeScriptContext()
   MakeScriptContext.prototype.addExecutable = function(name) {
     this.logDebug(currentFunctionName(), name);
 
-    const targetScope = bitmake.Scope.create(this);
-    const target = bitmake.Executable.create(targetScope, name);
+    const target = bitmake.Executable.create(this, name);
     this.__addTarget(name, target);
 
     target.addSources(...sources);
@@ -444,12 +427,14 @@ function createMakeScriptContext()
     module(scopeValueAsPrimitives(options));
   }
 
-  function getPublicIncludes(target) {
+  function getPublicIncludes(target, publicOnly) {
     const includes = [];
     for (const lib of target.LIBRARIES) {
-      const iter = _priv.targets[lib.NAME];
-      includes.push(...getPublicIncludes(iter));
-      includes.push(...iter.PUBLIC_INCLUDES);
+      if (!publicOnly || lib.PUBLIC_ONLY) {
+        const iter = _priv.targets[lib.NAME];
+        includes.push(...getPublicIncludes(iter, true));
+        includes.push(...iter.getPublicIncludes());
+      }
     }
     return includes;
   }
@@ -457,11 +442,22 @@ function createMakeScriptContext()
   MakeScriptContext.prototype.__populateObjectGoals = async function() {
     this.logDebug(currentFunctionName());
 
-    const install_script = path.posix.join(path.posix.normalize(__dirname), "install_script.js");
+    const install_script = "install_script";
     const install_files = [];
 
     for (const [name, target] of Object.entries(_priv.targets)) {
-      const includes = [ ...target.TARGET_SCOPE.INCLUDES, ...getPublicIncludes(target), ...target.INCLUDES ];
+      if (target instanceof bitmake.CustomTarget) {
+        for (const script of target.SCRIPTS) {      
+          const depends = [ script.FILE.toString() ];
+          if (script.INPUT)
+            depends.push(script.INPUT.toString());
+          const msg = "Generating " + target.TARGET_SCOPE.BINARY_DIR.relative(script.OUTPUT);
+          _priv.goals.addScript(script.FILE, script.NAME, depends, script.OUTPUT.toString(), script.PARAMS, msg);
+        }
+        continue;
+      }
+
+      const includes = [ ...target.TARGET_SCOPE.INCLUDES, ...getPublicIncludes(target, false), ...target.INCLUDES ];
 
       const datafiles = target.SOURCES.filter(i => i.HEADER_FILE_ONLY).map(i => i.FILE.toString());
       const depends = [];

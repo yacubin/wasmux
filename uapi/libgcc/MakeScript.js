@@ -18,7 +18,7 @@ module.exports = (mk) => {
   ];
 
   const libgcc = mk.addStaticLibrary("libgcc", headers, sources);
-  libgcc.PREFIX = "";
+  libgcc.setPrefix("");
   libgcc.addIncludes(includes);
   libgcc.addLibraries(libraries);
   libgcc.addInstallDestination(mk.INSTALL_LIBDIR);

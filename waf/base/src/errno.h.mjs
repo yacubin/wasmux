@@ -21,5 +21,5 @@ export default async function(ctx, {input, output})
     throw "Not pass the output";
   }
 
-  base({ depends: input, output });
+  base({ input, output });
 }

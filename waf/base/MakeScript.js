@@ -86,16 +86,15 @@ module.exports = (mk) => {
   ];
 
   const errno_h = mk.BINARY_DIR.join("include/wasmux/errno.h");
-  mk.addCustomScript("src/errno.h.js", {
-    name: "<errno.h>",
-    depends: mk.PROJECT_SOURCE_DIR.join("data/errno.js"),
+  mk.addCustomTarget("<errno.h>", {
+    script: "src/errno.h.js",
+    input:  mk.PROJECT_SOURCE_DIR.join("data/errno.js"),
     output: errno_h,
   });
 
   const wabase = mk.addStaticLibrary("wabase", headers, sources, errno_h);
   wabase.addPublicIncludes(includes);
   wabase.getSourceFiles(headers).setInstallBaseDir("include");
-  wabase.getSourceFiles(headers).setInstallDestination(mk.INSTALL_INCLUDEDIR);
   wabase.getSourceFiles(errno_h).setInstallBaseDir(mk.BINARY_DIR.join("include"));
-  wabase.getSourceFiles(errno_h).setInstallDestination(mk.INSTALL_INCLUDEDIR);
+  wabase.getSourceFiles(headers, errno_h).setInstallDestination(mk.INSTALL_INCLUDEDIR);
 }

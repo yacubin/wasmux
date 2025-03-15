@@ -152,14 +152,11 @@ set(libc_SOURCES
   src/sys/futimens.cpp
   src/sys/stat.cpp
   src/sys/unistd/getpgrp.cpp
-  src/sys/unistd/tcgetpgrp.cpp # TODO: Move to termios library (and unistd)
   src/abort.cpp
   src/exit.cpp
   src/gethostname.cpp
-  src/isatty.cpp
   src/posix_openpt.cpp
   src/sbrk.cpp
-  src/ttyname.cpp
   src/usleep.cpp
 
   $<TARGET_OBJECTS:wabase>

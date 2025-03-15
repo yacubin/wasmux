@@ -22,6 +22,6 @@ module.exports = (mk) => {
   libcxx.addIncludes(includes);
   libcxx.addLibraries(libraries);
   libcxx.addInstallDestination(mk.INSTALL_LIBDIR);
-  libcxx.OUTPUT_NAME = "c++";
+  libcxx.setOutputName("c++");
   libcxx.getSourceFiles("stub/new.cpp").addCompileFlags("-fvisibility-global-new-delete=force-hidden");
 }

@@ -3,9 +3,9 @@ const path = require("node:path");
 
 const { loadWebcalls } = require("###/utils/LoadWebcalls.js");
 
-module.exports = function({depends, output})
+module.exports = function({input, output})
 {
-  const webcalls = loadWebcalls(depends, "main");
+  const webcalls = loadWebcalls(input, "main");
 
   let lines = [];
   for (let i = 0; i < webcalls.length; i++)

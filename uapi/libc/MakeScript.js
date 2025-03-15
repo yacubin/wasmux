@@ -155,14 +155,11 @@ module.exports = (mk) => {
     "src/sys/futimens.cpp",
     "src/sys/stat.cpp",
     "src/sys/unistd/getpgrp.cpp",
-    "src/sys/unistd/tcgetpgrp.cpp", // TODO: Move to termios library (and unistd)
     "src/abort.cpp",
     "src/exit.cpp",
     "src/gethostname.cpp",
-    "src/isatty.cpp",
     "src/posix_openpt.cpp",
     "src/sbrk.cpp",
-    "src/ttyname.cpp",
     "src/usleep.cpp",
   ];
 
@@ -175,39 +172,55 @@ module.exports = (mk) => {
     mk.target("wauser"),
   ];
 
-  const syscall_h = mk.addCustomTarget("<sys/syscall.h>");
-  syscall_h.addScript("src/sys/syscall.h.js");
-  syscall_h.addInput(mk.PROJECT_SOURCE_DIR.join("data/syscall.js"));
-  syscall_h.addOutput(mk.BINARY_DIR.join("include/sys/syscall.h"));
-  sources.push(syscall_h.OUTPUTS);
-
-  const ctype_h = mk.addCustomTarget("<ctype.h>");
-  syscall_h.addScript("configure_file");
-  ctype_h.addInput("include/ctype.h.in");
-  ctype_h.addOutput(mk.BINARY_DIR.join("include/ctype.h"));
-
-  const gnu_versions_h = mk.addConfigureFile("<gnu-versions.h>", {
-    depends: mk.SOURCE_DIR.join("include/gnu-versions.h.in"),
-    output: mk.BINARY_DIR.join("include/gnu-versions.h"),
+  const syscall_h = mk.BINARY_DIR.join("include/sys/syscall.h");
+  mk.addCustomTarget("<sys/syscall.h>", {
+    script: "src/sys/syscall.h.js",
+    input: mk.PROJECT_SOURCE_DIR.join("data/syscall.js"),
+    output: syscall_h,
   });
 
-  const stdlib_h = mk.addConfigureFile("<stdlib.h>", {
-    depends: mk.SOURCE_DIR.join("include/stdlib.h.in"),
-    output: mk.BINARY_DIR.join("include/stdlib.h"),
+  const ctype_h = mk.BINARY_DIR.join("include/ctype.h");
+  mk.addCustomTarget("<ctype.h>", {
+    script: "configure_file",
+    input: mk.SOURCE_DIR.join("include/ctype.h.in"),
+    output: ctype_h,
   });
 
-  const unistd_h = mk.addConfigureFile("<unistd.h>", {
-    depends: mk.SOURCE_DIR.join("include/unistd.h.in"),
-    output: mk.BINARY_DIR.join("include/unistd.h"),
+  const gnu_versions_h = mk.BINARY_DIR.join("include/gnu-versions.h");
+  mk.addCustomTarget("<gnu-versions.h>", {
+    script: "configure_file",
+    input: mk.SOURCE_DIR.join("include/gnu-versions.h.in"),
+    output: gnu_versions_h,
   });
 
-  const libc = mk.addStaticLibrary("libc", headers, sources, ctype_h, gnu_versions_h, stdlib_h, unistd_h);
+  const stdlib_h = mk.BINARY_DIR.join("include/stdlib.h");
+  mk.addCustomTarget("<stdlib.h>", {
+    script: "configure_file",
+    input: mk.SOURCE_DIR.join("include/stdlib.h.in"),
+    output: stdlib_h,
+  });
+
+  const unistd_h = mk.BINARY_DIR.join("include/unistd.h");
+  mk.addCustomTarget("<unistd.h>", {
+    script: "configure_file",
+    input: mk.SOURCE_DIR.join("include/unistd.h.in"),
+    output: unistd_h,
+  });
+
+  const features_h = mk.BINARY_DIR.join("include/features.h");
+  mk.addCustomTarget("<features.h>", {
+    script: "configure_file",
+    input: mk.SOURCE_DIR.join(`features/${mk.WASMUX_LIBC_FEATURES}-features.h`),
+    output: features_h,
+  });
+
+  const libc = mk.addStaticLibrary("libc", headers, sources);
+  libc.addSources(syscall_h, ctype_h, gnu_versions_h, stdlib_h, unistd_h, features_h);
   libc.addPublicIncludes(includes);
   libc.addPublicLibraries(libraries);
   libc.addInstallDestination(mk.INSTALL_LIBDIR);
-  libc.PREFIX = "";
+  libc.setPrefix("");
   libc.getSourceFiles(headers).setInstallBaseDir("include");
-  libc.getSourceFiles(headers).setInstallDestination(mk.INSTALL_INCLUDEDIR);
   libc.getSourceFiles(syscall_h).setInstallBaseDir(mk.BINARY_DIR.join("include"));
-  libc.getSourceFiles(syscall_h).setInstallDestination(mk.INSTALL_INCLUDEDIR);
+  libc.getSourceFiles(headers, syscall_h, ctype_h, gnu_versions_h, stdlib_h, unistd_h, features_h).setInstallDestination(mk.INSTALL_INCLUDEDIR);
 }

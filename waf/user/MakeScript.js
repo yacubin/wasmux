@@ -20,10 +20,11 @@ module.exports = (mk) => {
     mk.target("wabase"),
   ];
 
-  const arch_syscall_h = mk.addCustomScript("src/arch-syscall.h.js", {
-    name: "<wasmux/arch-syscall.h>",
-    depends: mk.PROJECT_SOURCE_DIR.join("data/syscall.js"),
-    output: mk.BINARY_DIR.join("include/wasmux/arch-syscall.h"),
+  const arch_syscall_h = mk.BINARY_DIR.join("include/wasmux/arch-syscall.h");
+  mk.addCustomTarget("<wasmux/arch-syscall.h>", {
+    script: "src/arch-syscall.h.js",
+    input: mk.PROJECT_SOURCE_DIR.join("data/syscall.js"),
+    output: arch_syscall_h,
   });
 
   const wauser = mk.addStaticLibrary("wauser", headers, sources, arch_syscall_h);

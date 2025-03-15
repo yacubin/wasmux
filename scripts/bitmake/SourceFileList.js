@@ -2,7 +2,7 @@
 
 const { SourceFile } = require("###/bitmake/SourceFile.js");
 
-const SOURCES = Symbol("sources");
+const SOURCES = Symbol("SOURCES");
 
 function SourceFileList(scope, sources) {
   this[SOURCES] = [];

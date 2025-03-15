@@ -30,8 +30,8 @@ module.exports = (mk) => {
     mk.addSubdirectory("regex");
     mk.addSubdirectory("glob");
     mk.addSubdirectory("fnmatch");
-    mk.addSubdirectory("ulinux");
-    mk.addSubdirectory("libc");*/
+    mk.addSubdirectory("ulinux");*/
+    mk.addSubdirectory("libc");
   }
   if (mk.WASMUX_ENABLE_LIBGCC) {
     mk.addSubdirectory("libgcc");

@@ -3,9 +3,9 @@ const path = require("node:path");
 
 const CXX = require("###/utils/CXX.js");
 
-module.exports = function({depends, output})
+module.exports = function({input, output})
 {
-  const config = require(depends);
+  const config = require(input);
 
   let errors = [];
   let aliases = [];

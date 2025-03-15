@@ -1,77 +1,37 @@
 "use strict";
 
-const path = require("node:path");
-
 const { arrayWrapper } = require("###/utils/Primitives.js");
-const { AbsolutePath } = require("###/utils/AbsolutePath.js");
+const { cloneString } = require("###/bitmake/StrictType.js");
+const { Scope } = require("###/bitmake/Scope.js");
 const { SourceFile } = require("###/bitmake/SourceFile.js");
 const { SourceFileList } = require("###/bitmake/SourceFileList.js");
+const { IncludeDirectory } = require("###/bitmake/IncludeDirectory.js");
+const { LinkLibrary } = require("###/bitmake/LinkLibrary.js");
 
-const NAME            = Symbol("NAME");
-const TARGET_SCOPE    = Symbol("TARGET_SCOPE");
-const OUTPUT_NAME     = Symbol("OUTPUT_NAME");
-const COMPILE_OPTIONS = Symbol("COMPILE_OPTIONS");
-
-function mustBeBoolean(value) {
-  if (typeof value === "boolean")
-    return value;
-  throw new Error(`Value ${value} is not a boolean`);
-}
-
-function mustBeString(value) {
-  if (typeof value === "string")
-    return value;
-  throw new Error(`Value ${value} is not a string`);
-}
-
-function mustBeAbsolutePath(value) {
-  if (value instanceof AbsolutePath)
-    return value;
-  throw new Error(`Value ${value} is not a AbsolutePath`);
-}
+const NAME                = Symbol("NAME");
+const TARGET_SCOPE        = Symbol("TARGET_SCOPE");
+const OUTPUT_NAME         = Symbol("OUTPUT_NAME");
+const COMPILE_OPTIONS     = Symbol("COMPILE_OPTIONS");
+const PREFIX              = Symbol("PREFIX");
+const SUFFIX              = Symbol("SUFFIX");
+const LINK_OPTIONS        = Symbol("LINK_OPTIONS");
+const INCLUDES            = Symbol("INCLUDES");
+const SOURCES             = Symbol("SOURCES");
+const LIBRARIES           = Symbol("LIBRARIES");
+const INSTALL_DESTINATION = Symbol("INSTALL_DESTINATION");
 
 function BaseTarget(scope, name) {
-  Object.defineProperties(this, {
-    PREFIX: {
-      value: "",
-      writable: true,
-      enumerable: true,
-    },
-    SUFFIX: {
-      value: "",
-      writable: true,
-      enumerable: true,
-    },
-    LINK_OPTIONS: {
-      value: "",
-      writable: true,
-      enumerable: true,
-    },
-    INCLUDES: {
-      value: [],
-      writable: false,
-      enumerable: true,
-    },
-    SOURCES: {
-      value: [],
-      writable: false,
-      enumerable: true,
-    },
-    LIBRARIES: {
-      value: [],
-      writable: false,
-      enumerable: true,
-    },
-    INSTALL_DESTINATION: {
-      value: null,
-      writable: true,
-      enumerable: true,
-    },
-  });
-  this[NAME] = name;
-  this[TARGET_SCOPE] = scope;
-  this[OUTPUT_NAME] = name;
+  this[NAME] = cloneString(name);
+  this[TARGET_SCOPE] = Scope.create(scope);
+  this[OUTPUT_NAME] = cloneString(name);
   this[COMPILE_OPTIONS] = [];
+  this[PREFIX] = "";
+  this[SUFFIX] = "";
+  this[LINK_OPTIONS] = [];
+  this[INCLUDES] = [];
+  this[SOURCES] = [];
+  this[LIBRARIES] = [];
+  this[INSTALL_DESTINATION] = null;
 }
 
 BaseTarget.prototype = Object.create(Object.prototype, {
@@ -89,11 +49,42 @@ BaseTarget.prototype = Object.create(Object.prototype, {
   },
   OUTPUT_NAME: {
     get() { return this[OUTPUT_NAME]; },
-    set(value) { this[OUTPUT_NAME] = mustBeString(value); },
+    set(value) { this[OUTPUT_NAME] = cloneString(value); },
     enumerable: true,
   },
   COMPILE_OPTIONS: {
     get() { return this[COMPILE_OPTIONS]; },
+    enumerable: true,
+  },
+  PREFIX: {
+    get() { return this[PREFIX]; },
+    set(value) { this[PREFIX] = value; },
+    enumerable: true,
+  },
+  SUFFIX: {
+    get() { return this[SUFFIX]; },
+    set(value) { this[SUFFIX] = value; },
+    enumerable: true,
+  },
+  LINK_OPTIONS: {
+    get() { return this[LINK_OPTIONS]; },
+    enumerable: true,
+  },
+  INCLUDES: {
+    get() { return this[INCLUDES]; },
+    enumerable: true,
+  },
+  SOURCES: {
+    get() { return this[SOURCES]; },
+    enumerable: true,
+  },
+  LIBRARIES: {
+    get() { return this[LIBRARIES]; },
+    enumerable: true,
+  },
+  INSTALL_DESTINATION: {
+    get() { return this[INSTALL_DESTINATION]; },
+    set(value) { this[INSTALL_DESTINATION] = value; },
     enumerable: true,
   },
   FILE_DIR: {
@@ -113,14 +104,14 @@ BaseTarget.prototype = Object.create(Object.prototype, {
 BaseTarget.prototype.addSources = function(...sources) {
   for (const iter of sources) {
     for (let it of arrayWrapper(iter))
-      this.SOURCES.push(SourceFile.create(this, it));
+      this[SOURCES].push(SourceFile.create(this, it));
   }
 }
 
 BaseTarget.prototype.addIncludes = function(...includes) {
   for (const iter of includes) {
     for (const it of arrayWrapper(iter)) {
-      this.INCLUDES.push(this[TARGET_SCOPE].SOURCE_DIR.resolve(it));
+      this[INCLUDES].push(IncludeDirectory.createPrivate(this[TARGET_SCOPE], it));
     }
   }
 }
@@ -128,7 +119,7 @@ BaseTarget.prototype.addIncludes = function(...includes) {
 BaseTarget.prototype.addLibraries = function(...libraries) {
   for (const iter of libraries) {
     for (const it of arrayWrapper(iter))
-      this.LIBRARIES.push(it);
+      this[LIBRARIES].push(LinkLibrary.createPrivate(this[TARGET_SCOPE], it));
   }
 }
 
@@ -140,7 +131,7 @@ BaseTarget.prototype.addCompileOptions = function(...options) {
 }
 
 BaseTarget.prototype.addInstallDestination = function(dir) {
-  this.INSTALL_DESTINATION = dir;
+  this[INSTALL_DESTINATION] = dir;
 }
 
 BaseTarget.prototype.getSourceFiles = function(...sources) {
@@ -148,13 +139,25 @@ BaseTarget.prototype.getSourceFiles = function(...sources) {
   for (const iter of sources) {
     for (let it of arrayWrapper(iter)) {
       const filename = this[TARGET_SCOPE].SOURCE_DIR.resolve(it).toString();
-      const src = this.SOURCES.find(i => i.FILE.toString() === filename);
+      const src = this[SOURCES].find(i => i.FILE.toString() === filename);
       if (!src)
         throw new Error(`Cannot find "${it}"`);
       result.push(src);
     }
   }
-  return SourceFileList.create(this[TARGET_SCOPE], result.length ? result : this.SOURCES);
+  return SourceFileList.create(this[TARGET_SCOPE], result.length ? result : this[SOURCES]);
+}
+
+BaseTarget.prototype.setPrefix = function(prefix) {
+  this[PREFIX] = prefix;
+}
+
+BaseTarget.prototype.setSuffix = function(suffix) {
+  this[SUFFIX] = suffix;
+}
+
+BaseTarget.prototype.setOutputName = function(outputName) {
+  this[OUTPUT_NAME] = outputName;
 }
 
 BaseTarget.prototype.toJSON = function() {
@@ -166,18 +169,6 @@ BaseTarget.prototype.toJSON = function() {
 
 function BaseLibrary(scope, name) {
   BaseTarget.call(this, scope, name);
-  Object.defineProperties(this, {
-    PUBLIC_INCLUDES: {
-      value: [],
-      writable: false,
-      enumerable: true,
-    },
-    PUBLIC_LIBRARIES: {
-      value: [],
-      writable: false,
-      enumerable: true,
-    },
-  });
 }
 
 BaseLibrary.prototype = Object.create(BaseTarget.prototype, {
@@ -192,26 +183,31 @@ BaseLibrary.prototype = Object.create(BaseTarget.prototype, {
 BaseLibrary.prototype.addPublicIncludes = function(...includes) {
   for (const iter of includes) {
     for (const it of arrayWrapper(iter)) {
-      this.INCLUDES.push(this[TARGET_SCOPE].SOURCE_DIR.resolve(it));
-      this.PUBLIC_INCLUDES.push(this[TARGET_SCOPE].SOURCE_DIR.resolve(it));
+      this[INCLUDES].push(IncludeDirectory.createPublic(this[TARGET_SCOPE], it));
     }
   }
 }
 
 BaseLibrary.prototype.addPublicLibraries = function(...libraries) {
   for (const iter of libraries) {
-    for (const it of arrayWrapper(iter)) {
-      this.LIBRARIES.push(it);
-      this.PUBLIC_LIBRARIES.push(it);
-    }
+    for (const it of arrayWrapper(iter))
+      this[LIBRARIES].push(LinkLibrary.createPublic(this[TARGET_SCOPE], it));
   }
+}
+
+BaseLibrary.prototype.getPrivateIncludes = function() {
+  return this[INCLUDES].filter(i => !i.PUBLIC_ONLY);
+}
+
+BaseLibrary.prototype.getPublicIncludes = function() {
+  return this[INCLUDES].filter(i => i.PUBLIC_ONLY);
 }
 
 function StaticLibrary(scope, name) {
   BaseLibrary.call(this, scope, name);
-  this.PREFIX = scope.STATIC_LIBRARY_PREFIX;
-  this.SUFFIX = scope.STATIC_LIBRARY_SUFFIX;
-  this.LINK_OPTIONS = scope.STATIC_LINKER_FLAGS;
+  this.PREFIX = this[TARGET_SCOPE].STATIC_LIBRARY_PREFIX;
+  this.SUFFIX = this[TARGET_SCOPE].STATIC_LIBRARY_SUFFIX;
+  this.LINK_OPTIONS.push(...this[TARGET_SCOPE].STATIC_LINKER_FLAGS);
 }
 
 StaticLibrary.prototype = Object.create(BaseLibrary.prototype, {
@@ -229,9 +225,9 @@ StaticLibrary.create = (scope, name) => {
 
 function SharedLibrary(scope, name) {
   BaseLibrary.call(this, scope, name);
-  this.PREFIX = scope.SHARED_LIBRARY_PREFIX;
-  this.SUFFIX = scope.SHARED_LIBRARY_SUFFIX;
-  this.LINK_OPTIONS = scope.SHARED_LINKER_FLAGS;
+  this.PREFIX = this[TARGET_SCOPE].SHARED_LIBRARY_PREFIX;
+  this.SUFFIX = this[TARGET_SCOPE].SHARED_LIBRARY_SUFFIX;
+  this.LINK_OPTIONS.push(...this[TARGET_SCOPE].SHARED_LINKER_FLAGS);
 }
 
 SharedLibrary.prototype = Object.create(BaseLibrary.prototype, {
@@ -249,9 +245,8 @@ SharedLibrary.create = (scope, name) => {
 
 function Executable(scope, name) {
   BaseTarget.call(this, scope, name);
-  this.PREFIX = "";
-  this.SUFFIX = scope.EXECUTABLE_SUFFIX;
-  this.LINK_OPTIONS = scope.EXE_LINKER_FLAGS;
+  this.SUFFIX = this[TARGET_SCOPE].EXECUTABLE_SUFFIX;
+  this.LINK_OPTIONS.push(...this[TARGET_SCOPE].EXE_LINKER_FLAGS);
 }
 
 Executable.prototype = Object.create(BaseTarget.prototype, {

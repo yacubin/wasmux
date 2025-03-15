@@ -3,7 +3,10 @@ set(termios_HEADERS
   )
 
 set(termios_SOURCES
+  src/isatty.cpp
+  src/tcgetpgrp.cpp
   src/termios.cpp
+  src/ttyname.cpp
   )
 
 set(termios_INCLUDES

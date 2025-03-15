@@ -67,6 +67,13 @@ class AbsolutePath {
   }
 };
 
+function cloneAbsolutePath(value) {
+  if (value instanceof AbsolutePath)
+    return value;
+  throw new Error(`The '${value}' is not a AbsolutePath`);
+}
+
 module.exports = {
   AbsolutePath,
+  cloneAbsolutePath,
 };

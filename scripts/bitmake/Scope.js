@@ -5,6 +5,7 @@ const { AbsolutePath } = require("###/utils/AbsolutePath.js");
 const BUILD_TYPE            = Symbol("BUILD_TYPE");
 const DESTDIR               = Symbol("DESTDIR");
 const INSTALL_PREFIX        = Symbol("INSTALL_PREFIX");
+const SCRIPT_FILE           = Symbol("SCRIPT_FILE");
 const SOURCE_DIR            = Symbol("SOURCE_DIR");
 const BINARY_DIR            = Symbol("BINARY_DIR");
 const ASM_COMPILER          = Symbol("ASM_COMPILER");
@@ -33,6 +34,7 @@ function Scope(other) {
   this[BUILD_TYPE]            = other.BUILD_TYPE;
   this[DESTDIR]               = AbsolutePath.create(other.DESTDIR);
   this[INSTALL_PREFIX]        = AbsolutePath.create(other.INSTALL_PREFIX);
+  this[SCRIPT_FILE]           = AbsolutePath.create(other.SCRIPT_FILE);
   this[SOURCE_DIR]            = AbsolutePath.create(other.SOURCE_DIR);
   this[BINARY_DIR]            = AbsolutePath.create(other.BINARY_DIR);
   this[ASM_COMPILER]          = other.ASM_COMPILER;
@@ -73,6 +75,10 @@ Scope.prototype = Object.create(Object.prototype, {
   },
   INSTALL_PREFIX: {
     get () { return this[INSTALL_PREFIX]; },
+    enumerable: true,
+  },
+  SCRIPT_FILE: {
+    get () { return this[SCRIPT_FILE]; },
     enumerable: true,
   },
   SOURCE_DIR: {
