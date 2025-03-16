@@ -6,7 +6,9 @@ const { Scope } = require("###/bitmake/Scope.js");
 const { SourceFile } = require("###/bitmake/SourceFile.js");
 const { SourceFileList } = require("###/bitmake/SourceFileList.js");
 const { IncludeDirectory } = require("###/bitmake/IncludeDirectory.js");
-const { LinkLibrary } = require("###/bitmake/LinkLibrary.js");
+const { InterfaceTarget } = require("###/bitmake/InterfaceTarget.js");
+const { InterfaceIncludes } = require("./InterfaceIncludes");
+const { AbsolutePath } = require("###/utils/AbsolutePath.js");
 
 const NAME                = Symbol("NAME");
 const TARGET_SCOPE        = Symbol("TARGET_SCOPE");
@@ -111,7 +113,12 @@ BaseTarget.prototype.addSources = function(...sources) {
 BaseTarget.prototype.addIncludes = function(...includes) {
   for (const iter of includes) {
     for (const it of arrayWrapper(iter)) {
-      this[INCLUDES].push(IncludeDirectory.createPrivate(this[TARGET_SCOPE], it));
+      let VALUE;
+      if (typeof it === "string" || AbsolutePath.isAbsolute(it))
+        VALUE = IncludeDirectory.create(this[TARGET_SCOPE], it);
+      else
+        VALUE = InterfaceIncludes.asInstance(it);
+      this[INCLUDES].push({VALUE});
     }
   }
 }
@@ -119,7 +126,7 @@ BaseTarget.prototype.addIncludes = function(...includes) {
 BaseTarget.prototype.addLibraries = function(...libraries) {
   for (const iter of libraries) {
     for (const it of arrayWrapper(iter))
-      this[LIBRARIES].push(LinkLibrary.createPrivate(this[TARGET_SCOPE], it));
+      this[LIBRARIES].push({ VALUE: InterfaceTarget.asInstance(it) });
   }
 }
 
@@ -160,6 +167,14 @@ BaseTarget.prototype.setOutputName = function(outputName) {
   this[OUTPUT_NAME] = outputName;
 }
 
+BaseTarget.prototype.getIncludes = function() {
+  return this[INCLUDES].map(i => i.VALUE);
+}
+
+BaseTarget.prototype.getLibraries = function() {
+  return this[LIBRARIES].map(i => i.VALUE);
+}
+
 BaseTarget.prototype.toJSON = function() {
   const json = {};
   for (const key in this)
@@ -183,24 +198,38 @@ BaseLibrary.prototype = Object.create(BaseTarget.prototype, {
 BaseLibrary.prototype.addPublicIncludes = function(...includes) {
   for (const iter of includes) {
     for (const it of arrayWrapper(iter)) {
-      this[INCLUDES].push(IncludeDirectory.createPublic(this[TARGET_SCOPE], it));
+      let VALUE;
+      if (typeof it === "string" || AbsolutePath.isAbsolute(it))
+        VALUE = IncludeDirectory.create(this[TARGET_SCOPE], it);
+      else
+        VALUE = InterfaceIncludes.asInstance(it);
+      this[INCLUDES].push({VALUE, PUBLIC_ONLY: true});
     }
   }
 }
 
-BaseLibrary.prototype.addPublicLibraries = function(...libraries) {
-  for (const iter of libraries) {
-    for (const it of arrayWrapper(iter))
-      this[LIBRARIES].push(LinkLibrary.createPublic(this[TARGET_SCOPE], it));
-  }
-}
-
 BaseLibrary.prototype.getPrivateIncludes = function() {
-  return this[INCLUDES].filter(i => !i.PUBLIC_ONLY);
+  return this[INCLUDES].filter(i => !i.PUBLIC_ONLY).map(i => i.VALUE);
 }
 
 BaseLibrary.prototype.getPublicIncludes = function() {
-  return this[INCLUDES].filter(i => i.PUBLIC_ONLY);
+  return this[INCLUDES].filter(i => i.PUBLIC_ONLY).map(i => i.VALUE);
+}
+
+BaseLibrary.prototype.addPublicLibraries = function(...libraries) {
+  for (const iter of libraries) {
+    for (const it of arrayWrapper(iter)) {
+      this[LIBRARIES].push({VALUE: InterfaceTarget.asInstance(it), PUBLIC_ONLY: true});
+    }
+  }
+}
+
+BaseLibrary.prototype.getPrivateLibraries = function() {
+  return this[LIBRARIES].filter(i => !i.PUBLIC_ONLY).map(i => i.VALUE);
+}
+
+BaseLibrary.prototype.getPublicLibraries = function() {
+  return this[LIBRARIES].filter(i => i.PUBLIC_ONLY).map(i => i.VALUE);
 }
 
 function StaticLibrary(scope, name) {

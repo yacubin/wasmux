@@ -1,23 +1,15 @@
 "use strict";
 
-const { cloneBoolean } = require("###/bitmake/StrictType.js");
-
 const NAME         = Symbol("NAME");
 const PATH         = Symbol("PATH");
-const PUBLIC_ONLY  = Symbol("PUBLIC_ONLY");
 
-function IncludeDirectory(scope, dir, publicOnly) {
+function IncludeDirectory(scope, dir) {
   this[NAME] = dir.toString();
   this[PATH] = scope.SOURCE_DIR.resolve(dir);
-  this[PUBLIC_ONLY] = cloneBoolean(publicOnly);
 }
 
-IncludeDirectory.createPublic = function(scope, dir) {
-  return Object.seal(new IncludeDirectory(scope, dir, true));
-}
-
-IncludeDirectory.createPrivate = function(scope, dir) {
-  return Object.seal(new IncludeDirectory(scope, dir, false));
+IncludeDirectory.create = function(scope, dir) {
+  return Object.seal(new IncludeDirectory(scope, dir));
 }
 
 IncludeDirectory.prototype = Object.create(Object.prototype, {
@@ -31,11 +23,6 @@ IncludeDirectory.prototype = Object.create(Object.prototype, {
   },
   PATH: {
     get() { return this[PATH]; },
-    enumerable: true,
-  },
-  PUBLIC_ONLY: {
-    get () { return this[PUBLIC_ONLY]; },
-    set(value) { this[PUBLIC_ONLY] = cloneBoolean(value); },
     enumerable: true,
   },
 });

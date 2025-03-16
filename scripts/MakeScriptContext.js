@@ -310,10 +310,11 @@ function createMakeScriptContext()
 
     let target = _priv.refTrgets[name];
     if (!target) {
-      _priv.refTrgets[name] = true;
+      target = bitmake.InterfaceTarget.create(name);
+      _priv.refTrgets[name] = target;
     }
 
-    return name;
+    return target;
   }
 
   MakeScriptContext.prototype.dump = function() {
@@ -427,16 +428,15 @@ function createMakeScriptContext()
     module(scopeValueAsPrimitives(options));
   }
 
-  function getPublicIncludes(target, publicOnly) {
-    const includes = [];
-    for (const lib of target.LIBRARIES) {
-      if (!publicOnly || lib.PUBLIC_ONLY) {
-        const iter = _priv.targets[lib.NAME];
-        includes.push(...getPublicIncludes(iter, true));
-        includes.push(...iter.getPublicIncludes());
+  function pushPublicIncludes(includes, libraries) {
+    for (const lib of libraries) {
+      const iter = _priv.targets[lib.NAME];
+      pushPublicIncludes(includes, iter.getPublicLibraries());
+      for (const it of iter.getPublicIncludes()) {
+        if (!includes.includes(it))
+          includes.push(it);
       }
     }
-    return includes;
   }
 
   MakeScriptContext.prototype.__populateObjectGoals = async function() {
@@ -457,7 +457,16 @@ function createMakeScriptContext()
         continue;
       }
 
-      const includes = [ ...target.TARGET_SCOPE.INCLUDES, ...getPublicIncludes(target, false), ...target.INCLUDES ];
+      const includes = [ ...target.TARGET_SCOPE.INCLUDES ];
+      pushPublicIncludes(includes, target.getLibraries());
+      for (const iter of target.getIncludes()) {
+        if (iter instanceof bitmake.InterfaceIncludes) {
+          pushPublicIncludes(includes, [ iter ]);
+        }
+        else {
+          includes.push(iter);
+        }
+      }
 
       const datafiles = target.SOURCES.filter(i => i.HEADER_FILE_ONLY).map(i => i.FILE.toString());
       const depends = [];

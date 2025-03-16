@@ -2,19 +2,16 @@ const http = require('http');
 const https = require('https');
 
 function httpRequest(url, options, callback) {
-  if (url.startsWith("http://")) {
-    return http.request(url, options, callback);
-  }
-  if (url.startsWith("https://")) {
+  if (url.startsWith("https://"))
     return https.request(url, options, callback);
-  }
-  return null;
+  return http.request(url, options, callback);
 };
 
 function requestGet(url) {
   return new Promise((resolve, reject) => {
     const options = {
-      method: 'GET'
+      method: 'GET',
+      timeout: 5000,
     };
 
     const onError = (err) => {
@@ -23,53 +20,43 @@ function requestGet(url) {
       reject(message);
     };
 
-    const callback = (response) => {
-      if (response.statusCode === 301 || response.statusCode === 302) {
+    const onTimeout = (request) => {
+      request.destroy();
+      console.error("  Timeout", url);
+      reject("Timeout");
+    }
+
+    const onRequest = (response) => {
+      switch (response.statusCode) {
+      case 200:
+        const chunks = [];
+        response.on("data", chunk => chunks.push(chunk));
+        response.on("end", () => resolve(Buffer.concat(chunks)));
+        response.on('close', () => console.log('  Close'));
+        break;
+
+      case 301:
+      case 302:
+        response.resume();
         console.log(`Redirect to ${response.headers.location}`);
-        const request = httpRequest(response.headers.location, options, callback);
-        if (!request) {
-          const message = "Url scheme not supported for " + url;
-          console.error(message);
-          reject(message);
-          return;
-        }
+        const request = httpRequest(response.headers.location, options, onRequest);
+        request.on('timeout', onTimeout.bind(null, request));
         request.on('error', onError);
         request.end();
-        return;
-      }
+        break;
 
-      if (response.statusCode !== 200) {
+      default:
         response.resume();
         const message = "Did not get an OK from the server. Code: " + response.statusCode;
         console.error(message);
         reject(message);
-        return;
+        break;
       }
-
-      const chunks = [];
-
-      response.on("data", chunk => {
-        chunks.push(chunk);
-      });
-
-      response.on("end", () => {
-        resolve(Buffer.concat(chunks));
-      });
-
-      response.on('close', () => {
-        console.log('  Close');
-      });
     };
 
     console.log(`wget ${url}`);
-    const request = httpRequest(url, options, callback);
-    if (!request) {
-      const message = "Url scheme not supported for " + url;
-      console.error(message);
-      reject(message);
-      return;
-    }
-
+    const request = httpRequest(url, options, onRequest);
+    request.on('timeout', onTimeout.bind(null, request));
     request.on('error', onError);
     request.end();
   });

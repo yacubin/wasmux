@@ -29,9 +29,8 @@ module.exports = (mk) => {
 
   const wauser = mk.addStaticLibrary("wauser", headers, sources, arch_syscall_h);
   wauser.addPublicIncludes(includes);
-  wauser.getSourceFiles(headers).setInstallBaseDir("include");
-  wauser.getSourceFiles(headers).setInstallDestination(mk.INSTALL_INCLUDEDIR);
-  wauser.getSourceFiles(arch_syscall_h).setInstallBaseDir(mk.BINARY_DIR.join("include"));
-  wauser.getSourceFiles(arch_syscall_h).setInstallDestination(mk.INSTALL_INCLUDEDIR);
   wauser.addPublicLibraries(libraries);
+  wauser.getSourceFiles(headers).setInstallBaseDir("include");
+  wauser.getSourceFiles(arch_syscall_h).setInstallBaseDir(mk.BINARY_DIR.join("include"));
+  wauser.getSourceFiles(headers, arch_syscall_h).setInstallDestination(mk.INSTALL_INCLUDEDIR);
 }

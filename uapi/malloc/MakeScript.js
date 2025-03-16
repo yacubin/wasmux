@@ -2,15 +2,16 @@
 
 module.exports = (mk) => {
   const headers = [
-    "malloc.h",
+    "include/malloc.h",
   ];
 
   const sources = [
-    "malloc.cpp",
+    "src/malloc.cpp",
   ];
 
   const includes = [
     mk.SOURCE_DIR.join("include"),
+    mk.target("libc").INCLUDES,
   ];
 
   const libraries = [
@@ -18,8 +19,8 @@ module.exports = (mk) => {
   ];
 
   const malloc = mk.addStaticLibrary("malloc", headers, sources);
-  malloc.addIncludes(mk.target("wauser").INCLUDES);
   malloc.addPublicIncludes(includes);
   malloc.addPublicLibraries(libraries);
-  malloc.addInstallHeaders(headers);
+  malloc.getSourceFiles(headers).setInstallBaseDir("include");
+  malloc.getSourceFiles(headers).setInstallDestination(mk.INSTALL_INCLUDEDIR);
 }

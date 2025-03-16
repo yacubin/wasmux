@@ -57,6 +57,7 @@ function downloadFile(url, file, options)
 
       case 301:
       case 302:
+        response.resume();
         console.log(`Resolving ${response.headers.location}`);
         startRequest(response.headers.location, onRequest);
         break;

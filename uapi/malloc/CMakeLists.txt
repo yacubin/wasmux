@@ -1,13 +1,13 @@
 set(malloc_HEADERS
-  malloc.h
+  include/malloc.h
   )
 
 set(malloc_SOURCES
-  malloc.cpp
+  src/malloc.cpp
   )
 
 set(malloc_INCLUDES
-  "${CMAKE_CURRENT_SOURCE_DIR}"
+  "${CMAKE_CURRENT_SOURCE_DIR}/include"
   $<TARGET_PROPERTY:libc,INTERFACE_INCLUDE_DIRECTORIES>
   )
 
@@ -27,5 +27,5 @@ target_link_libraries(malloc PRIVATE ${malloc_LIBRARIES})
 set_target_properties(malloc PROPERTIES STDLIB_INCLUDE "#include <alloca.h>;#include <malloc.h>")
 
 if (WASMUX_ENABLE_INSTALL_HEADERS)
-  WX_INSTALL_HEADERS(HEADERS ${malloc_HEADERS} DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+  WX_INSTALL_HEADERS(HEADERS ${malloc_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()
