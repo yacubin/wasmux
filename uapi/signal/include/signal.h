@@ -9,7 +9,6 @@
 
 #include <wasmux/types.h>
 #include <wasmux/signal.h>
-#include <setjmp.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -48,6 +47,10 @@ typedef void (*sighandler_t) (int);
 #define SIG_ERR ((sighandler_t)-1)
 #define SIG_DFL ((sighandler_t)0)
 #define SIG_IGN ((sighandler_t)1)
+
+typedef struct {
+  unsigned long sig[_NSIG_WORDS];
+} sigset_t;
 
 struct sigaction {
   union {

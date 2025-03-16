@@ -20,7 +20,6 @@ set(libc_HEADERS
   include/sys/resource.h
   include/sys/select.h
   include/sys/sendfile.h
-  include/sys/signalfd.h
   include/sys/socket.h
   include/sys/stat.h
   include/sys/statfs.h
@@ -78,7 +77,6 @@ set(libc_SOURCES
   stub/sys/resource.cpp
   stub/sys/select.cpp
   stub/sys/sendfile.cpp
-  stub/sys/signalfd.cpp
   stub/sys/socket.cpp
   stub/sys/stat.cpp
   stub/sys/statfs.cpp

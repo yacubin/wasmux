@@ -18,7 +18,7 @@ function requestGet(url) {
     };
 
     const onError = (err) => {
-      const message = `Encountered an error trying to make a request: ${err.message}`;
+      const message = "Encountered an error trying to make a request: " + err.message;
       console.error(message, err);
       reject(message);
     };
@@ -28,7 +28,9 @@ function requestGet(url) {
         console.log(`Redirect to ${response.headers.location}`);
         const request = httpRequest(response.headers.location, options, callback);
         if (!request) {
-          reject(`Url scheme not supported for ${url}`);
+          const message = "Url scheme not supported for " + url;
+          console.error(message);
+          reject(message);
           return;
         }
         request.on('error', onError);
@@ -38,7 +40,9 @@ function requestGet(url) {
 
       if (response.statusCode !== 200) {
         response.resume();
-        reject(`Did not get an OK from the server. Code: ${response.statusCode}`);
+        const message = "Did not get an OK from the server. Code: " + response.statusCode;
+        console.error(message);
+        reject(message);
         return;
       }
 
@@ -60,7 +64,9 @@ function requestGet(url) {
     console.log(`wget ${url}`);
     const request = httpRequest(url, options, callback);
     if (!request) {
-      reject(`Url scheme not supported for ${url}`);
+      const message = "Url scheme not supported for " + url;
+      console.error(message);
+      reject(message);
       return;
     }
 

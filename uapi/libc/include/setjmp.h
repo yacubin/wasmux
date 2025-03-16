@@ -7,7 +7,7 @@
 #ifndef _SETJMP_H
 #define _SETJMP_H
 
-#include <wasmux/signal.h>
+#include <signal.h>
 
 #ifdef __cplusplus
 extern "C" {

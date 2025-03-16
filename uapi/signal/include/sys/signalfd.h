@@ -8,7 +8,7 @@
 #define _SYS_SIGNALFD_H
 
 #include <wasmux/signalfd.h>
-#include <wasmux/signal.h>
+#include <signal.h>
 
 #ifdef __cplusplus
 extern "C" {

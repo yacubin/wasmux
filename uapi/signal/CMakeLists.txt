@@ -1,8 +1,10 @@
 set(signal_HEADERS
+  include/sys/signalfd.h
   include/signal.h
   )
 
 set(signal_SOURCES
+  src/sys/signalfd.cpp
   src/sigemptyset.cpp
   src/signal.cpp
   )
