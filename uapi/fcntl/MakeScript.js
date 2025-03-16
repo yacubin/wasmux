@@ -16,6 +16,7 @@ module.exports = (mk) => {
   const includes = [
     mk.SOURCE_DIR.join("internal"),
     mk.SOURCE_DIR.join("include"),
+    mk.target("libc").INCLUDES,
   ];
 
   const libraries = [
@@ -23,7 +24,6 @@ module.exports = (mk) => {
   ];
 
   const fcntl = mk.addStaticLibrary("fcntl", headers, sources);
-  fcntl.addIncludes(mk.target("libc").INCLUDES);
   fcntl.addPublicIncludes(includes);
   fcntl.addPublicLibraries(libraries);
   fcntl.getSourceFiles(headers).setInstallBaseDir("include");

@@ -3,7 +3,7 @@
 module.exports = (mk) => {
   if (mk.WASMUX_ENABLE_LIBC) {
     mk.addSubdirectory("malloc");
-    // mk.addSubdirectory("fcntl");
+    mk.addSubdirectory("fcntl");
     /*mk.addSubdirectory("string");
     mk.addSubdirectory("ctype");
     mk.addSubdirectory("stdlib");

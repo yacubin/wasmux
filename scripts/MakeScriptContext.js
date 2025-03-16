@@ -428,15 +428,32 @@ function createMakeScriptContext()
     module(scopeValueAsPrimitives(options));
   }
 
-  function pushPublicIncludes(includes, libraries) {
-    for (const lib of libraries) {
-      const iter = _priv.targets[lib.NAME];
-      pushPublicIncludes(includes, iter.getPublicLibraries());
-      for (const it of iter.getPublicIncludes()) {
-        if (!includes.includes(it))
-          includes.push(it);
+  function getAllIncludesImpl(includes, targetSet, list) {
+    for (const iter of list) {
+      if (iter instanceof bitmake.InterfaceIncludes || iter instanceof bitmake.InterfaceTarget) {
+        if (!targetSet.has(iter.NAME)) {
+          targetSet.add(iter.NAME);
+          const target = _priv.targets[iter.NAME];
+          getAllIncludesImpl(includes, targetSet, target.getPublicIncludes());
+          getAllIncludesImpl(includes, targetSet, target.getPublicLibraries());
+        }
+      }
+      else if (iter instanceof bitmake.IncludeDirectory) {
+        if (!includes.includes(iter))
+          includes.push(iter.toString());
+      }
+      else {
+        throw new Error(`Not support instance ${iter}`);
       }
     }
+  }
+
+  function getAllIncludes(target) {
+    const includes = [ ...target.TARGET_SCOPE.INCLUDES ];
+    const targetSet = new Set;
+    getAllIncludesImpl(includes, targetSet, target.getIncludes());
+    getAllIncludesImpl(includes, targetSet, target.getLibraries());
+    return includes;
   }
 
   MakeScriptContext.prototype.__populateObjectGoals = async function() {
@@ -455,17 +472,6 @@ function createMakeScriptContext()
           _priv.goals.addScript(script.FILE, script.NAME, depends, script.OUTPUT.toString(), script.PARAMS, msg);
         }
         continue;
-      }
-
-      const includes = [ ...target.TARGET_SCOPE.INCLUDES ];
-      pushPublicIncludes(includes, target.getLibraries());
-      for (const iter of target.getIncludes()) {
-        if (iter instanceof bitmake.InterfaceIncludes) {
-          pushPublicIncludes(includes, [ iter ]);
-        }
-        else {
-          includes.push(iter);
-        }
       }
 
       const datafiles = target.SOURCES.filter(i => i.HEADER_FILE_ONLY).map(i => i.FILE.toString());
@@ -492,7 +498,7 @@ function createMakeScriptContext()
         args.push(...target.TARGET_SCOPE[s.LANGUAGE + "_FLAGS_" + target.TARGET_SCOPE.BUILD_TYPE.toUpperCase()]);
         args.push(...target.COMPILE_OPTIONS);
         args.push(...s.COMPILE_FLAGS);
-        args.push(...includes.map(i => "-I" + i.toString()));
+        args.push(...getAllIncludes(target).map(i => "-I" + i));
         args.push("-o", relativeObject);
         args.push("-c", s.FILE);
         const cwd = target.TARGET_SCOPE.BINARY_DIR.toString();
