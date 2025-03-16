@@ -11,6 +11,10 @@
 #include <wasmux/posix_types.h>
 #include <wasmux/time.h>
 
+#ifdef	__USE_MISC
+# include <sys/select.h>
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
