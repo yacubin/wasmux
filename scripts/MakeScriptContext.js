@@ -115,7 +115,7 @@ class GoalList {
     return this._list.find((i) => i.type === TARGET_GOAL && i.name === name);
   }
 
-  getTargetListImpl(name, result) {
+  addTargetListImpl(name, result) {
     if (result.find(i => i.name === name || i.output === name)) {
       return;
     }
@@ -125,24 +125,17 @@ class GoalList {
       return;
     }
 
-    let index = result.length;
     for (const iter of goal.depends) {
-      const i = result.findIndex(i => i.name === iter || i.output === iter);
-      if (i !== -1) {
-        index = Math.min(index, i);
-      }
+      this.addTargetListImpl(iter, result);
     }
-  
-    result.splice(index, 0, goal);
-    for (const iter of [ ...goal.depends ].reverse()) {
-      this.getTargetListImpl(iter, result);
-    }
+
+    result.push(goal);
   }
 
   getTargetList(name) {
     const result = [];
-    this.getTargetListImpl(name, result);
-    return result.reverse();
+    this.addTargetListImpl(name, result);
+    return result;
   }
 
   valueOf() {
@@ -446,7 +439,7 @@ function createMakeScriptContext()
         if (!targetSet.has(iter.NAME)) {
           targetSet.add(iter.NAME);
           const target = _priv.targets[iter.NAME];
-          for (const header of target.SOURCES.filter(i => i.HEADER_FILE_ONLY).map(i => i.FILE.toString())) {
+          for (const header of target.getHeaders().map(i => i.FILE.toString())) {
             if (!headers.includes(header.toString()))
               headers.push(header.toString());
           }
@@ -458,7 +451,7 @@ function createMakeScriptContext()
   }
 
   function getAllHeaders(target) {
-    const headers = target.SOURCES.filter(i => i.HEADER_FILE_ONLY).map(i => i.FILE.toString());
+    const headers = target.getHeaders().map(i => i.FILE.toString());
     const targetSet = new Set;
     getAllHeadersImpl(headers, targetSet, target.getIncludes());
     getAllHeadersImpl(headers, targetSet, target.getLibraries());
@@ -478,7 +471,7 @@ function createMakeScriptContext()
           if (script.INPUT)
             depends.push(script.INPUT.toString());
           const msg = "Generating " + target.TARGET_SCOPE.BINARY_DIR.relative(script.OUTPUT);
-          _priv.goals.addScript(script.FILE, script.NAME, depends, script.OUTPUT.toString(), script.PARAMS, msg);
+          _priv.goals.addScript(script.FILE, "", depends, script.OUTPUT.toString(), script.PARAMS, msg);
         }
         continue;
       }
@@ -486,6 +479,15 @@ function createMakeScriptContext()
       const headers = getAllHeaders(target);
       const depends = [];
       for (const s of target.SOURCES) {
+        if (s instanceof bitmake.InterfaceObjects) {
+          const t = _priv.targets[s.NAME];
+          for (const f of t.SOURCES) {
+            if (f instanceof bitmake.SourceFile && !f.INSTALL_FILE)
+              depends.push(f.OBJECT_FILE.toString());
+          }
+          continue;
+        }
+
         if (s.INSTALL_FILE) {
           const src = s.FILE.toString();
           const dest = s.INSTALL_FILE.toString();

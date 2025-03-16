@@ -10,10 +10,7 @@
 #include <wasmux/types.h>
 #include <wasmux/posix_types.h>
 #include <wasmux/time.h>
-
-#ifdef	__USE_MISC
-# include <sys/select.h>
-#endif
+#include <sys/select.h> // for gnutls
 
 #ifdef __cplusplus
 extern "C" {

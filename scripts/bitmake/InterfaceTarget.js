@@ -1,13 +1,16 @@
 "use strict";
 
 const { InterfaceIncludes } = require("###/bitmake/InterfaceIncludes.js");
+const { InterfaceObjects } = require("###/bitmake/InterfaceObjects.js");
 
 const NAME     = Symbol("NAME");
 const INCLUDES = Symbol("INCLUDES");
+const OBJECTS  = Symbol("OBJECTS");
 
 function InterfaceTarget(name) {
   this[NAME] = name;
   this[INCLUDES] = InterfaceIncludes.create(name);
+  this[OBJECTS] = InterfaceObjects.create(name);
 }
 
 InterfaceTarget.create = (name) => {
@@ -31,6 +34,10 @@ InterfaceTarget.prototype = Object.create(Object.prototype, {
   },
   INCLUDES: {
     get () { return this[INCLUDES]; },
+    enumerable: false,
+  },
+  OBJECTS: {
+    get () { return this[OBJECTS]; },
     enumerable: false,
   },
 });

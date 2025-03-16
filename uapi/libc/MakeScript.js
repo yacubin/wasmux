@@ -159,6 +159,8 @@ module.exports = (mk) => {
     "src/posix_openpt.cpp",
     "src/sbrk.cpp",
     "src/usleep.cpp",
+    mk.target("wabase").OBJECTS,
+    mk.target("wauser").OBJECTS,
   ];
 
   const includes = [

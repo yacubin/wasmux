@@ -1,14 +1,15 @@
 "use strict";
 
-const { Scope } = require("###/bitmake/Scope.js");
-const { SourceFile } = require("###/bitmake/SourceFile.js");
-const { SourceFileList } = require("###/bitmake/SourceFileList.js");
-const { IncludeDirectory } = require("###/bitmake/IncludeDirectory.js");
-const { StaticLibrary, SharedLibrary, Executable } = require("###/bitmake/Target.js");
-const { CustomTarget } = require("###/bitmake/CustomTarget.js");
-const { ScriptFile } = require("###/bitmake/ScriptFile.js");
-const { InterfaceTarget } = require("###/bitmake/InterfaceTarget.js");
-const { InterfaceIncludes } = require("###/bitmake/InterfaceIncludes.js");
+const { Scope } = require("./Scope.js");
+const { SourceFile } = require("./SourceFile.js");
+const { SourceFileList } = require("./SourceFileList.js");
+const { IncludeDirectory } = require("./IncludeDirectory.js");
+const { StaticLibrary, SharedLibrary, Executable } = require("./Target.js");
+const { CustomTarget } = require("./CustomTarget.js");
+const { ScriptFile } = require("./ScriptFile.js");
+const { InterfaceTarget } = require("./InterfaceTarget.js");
+const { InterfaceIncludes } = require("./InterfaceIncludes.js");
+const { InterfaceObjects } = require("./InterfaceObjects.js");
 
 module.exports = {
   Scope,
@@ -22,4 +23,5 @@ module.exports = {
   ScriptFile,
   InterfaceTarget,
   InterfaceIncludes,
+  InterfaceObjects,
 };

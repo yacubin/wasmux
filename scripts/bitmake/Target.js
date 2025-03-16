@@ -7,7 +7,8 @@ const { SourceFile } = require("###/bitmake/SourceFile.js");
 const { SourceFileList } = require("###/bitmake/SourceFileList.js");
 const { IncludeDirectory } = require("###/bitmake/IncludeDirectory.js");
 const { InterfaceTarget } = require("###/bitmake/InterfaceTarget.js");
-const { InterfaceIncludes } = require("./InterfaceIncludes");
+const { InterfaceIncludes } = require("./InterfaceIncludes.js");
+const { InterfaceObjects } = require("./InterfaceObjects.js");
 const { AbsolutePath } = require("###/utils/AbsolutePath.js");
 
 const NAME                = Symbol("NAME");
@@ -105,8 +106,13 @@ BaseTarget.prototype = Object.create(Object.prototype, {
 
 BaseTarget.prototype.addSources = function(...sources) {
   for (const iter of sources) {
-    for (let it of arrayWrapper(iter))
-      this[SOURCES].push(SourceFile.create(this, it));
+    for (let it of arrayWrapper(iter)) {
+      if (typeof it === "string" || AbsolutePath.isAbsolute(it))
+        it = SourceFile.create(this, it);
+      else
+        it = InterfaceObjects.asInstance(it);
+      this[SOURCES].push(it);
+    }
   }
 }
 
@@ -146,13 +152,17 @@ BaseTarget.prototype.getSourceFiles = function(...sources) {
   for (const iter of sources) {
     for (let it of arrayWrapper(iter)) {
       const filename = this[TARGET_SCOPE].SOURCE_DIR.resolve(it).toString();
-      const src = this[SOURCES].find(i => i.FILE.toString() === filename);
+      const src = this[SOURCES].find(i => i instanceof SourceFile && i.FILE.toString() === filename);
       if (!src)
         throw new Error(`Cannot find "${it}"`);
       result.push(src);
     }
   }
-  return SourceFileList.create(this[TARGET_SCOPE], result.length ? result : this[SOURCES]);
+
+  if (result.length)
+    return SourceFileList.create(this[TARGET_SCOPE], result);
+
+  return SourceFileList.create(this[TARGET_SCOPE], this[SOURCES].filter(i => i instanceof SourceFile));
 }
 
 BaseTarget.prototype.setPrefix = function(prefix) {
@@ -173,6 +183,10 @@ BaseTarget.prototype.getIncludes = function() {
 
 BaseTarget.prototype.getLibraries = function() {
   return this[LIBRARIES].map(i => i.VALUE);
+}
+
+BaseTarget.prototype.getHeaders = function() {
+  return this[SOURCES].filter(i => i.HEADER_FILE_ONLY);
 }
 
 BaseTarget.prototype.toJSON = function() {
