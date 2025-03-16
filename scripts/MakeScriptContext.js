@@ -115,35 +115,19 @@ class GoalList {
     return this._list.find((i) => i.type === TARGET_GOAL && i.name === name);
   }
 
-  hasGoal(name) {
-    return !!this.findGoal(name);
-  }
-
-  findGoal(name) {
-    return GoalList.findGoalStatic(name, this._list);
-  }
-
-  static findGoalStatic(name, list) {
-    return list.find(i => i.name === name || i.output === name);
-  }
-
-  static findIndexGoalStatic(name, list) {
-    return list.findIndex(i => i.name === name || i.output === name);
-  }
-
   getTargetListImpl(name, result) {
-    if (GoalList.findGoalStatic(name, result)) {
+    if (result.find(i => i.name === name || i.output === name)) {
       return;
     }
 
-    const goal = this.findGoal(name);
+    const goal = this._list.find(i => i.name === name || i.output === name);
     if (!goal) {
       return;
     }
 
     let index = result.length;
     for (const iter of goal.depends) {
-      const i = GoalList.findIndexGoalStatic(iter, result);
+      const i = result.findIndex(i => i.name === iter || i.output === iter);
       if (i !== -1) {
         index = Math.min(index, i);
       }
@@ -439,7 +423,7 @@ function createMakeScriptContext()
         }
       }
       else if (iter instanceof bitmake.IncludeDirectory) {
-        if (!includes.includes(iter))
+        if (!includes.includes(iter.toString()))
           includes.push(iter.toString());
       }
       else {
@@ -449,11 +433,36 @@ function createMakeScriptContext()
   }
 
   function getAllIncludes(target) {
-    const includes = [ ...target.TARGET_SCOPE.INCLUDES ];
+    const includes = target.TARGET_SCOPE.INCLUDES.map(i => i.toString());
     const targetSet = new Set;
     getAllIncludesImpl(includes, targetSet, target.getIncludes());
     getAllIncludesImpl(includes, targetSet, target.getLibraries());
     return includes;
+  }
+
+  function getAllHeadersImpl(headers, targetSet, list) {
+    for (const iter of list) {
+      if (iter instanceof bitmake.InterfaceIncludes || iter instanceof bitmake.InterfaceTarget) {
+        if (!targetSet.has(iter.NAME)) {
+          targetSet.add(iter.NAME);
+          const target = _priv.targets[iter.NAME];
+          for (const header of target.SOURCES.filter(i => i.HEADER_FILE_ONLY).map(i => i.FILE.toString())) {
+            if (!headers.includes(header.toString()))
+              headers.push(header.toString());
+          }
+          getAllHeadersImpl(headers, targetSet, target.getPublicIncludes());
+          getAllHeadersImpl(headers, targetSet, target.getPublicLibraries());
+        }
+      }
+    }
+  }
+
+  function getAllHeaders(target) {
+    const headers = target.SOURCES.filter(i => i.HEADER_FILE_ONLY).map(i => i.FILE.toString());
+    const targetSet = new Set;
+    getAllHeadersImpl(headers, targetSet, target.getIncludes());
+    getAllHeadersImpl(headers, targetSet, target.getLibraries());
+    return headers;
   }
 
   MakeScriptContext.prototype.__populateObjectGoals = async function() {
@@ -474,7 +483,7 @@ function createMakeScriptContext()
         continue;
       }
 
-      const datafiles = target.SOURCES.filter(i => i.HEADER_FILE_ONLY).map(i => i.FILE.toString());
+      const headers = getAllHeaders(target);
       const depends = [];
       for (const s of target.SOURCES) {
         if (s.INSTALL_FILE) {
@@ -507,7 +516,7 @@ function createMakeScriptContext()
         const output = target.TARGET_SCOPE.BINARY_DIR.join(relativeObject).toString();
         depends.push(output);
 
-        _priv.goals.addExec(output, [ ...datafiles, s.FILE ], command, args, cwd, msg);
+        _priv.goals.addExec(output, [ ...headers, s.FILE ], command, args, cwd, msg);
       }
 
       if (target instanceof bitmake.StaticLibrary) {
