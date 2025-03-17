@@ -126,7 +126,7 @@ class GoalList {
     }
 
     for (const iter of goal.depends) {
-      this.addTargetListImpl(iter, result);
+      this.addTargetListImpl(iter.toString(), result);
     }
 
     result.push(goal);
