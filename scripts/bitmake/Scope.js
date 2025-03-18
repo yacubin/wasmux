@@ -2,12 +2,19 @@
 
 const { AbsolutePath } = require("###/utils/AbsolutePath.js");
 
+const SYSTEM_NAME           = Symbol("SYSTEM_NAME");
+const PROJECT_NAME          = Symbol("PROJECT_NAME");
+const PROJECT_VERSION       = Symbol("PROJECT_VERSION");
+const PROJECT_SOURCE_DIR    = Symbol("PROJECT_SOURCE_DIR");
+const PROJECT_BINARY_DIR    = Symbol("PROJECT_BINARY_DIR");
 const BUILD_TYPE            = Symbol("BUILD_TYPE");
 const DESTDIR               = Symbol("DESTDIR");
 const INSTALL_PREFIX        = Symbol("INSTALL_PREFIX");
 const SCRIPT_FILE           = Symbol("SCRIPT_FILE");
 const SOURCE_DIR            = Symbol("SOURCE_DIR");
 const BINARY_DIR            = Symbol("BINARY_DIR");
+const MODULE_PATH           = Symbol("MODULE_PATH");
+const INCLUDES              = Symbol("INCLUDES");
 const ASM_COMPILER          = Symbol("ASM_COMPILER");
 const ASM_FLAGS             = Symbol("ASM_FLAGS");
 const ASM_FLAGS_DEBUG       = Symbol("ASM_FLAGS_DEBUG");
@@ -20,7 +27,6 @@ const CXX_COMPILER          = Symbol("CXX_COMPILER");
 const CXX_FLAGS             = Symbol("CXX_FLAGS");
 const CXX_FLAGS_DEBUG       = Symbol("CXX_FLAGS_DEBUG");
 const CXX_FLAGS_RELEASE     = Symbol("CXX_FLAGS_RELEASE");
-const INCLUDES              = Symbol("INCLUDES");
 const STATIC_LIBRARY_PREFIX = Symbol("STATIC_LIBRARY_PREFIX");
 const STATIC_LIBRARY_SUFFIX = Symbol("STATIC_LIBRARY_SUFFIX");
 const STATIC_LINKER_FLAGS   = Symbol("STATIC_LINKER_FLAGS");
@@ -31,12 +37,19 @@ const EXECUTABLE_SUFFIX     = Symbol("EXECUTABLE_SUFFIX");
 const EXE_LINKER_FLAGS      = Symbol("EXE_LINKER_FLAGS");
 
 function Scope(other) {
+  this[SYSTEM_NAME]           = other.SYSTEM_NAME;
+  this[PROJECT_NAME]          = other.PROJECT_NAME;
+  this[PROJECT_VERSION]       = other.PROJECT_VERSION;
+  this[PROJECT_SOURCE_DIR]    = AbsolutePath.create(other.PROJECT_SOURCE_DIR);
+  this[PROJECT_BINARY_DIR]    = AbsolutePath.create(other.PROJECT_BINARY_DIR);
   this[BUILD_TYPE]            = other.BUILD_TYPE;
   this[DESTDIR]               = AbsolutePath.create(other.DESTDIR);
   this[INSTALL_PREFIX]        = AbsolutePath.create(other.INSTALL_PREFIX);
   this[SCRIPT_FILE]           = AbsolutePath.create(other.SCRIPT_FILE);
   this[SOURCE_DIR]            = AbsolutePath.create(other.SOURCE_DIR);
   this[BINARY_DIR]            = AbsolutePath.create(other.BINARY_DIR);
+  this[MODULE_PATH]           = other.MODULE_PATH;
+  this[INCLUDES]              = other.INCLUDES;
   this[ASM_COMPILER]          = other.ASM_COMPILER;
   this[ASM_FLAGS]             = other.ASM_FLAGS;
   this[ASM_FLAGS_DEBUG]       = other.ASM_FLAGS_DEBUG;
@@ -49,7 +62,6 @@ function Scope(other) {
   this[CXX_FLAGS]             = other.CXX_FLAGS;
   this[CXX_FLAGS_DEBUG]       = other.CXX_FLAGS_DEBUG;
   this[CXX_FLAGS_RELEASE]     = other.CXX_FLAGS_RELEASE;
-  this[INCLUDES]              = other.INCLUDES;
   this[STATIC_LIBRARY_PREFIX] = other.STATIC_LIBRARY_PREFIX;
   this[STATIC_LIBRARY_SUFFIX] = other.STATIC_LIBRARY_SUFFIX;
   this[STATIC_LINKER_FLAGS]   = other.STATIC_LINKER_FLAGS;
@@ -60,10 +72,34 @@ function Scope(other) {
   this[EXE_LINKER_FLAGS]      = other.EXE_LINKER_FLAGS;
 }
 
+Scope.create = function(other) {
+  return Object.seal(new Scope(other));
+}
+
 Scope.prototype = Object.create(Object.prototype, {
   constructor: {
     value: Scope,
     enumerable: false,
+  },
+  SYSTEM_NAME: {
+    get () { return this[SYSTEM_NAME]; },
+    enumerable: true,
+  },
+  PROJECT_NAME: {
+    get () { return this[PROJECT_NAME]; },
+    enumerable: true,
+  },
+  PROJECT_VERSION: {
+    get () { return this[PROJECT_VERSION]; },
+    enumerable: true,
+  },
+  PROJECT_SOURCE_DIR: {
+    get () { return this[PROJECT_SOURCE_DIR]; },
+    enumerable: true,
+  },
+  PROJECT_BINARY_DIR: {
+    get () { return this[PROJECT_BINARY_DIR]; },
+    enumerable: true,
   },
   BUILD_TYPE: {
     get () { return this[BUILD_TYPE]; },
@@ -87,6 +123,10 @@ Scope.prototype = Object.create(Object.prototype, {
   },
   BINARY_DIR: {
     get () { return this[BINARY_DIR]; },
+    enumerable: true,
+  },
+  MODULE_PATH: {
+    get () { return this[MODULE_PATH]; },
     enumerable: true,
   },
   ASM_COMPILER: {
@@ -180,10 +220,6 @@ Scope.prototype.toJSON = function() {
   for (const key in this)
     json[key] = this[key];
   return json;
-}
-
-Scope.create = function(other) {
-  return Object.seal(new Scope(other));
 }
 
 module.exports = {

@@ -146,10 +146,12 @@ class GoalList {
 function createMakeScriptContext()
 {
   const _priv = {
-    targets: {},
+    targets: bitmake.TargetCollection.create(),
+    scripts: bitmake.ScriptCollection.create(),
     goals: new GoalList,
     cache: {},
-    refTrgets: {},
+    interfaceTargets: {},
+    interfaceScripts: {},
   };
 
   function MakeScriptContext() {
@@ -270,28 +272,36 @@ function createMakeScriptContext()
     this.__syncCacheVariables();
   }
 
-  MakeScriptContext.prototype.addCustomTarget = function(name, params) {
+  MakeScriptContext.prototype.addCustomScript = function(name, params) {
     this.logDebug(currentFunctionName(), name);
 
-    const target = bitmake.CustomTarget.create(this, name);
-    this.__addTarget(name, target);
-    if (params && params.script)
-      target.addScript(params.script, params);
-    else
-      throw new Error(`Uknown params ${JSON.stringify(params)}`);
+    const target = bitmake.CustomScript.create(this, name, params);
+    _priv.scripts.set(name, target);
     return target;
   }
 
   MakeScriptContext.prototype.target = function(name) {
     this.logDebug(currentFunctionName(), name);
 
-    let target = _priv.refTrgets[name];
+    let target = _priv.interfaceTargets[name];
     if (!target) {
       target = bitmake.InterfaceTarget.create(name);
-      _priv.refTrgets[name] = target;
+      _priv.interfaceTargets[name] = target;
     }
 
     return target;
+  }
+
+  MakeScriptContext.prototype.script = function(name) {
+    this.logDebug(currentFunctionName(), name);
+
+    let script = _priv.interfaceScripts[name];
+    if (!script) {
+      script = bitmake.InterfaceScript.create(name);
+      _priv.interfaceScripts[name] = script;
+    }
+
+    return script;
   }
 
   MakeScriptContext.prototype.dump = function() {
@@ -314,51 +324,28 @@ function createMakeScriptContext()
     }
   }
 
-  MakeScriptContext.prototype.dumpTargets = function() {
-    this.logDebug(currentFunctionName());
-
-    for (const [name, target] of Object.entries(_priv.targets)) {
-      this.logInfo(`${name}:`);
-      for (const [key, entry] of Object.entries(target)) {
-        if (entry && typeof entry === "object") {
-          this.logInfo(`  ${key}:`);
-          for (const [k, v] of Object.entries(entry))
-            this.logInfo(`    ${k}: ${JSON.stringify(v)}`);
-        }
-        else {
-          this.logInfo(`  ${key}: ${JSON.stringify(entry)}`);
-        }
-      }
-    }
-  }
-
   MakeScriptContext.prototype.__saveTargetsAsJSON = function(filename) {
     this.logDebug(currentFunctionName(), filename);
     const json = {
       TARGETS: _priv.targets,
+      SCRIPTS: _priv.scripts,
       GOALS: _priv.goals.valueOf(),
       CACHE: _priv.cache,
+      ITARGETS: _priv.interfaceTargets,
+      ISCRIPTS: _priv.interfaceScripts,
     };
     const content = JSON.stringify(json, null, 2);
     fs.mkdirSync(path.dirname(filename), { recursive: true });
     fs.writeFileSync(filename, content, { encoding: "utf8" });
   }
 
-  MakeScriptContext.prototype.__addTarget = function(name, target) {
-    this.logDebug(currentFunctionName(), name);
-
-    if (_priv.targets[name])
-      throw new Error(`Target "${name}" exists`);
-    _priv.targets[name] = target;
-  }
-
   MakeScriptContext.prototype.addStaticLibrary = function(name, ...sources) {
     this.logDebug(currentFunctionName(), name);
 
     const target = bitmake.StaticLibrary.create(this, name);
-    this.__addTarget(name, target);
-
     target.addSources(...sources);
+
+    _priv.targets.set(name, target);
     return target;
   }
 
@@ -366,9 +353,9 @@ function createMakeScriptContext()
     this.logDebug(currentFunctionName(), name);
 
     const target = bitmake.SharedLibrary.create(this, name);
-    this.__addTarget(name, target);
-
     target.addSources(...sources);
+
+    _priv.targets.set(name, target);
     return target;
   }
 
@@ -376,9 +363,9 @@ function createMakeScriptContext()
     this.logDebug(currentFunctionName(), name);
 
     const target = bitmake.Executable.create(this, name);
-    this.__addTarget(name, target);
-
     target.addSources(...sources);
+
+    _priv.targets.set(name, target);
     return target;
   }
 
@@ -410,7 +397,7 @@ function createMakeScriptContext()
       if (iter instanceof bitmake.InterfaceIncludes || iter instanceof bitmake.InterfaceTarget) {
         if (!targetSet.has(iter.NAME)) {
           targetSet.add(iter.NAME);
-          const target = _priv.targets[iter.NAME];
+          const target = _priv.targets.get(iter.NAME);
           getAllIncludesImpl(includes, targetSet, target.getPublicIncludes());
           getAllIncludesImpl(includes, targetSet, target.getPublicLibraries());
         }
@@ -427,7 +414,7 @@ function createMakeScriptContext()
 
   function getAllIncludes(target) {
     const includes = target.TARGET_SCOPE.INCLUDES.map(i => i.toString());
-    const targetSet = new Set;
+    const targetSet = new Set([ target.NAME ]);
     getAllIncludesImpl(includes, targetSet, target.getIncludes());
     getAllIncludesImpl(includes, targetSet, target.getLibraries());
     return includes;
@@ -438,7 +425,7 @@ function createMakeScriptContext()
       if (iter instanceof bitmake.InterfaceIncludes || iter instanceof bitmake.InterfaceTarget) {
         if (!targetSet.has(iter.NAME)) {
           targetSet.add(iter.NAME);
-          const target = _priv.targets[iter.NAME];
+          const target = _priv.targets.get(iter.NAME);
           for (const header of target.getHeaders().map(i => i.FILE.toString())) {
             if (!headers.includes(header.toString()))
               headers.push(header.toString());
@@ -452,7 +439,7 @@ function createMakeScriptContext()
 
   function getAllHeaders(target) {
     const headers = target.getHeaders().map(i => i.FILE.toString());
-    const targetSet = new Set;
+    const targetSet = new Set([ target.NAME ]);
     getAllHeadersImpl(headers, targetSet, target.getIncludes());
     getAllHeadersImpl(headers, targetSet, target.getLibraries());
     return headers;
@@ -461,26 +448,30 @@ function createMakeScriptContext()
   MakeScriptContext.prototype.__populateObjectGoals = async function() {
     this.logDebug(currentFunctionName());
 
+    for (const iter of Object.values(_priv.interfaceScripts)) {
+      const script = _priv.scripts.get(iter.NAME);
+      for (const [key, vals] of Object.entries(iter.PROPERTIES))
+        script.addProperty(key, ...vals);
+    }
+
+    for (const [name, script] of Object.entries(_priv.scripts.ENTRIES)) {   
+      const depends = [ script.FILE.toString() ];
+      if (script.INPUT)
+        depends.push(script.INPUT.toString());
+      const msg = "Generating " + script.TARGET_SCOPE.BINARY_DIR.relative(script.OUTPUT);
+      const params = { ...script.PROPERTIES, ...script.PARAMS };
+      _priv.goals.addScript(script.FILE, "", depends, script.OUTPUT.toString(), params, msg);
+    }
+
     const install_script = "install_script";
     const install_files = [];
 
-    for (const [name, target] of Object.entries(_priv.targets)) {
-      if (target instanceof bitmake.CustomTarget) {
-        for (const script of target.SCRIPTS) {      
-          const depends = [ script.FILE.toString() ];
-          if (script.INPUT)
-            depends.push(script.INPUT.toString());
-          const msg = "Generating " + target.TARGET_SCOPE.BINARY_DIR.relative(script.OUTPUT);
-          _priv.goals.addScript(script.FILE, "", depends, script.OUTPUT.toString(), script.PARAMS, msg);
-        }
-        continue;
-      }
-
+    for (const [name, target] of Object.entries(_priv.targets.ENTRIES)) {
       const headers = getAllHeaders(target);
       const depends = [];
       for (const s of target.SOURCES) {
         if (s instanceof bitmake.InterfaceObjects) {
-          const t = _priv.targets[s.NAME];
+          const t = _priv.targets.get(s.NAME);
           for (const f of t.SOURCES) {
             if (f instanceof bitmake.SourceFile && !f.INSTALL_FILE)
               depends.push(f.OBJECT_FILE.toString());
@@ -553,7 +544,7 @@ function createMakeScriptContext()
     }
 
     _priv.goals.addTarget("install", install_files, "");
-    _priv.goals.addTarget("all", Object.keys(_priv.targets), "");
+    _priv.goals.addTarget("all", Object.keys(_priv.targets.ENTRIES), "");
   }
 
   MakeScriptContext.prototype.__build = function(target) {

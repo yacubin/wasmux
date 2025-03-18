@@ -21,7 +21,7 @@ module.exports = (mk) => {
   ];
 
   const arch_syscall_h = mk.BINARY_DIR.join("include/wasmux/arch-syscall.h");
-  mk.addCustomTarget("<wasmux/arch-syscall.h>", {
+  mk.addCustomScript("<wasmux/arch-syscall.h>", {
     script: "src/arch-syscall.h.js",
     input: mk.PROJECT_SOURCE_DIR.join("data/syscall.js"),
     output: arch_syscall_h,

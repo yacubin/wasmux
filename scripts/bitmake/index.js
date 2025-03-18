@@ -5,11 +5,13 @@ const { SourceFile } = require("./SourceFile.js");
 const { SourceFileList } = require("./SourceFileList.js");
 const { IncludeDirectory } = require("./IncludeDirectory.js");
 const { StaticLibrary, SharedLibrary, Executable } = require("./Target.js");
-const { CustomTarget } = require("./CustomTarget.js");
-const { ScriptFile } = require("./ScriptFile.js");
+const { CustomScript } = require("./CustomScript.js");
 const { InterfaceTarget } = require("./InterfaceTarget.js");
 const { InterfaceIncludes } = require("./InterfaceIncludes.js");
 const { InterfaceObjects } = require("./InterfaceObjects.js");
+const { InterfaceScript } = require("./InterfaceScript.js");
+const { ScriptCollection } = require("./ScriptCollection.js");
+const { TargetCollection } = require("./TargetCollection.js");
 
 module.exports = {
   Scope,
@@ -19,9 +21,11 @@ module.exports = {
   StaticLibrary,
   SharedLibrary,
   Executable,
-  CustomTarget,
-  ScriptFile,
+  CustomScript,
   InterfaceTarget,
   InterfaceIncludes,
   InterfaceObjects,
+  InterfaceScript,
+  ScriptCollection,
+  TargetCollection,
 };

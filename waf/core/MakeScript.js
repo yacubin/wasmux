@@ -109,21 +109,21 @@ module.exports = (mk) => {
   }
 
   const webcall_nums_h = mk.BINARY_DIR.join("include/wasmux/webcall-nums.h");
-  mk.addCustomTarget("<wasmux/webcall-nums.h>", {
+  mk.addCustomScript("<wasmux/webcall-nums.h>", {
     script: "src/webcall-nums.h.js",
     input:  mk.PROJECT_SOURCE_DIR.join("data/webcalls.js"),
     output: webcall_nums_h,
   });
 
   const webcall_main_h = mk.BINARY_DIR.join("include/wasmux/webcall-main.h");
-  mk.addCustomTarget("<wasmux/webcall-main.h>", {
+  mk.addCustomScript("<wasmux/webcall-main.h>", {
     script: "src/webcall-main.h.js",
     input: mk.PROJECT_SOURCE_DIR.join("data/webcalls.js"),
     output: webcall_main_h,
   });
 
   const webcall_worker_h = mk.BINARY_DIR.join("include/wasmux/webcall-worker.h");
-  mk.addCustomTarget("<wasmux/webcall-worker.h>", {
+  mk.addCustomScript("<wasmux/webcall-worker.h>", {
     script: "src/webcall-worker.h.js",
     input: mk.PROJECT_SOURCE_DIR.join("data/webcalls.js"),
     output: webcall_worker_h,

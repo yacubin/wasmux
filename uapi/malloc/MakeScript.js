@@ -23,4 +23,14 @@ module.exports = (mk) => {
   malloc.addPublicLibraries(libraries);
   malloc.getSourceFiles(headers).setInstallBaseDir("include");
   malloc.getSourceFiles(headers).setInstallDestination(mk.INSTALL_INCLUDEDIR);
+
+  // mk.script("<stdlib.h>").addProperty("STDLIB_INCLUDE_LIST", "#include <alloca.h>", "#include <malloc.h>");
+
+  // mk.target("libc").addSource(includes, sources);
+  // mk.target("libc").addPublicIncludes(includes);
+
+  /*mk.install(headers, {
+    BASE_DIR: "include",
+    DESTENATION: mk.INSTALL_INCLUDEDIR,
+  });*/
 }
