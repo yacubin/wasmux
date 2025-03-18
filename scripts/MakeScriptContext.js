@@ -138,480 +138,486 @@ class GoalList {
     return result;
   }
 
-  valueOf() {
+  toJSON() {
     return this._list;
   }
 };
 
-function createMakeScriptContext()
-{
-  const _priv = {
-    targets: bitmake.TargetCollection.create(),
-    scripts: bitmake.ScriptCollection.create(),
-    goals: new GoalList,
-    cache: {},
-    interfaceTargets: {},
-    interfaceScripts: {},
+const TARGETS = Symbol("TARGETS");
+const SCRIPTS = Symbol("SCRIPTS");
+const GOALS = Symbol("GOALS");
+const CACHE = Symbol("CACHE");
+const INTERFACE_TARGETS = Symbol("INTERFACE_TARGETS");
+const INTERFACE_SCRIPTS = Symbol("INTERFACE_SCRIPTS");
+
+function MakeContext() {
+  this[TARGETS] = bitmake.TargetCollection.create();
+  this[SCRIPTS] = bitmake.ScriptCollection.create();
+  this[GOALS] = new GoalList;
+  this[CACHE] = {};
+  this[INTERFACE_TARGETS] = {};
+  this[INTERFACE_SCRIPTS] = {};
+}
+
+function makeLogger(loggerFunc, withTag) {
+  if (!loggerFunc)
+    return () => {};
+  return function() {
+    const list = [];
+    if (withTag)
+      list.push("[" + this.__logTag() + "]");
+    for (const iter of arguments) {
+      if (iter && typeof iter === "object")
+        list.push(JSON.stringify(iter));
+      else
+        list.push(iter.toString());
+    }
+    loggerFunc(list.join(" "));
   };
+}
 
-  function MakeScriptContext() {
+MakeContext.prototype.logDefault = makeLogger(console.log);
+MakeContext.prototype.logInfo = makeLogger(console.info);
+MakeContext.prototype.logDebug = makeLogger(/*console.debug*/);
+MakeContext.prototype.logWarn = makeLogger(console.warn);
+MakeContext.prototype.logError = makeLogger(console.error);
+
+MakeContext.prototype.__logTag = function() {
+  const tag = this.PROJECT_SOURCE_DIR.relative(this.SOURCE_DIR);
+  return path.posix.join(this.PROJECT_NAME, tag);
+}
+
+MakeContext.prototype.__loadCacheVariables = function() {
+  this.logDebug(currentFunctionName());
+  const filename = this.PROJECT_BINARY_DIR.join(MAKE_CACHE).toString();
+  if (fileExistsSync(filename)) {
+    this.addCacheVariables(filename);
   }
+}
 
-  function makeLogger(loggerFunc, withTag) {
-    if (!loggerFunc)
-      return () => {};
-    return function() {
-      const list = [];
-      if (withTag)
-        list.push("[" + this.__logTag() + "]");
-      for (const iter of arguments) {
-        if (iter && typeof iter === "object")
-          list.push(JSON.stringify(iter));
-        else
-          list.push(iter.toString());
-      }
-      loggerFunc(list.join(" "));
+MakeContext.prototype.__syncCacheVariables = function() {
+  this.logDebug(currentFunctionName());
+  const filename = this.PROJECT_BINARY_DIR.join(MAKE_CACHE).toString();
+  const json = JSON.stringify(this[CACHE], null, 2);
+  fs.writeFileSync(filename, json, "utf-8");
+}
+
+MakeContext.prototype.getCacheVariables = function() {
+  this.logDebug(currentFunctionName());
+  const result = {};
+  for (const [key, entry] of Object.entries(this[CACHE])) {
+    const value = copyValue(this[key]);
+    result[key] = {
+      type: copyValue(entry.type) || typeof value,
+      description: entry.description || "",
+      value,
     };
   }
+  return result;
+}
 
-  MakeScriptContext.prototype.logDefault = makeLogger(console.log);
-  MakeScriptContext.prototype.logInfo = makeLogger(console.info);
-  MakeScriptContext.prototype.logDebug = makeLogger(/*console.debug*/);
-  MakeScriptContext.prototype.logWarn = makeLogger(console.warn);
-  MakeScriptContext.prototype.logError = makeLogger(console.error);
+MakeContext.prototype.addCacheVariables = function(params) {
+  this.logDebug(currentFunctionName());
 
-  MakeScriptContext.prototype.__logTag = function() {
-    const tag = this.PROJECT_SOURCE_DIR.relative(this.SOURCE_DIR);
-    return path.posix.join(this.PROJECT_NAME, tag);
+  let variables = params;
+
+  if (typeof variables === "string") {
+    const scripts = this.SOURCE_DIR.resolve(variables);
+    variables = require(scripts.toString());
+  }
+  
+  if (typeof variables !== "object") {
+    throw "Only object type is supported";
   }
 
-  MakeScriptContext.prototype.__loadCacheVariables = function() {
-    this.logDebug(currentFunctionName());
-    const filename = this.PROJECT_BINARY_DIR.join(MAKE_CACHE).toString();
-    if (fileExistsSync(filename)) {
-      this.addCacheVariables(filename);
+  for (const [key, entry] of Object.entries(variables)) {
+    this[CACHE][key] = entry;
+    if (!Object.hasOwn(this, key)) {
+      this[key] = entry.value;
     }
   }
+}
 
-  MakeScriptContext.prototype.__syncCacheVariables = function() {
-    this.logDebug(currentFunctionName());
-    const filename = this.PROJECT_BINARY_DIR.join(MAKE_CACHE).toString();
-    const json = JSON.stringify(_priv.cache, null, 2);
-    fs.writeFileSync(filename, json, "utf-8");
+MakeContext.prototype.addIncludeDirectories = function(...dirs) {
+  this.logDebug(currentFunctionName());
+
+  for (const iter of dirs) {
+    for (const dirpath of arrayWrapper(iter)) {
+      this.INCLUDES.push(dirpath);
+    }
+  }
+}
+
+MakeContext.prototype.addSubdirectory = function(sourceDir, binaryDir) {
+  this.logDebug(currentFunctionName());
+
+  binaryDir = binaryDir || path.isAbsolute(sourceDir) ? undefined : sourceDir;
+
+  const SOURCE_DIR = path.isAbsolute(sourceDir) ? new AbsolutePath(sourceDir) : this.SOURCE_DIR.join(sourceDir);
+  const BINARY_DIR = path.isAbsolute(binaryDir) ? new AbsolutePath(binaryDir) : this.BINARY_DIR.join(binaryDir);
+
+  this.__applyDirectory(SOURCE_DIR, BINARY_DIR);
+}
+
+MakeContext.prototype.__applyDirectory = function(sourceDir, binaryDir) {
+  this.logDebug(currentFunctionName(), scopeValueAsPrimitives(sourceDir), scopeValueAsPrimitives(binaryDir));
+
+  const newMake = this.__clone();
+
+  newMake.SOURCE_DIR = sourceDir;
+  newMake.BINARY_DIR = binaryDir;
+  newMake.SCRIPT_FILE = newMake.SOURCE_DIR.join(MAKE_SCRIPT);
+
+  const module = require(newMake.SCRIPT_FILE.toString());
+  module(newMake);
+  // newMake.dump();
+  this.__syncCacheVariables();
+}
+
+MakeContext.prototype.addCustomScript = function(name, params) {
+  this.logDebug(currentFunctionName(), name);
+
+  const target = bitmake.CustomScript.create(this, name, params);
+  this[SCRIPTS].set(name, target);
+  return target;
+}
+
+MakeContext.prototype.target = function(name) {
+  this.logDebug(currentFunctionName(), name);
+
+  let target = this[INTERFACE_TARGETS][name];
+  if (!target) {
+    target = bitmake.InterfaceTarget.create(name);
+    this[INTERFACE_TARGETS][name] = target;
   }
 
-  MakeScriptContext.prototype.getCacheVariables = function() {
-    this.logDebug(currentFunctionName());
-    const result = {};
-    for (const [key, entry] of Object.entries(_priv.cache)) {
-      const value = copyValue(this[key]);
-      result[key] = {
-        type: copyValue(entry.type) || typeof value,
-        description: entry.description || "",
-        value,
-      };
-    }
-    return result;
+  return target;
+}
+
+MakeContext.prototype.script = function(name) {
+  this.logDebug(currentFunctionName(), name);
+
+  let script = this[INTERFACE_SCRIPTS][name];
+  if (!script) {
+    script = bitmake.InterfaceScript.create(name);
+    this[INTERFACE_SCRIPTS][name] = script;
   }
 
-  MakeScriptContext.prototype.addCacheVariables = function(params) {
-    this.logDebug(currentFunctionName());
+  return script;
+}
 
-    let variables = params;
+MakeContext.prototype.dump = function() {
+  this.logDebug(currentFunctionName());
 
-    if (typeof variables === "string") {
-      const scripts = this.SOURCE_DIR.resolve(variables);
-      variables = require(scripts.toString());
+  const printedValues = {};
+
+  let current = this;
+  let deep = 0;
+  while (current instanceof MakeContext) {
+    const space = deep ? "  ".repeat(deep) : "";
+    for (const [key, val] of Object.entries(current)) {
+      if (Object.hasOwn(printedValues, key))
+        continue;
+      this.logInfo(`${space}${key}: ${val}`);
+      printedValues[key] = val;
     }
-    
-    if (typeof variables !== "object") {
-      throw "Only object type is supported";
-    }
+    current = Object.getPrototypeOf(current);
+    deep++;
+  }
+}
 
-    for (const [key, entry] of Object.entries(variables)) {
-      _priv.cache[key] = entry;
-      if (!Object.hasOwn(this, key)) {
-        this[key] = entry.value;
+MakeContext.prototype.__saveTargetsAsJSON = function(filename) {
+  this.logDebug(currentFunctionName(), filename);
+  const json = {
+    TARGETS: this[TARGETS],
+    SCRIPTS: this[SCRIPTS],
+    GOALS: this[GOALS],
+    CACHE: this[CACHE],
+    INTERFACE_TARGETS: this[INTERFACE_TARGETS],
+    INTERFACE_SCRIPTS: this[INTERFACE_SCRIPTS],
+  };
+  const content = JSON.stringify(json, null, 2);
+  fs.mkdirSync(path.dirname(filename), { recursive: true });
+  fs.writeFileSync(filename, content, { encoding: "utf8" });
+}
+
+MakeContext.prototype.addStaticLibrary = function(name, ...sources) {
+  this.logDebug(currentFunctionName(), name);
+
+  const target = bitmake.StaticLibrary.create(this, name);
+  target.addSources(...sources);
+
+  this[TARGETS].set(name, target);
+  return target;
+}
+
+MakeContext.prototype.addSharedLibrary = function(name, ...sources) {
+  this.logDebug(currentFunctionName(), name);
+
+  const target = bitmake.SharedLibrary.create(this, name);
+  target.addSources(...sources);
+
+  this[TARGETS].set(name, target);
+  return target;
+}
+
+MakeContext.prototype.addExecutable = function(name) {
+  this.logDebug(currentFunctionName(), name);
+
+  const target = bitmake.Executable.create(this, name);
+  target.addSources(...sources);
+
+  this[TARGETS].set(name, target);
+  return target;
+}
+
+MakeContext.prototype.findProgram = function(name) {
+  this.logDebug(currentFunctionName(), name);
+
+  if (os.platform() === "win32" && !name.endsWith(".exe"))
+    name += ".exe";
+
+  const paths = process.env.PATH.split(path.posix.delimiter);
+  for (const iter of paths) {
+    const filename = path.posix.resolve(iter, name);
+    if (fileExistsSync(filename))
+      return filename;
+  }
+
+  return null;
+}
+
+MakeContext.prototype.executeScript = function(script, options) {
+  this.logDebug(currentFunctionName(), script);
+  const scriptPath = this.SOURCE_DIR.resolve(script);
+  const module = require(scriptPath.toString());
+  module(scopeValueAsPrimitives(options));
+}
+
+MakeContext.prototype.__getAllIncludes = function(includes, targetSet, list) {
+  for (const iter of list) {
+    if (iter instanceof bitmake.InterfaceIncludes || iter instanceof bitmake.InterfaceTarget) {
+      if (!targetSet.has(iter.NAME)) {
+        targetSet.add(iter.NAME);
+        const target = this[TARGETS].get(iter.NAME);
+        this.__getAllIncludes(includes, targetSet, target.getPublicIncludes());
+        this.__getAllIncludes(includes, targetSet, target.getPublicLibraries());
+      }
+    }
+    else if (iter instanceof bitmake.IncludeDirectory) {
+      if (!includes.includes(iter.toString()))
+        includes.push(iter.toString());
+    }
+    else {
+      throw new Error(`Not support instance ${iter}`);
+    }
+  }
+}
+
+MakeContext.prototype.getAllIncludes = function(target) {
+  const includes = target.TARGET_SCOPE.INCLUDES.map(i => i.toString());
+  const targetSet = new Set([ target.NAME ]);
+  this.__getAllIncludes(includes, targetSet, target.getIncludes());
+  this.__getAllIncludes(includes, targetSet, target.getLibraries());
+  return includes;
+}
+
+MakeContext.prototype.__getAllHeaders = function(headers, targetSet, list) {
+  for (const iter of list) {
+    if (iter instanceof bitmake.InterfaceIncludes || iter instanceof bitmake.InterfaceTarget) {
+      if (!targetSet.has(iter.NAME)) {
+        targetSet.add(iter.NAME);
+        const target = this[TARGETS].get(iter.NAME);
+        for (const header of target.getHeaders().map(i => i.FILE.toString())) {
+          if (!headers.includes(header.toString()))
+            headers.push(header.toString());
+        }
+        this.__getAllHeaders(headers, targetSet, target.getPublicIncludes());
+        this.__getAllHeaders(headers, targetSet, target.getPublicLibraries());
       }
     }
   }
+}
 
-  MakeScriptContext.prototype.addIncludeDirectories = function(...dirs) {
-    this.logDebug(currentFunctionName());
+MakeContext.prototype.getAllHeaders = function(target) {
+  const headers = target.getHeaders().map(i => i.FILE.toString());
+  const targetSet = new Set([ target.NAME ]);
+  this.__getAllHeaders(headers, targetSet, target.getIncludes());
+  this.__getAllHeaders(headers, targetSet, target.getLibraries());
+  return headers;
+}
 
-    for (const iter of dirs) {
-      for (const dirpath of arrayWrapper(iter)) {
-        this.INCLUDES.push(dirpath);
+MakeContext.prototype.__populateObjectGoals = async function() {
+  this.logDebug(currentFunctionName());
+
+  for (const iter of Object.values(this[INTERFACE_SCRIPTS])) {
+    const script = this[SCRIPTS].get(iter.NAME);
+    for (const [key, vals] of Object.entries(iter.PROPERTIES))
+      script.addProperty(key, ...vals);
+  }
+
+  for (const [name, script] of Object.entries(this[SCRIPTS].ENTRIES)) {   
+    const depends = [ script.FILE.toString() ];
+    if (script.INPUT)
+      depends.push(script.INPUT.toString());
+    const msg = "Generating " + script.TARGET_SCOPE.BINARY_DIR.relative(script.OUTPUT);
+    const params = { ...script.PROPERTIES, ...script.PARAMS };
+    this[GOALS].addScript(script.FILE, "", depends, script.OUTPUT.toString(), params, msg);
+  }
+
+  const install_script = "install_script";
+  const install_files = [];
+
+  for (const [name, target] of Object.entries(this[TARGETS].ENTRIES)) {
+    const headers = this.getAllHeaders(target);
+    const depends = [];
+    for (const s of target.SOURCES) {
+      if (s instanceof bitmake.InterfaceObjects) {
+        const t = this[TARGETS].get(s.NAME);
+        for (const f of t.SOURCES) {
+          if (f instanceof bitmake.SourceFile && !f.INSTALL_FILE)
+            depends.push(f.OBJECT_FILE.toString());
+        }
+        continue;
       }
-    }
-  }
 
-  MakeScriptContext.prototype.addSubdirectory = function(sourceDir, binaryDir) {
-    this.logDebug(currentFunctionName());
-
-    binaryDir = binaryDir || path.isAbsolute(sourceDir) ? undefined : sourceDir;
-
-    const SOURCE_DIR = path.isAbsolute(sourceDir) ? new AbsolutePath(sourceDir) : this.SOURCE_DIR.join(sourceDir);
-    const BINARY_DIR = path.isAbsolute(binaryDir) ? new AbsolutePath(binaryDir) : this.BINARY_DIR.join(binaryDir);
-
-    this.__applyDirectory(SOURCE_DIR, BINARY_DIR);
-  }
-
-  MakeScriptContext.prototype.__applyDirectory = function(sourceDir, binaryDir) {
-    this.logDebug(currentFunctionName(), scopeValueAsPrimitives(sourceDir), scopeValueAsPrimitives(binaryDir));
-
-    const newMake = this.__clone();
-
-    newMake.SOURCE_DIR = sourceDir;
-    newMake.BINARY_DIR = binaryDir;
-    newMake.SCRIPT_FILE = newMake.SOURCE_DIR.join(MAKE_SCRIPT);
-
-    const module = require(newMake.SCRIPT_FILE.toString());
-    module(newMake);
-    // newMake.dump();
-    this.__syncCacheVariables();
-  }
-
-  MakeScriptContext.prototype.addCustomScript = function(name, params) {
-    this.logDebug(currentFunctionName(), name);
-
-    const target = bitmake.CustomScript.create(this, name, params);
-    _priv.scripts.set(name, target);
-    return target;
-  }
-
-  MakeScriptContext.prototype.target = function(name) {
-    this.logDebug(currentFunctionName(), name);
-
-    let target = _priv.interfaceTargets[name];
-    if (!target) {
-      target = bitmake.InterfaceTarget.create(name);
-      _priv.interfaceTargets[name] = target;
-    }
-
-    return target;
-  }
-
-  MakeScriptContext.prototype.script = function(name) {
-    this.logDebug(currentFunctionName(), name);
-
-    let script = _priv.interfaceScripts[name];
-    if (!script) {
-      script = bitmake.InterfaceScript.create(name);
-      _priv.interfaceScripts[name] = script;
-    }
-
-    return script;
-  }
-
-  MakeScriptContext.prototype.dump = function() {
-    this.logDebug(currentFunctionName());
-
-    const printedValues = {};
-
-    let current = this;
-    let deep = 0;
-    while (current instanceof MakeScriptContext) {
-      const space = deep ? "  ".repeat(deep) : "";
-      for (const [key, val] of Object.entries(current)) {
-        if (Object.hasOwn(printedValues, key))
-          continue;
-        this.logInfo(`${space}${key}: ${val}`);
-        printedValues[key] = val;
+      if (s.INSTALL_FILE) {
+        const src = s.FILE.toString();
+        const dest = s.INSTALL_FILE.toString();
+        this[GOALS].addScript(install_script, "", [ src ], dest, {src, dest}, "");
+        install_files.push(dest);
       }
-      current = Object.getPrototypeOf(current);
-      deep++;
+
+      if (s.HEADER_FILE_ONLY)
+        continue;
+
+      fs.mkdirSync(s.OBJECT_FILE_DIR.toString(), { recursive: true });
+
+      const relativeObject = target.TARGET_SCOPE.BINARY_DIR.relative(s.OBJECT_FILE);
+      const relativeBinaryDir = this.PROJECT_BINARY_DIR.relative(target.TARGET_SCOPE.BINARY_DIR);
+      const msg = `Building ${s.LANGUAGE} object ${relativeBinaryDir}/${relativeObject}`;
+
+      const args = [];
+      args.push(...target.TARGET_SCOPE[s.LANGUAGE + "_FLAGS"]);
+      args.push(...target.TARGET_SCOPE[s.LANGUAGE + "_FLAGS_" + target.TARGET_SCOPE.BUILD_TYPE.toUpperCase()]);
+      args.push(...target.COMPILE_OPTIONS);
+      args.push(...s.COMPILE_FLAGS);
+      args.push(...this.getAllIncludes(target).map(i => "-I" + i));
+      args.push("-o", relativeObject);
+      args.push("-c", s.FILE);
+      const cwd = target.TARGET_SCOPE.BINARY_DIR.toString();
+
+      const command = target.TARGET_SCOPE[s.LANGUAGE + "_COMPILER"].toString();
+      const output = target.TARGET_SCOPE.BINARY_DIR.join(relativeObject).toString();
+      depends.push(output);
+
+      this[GOALS].addExec(output, [ ...headers, s.FILE ], command, args, cwd, msg);
+    }
+
+    if (target instanceof bitmake.StaticLibrary) {
+      const args = [ "rc", target.FILE_NAME ];
+      for (const iter of depends) {
+        if (iter.endsWith(".o") || iter.endsWith(".obj"))
+          args.push(target.FILE_DIR.relative(iter));
+      }
+      const cwd = target.FILE_DIR.toString();
+      const msg = `Linking CXX static library ${target.FILE_NAME}`;
+      this[GOALS].addExec(target.FILE.toString(), depends, this.AR, args, cwd, msg);
+    }
+
+    if (target instanceof bitmake.SharedLibrary) {
+      throw new Error("Not implemented");
+    }
+
+    if (target instanceof bitmake.Executable) {
+      const msg = `Linking CXX executable ${target.FILE_NAME}`;
+    }
+
+    this[GOALS].addTarget(name, [ target.FILE.toString() ], `Built target ${name}`);
+
+    if (target.INSTALL_DESTINATION !== null) {
+      let src = target.FILE.toString();
+      let dest = target.INSTALL_DESTINATION;
+      dest = path.isAbsolute(dest) ? dest : path.posix.join(this.INSTALL_PREFIX, dest);
+      dest = path.posix.join(this.DESTDIR, dest, path.basename(src));
+      this[GOALS].addScript(install_script, "", [ src ], dest, {src, dest}, "");
+      install_files.push(dest);
     }
   }
 
-  MakeScriptContext.prototype.__saveTargetsAsJSON = function(filename) {
-    this.logDebug(currentFunctionName(), filename);
-    const json = {
-      TARGETS: _priv.targets,
-      SCRIPTS: _priv.scripts,
-      GOALS: _priv.goals.valueOf(),
-      CACHE: _priv.cache,
-      ITARGETS: _priv.interfaceTargets,
-      ISCRIPTS: _priv.interfaceScripts,
-    };
-    const content = JSON.stringify(json, null, 2);
+  this[GOALS].addTarget("install", install_files, "");
+  this[GOALS].addTarget("all", Object.keys(this[TARGETS].ENTRIES), "");
+}
+
+MakeContext.prototype.__build = function(target) {
+  const goalList = this[GOALS].getTargetList(target);
+
+  {
+    const filename = this.BINARY_DIR.join("GoalList.json").toString();
+    const content = JSON.stringify(goalList, null, 2);
     fs.mkdirSync(path.dirname(filename), { recursive: true });
     fs.writeFileSync(filename, content, { encoding: "utf8" });
   }
 
-  MakeScriptContext.prototype.addStaticLibrary = function(name, ...sources) {
-    this.logDebug(currentFunctionName(), name);
+  let msgCount = 0;
+  for (const iter of goalList)
+    msgCount += iter.msg ? 1 : 0;
 
-    const target = bitmake.StaticLibrary.create(this, name);
-    target.addSources(...sources);
-
-    _priv.targets.set(name, target);
-    return target;
-  }
-
-  MakeScriptContext.prototype.addSharedLibrary = function(name, ...sources) {
-    this.logDebug(currentFunctionName(), name);
-
-    const target = bitmake.SharedLibrary.create(this, name);
-    target.addSources(...sources);
-
-    _priv.targets.set(name, target);
-    return target;
-  }
-
-  MakeScriptContext.prototype.addExecutable = function(name) {
-    this.logDebug(currentFunctionName(), name);
-
-    const target = bitmake.Executable.create(this, name);
-    target.addSources(...sources);
-
-    _priv.targets.set(name, target);
-    return target;
-  }
-
-  MakeScriptContext.prototype.findProgram = function(name) {
-    this.logDebug(currentFunctionName(), name);
-
-    if (os.platform() === "win32" && !name.endsWith(".exe"))
-      name += ".exe";
-
-    const paths = process.env.PATH.split(path.posix.delimiter);
-    for (const iter of paths) {
-      const filename = path.posix.resolve(iter, name);
-      if (fileExistsSync(filename))
-        return filename;
+  let msgIndex = 0;
+  for (const goal of goalList) {
+    const { type, msg } = goal;
+    if (msg) {
+      const relationOfLength = Math.round((++msgIndex / msgCount) * 100);
+      const percent = "[" + relationOfLength.toString().padStart(3, " ") + "%] ";
+      this.logInfo(percent + msg);
     }
+    if (type === SCRIPT_GOAL) {
+      const { script, params } = goal;
+      const module = require(script.toString());
+      module(scopeValueAsPrimitives(params));
+    }
+    else if (type === EXEC_GOAL) {
+      const { command, args, cwd, output } = goal;
+      fs.mkdirSync(path.posix.dirname(output), { recursive: true });
+      const result = spawnSync(command, args, { cwd, encoding: "utf-8" });
+      if (result.status) {
+        this.logInfo("cd " + cwd);
+        let cmd = args.join(" ");
+        cmd = command + (cmd ? " " : "") + cmd;
+        this.logInfo(cmd);
+        this.logInfo("");
 
-    return null;
-  }
+        this.logError(result.stderr);
 
-  MakeScriptContext.prototype.executeScript = function(script, options) {
-    this.logDebug(currentFunctionName(), script);
-    const scriptPath = this.SOURCE_DIR.resolve(script);
-    const module = require(scriptPath.toString());
-    module(scopeValueAsPrimitives(options));
-  }
-
-  function getAllIncludesImpl(includes, targetSet, list) {
-    for (const iter of list) {
-      if (iter instanceof bitmake.InterfaceIncludes || iter instanceof bitmake.InterfaceTarget) {
-        if (!targetSet.has(iter.NAME)) {
-          targetSet.add(iter.NAME);
-          const target = _priv.targets.get(iter.NAME);
-          getAllIncludesImpl(includes, targetSet, target.getPublicIncludes());
-          getAllIncludesImpl(includes, targetSet, target.getPublicLibraries());
-        }
-      }
-      else if (iter instanceof bitmake.IncludeDirectory) {
-        if (!includes.includes(iter.toString()))
-          includes.push(iter.toString());
-      }
-      else {
-        throw new Error(`Not support instance ${iter}`);
+        throw new Error("Status " + result.status);
       }
     }
-  }
-
-  function getAllIncludes(target) {
-    const includes = target.TARGET_SCOPE.INCLUDES.map(i => i.toString());
-    const targetSet = new Set([ target.NAME ]);
-    getAllIncludesImpl(includes, targetSet, target.getIncludes());
-    getAllIncludesImpl(includes, targetSet, target.getLibraries());
-    return includes;
-  }
-
-  function getAllHeadersImpl(headers, targetSet, list) {
-    for (const iter of list) {
-      if (iter instanceof bitmake.InterfaceIncludes || iter instanceof bitmake.InterfaceTarget) {
-        if (!targetSet.has(iter.NAME)) {
-          targetSet.add(iter.NAME);
-          const target = _priv.targets.get(iter.NAME);
-          for (const header of target.getHeaders().map(i => i.FILE.toString())) {
-            if (!headers.includes(header.toString()))
-              headers.push(header.toString());
-          }
-          getAllHeadersImpl(headers, targetSet, target.getPublicIncludes());
-          getAllHeadersImpl(headers, targetSet, target.getPublicLibraries());
-        }
-      }
+    else if (type === TARGET_GOAL) {
     }
   }
+}
 
-  function getAllHeaders(target) {
-    const headers = target.getHeaders().map(i => i.FILE.toString());
-    const targetSet = new Set([ target.NAME ]);
-    getAllHeadersImpl(headers, targetSet, target.getIncludes());
-    getAllHeadersImpl(headers, targetSet, target.getLibraries());
-    return headers;
-  }
+MakeContext.prototype.__clone = function() {
+  const proto = Object.getPrototypeOf(this);
+  const o = Object.create(proto);
+  for (const [k,v] of Object.entries(this))
+    o[k] = cloneScopeValue(v);
 
-  MakeScriptContext.prototype.__populateObjectGoals = async function() {
-    this.logDebug(currentFunctionName());
+  o[TARGETS] = this[TARGETS];
+  o[SCRIPTS] = this[SCRIPTS];
+  o[GOALS] = this[GOALS];
+  o[CACHE] = this[CACHE];
+  o[INTERFACE_TARGETS] = this[INTERFACE_TARGETS];
+  o[INTERFACE_SCRIPTS] = this[INTERFACE_SCRIPTS];
 
-    for (const iter of Object.values(_priv.interfaceScripts)) {
-      const script = _priv.scripts.get(iter.NAME);
-      for (const [key, vals] of Object.entries(iter.PROPERTIES))
-        script.addProperty(key, ...vals);
-    }
-
-    for (const [name, script] of Object.entries(_priv.scripts.ENTRIES)) {   
-      const depends = [ script.FILE.toString() ];
-      if (script.INPUT)
-        depends.push(script.INPUT.toString());
-      const msg = "Generating " + script.TARGET_SCOPE.BINARY_DIR.relative(script.OUTPUT);
-      const params = { ...script.PROPERTIES, ...script.PARAMS };
-      _priv.goals.addScript(script.FILE, "", depends, script.OUTPUT.toString(), params, msg);
-    }
-
-    const install_script = "install_script";
-    const install_files = [];
-
-    for (const [name, target] of Object.entries(_priv.targets.ENTRIES)) {
-      const headers = getAllHeaders(target);
-      const depends = [];
-      for (const s of target.SOURCES) {
-        if (s instanceof bitmake.InterfaceObjects) {
-          const t = _priv.targets.get(s.NAME);
-          for (const f of t.SOURCES) {
-            if (f instanceof bitmake.SourceFile && !f.INSTALL_FILE)
-              depends.push(f.OBJECT_FILE.toString());
-          }
-          continue;
-        }
-
-        if (s.INSTALL_FILE) {
-          const src = s.FILE.toString();
-          const dest = s.INSTALL_FILE.toString();
-          _priv.goals.addScript(install_script, "", [ src ], dest, {src, dest}, "");
-          install_files.push(dest);
-        }
-
-        if (s.HEADER_FILE_ONLY)
-          continue;
-
-        fs.mkdirSync(s.OBJECT_FILE_DIR.toString(), { recursive: true });
-
-        const relativeObject = target.TARGET_SCOPE.BINARY_DIR.relative(s.OBJECT_FILE);
-        const relativeBinaryDir = this.PROJECT_BINARY_DIR.relative(target.TARGET_SCOPE.BINARY_DIR);
-        const msg = `Building ${s.LANGUAGE} object ${relativeBinaryDir}/${relativeObject}`;
-
-        const args = [];
-        args.push(...target.TARGET_SCOPE[s.LANGUAGE + "_FLAGS"]);
-        args.push(...target.TARGET_SCOPE[s.LANGUAGE + "_FLAGS_" + target.TARGET_SCOPE.BUILD_TYPE.toUpperCase()]);
-        args.push(...target.COMPILE_OPTIONS);
-        args.push(...s.COMPILE_FLAGS);
-        args.push(...getAllIncludes(target).map(i => "-I" + i));
-        args.push("-o", relativeObject);
-        args.push("-c", s.FILE);
-        const cwd = target.TARGET_SCOPE.BINARY_DIR.toString();
-
-        const command = target.TARGET_SCOPE[s.LANGUAGE + "_COMPILER"].toString();
-        const output = target.TARGET_SCOPE.BINARY_DIR.join(relativeObject).toString();
-        depends.push(output);
-
-        _priv.goals.addExec(output, [ ...headers, s.FILE ], command, args, cwd, msg);
-      }
-
-      if (target instanceof bitmake.StaticLibrary) {
-        const args = [ "rc", target.FILE_NAME ];
-        for (const iter of depends) {
-          if (iter.endsWith(".o") || iter.endsWith(".obj"))
-            args.push(target.FILE_DIR.relative(iter));
-        }
-        const cwd = target.FILE_DIR.toString();
-        const msg = `Linking CXX static library ${target.FILE_NAME}`;
-        _priv.goals.addExec(target.FILE.toString(), depends, this.AR, args, cwd, msg);
-      }
-
-      if (target instanceof bitmake.SharedLibrary) {
-        throw new Error("Not implemented");
-      }
-
-      if (target instanceof bitmake.Executable) {
-        const msg = `Linking CXX executable ${target.FILE_NAME}`;
-      }
-
-      _priv.goals.addTarget(name, [ target.FILE.toString() ], `Built target ${name}`);
-
-      if (target.INSTALL_DESTINATION !== null) {
-        let src = target.FILE.toString();
-        let dest = target.INSTALL_DESTINATION;
-        dest = path.isAbsolute(dest) ? dest : path.posix.join(this.INSTALL_PREFIX, dest);
-        dest = path.posix.join(this.DESTDIR, dest, path.basename(src));
-        _priv.goals.addScript(install_script, "", [ src ], dest, {src, dest}, "");
-        install_files.push(dest);
-      }
-    }
-
-    _priv.goals.addTarget("install", install_files, "");
-    _priv.goals.addTarget("all", Object.keys(_priv.targets.ENTRIES), "");
-  }
-
-  MakeScriptContext.prototype.__build = function(target) {
-    const goalList = _priv.goals.getTargetList(target);
-
-    {
-      const filename = this.BINARY_DIR.join("GoalList.json").toString();
-      const content = JSON.stringify(goalList, null, 2);
-      fs.mkdirSync(path.dirname(filename), { recursive: true });
-      fs.writeFileSync(filename, content, { encoding: "utf8" });
-    }
-
-    let msgCount = 0;
-    for (const iter of goalList)
-      msgCount += iter.msg ? 1 : 0;
-
-    let msgIndex = 0;
-    for (const goal of goalList) {
-      const { type, msg } = goal;
-      if (msg) {
-        const relationOfLength = Math.round((++msgIndex / msgCount) * 100);
-        const percent = "[" + relationOfLength.toString().padStart(3, " ") + "%] ";
-        this.logInfo(percent + msg);
-      }
-      if (type === SCRIPT_GOAL) {
-        const { script, params } = goal;
-        const module = require(script.toString());
-        module(scopeValueAsPrimitives(params));
-      }
-      else if (type === EXEC_GOAL) {
-        const { command, args, cwd, output } = goal;
-        fs.mkdirSync(path.posix.dirname(output), { recursive: true });
-        const result = spawnSync(command, args, { cwd, encoding: "utf-8" });
-        if (result.status) {
-          this.logInfo("cd " + cwd);
-          let cmd = args.join(" ");
-          cmd = command + (cmd ? " " : "") + cmd;
-          this.logInfo(cmd);
-          this.logInfo("");
-
-          this.logError(result.stderr);
-
-          throw new Error("Status " + result.status);
-        }
-      }
-      else if (type === TARGET_GOAL) {
-      }
-    }
-  }
-
-  MakeScriptContext.prototype.__clone = function() {
-    const proto = Object.getPrototypeOf(this);
-    const o = Object.create(proto);
-    for (const [k,v] of Object.entries(this))
-      o[k] = cloneScopeValue(v);
-    return o;
-  }
-
-  return MakeScriptContext;
+  return o;
 }
 
 async function actionMakeScript(config, environment, settings)
 {
   process.env = environment;
 
-  const Constructor = createMakeScriptContext();
-  const root = new Constructor;
+  const root = new MakeContext;
 
   root.SYSTEM_NAME = "Linux";
 

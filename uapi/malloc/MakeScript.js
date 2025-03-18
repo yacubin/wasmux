@@ -11,7 +11,6 @@ module.exports = (mk) => {
 
   const includes = [
     mk.SOURCE_DIR.join("include"),
-    mk.target("libc").INCLUDES,
   ];
 
   const libraries = [
@@ -19,6 +18,7 @@ module.exports = (mk) => {
   ];
 
   const malloc = mk.addStaticLibrary("malloc", headers, sources);
+  malloc.addIncludes(mk.target("libc").INCLUDES);
   malloc.addPublicIncludes(includes);
   malloc.addPublicLibraries(libraries);
   malloc.getSourceFiles(headers).setInstallBaseDir("include");
