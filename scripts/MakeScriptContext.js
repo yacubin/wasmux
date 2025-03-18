@@ -5,7 +5,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const { spawnSync } = require("node:child_process");
 
-const { arrayWrapper, copyValue } = require("###/utils/Primitives.js");
+const { copyValue } = require("###/utils/Primitives.js");
 const { fileExistsSync } = require("###/utils/FileSystem.js");
 const { AbsolutePath } = require("###/utils/AbsolutePath.js");
 const bitmake = require("###/bitmake/index.js");
@@ -241,10 +241,8 @@ MakeContext.prototype.addCacheVariables = function(params) {
 MakeContext.prototype.addIncludeDirectories = function(...dirs) {
   this.logDebug(currentFunctionName());
 
-  for (const iter of dirs) {
-    for (const dirpath of arrayWrapper(iter)) {
-      this.INCLUDES.push(dirpath);
-    }
+  for (const iter of dirs.flat(1)) {
+    this.INCLUDES.push(iter);
   }
 }
 
@@ -449,6 +447,16 @@ MakeContext.prototype.getAllHeaders = function(target) {
 
 MakeContext.prototype.__populateObjectGoals = async function() {
   this.logDebug(currentFunctionName());
+  for (const iter of Object.values(this[INTERFACE_TARGETS])) {
+    const target = this[TARGETS].get(iter.NAME);
+    target.addSources(iter.SOURCES);
+    for (const it of iter.INCLUDES) {
+      if (it.PUBLIC_ONLY)
+        target.addPublicIncludes(it.VALUE);
+      else
+        target.addIncludes(it.VALUE);
+    }
+  }
 
   for (const iter of Object.values(this[INTERFACE_SCRIPTS])) {
     const script = this[SCRIPTS].get(iter.NAME);
@@ -465,7 +473,7 @@ MakeContext.prototype.__populateObjectGoals = async function() {
     this[GOALS].addScript(script.FILE, "", depends, script.OUTPUT.toString(), params, msg);
   }
 
-  const install_script = "install_script";
+  const install_script = path.posix.join(__dirname, "bitmake/SystemScripts/install_script.js");
   const install_files = [];
 
   for (const [name, target] of Object.entries(this[TARGETS].ENTRIES)) {

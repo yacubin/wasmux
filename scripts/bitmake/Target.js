@@ -1,6 +1,5 @@
 "use strict";
 
-const { arrayWrapper } = require("###/utils/Primitives.js");
 const { cloneString } = require("###/bitmake/StrictType.js");
 const { Scope } = require("###/bitmake/Scope.js");
 const { SourceFile } = require("###/bitmake/SourceFile.js");
@@ -105,41 +104,35 @@ BaseTarget.prototype = Object.create(Object.prototype, {
 });
 
 BaseTarget.prototype.addSources = function(...sources) {
-  for (const iter of sources) {
-    for (let it of arrayWrapper(iter)) {
-      if (typeof it === "string" || AbsolutePath.isAbsolute(it))
-        it = SourceFile.create(this, it);
-      else
-        it = InterfaceObjects.asInstance(it);
-      this[SOURCES].push(it);
-    }
+  for (let it of sources.flat(1)) {
+    if (typeof it === "string" || AbsolutePath.isAbsolute(it))
+      it = SourceFile.create(this, it);
+    else
+      it = InterfaceObjects.asInstance(it);
+    this[SOURCES].push(it);
   }
 }
 
 BaseTarget.prototype.addIncludes = function(...includes) {
-  for (const iter of includes) {
-    for (const it of arrayWrapper(iter)) {
-      let VALUE;
-      if (typeof it === "string" || AbsolutePath.isAbsolute(it))
-        VALUE = IncludeDirectory.create(this[TARGET_SCOPE], it);
-      else
-        VALUE = InterfaceIncludes.asInstance(it);
-      this[INCLUDES].push({VALUE});
-    }
+  for (const it of includes.flat(1)) {
+    let VALUE;
+    if (typeof it === "string" || AbsolutePath.isAbsolute(it))
+      VALUE = IncludeDirectory.create(this[TARGET_SCOPE], it);
+    else
+      VALUE = InterfaceIncludes.asInstance(it);
+    this[INCLUDES].push({VALUE}); // IncludeDirectory[]
   }
 }
 
 BaseTarget.prototype.addLibraries = function(...libraries) {
-  for (const iter of libraries) {
-    for (const it of arrayWrapper(iter))
-      this[LIBRARIES].push({ VALUE: InterfaceTarget.asInstance(it) });
+  for (const it of libraries.flat(1)) {
+    this[LIBRARIES].push({ VALUE: InterfaceTarget.asInstance(it) });
   }
 }
 
 BaseTarget.prototype.addCompileOptions = function(...options) {
-  for (const iter of options) {
-    for (let it of arrayWrapper(iter))
-      this.COMPILE_OPTIONS.push(it);
+  for (const it of options.flat(1)) {
+    this.COMPILE_OPTIONS.push(it);
   }
 }
 
@@ -149,14 +142,12 @@ BaseTarget.prototype.addInstallDestination = function(dir) {
 
 BaseTarget.prototype.getSourceFiles = function(...sources) {
   const result = [];
-  for (const iter of sources) {
-    for (let it of arrayWrapper(iter)) {
-      const filename = this[TARGET_SCOPE].SOURCE_DIR.resolve(it).toString();
-      const src = this[SOURCES].find(i => i instanceof SourceFile && i.FILE.toString() === filename);
-      if (!src)
-        throw new Error(`Cannot find "${it}"`);
-      result.push(src);
-    }
+  for (const it of sources.flat(1)) {
+    const filename = this[TARGET_SCOPE].SOURCE_DIR.resolve(it).toString();
+    const src = this[SOURCES].find(i => i instanceof SourceFile && i.FILE.toString() === filename);
+    if (!src)
+      throw new Error(`Cannot find "${it}"`);
+    result.push(src);
   }
 
   if (result.length)
@@ -210,15 +201,13 @@ BaseLibrary.prototype = Object.create(BaseTarget.prototype, {
 });
 
 BaseLibrary.prototype.addPublicIncludes = function(...includes) {
-  for (const iter of includes) {
-    for (const it of arrayWrapper(iter)) {
-      let VALUE;
-      if (typeof it === "string" || AbsolutePath.isAbsolute(it))
-        VALUE = IncludeDirectory.create(this[TARGET_SCOPE], it);
-      else
-        VALUE = InterfaceIncludes.asInstance(it);
-      this[INCLUDES].push({VALUE, PUBLIC_ONLY: true});
-    }
+  for (const it of includes.flat(1)) {
+    let VALUE;
+    if (typeof it === "string" || AbsolutePath.isAbsolute(it))
+      VALUE = IncludeDirectory.create(this[TARGET_SCOPE], it);
+    else
+      VALUE = InterfaceIncludes.asInstance(it);
+    this[INCLUDES].push({VALUE, PUBLIC_ONLY: true}); // IncludeDirectory[]
   }
 }
 
@@ -231,10 +220,8 @@ BaseLibrary.prototype.getPublicIncludes = function() {
 }
 
 BaseLibrary.prototype.addPublicLibraries = function(...libraries) {
-  for (const iter of libraries) {
-    for (const it of arrayWrapper(iter)) {
-      this[LIBRARIES].push({VALUE: InterfaceTarget.asInstance(it), PUBLIC_ONLY: true});
-    }
+  for (const it of libraries.flat(1)) {
+    this[LIBRARIES].push({VALUE: InterfaceTarget.asInstance(it), PUBLIC_ONLY: true});
   }
 }
 

@@ -13,6 +13,6 @@ function cloneString(value) {
 }
 
 module.exports = {
-  cloneBoolean,
-  cloneString,
+  cloneBoolean, // ensureBoolean
+  cloneString,  // ensureString
 };

@@ -34,6 +34,11 @@ class AbsolutePath {
     return new AbsolutePath(path.posix.resolve(this._filepath, ...paths.map(i => i.toString())));
   }
 
+  isParentDir(dirpath) {
+    const dir = AbsolutePath.create(dirpath);
+    return this._filepath.startsWith(dir._filepath);
+  }
+
   toURL() {
     return url.pathToFileURL(this._filepath);
   }

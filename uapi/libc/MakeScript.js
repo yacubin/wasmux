@@ -159,8 +159,8 @@ module.exports = (mk) => {
     "src/posix_openpt.cpp",
     "src/sbrk.cpp",
     "src/usleep.cpp",
-    mk.target("wabase").OBJECTS,
-    mk.target("wauser").OBJECTS,
+    mk.target("wabase").objects(),
+    mk.target("wauser").objects(),
   ];
 
   const includes = [
@@ -221,6 +221,6 @@ module.exports = (mk) => {
   libc.addInstallDestination(mk.INSTALL_LIBDIR);
   libc.setPrefix("");
   libc.getSourceFiles(headers).setInstallBaseDir("include");
-  libc.getSourceFiles(syscall_h).setInstallBaseDir(mk.BINARY_DIR.join("include"));
+  libc.getSourceFiles(syscall_h, ctype_h, gnu_versions_h, stdlib_h, unistd_h, features_h).setInstallBaseDir(mk.BINARY_DIR.join("include"));
   libc.getSourceFiles(headers, syscall_h, ctype_h, gnu_versions_h, stdlib_h, unistd_h, features_h).setInstallDestination(mk.INSTALL_INCLUDEDIR);
 }

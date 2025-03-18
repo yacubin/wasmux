@@ -16,7 +16,7 @@ module.exports = (mk) => {
   const includes = [
     mk.SOURCE_DIR.join("internal"),
     mk.SOURCE_DIR.join("include"),
-    mk.target("libc").INCLUDES,
+    mk.target("libc").includes(),
   ];
 
   const libraries = [

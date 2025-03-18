@@ -3,6 +3,7 @@
 const { cloneBoolean } = require("###/bitmake/StrictType.js");
 
 const TARGET_SCOPE        = Symbol("TARGET_SCOPE");
+const NAME                = Symbol("NAME");
 const LANGUAGE            = Symbol("LANGUAGE");
 const HEADER_FILE_ONLY    = Symbol("HEADER_FILE_ONLY");
 const COMPILE_FLAGS       = Symbol("COMPILE_FLAGS");
@@ -41,6 +42,7 @@ function makeLanguage(value) {
 function SourceFile(target, filename) {
   this[TARGET_SCOPE] = target.TARGET_SCOPE;
 
+  this[NAME] = filename.toString();
   const fname = this[TARGET_SCOPE].SOURCE_DIR.resolve(filename);
 
   this[LANGUAGE] = getFileLanguage(fname);
@@ -51,7 +53,13 @@ function SourceFile(target, filename) {
   this[FILE] = fname;
 
   if (this[LANGUAGE]) {
-    const rfile = this[TARGET_SCOPE].SOURCE_DIR.relative(this[FILE]);
+    let rfile;
+    if (this[FILE].isParentDir(this[TARGET_SCOPE].BINARY_DIR))
+      rfile = this[TARGET_SCOPE].BINARY_DIR.relative(this[FILE]);
+    else if (this[FILE].isParentDir(this[TARGET_SCOPE].SOURCE_DIR))
+      rfile = this[TARGET_SCOPE].SOURCE_DIR.relative(this[FILE]);
+    else
+      rfile = this[FILE].toString();
     this[OBJECT_FILE] = this[TARGET_SCOPE].BINARY_DIR.join("MakeFiles", target.NAME + ".dir",  rfile + ".obj");
   }
   else {
@@ -63,6 +71,10 @@ SourceFile.prototype = Object.create(Object.prototype, {
   constructor: {
     value: SourceFile,
     enumerable: false,
+  },
+  NAME: {
+    get () { return this[NAME]; },
+    enumerable: true,
   },
   LANGUAGE: {
     get () { return this[LANGUAGE]; },

@@ -5,12 +5,12 @@ const { InterfaceObjects } = require("###/bitmake/InterfaceObjects.js");
 
 const NAME     = Symbol("NAME");
 const INCLUDES = Symbol("INCLUDES");
-const OBJECTS  = Symbol("OBJECTS");
+const SOURCES  = Symbol("SOURCES");
 
 function InterfaceTarget(name) {
   this[NAME] = name;
-  this[INCLUDES] = InterfaceIncludes.create(name);
-  this[OBJECTS] = InterfaceObjects.create(name);
+  this[SOURCES] = [];
+  this[INCLUDES] = [];
 }
 
 InterfaceTarget.create = (name) => {
@@ -36,8 +36,8 @@ InterfaceTarget.prototype = Object.create(Object.prototype, {
     get () { return this[INCLUDES]; },
     enumerable: false,
   },
-  OBJECTS: {
-    get () { return this[OBJECTS]; },
+  SOURCES: {
+    get () { return this[SOURCES]; },
     enumerable: false,
   },
 });
@@ -45,12 +45,35 @@ InterfaceTarget.prototype = Object.create(Object.prototype, {
 InterfaceTarget.prototype.toJSON = function() {
   const json = {};
   for (const key in this)
-    json[key] = (typeof this[key].toJSON === "function") ? this[key].toJSON() : this[key];
+    json[key] = this[key];
   return json;
 }
 
 InterfaceTarget.prototype.toString = function() {
   return "${" + this[NAME] + "}";
+}
+
+InterfaceTarget.prototype.addSource = function(...sources) {
+  for (const iter of sources.flat(1))
+    this[SOURCES].push(iter);
+}
+
+InterfaceTarget.prototype.addIncludes = function(...includes) {
+  for (const iter of includes.flat(1))
+    this[INCLUDES].push({ VALUE: iter, PUBLIC_ONLY: false });
+}
+
+InterfaceTarget.prototype.addPublicIncludes = function(...includes) {
+  for (const iter of includes.flat(1))
+    this[INCLUDES].push({ VALUE: iter, PUBLIC_ONLY: true });
+}
+
+InterfaceTarget.prototype.includes = function() {
+  return InterfaceIncludes.create(this[NAME]);
+}
+
+InterfaceTarget.prototype.objects = function() {
+  return InterfaceObjects.create(this[NAME]);
 }
 
 module.exports = {
