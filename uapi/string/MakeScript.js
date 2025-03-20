@@ -41,9 +41,12 @@ module.exports = (mk) => {
   });
 
   const string = mk.addStaticLibrary("string", headers, sources, strerror_cpp);
+  string.addIncludes(mk.target("libc").includes);
   string.addPublicIncludes(includes);
-  string.addIncludes(mk.target("libc").includes());
   string.addPublicLibraries(libraries);
   string.getSourceFiles(headers).setInstallBaseDir("include");
   string.getSourceFiles(headers).setInstallDestination(mk.INSTALL_INCLUDEDIR);
+
+  mk.target("libc").addSource(headers, sources, strerror_cpp);
+  mk.target("libc").addPublicIncludes(includes);
 }

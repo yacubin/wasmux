@@ -12,7 +12,7 @@ const { InterfaceObjects } = require("./InterfaceObjects.js");
 const { InterfaceScript } = require("./InterfaceScript.js");
 const { ScriptCollection } = require("./ScriptCollection.js");
 const { TargetCollection } = require("./TargetCollection.js");
-const { DirPath, FilePath } = require("./PathManager.js");
+const { DirPath, FilePath } = require("./Path.js");
 
 module.exports = {
   Scope,

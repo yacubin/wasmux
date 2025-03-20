@@ -268,7 +268,6 @@ MakeContext.prototype.__applyDirectory = function(sourceDir, binaryDir) {
 
   const module = require(newMake.SCRIPT_FILE.toString());
   module(newMake);
-  // newMake.dump();
   this.__syncCacheVariables();
 }
 
@@ -289,7 +288,7 @@ MakeContext.prototype.target = function(name) {
     this[INTERFACE_TARGETS][name] = target;
   }
 
-  return target;
+  return target.forUser(this);
 }
 
 MakeContext.prototype.script = function(name) {

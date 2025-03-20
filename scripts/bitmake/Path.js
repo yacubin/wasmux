@@ -13,6 +13,10 @@ function BasePath(_path) {
   this[PATH] = _path;
 }
 
+BasePath.create = (path) => {
+  return Object.seal(new BasePath(path)); // ?
+}
+
 BasePath.prototype = Object.create(Object.prototype, {
   constructor: {
     value: BasePath,

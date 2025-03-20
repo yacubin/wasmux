@@ -4,6 +4,8 @@ const { InterfaceIncludes } = require("###/bitmake/InterfaceIncludes.js");
 const { InterfaceObjects } = require("###/bitmake/InterfaceObjects.js");
 
 const NAME     = Symbol("NAME");
+const SCOPE    = Symbol("SCOPE");
+const PROTO    = Symbol("PROTO");
 const INCLUDES = Symbol("INCLUDES");
 const SOURCES  = Symbol("SOURCES");
 
@@ -11,6 +13,33 @@ function InterfaceTarget(name) {
   this[NAME] = name;
   this[SOURCES] = [];
   this[INCLUDES] = [];
+
+  const includes = InterfaceIncludes.create(name);
+  const objects = InterfaceObjects.create(name);
+
+  this[PROTO] = Object.create(this, {
+    includes: {
+      get () { return includes; },
+      enumerable: false,
+    },
+    objects: {
+      get () { return objects; },
+      enumerable: false,
+    },
+  });
+  this[PROTO].addSource = function(...sources) {
+    for (const iter of sources.flat(1)) {
+      this[SOURCES].push(this[SCOPE].SOURCE_DIR.resolve(iter));
+    }
+  }
+  this[PROTO].addIncludes = function(...includes) {
+    for (const iter of includes.flat(1))
+      this[INCLUDES].push({ VALUE: this[SCOPE].SOURCE_DIR.resolve(iter), PUBLIC_ONLY: false });
+  }
+  this[PROTO].addPublicIncludes = function(...includes) {
+    for (const iter of includes.flat(1))
+      this[INCLUDES].push({ VALUE: this[SCOPE].SOURCE_DIR.resolve(iter), PUBLIC_ONLY: true });
+  }
 }
 
 InterfaceTarget.create = (name) => {
@@ -53,27 +82,10 @@ InterfaceTarget.prototype.toString = function() {
   return "${" + this[NAME] + "}";
 }
 
-InterfaceTarget.prototype.addSource = function(...sources) {
-  for (const iter of sources.flat(1))
-    this[SOURCES].push(iter);
-}
-
-InterfaceTarget.prototype.addIncludes = function(...includes) {
-  for (const iter of includes.flat(1))
-    this[INCLUDES].push({ VALUE: iter, PUBLIC_ONLY: false });
-}
-
-InterfaceTarget.prototype.addPublicIncludes = function(...includes) {
-  for (const iter of includes.flat(1))
-    this[INCLUDES].push({ VALUE: iter, PUBLIC_ONLY: true });
-}
-
-InterfaceTarget.prototype.includes = function() {
-  return InterfaceIncludes.create(this[NAME]);
-}
-
-InterfaceTarget.prototype.objects = function() {
-  return InterfaceObjects.create(this[NAME]);
+InterfaceTarget.prototype.forUser = function(scope) {
+  const o = Object.create(this[PROTO]);
+  o[SCOPE] = scope;
+  return Object.seal(o);
 }
 
 module.exports = {
