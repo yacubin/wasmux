@@ -5,7 +5,7 @@ module.exports = (mk) => {
     mk.addSubdirectory("malloc");
     mk.addSubdirectory("fcntl");
     mk.addSubdirectory("string");
-    /*mk.addSubdirectory("ctype");
+    mk.addSubdirectory("ctype");
     mk.addSubdirectory("stdlib");
     mk.addSubdirectory("signal");
     mk.addSubdirectory("semaphore");
@@ -23,7 +23,7 @@ module.exports = (mk) => {
     mk.addSubdirectory("argp");
     mk.addSubdirectory("fts");
     mk.addSubdirectory("netdb");
-    mk.addSubdirectory("obstack");
+    /*mk.addSubdirectory("obstack");
     mk.addSubdirectory("libintl");
     mk.addSubdirectory("locale");
     mk.addSubdirectory("getopt");
