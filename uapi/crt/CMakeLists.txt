@@ -2,8 +2,8 @@ set(crt1_HEADERS
   )
 
 set(crt1_SOURCES
-  start.c
-  version.c
+  src/start.c
+  src/version.c
   )
 
 set(crt1_LIBRARIES
@@ -19,8 +19,8 @@ set(crt1_reactor_HEADERS
   )
 
 set(crt1_reactor_SOURCES
-  initialize.c
-  version.c
+  src/initialize.c
+  src/version.c
   )
 
 set(crt1_reactor_LIBRARIES

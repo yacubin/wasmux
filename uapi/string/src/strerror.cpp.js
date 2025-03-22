@@ -1,7 +1,7 @@
 const fs = require("node:fs");
 const path = require("node:path");
 
-const cxx = require("###/utils/CXX.js");
+const cxx = require("bitmake/utils/CXX.js");
 
 module.exports = function({input, output})
 {

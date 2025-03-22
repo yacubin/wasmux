@@ -13,13 +13,5 @@ export const ARGS = {
 
 export default async function(ctx, {input, output})
 {
-  if (!input) {
-    throw "Not pass the binary dir";
-  }
-
-  if (!output) {
-    throw "Not pass the output";
-  }
-
   base({ input, output });
 }

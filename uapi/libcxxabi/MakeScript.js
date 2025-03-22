@@ -21,4 +21,6 @@ module.exports = (mk) => {
   libcxxabi.addLibraries(libraries);
   libcxxabi.addInstallDestination(mk.INSTALL_LIBDIR);
   libcxxabi.setOutputName("c++abi");
+
+  mk.install(libcxxabi, mk.INSTALL_LIBDIR);
 }

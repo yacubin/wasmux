@@ -1,12 +1,12 @@
 const fs = require("node:fs");
 const path = require("node:path");
 
-const CXX = require("###/utils/CXX.js");
+const cxx = require("bitmake/utils/CXX.js");
 
 module.exports = ({input, output}) => {
   const lines = [];
 
-  lines.push(CXX.generatedScriptNameComment(__filename));
+  lines.push(cxx.generatedScriptNameComment(__filename));
   lines.push("");
 
   for (const [name, entry] of Object.entries(input)) {

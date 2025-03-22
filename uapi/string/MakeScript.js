@@ -49,4 +49,9 @@ module.exports = (mk) => {
 
   mk.target("libc").addSource(headers, sources, strerror_cpp);
   mk.target("libc").addPublicIncludes(includes);
+
+  mk.install(headers, {
+    destination: mk.INSTALL_INCLUDEDIR,
+    baseDir: "include",
+  });
 }

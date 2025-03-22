@@ -22,4 +22,6 @@ module.exports = (mk) => {
   libgcc.addIncludes(includes);
   libgcc.addLibraries(libraries);
   libgcc.addInstallDestination(mk.INSTALL_LIBDIR);
+
+  mk.install(libgcc, mk.INSTALL_LIBDIR);
 }

@@ -1,10 +1,18 @@
 const fs = require("node:fs");
 const path = require("node:path");
 
-const CXX = require("###/utils/CXX.js");
+const CXX = require("bitmake/utils/CXX.js");
 
 module.exports = function({input, output})
 {
+  if (!input) {
+    throw "Not pass the binary dir";
+  }
+
+  if (!output) {
+    throw "Not pass the output";
+  }
+
   const config = require(input);
 
   let errors = [];

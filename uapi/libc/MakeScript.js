@@ -223,4 +223,14 @@ module.exports = (mk) => {
   libc.getSourceFiles(headers).setInstallBaseDir("include");
   libc.getSourceFiles(syscall_h, ctype_h, gnu_versions_h, stdlib_h, unistd_h, features_h).setInstallBaseDir(mk.BINARY_DIR.join("include"));
   libc.getSourceFiles(headers, syscall_h, ctype_h, gnu_versions_h, stdlib_h, unistd_h, features_h).setInstallDestination(mk.INSTALL_INCLUDEDIR);
+
+  mk.install(headers, {
+    destination: mk.INSTALL_INCLUDEDIR,
+    baseDir: "include",
+  });
+  mk.install([ syscall_h, ctype_h, gnu_versions_h, stdlib_h, unistd_h, features_h ], {
+    destination: mk.INSTALL_INCLUDEDIR,
+    baseDir: mk.BINARY_DIR.join("include"),
+  });
+  mk.install(libc, mk.INSTALL_LIBDIR);
 }

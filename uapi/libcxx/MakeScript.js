@@ -24,4 +24,6 @@ module.exports = (mk) => {
   libcxx.addInstallDestination(mk.INSTALL_LIBDIR);
   libcxx.setOutputName("c++");
   libcxx.getSourceFiles("stub/new.cpp").addCompileFlags("-fvisibility-global-new-delete=force-hidden");
+
+  mk.install(libcxx, mk.INSTALL_LIBDIR);
 }

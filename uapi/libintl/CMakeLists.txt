@@ -1,13 +1,13 @@
 set(libintl_HEADERS
-  libintl.h
+  include/libintl.h
   )
 
 set(libintl_SOURCES
-  libintl.cpp
+  src/libintl.cpp
   )
 
 set(libintl_INCLUDES
-  "${CMAKE_CURRENT_SOURCE_DIR}"
+  "${CMAKE_CURRENT_SOURCE_DIR}/include"
   )
 
 set(libintl_DEFINITIONS
@@ -25,5 +25,5 @@ target_link_libraries(libintl PRIVATE ${libintl_LIBRARIES})
 set_target_properties(libintl PROPERTIES PREFIX "")
 
 if (WASMUX_ENABLE_INSTALL_HEADERS)
-  WX_INSTALL_HEADERS(HEADERS ${libintl_HEADERS} DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
+  WX_INSTALL_HEADERS(HEADERS ${libintl_HEADERS} BASE_DIR include DESTINATION "${WASMUX_INSTALL_INCLUDEDIR}")
 endif ()

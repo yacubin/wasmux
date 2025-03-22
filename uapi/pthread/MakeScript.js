@@ -23,4 +23,10 @@ module.exports = (mk) => {
   pthread.addInstallDestination(mk.INSTALL_LIBDIR);
   pthread.getSourceFiles(headers).setInstallBaseDir("include");
   pthread.getSourceFiles(headers).setInstallDestination(mk.INSTALL_INCLUDEDIR);
+
+  mk.install(headers, {
+    destination: mk.INSTALL_INCLUDEDIR,
+    baseDir: "include",
+  });
+  mk.install(pthread, mk.INSTALL_LIBDIR);
 }

@@ -23,4 +23,10 @@ module.exports = (mk) => {
   dl.addInstallDestination(mk.INSTALL_LIBDIR);
   dl.getSourceFiles(headers).setInstallBaseDir("include");
   dl.getSourceFiles(headers).setInstallDestination(mk.INSTALL_INCLUDEDIR);
+
+  mk.install(headers, {
+    destination: mk.INSTALL_INCLUDEDIR,
+    baseDir: "include",
+  });
+  mk.install(dl, mk.INSTALL_LIBDIR);
 }

@@ -23,31 +23,31 @@ module.exports = (mk) => {
     mk.addSubdirectory("argp");
     mk.addSubdirectory("fts");
     mk.addSubdirectory("netdb");
-    /*mk.addSubdirectory("obstack");
+    mk.addSubdirectory("obstack");
     mk.addSubdirectory("libintl");
     mk.addSubdirectory("locale");
     mk.addSubdirectory("getopt");
     mk.addSubdirectory("regex");
     mk.addSubdirectory("glob");
     mk.addSubdirectory("fnmatch");
-    mk.addSubdirectory("ulinux");*/
+    mk.addSubdirectory("ulinux");
     mk.addSubdirectory("libc");
   }
   if (mk.WASMUX_ENABLE_LIBGCC) {
     mk.addSubdirectory("libgcc");
   }
-  /*if (mk.WASMUX_ENABLE_CRT) {
+  if (mk.WASMUX_ENABLE_CRT) {
     mk.addSubdirectory("crt");
-  }*/
+  }
   if (mk.WASMUX_ENABLE_LIBCXX) {
     mk.addSubdirectory("libcxx");
   }
   if (mk.WASMUX_ENABLE_LIBCXX) {
     mk.addSubdirectory("libcxxabi");
   }
-  /*if (mk.WASMUX_ENABLE_LIBM) {
+  if (mk.WASMUX_ENABLE_LIBM) {
     mk.addSubdirectory("libm");
-  }*/
+  }
   if (mk.WASMUX_ENABLE_DL) {
     mk.addSubdirectory("dl");
   }

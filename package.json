@@ -20,11 +20,9 @@
     "email": "yurii.yakubin@gmail.com"
   },
   "keywords": [
-    "WebAssembly"
+    "WebAssembly",
+    "libc"
   ],
-  "bin": {
-    "wasmux": "scripts/wasmux-cli.mjs"
-  },
   "dependencies": {
     "bitmake": "github:ykbin/bitmake#20250322_copy_from_wasmux",
     "webpack": "^5.91.0",

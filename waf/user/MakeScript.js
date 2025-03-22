@@ -33,4 +33,13 @@ module.exports = (mk) => {
   wauser.getSourceFiles(headers).setInstallBaseDir("include");
   wauser.getSourceFiles(arch_syscall_h).setInstallBaseDir(mk.BINARY_DIR.join("include"));
   wauser.getSourceFiles(headers, arch_syscall_h).setInstallDestination(mk.INSTALL_INCLUDEDIR);
+
+  mk.install(headers, {
+    destination: mk.INSTALL_INCLUDEDIR,
+    baseDir: "include",
+  });
+  mk.install(arch_syscall_h, {
+    destination: mk.INSTALL_INCLUDEDIR,
+    baseDir: mk.BINARY_DIR.join("include"),
+  });
 }

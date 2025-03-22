@@ -2,6 +2,27 @@ include(CMakeParseArguments)
 
 find_program(NODE_EXECUTABLE node REQUIRED)
 
+function (GET_BITMAKE_PATH _path)
+  execute_process(COMMAND "${NODE_EXECUTABLE}"
+      "${WASMUX_ROOT_DIR}/scripts/require-resolve-module.mjs"
+      "bitmake"
+    WORKING_DIRECTORY
+      "${WASMUX_ROOT_DIR}"
+    OUTPUT_VARIABLE
+      _output
+    ERROR_VARIABLE
+      _error
+    RESULT_VARIABLE
+      _result
+    )
+  if (_result)
+    message(FATAL_ERROR "Unable to get bitmake path, result ${_result}\n${_error}")
+  endif ()
+  set(${_path} "${_output}" PARENT_SCOPE)
+endfunction ()
+
+GET_BITMAKE_PATH(WASMUX_SCRIPT_DIR)
+
 macro(WX_INSTALL_HEADERS)
   cmake_parse_arguments(__waf_install_headers
     ""

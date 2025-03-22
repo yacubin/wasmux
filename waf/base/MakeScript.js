@@ -97,4 +97,13 @@ module.exports = (mk) => {
   wabase.getSourceFiles(headers).setInstallBaseDir("include");
   wabase.getSourceFiles(errno_h).setInstallBaseDir(mk.BINARY_DIR.join("include"));
   wabase.getSourceFiles(headers, errno_h).setInstallDestination(mk.INSTALL_INCLUDEDIR);
+
+  mk.install(headers, {
+    destination: mk.INSTALL_INCLUDEDIR,
+    baseDir: "include",
+  });
+  mk.install(errno_h, {
+    destination: mk.INSTALL_INCLUDEDIR,
+    baseDir: mk.BINARY_DIR.join("include"),
+  });
 }
