@@ -15,16 +15,8 @@ module.exports = (mk) => {
     mk.SOURCE_DIR.join("include"),
   ];
 
-  const libraries = [
-    mk.target("wauser"),
-  ];
-
-  const ulinux = mk.addStaticLibrary("ulinux", headers, sources);
-  ulinux.addIncludes(mk.target("libc").includes);
-  ulinux.addPublicIncludes(includes);
-  ulinux.addPublicLibraries(libraries);
-  ulinux.getSourceFiles(headers).setInstallBaseDir("include");
-  ulinux.getSourceFiles(headers).setInstallDestination(mk.INSTALL_INCLUDEDIR);
+  mk.target("libc").addSources(headers, sources);
+  mk.target("libc").addPublicIncludes(includes);
 
   mk.install(headers, {
     destination: mk.INSTALL_INCLUDEDIR,

@@ -1,16 +1,22 @@
 "use strict";
 
-module.exports = (make) => {
+module.exports = (mk) => {
   const sources = [
     "waeditor.cpp",
   ];
 
   const includes = [
-    make.BINARY_DIR.join("include"),
-    make.SOURCE_DIR.join("include"),
+    mk.BINARY_DIR.join("include"),
+    mk.SOURCE_DIR.join("include"),
   ];
 
-  const waeditor = make.addExecutable("waeditor", sources);
+  const libraries = [
+    mk.target("wabase"),
+  ];
+
+  const waeditor = mk.addExecutable("waeditor", sources);
   waeditor.addIncludes(includes);
-  waeditor.addInstallDestination(make.INSTALL_BINDIR);
+  waeditor.addLibraries(libraries);
+
+  mk.install(waeditor, mk.INSTALL_BINDIR);
 }

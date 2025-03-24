@@ -29,10 +29,6 @@ module.exports = (mk) => {
     mk.SOURCE_DIR.join("include"),
   ];
 
-  const libraries = [
-    mk.target("wauser"),
-  ];
-
   const strerror_cpp = mk.BINARY_DIR.join("src/strerror.cpp");
   mk.addCustomScript("strerror.cpp", {
     script: "src/strerror.cpp.js",
@@ -40,14 +36,7 @@ module.exports = (mk) => {
     output: strerror_cpp,
   });
 
-  const string = mk.addStaticLibrary("string", headers, sources, strerror_cpp);
-  string.addIncludes(mk.target("libc").includes);
-  string.addPublicIncludes(includes);
-  string.addPublicLibraries(libraries);
-  string.getSourceFiles(headers).setInstallBaseDir("include");
-  string.getSourceFiles(headers).setInstallDestination(mk.INSTALL_INCLUDEDIR);
-
-  mk.target("libc").addSource(headers, sources, strerror_cpp);
+  mk.target("libc").addSources(headers, sources, strerror_cpp);
   mk.target("libc").addPublicIncludes(includes);
 
   mk.install(headers, {

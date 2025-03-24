@@ -61,5 +61,5 @@ module.exports = (mk) => {
     output: worker_S,
   });
 
-  mk.target("walinuz").addSource(loader_S, worker_S);
+  mk.target("walinuz").addSources(loader_S, worker_S);
 }

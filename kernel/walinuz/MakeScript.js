@@ -42,7 +42,6 @@ module.exports = (mk) => {
   const walinuz = mk.addExecutable("walinuz", headers, sources);
   walinuz.addIncludes(includes);
   walinuz.addLibraries(libraries);
-  walinuz.addInstallDestination("/boot");
 
   mk.install(walinuz, "/boot");
 

@@ -4,8 +4,8 @@ module.exports = {
     value: "${PROJECT_VERSION}",
   },
   WASMUX_DESCRIPTION: {
-    description: "${PROJECT_DESCRIPTION}",
-    value: "WASMUX Description",
+    description: "WASMUX Description",
+    value: "${PROJECT_DESCRIPTION}",
   },
   WASMUX_URL: {
     description: "WASMUX URL",

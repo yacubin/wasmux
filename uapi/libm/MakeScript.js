@@ -19,13 +19,9 @@ module.exports = (mk) => {
   ];
 
   const libm = mk.addStaticLibrary("libm", headers, sources);
-  libm.setPrefix("");
-  libm.addIncludes(includes);
+  libm.addPublicIncludes(includes);
   libm.addLibraries(libraries);
-
-  libm.addInstallDestination(mk.INSTALL_LIBDIR);
-  libm.getSourceFiles(headers).setInstallBaseDir("include");
-  libm.getSourceFiles(headers).setInstallDestination(mk.INSTALL_INCLUDEDIR);
+  libm.setPrefix("");
 
   mk.install(headers, {
     destination: mk.INSTALL_INCLUDEDIR,

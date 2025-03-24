@@ -29,18 +29,7 @@ module.exports = (mk) => {
     mk.SOURCE_DIR.join("include"),
   ];
 
-  const libraries = [
-    mk.target("wauser"),
-  ];
-
-  const libio = mk.addStaticLibrary("libio", headers, sources);
-  libio.addIncludes(mk.target("libc").includes);
-  libio.addPublicIncludes(includes);
-  libio.addPublicLibraries(libraries);
-  libio.getSourceFiles(headers).setInstallBaseDir("include");
-  libio.getSourceFiles(headers).setInstallDestination(mk.INSTALL_INCLUDEDIR);
-
-  mk.target("libc").addSource(headers, sources);
+  mk.target("libc").addSources(headers, sources);
   mk.target("libc").addPublicIncludes(includes);
 
   mk.install(headers, {

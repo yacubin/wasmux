@@ -13,18 +13,7 @@ module.exports = (mk) => {
     mk.SOURCE_DIR.join("include"),
   ];
 
-  const libraries = [
-    mk.target("wauser"),
-  ];
-
-  const fts = mk.addStaticLibrary("fts", headers, sources);
-  fts.addIncludes(mk.target("libc").includes);
-  fts.addPublicIncludes(includes);
-  fts.addPublicLibraries(libraries);
-  fts.getSourceFiles(headers).setInstallBaseDir("include");
-  fts.getSourceFiles(headers).setInstallDestination(mk.INSTALL_INCLUDEDIR);
-
-  mk.target("libc").addSource(headers, sources);
+  mk.target("libc").addSources(headers, sources);
   mk.target("libc").addPublicIncludes(includes);
 
   mk.install(headers, {

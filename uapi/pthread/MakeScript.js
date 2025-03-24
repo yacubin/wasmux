@@ -20,9 +20,6 @@ module.exports = (mk) => {
   const pthread = mk.addStaticLibrary("pthread", headers, sources);
   pthread.addPublicIncludes(includes);
   pthread.addPublicLibraries(libraries);
-  pthread.addInstallDestination(mk.INSTALL_LIBDIR);
-  pthread.getSourceFiles(headers).setInstallBaseDir("include");
-  pthread.getSourceFiles(headers).setInstallDestination(mk.INSTALL_INCLUDEDIR);
 
   mk.install(headers, {
     destination: mk.INSTALL_INCLUDEDIR,

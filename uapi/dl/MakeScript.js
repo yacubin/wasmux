@@ -20,9 +20,6 @@ module.exports = (mk) => {
   const dl = mk.addStaticLibrary("dl", headers, sources);
   dl.addPublicIncludes(includes);
   dl.addPublicLibraries(libraries);
-  dl.addInstallDestination(mk.INSTALL_LIBDIR);
-  dl.getSourceFiles(headers).setInstallBaseDir("include");
-  dl.getSourceFiles(headers).setInstallDestination(mk.INSTALL_INCLUDEDIR);
 
   mk.install(headers, {
     destination: mk.INSTALL_INCLUDEDIR,

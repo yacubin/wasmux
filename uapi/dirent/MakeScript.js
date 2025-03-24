@@ -15,18 +15,7 @@ module.exports = (mk) => {
     mk.SOURCE_DIR.join("include"),
   ];
 
-  const libraries = [
-    mk.target("wauser"),
-  ];
-
-  const dirent = mk.addStaticLibrary("dirent", headers, sources);
-  dirent.addIncludes(mk.target("libc").includes);
-  dirent.addPublicIncludes(includes);
-  dirent.addPublicLibraries(libraries);
-  dirent.getSourceFiles(headers).setInstallBaseDir("include");
-  dirent.getSourceFiles(headers).setInstallDestination(mk.INSTALL_INCLUDEDIR);
-
-  mk.target("libc").addSource(headers, sources);
+  mk.target("libc").addSources(headers, sources);
   mk.target("libc").addPublicIncludes(includes);
 
   mk.install(headers, {

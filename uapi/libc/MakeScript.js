@@ -218,11 +218,7 @@ module.exports = (mk) => {
   libc.addSources(syscall_h, ctype_h, gnu_versions_h, stdlib_h, unistd_h, features_h);
   libc.addPublicIncludes(includes);
   libc.addPublicLibraries(libraries);
-  libc.addInstallDestination(mk.INSTALL_LIBDIR);
   libc.setPrefix("");
-  libc.getSourceFiles(headers).setInstallBaseDir("include");
-  libc.getSourceFiles(syscall_h, ctype_h, gnu_versions_h, stdlib_h, unistd_h, features_h).setInstallBaseDir(mk.BINARY_DIR.join("include"));
-  libc.getSourceFiles(headers, syscall_h, ctype_h, gnu_versions_h, stdlib_h, unistd_h, features_h).setInstallDestination(mk.INSTALL_INCLUDEDIR);
 
   mk.install(headers, {
     destination: mk.INSTALL_INCLUDEDIR,

@@ -19,7 +19,6 @@ module.exports = (mk) => {
   const libcxxabi = mk.addStaticLibrary("libcxxabi", headers, sources);
   libcxxabi.addIncludes(includes);
   libcxxabi.addLibraries(libraries);
-  libcxxabi.addInstallDestination(mk.INSTALL_LIBDIR);
   libcxxabi.setOutputName("c++abi");
 
   mk.install(libcxxabi, mk.INSTALL_LIBDIR);
