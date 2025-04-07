@@ -12,7 +12,7 @@ module.exports = (mk) => {
   mk.INSTALL_LIBDIR = "lib";
 
   if (mk.WASMUX_TARGET_TRIPLET && mk.WASMUX_TARGET_TRIPLET.match(/-wasi$/))
-    mk.INSTALL_LIBDIR += mk.SYSTEM_PROCESSOR + "-wasi";
+    mk.INSTALL_LIBDIR = `lib/${mk.SYSTEM_PROCESSOR}-wasi`;
 
   mk.ASM_FLAGS.push("-D__ASSEMBLY__");
 
@@ -29,9 +29,9 @@ module.exports = (mk) => {
   mk.addSubdirectory("tools");
 
   if (mk.WASMUX_TARGET_TRIPLET) {
-    const toolchainContent1 = fs.readFileSync("cmake/toolchain/LinuxSystem.cmake");
-    const toolchainContent2 = fs.readFileSync("cmake/toolchain/UserConfig.cmake");
-    const toolchainContent3 = fs.readFileSync("cmake/toolchain/CommonToolchain.cmake");
+    const toolchainContent1 = fs.readFileSync("cmake/LinuxSystem.cmake");
+    const toolchainContent2 = fs.readFileSync("cmake/UserConfig.cmake");
+    const toolchainContent3 = fs.readFileSync("cmake/CommonToolchain.cmake");
 
     const toolchainOutput = `
 set(WASMUX_TARGET_TRIPLET ${mk.WASMUX_TARGET_TRIPLET})\n

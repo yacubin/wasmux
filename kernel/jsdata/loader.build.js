@@ -9,7 +9,7 @@ module.exports = async function({ input, buildType, buildDirectory, settings, ou
   if (settings) {
     for (const key of Object.keys(settings)) {
       const name = "process.env." + key;
-      defineParams[name] = JSON.stringify(settings[key].value);
+      defineParams[name] = JSON.stringify(settings[key]);
     }
   }
 
