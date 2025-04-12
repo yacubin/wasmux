@@ -110,6 +110,7 @@ module.exports = (mk) => {
     "stub/syscall.cpp",
     "stub/syslog.cpp",
     "stub/time.cpp",
+    "stub/ucontext.cpp",
     "stub/unistd.cpp",
     "stub/utime.cpp",
     "stub/wchar.cpp",
