@@ -1,8 +1,8 @@
 const fs = require("node:fs");
 const path = require("node:path");
-const cxx = require("bitmake/utils/CXX.js");
+const { cxx } = require("bitmake");
 
-const { loadWebcalls } = require("bitmake/utils/LoadWebcalls.js");
+const { loadWebcalls } = require("###/LoadWebcalls.js");
 
 module.exports = function({side, input, output})
 {

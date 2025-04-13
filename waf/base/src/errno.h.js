@@ -1,7 +1,7 @@
 const fs = require("node:fs");
 const path = require("node:path");
 
-const CXX = require("bitmake/utils/CXX.js");
+const { cxx } = require("bitmake");
 
 module.exports = function({input, output})
 {
@@ -39,8 +39,8 @@ module.exports = function({input, output})
 
   const lines = [];
 
-  const pragmaOnce = CXX.filepathToMacroCIdentifier(output);
-  lines.push(CXX.generatedScriptNameComment(__filename));
+  const pragmaOnce = cxx.filepathToMacroCIdentifier(output);
+  lines.push(cxx.generatedScriptNameComment(__filename));
   lines.push("");
   lines.push(`#ifndef ${pragmaOnce}`);
   lines.push(`#define ${pragmaOnce}`);

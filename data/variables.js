@@ -89,8 +89,4 @@ module.exports = {
     type: [ "none", "glibc", "uclibc" ],
     value: "glibc",
   },
-  WASMUX_INJECT_SCRIPT_LIST: {
-    description: "Injections to build",
-    value: [],
-  },
 };
