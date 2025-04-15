@@ -11,6 +11,7 @@ module.exports = (mk) => {
     mk.addSubdirectory("semaphore");
     mk.addSubdirectory("wcsmbs");
     mk.addSubdirectory("libio");
+    mk.addSubdirectory("backtrace");
     mk.addSubdirectory("dirent");
     mk.addSubdirectory("grp");
     mk.addSubdirectory("pwd");

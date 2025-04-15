@@ -1,12 +1,10 @@
-"use strict";
-
-module.exports = (mk) => {
+export default function(mk) {
   const headers = [
-    "include/argp.h",
+    "include/execinfo.h",
   ];
 
   const sources = [
-    "src/argp.cpp",
+    "src/backtrace.cpp",
   ];
 
   const includes = [
