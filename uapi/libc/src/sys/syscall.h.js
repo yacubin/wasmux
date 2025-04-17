@@ -7,7 +7,7 @@ module.exports = function({input, output})
 {
   const config = require(input);
   const syscalls = Object.entries(config).sort((a, b) => a[1].number - b[1].number);
-  const pragmaOnce = cxx.filepathToMacroCIdentifier(output);
+  const pragmaOnce = cxx.filenameToPragmaOnceMacro(output);
 
   const lines = [];
 

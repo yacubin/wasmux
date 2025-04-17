@@ -39,7 +39,7 @@ module.exports = function({input, output})
 
   const lines = [];
 
-  const pragmaOnce = cxx.filepathToMacroCIdentifier(output);
+  const pragmaOnce = cxx.filenameToPragmaOnceMacro(output);
   lines.push(cxx.generatedScriptNameComment(__filename));
   lines.push("");
   lines.push(`#ifndef ${pragmaOnce}`);

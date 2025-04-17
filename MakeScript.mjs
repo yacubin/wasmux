@@ -1,11 +1,7 @@
-const fs = require("node:fs");
+import fs from "node:fs";
 
-"use strict";
-
-module.exports = (mk) => {
+export default function(mk) {
   mk.addCacheVariables("data/variables.js");
-
-  mk.MODULE_PATH.push(mk.PROJECT_SOURCE_DIR.join("scripts"));
 
   mk.INSTALL_BINDIR = "bin";
   mk.INSTALL_INCLUDEDIR = "include";
