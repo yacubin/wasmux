@@ -1,9 +1,8 @@
 import path from "node:path";
 import url from "node:url";
-import { fileURLToPath } from "node:url";
 import webpack from 'webpack';
 
-const __filename = fileURLToPath(import.meta.url);
+const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default async (env, argv) => {

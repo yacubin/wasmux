@@ -7,11 +7,10 @@
 #ifndef _STDLIB_H
 #define _STDLIB_H
 
+#include <wasmux/types.h>
 #include <wasmux/compiler.h>
 #include <wasmux/widechar.h>
 #include <wasmux/waitstatus.h>
-#include <alloca.h>
-#include <malloc.h>
 @STDLIB_INCLUDE_LIST@
 
 #ifdef __cplusplus

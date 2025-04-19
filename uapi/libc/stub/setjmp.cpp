@@ -6,24 +6,36 @@
 
 #include <wasmux-config.h>
 #include <setjmp.h>
-#include <wasmux/assert.h>
+#include <stdlib.h>
 #include <errno.h>
+
+int _setjmp(jmp_buf env)
+{
+  abort();
+  errno = ENOSYS;
+  return -1;
+}
+
+void _longjmp(jmp_buf env, int val)
+{
+  abort();
+}
 
 int setjmp(jmp_buf env)
 {
-  WA_UNREACHABLE();
+  abort();
   errno = ENOSYS;
   return -1;
 }
 
 void longjmp(jmp_buf env, int val)
 {
-  WA_UNREACHABLE();
+  abort();
 }
 
 void siglongjmp(sigjmp_buf env, int val)
 {
-  WA_UNREACHABLE();
+  abort();
 }
 
 int sigsetjmp(sigjmp_buf env, int savesigs)

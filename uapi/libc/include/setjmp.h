@@ -7,7 +7,7 @@
 #ifndef _SETJMP_H
 #define _SETJMP_H
 
-#include <bits/signal.h>
+#include <signal.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -22,6 +22,9 @@ struct __sigjmp_buf {
 };
 
 typedef struct __sigjmp_buf sigjmp_buf[1];
+
+int _setjmp(jmp_buf env);
+void _longjmp(jmp_buf env, int val) __attribute__((noreturn));
 
 int setjmp(jmp_buf env);
 void longjmp(jmp_buf env, int val) __attribute__((noreturn));

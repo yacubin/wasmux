@@ -8,7 +8,9 @@
 #define _SYS_TYPES_H
 
 #include <wasmux/types.h>
-#include <sys/select.h>
+#include <wasmux/posix_types.h>
+#include <wasmux/time.h>
+#include <sys/select.h> // for gnutls
 
 #ifdef __cplusplus
 extern "C" {

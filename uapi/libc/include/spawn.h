@@ -8,7 +8,7 @@
 #define _SPAWN_H
 
 #include <wasmux/sched.h>
+#include <signal.h>
 #include <features.h>
-#include <bits/signal.h>
 
 #endif /* _SPAWN_H */
