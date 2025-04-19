@@ -1,6 +1,4 @@
-"use strict";
-
-module.exports = (mk) => {
+export default (mk) => {
   if (mk.WASMUX_ENABLE_LIBC) {
     mk.addSubdirectory("malloc");
     mk.addSubdirectory("fcntl");
