@@ -1,6 +1,4 @@
-"use strict";
-
-module.exports = (mk) => {
+export default (mk) => {
   const headers = [
     "include/wasmux/cxx/Atomic.h",
     "include/wasmux/cxx/BitVector.h",

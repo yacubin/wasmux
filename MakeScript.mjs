@@ -60,9 +60,10 @@ export default function(mk) {
     const commonToolchain = fs.readFileSync("cmake/CommonToolchain.cmake");
     const toolchainOutput = toolchainLines.join("\n") + commonToolchain;
 
-    const toolchainFilename = mk.BINARY_DIR.join("cmake", mk.SYSTEM_PROCESSOR + (mk.WASMUX_TARGET_TRIPLET.match(/-wasi$/) ? "-wasi" : "") + ".toolchain.cmake");
-    fs.mkdirSync(toolchainFilename.dirname().toString(), { recursive: true });
-    fs.writeFileSync(toolchainFilename.toString(), toolchainOutput, "utf8");
-    mk.install(toolchainFilename.toString(), "share/wasmux");
+    const toolchainName = mk.SYSTEM_PROCESSOR + (mk.WASMUX_TARGET_TRIPLET.match(/-wasi$/) ? "-wasi" : "") + ".toolchain.cmake";
+    const toolchainFile = mk.BINARY_DIR.join("cmake", toolchainName);
+    fs.mkdirSync(toolchainFile.dirname().toString(), { recursive: true });
+    fs.writeFileSync(toolchainFile.toString(), toolchainOutput, "utf8");
+    mk.install(toolchainFile.toString(), "share/wasmux");
   }
 }

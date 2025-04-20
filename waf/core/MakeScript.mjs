@@ -1,6 +1,4 @@
-"use strict";
-
-module.exports = (mk) => {
+export default (mk) => {
   const headers = [
     "include/wasmux/cxx/HostHeap.h",
     "include/wasmux/cxx/ObjectCast.h",
