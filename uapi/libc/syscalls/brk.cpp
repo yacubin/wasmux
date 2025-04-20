@@ -7,17 +7,10 @@
 #include <wasmux-config.h>
 #include <unistd.h>
 #include <errno.h>
-#include <wasmux/wasm_symbols.h>
 #include <wasmux/compiler.h>
 #include <wasmux/syscalls.h>
 
-#ifdef __wasm__
-#define __CURBRK_INIT &__heap_base
-#else
-#define __CURBRK_INIT nullptr
-#endif
-
-extern "C" void* __curbrk = __CURBRK_INIT;
+extern "C" void* __curbrk = nullptr;
 
 __ATTR_HIDDEN
 extern "C" int __brk(void* addr)

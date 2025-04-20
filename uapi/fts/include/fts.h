@@ -1,11 +1,11 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_FTS_FTS_H
-#define _WA_FTS_FTS_H
+#ifndef _FTS_H
+#define _FTS_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -21,4 +21,4 @@ int fts_close(FTS* ftsp);
 }
 #endif
 
-#endif /* _WA_FTS_FTS_H */
+#endif /* _FTS_H */

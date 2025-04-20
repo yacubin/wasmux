@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_ARGP_ARGP_H
-#define _WA_ARGP_ARGP_H
+#ifndef _ARGP_H
+#define _ARGP_H
 
 #include <wasmux/types.h>
 
@@ -23,4 +23,4 @@ int argp_parse(struct argp* argp, int argc, char** argv, unsigned flags, int* in
 }
 #endif
 
-#endif /* _WA_ARGP_ARGP_H */
+#endif /* _ARGP_H */
