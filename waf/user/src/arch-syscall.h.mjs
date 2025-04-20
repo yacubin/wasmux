@@ -1,17 +1,18 @@
-const fs = require("node:fs");
-const path = require("node:path");
+import fs from "node:fs";
+import path from "node:path";
 
-const { cxx } = require("bitmake");
+import bitmake from "bitmake";
+const { cxx } = bitmake;
 
-module.exports = function({input, output})
+export default async function({input, output})
 {
-  const config = require(input);
+  const config = (await import(input)).default;
   const syscalls = Object.entries(config).sort((a, b) => a[1].number - b[1].number);
   const pragmaOnce = cxx.filenameToPragmaOnceMacro(output);
 
   const lines = [];
 
-  lines.push(cxx.generatedScriptNameComment(__filename));
+  lines.push(cxx.generatedScriptNameComment(import.meta.url));
   lines.push(`#ifndef ${pragmaOnce}`);
   lines.push(`#define ${pragmaOnce}`);
   lines.push(``);
