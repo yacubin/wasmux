@@ -1,5 +1,5 @@
-const os = require("node:os");
-const path = require("node:path");
+import os from "node:os";
+import path from "node:path";
 
 const toolchainUtils = {
   ASM_COMPILER: "clang",
@@ -33,8 +33,7 @@ const toolchainSettings = {
   WASMUX_SHARED_MEMORY: true,
 };
 
-module.exports = function(mk)
-{
+export default (mk) => {
   mk.SYSTEM_NAME = mk.SYSTEM_NAME || "Generic";
   const clangPath = mk.findProgram("clang");
   const toolchainPrefix = clangPath ? path.posix.dirname(clangPath) : "";

@@ -1,8 +1,6 @@
-"use strict";
-
-module.exports = (mk) => {
+export default async (mk) => {
   const settings = {};
-  const variables = require(mk.PROJECT_SOURCE_DIR.join("data/variables.js").toString());
+  const variables = await import(mk.PROJECT_SOURCE_DIR.join("data/variables.js").toString());
   for (const key of Object.keys(variables)) {
     settings[key] = mk[key];
   }
