@@ -7,75 +7,47 @@
 #ifndef _WASMUX_WEI_H
 #define _WASMUX_WEI_H
 
+#include <wasmux/compiler.h>
+#include <wasmux/wainst_names.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#ifdef __wasm__
-__attribute__((export_name("perform")))
-#endif
-__attribute__((used))
+__ATTR_EXPORT_NAME("perform") __ATTR_USED
 void WEI_perform(long callbackAddr, long userdataAddr, long arg1, long arg2, long arg3, long arg4);
 
-#ifdef __wasm__
-__attribute__((export_name("_exit_kernel")))
-#endif
-__attribute__((used))
+__ATTR_EXPORT_NAME("_exit_kernel") __ATTR_USED
 void WEI_exit();
 
-#ifdef __wasm__
-__attribute__((import_module("env"), import_name("math_random")))
-#endif
+__ATTR_IMPORT_NAME(WASMUX_BROWSER_MODULE, "math_random")
 double WEI_mathRandom();
 
-#ifdef __wasm__
-__attribute__((import_module("env"), import_name("date_now")))
-#endif
+__ATTR_IMPORT_NAME(WASMUX_BROWSER_MODULE, "date_now")
 double WEI_dateNow();
 
-#ifdef __wasm__
-__attribute__((import_module("env"), import_name("performance_now")))
-#endif
+__ATTR_IMPORT_NAME(WASMUX_BROWSER_MODULE, "performance_now")
 double WEI_performanceNow();
 
-#ifdef __wasm__
-__attribute__((import_module("env"), import_name("webcall")))
-#endif
-int WEI_webcall(unsigned number, unsigned arg1, unsigned arg2, unsigned arg3, unsigned arg4, unsigned arg5, unsigned arg6);
-
-#ifdef __wasm__
-__attribute__((import_module("env"), import_name("webcall0")))
-#endif
+__ATTR_IMPORT_NAME(WASMUX_BROWSER_MODULE, WASMUX_BROWSER_WEBCALL0)
 int kernel_webcall0(unsigned number);
 
-#ifdef __wasm__
-__attribute__((import_module("env"), import_name("webcall1")))
-#endif
+__ATTR_IMPORT_NAME(WASMUX_BROWSER_MODULE, WASMUX_BROWSER_WEBCALL1)
 int kernel_webcall1(unsigned number, unsigned arg1);
 
-#ifdef __wasm__
-__attribute__((import_module("env"), import_name("webcall2")))
-#endif
+__ATTR_IMPORT_NAME(WASMUX_BROWSER_MODULE, WASMUX_BROWSER_WEBCALL2)
 int kernel_webcall2(unsigned number, unsigned arg1, unsigned arg2);
 
-#ifdef __wasm__
-__attribute__((import_module("env"), import_name("webcall3")))
-#endif
+__ATTR_IMPORT_NAME(WASMUX_BROWSER_MODULE, WASMUX_BROWSER_WEBCALL3)
 int kernel_webcall3(unsigned number, unsigned arg1, unsigned arg2, unsigned arg3);
 
-#ifdef __wasm__
-__attribute__((import_module("env"), import_name("webcall4")))
-#endif
+__ATTR_IMPORT_NAME(WASMUX_BROWSER_MODULE, WASMUX_BROWSER_WEBCALL4)
 int kernel_webcall4(unsigned number, unsigned arg1, unsigned arg2, unsigned arg3, unsigned arg4);
 
-#ifdef __wasm__
-__attribute__((import_module("env"), import_name("webcall5")))
-#endif
+__ATTR_IMPORT_NAME(WASMUX_BROWSER_MODULE, WASMUX_BROWSER_WEBCALL5)
 int kernel_webcall5(unsigned number, unsigned arg1, unsigned arg2, unsigned arg3, unsigned arg4, unsigned arg5);
 
-#ifdef __wasm__
-__attribute__((import_module("env"), import_name("webcall6")))
-#endif
+__ATTR_IMPORT_NAME(WASMUX_BROWSER_MODULE, WASMUX_BROWSER_WEBCALL6)
 int kernel_webcall6(unsigned number, unsigned arg1, unsigned arg2, unsigned arg3, unsigned arg4, unsigned arg5, unsigned arg6);
 
 typedef unsigned WEI_Object;

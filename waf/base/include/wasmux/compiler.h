@@ -24,6 +24,15 @@
 #define __ATTR_HIDDEN __attribute__((__visibility__("hidden")))
 #define __ATTR_PRINTF(fmt, args) __attribute__((__format__(printf, fmt, args)))
 #define __ATTR_NORETURN __attribute__((__noreturn__))
+#define __ATTR_USED __attribute__((used))
+
+#ifdef __wasm__
+#define __ATTR_EXPORT_NAME(name) __attribute__((export_name(name)))
+#define __ATTR_IMPORT_NAME(module, name) __attribute__((import_module(module), import_name(name)))
+#else
+#define __ATTR_EXPORT_NAME(name)
+#define __ATTR_IMPORT_NAME(module, name)
+#endif
 
 #define __LIKELY(x)   __builtin_expect(!!(x), 1)
 #define __UNLIKELY(x) __builtin_expect(!!(x), 0)

@@ -10,39 +10,32 @@
 #include <wasmux/types.h>
 #include <wasmux/time.h>
 #include <wasmux/arch-syscall.h>
+#include <wasmux/compiler.h>
+#include <wasmux/wainst_names.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#define WX_SYSINST_NAME "kernel"
-#define WX_SYSCALL_NAME0 "_syscall0"
-#define WX_SYSCALL_NAME1 "_syscall1"
-#define WX_SYSCALL_NAME2 "_syscall2"
-#define WX_SYSCALL_NAME3 "_syscall3"
-#define WX_SYSCALL_NAME4 "_syscall4"
-#define WX_SYSCALL_NAME5 "_syscall5"
-#define WX_SYSCALL_NAME6 "_syscall6"
-
-__attribute__((import_module(WX_SYSINST_NAME), import_name(WX_SYSCALL_NAME0)))
+__ATTR_IMPORT_NAME(WASMUX_KERNEL_MODULE, WASMUX_KERNEL_SYSCALL0)
 long __kernel_syscall0(long number);
 
-__attribute__((import_module(WX_SYSINST_NAME), import_name(WX_SYSCALL_NAME1)))
+__ATTR_IMPORT_NAME(WASMUX_KERNEL_MODULE, WASMUX_KERNEL_SYSCALL1)
 long __kernel_syscall1(long number, long arg1);
 
-__attribute__((import_module(WX_SYSINST_NAME), import_name(WX_SYSCALL_NAME2)))
+__ATTR_IMPORT_NAME(WASMUX_KERNEL_MODULE, WASMUX_KERNEL_SYSCALL2)
 long __kernel_syscall2(long number, long arg1, long arg2);
 
-__attribute__((import_module(WX_SYSINST_NAME), import_name(WX_SYSCALL_NAME3)))
+__ATTR_IMPORT_NAME(WASMUX_KERNEL_MODULE, WASMUX_KERNEL_SYSCALL3)
 long __kernel_syscall3(long number, long arg1, long arg2, long arg3);
 
-__attribute__((import_module(WX_SYSINST_NAME), import_name(WX_SYSCALL_NAME4)))
+__ATTR_IMPORT_NAME(WASMUX_KERNEL_MODULE, WASMUX_KERNEL_SYSCALL4)
 long __kernel_syscall4(long number, long arg1, long arg2, long arg3, long arg4);
 
-__attribute__((import_module(WX_SYSINST_NAME), import_name(WX_SYSCALL_NAME5)))
+__ATTR_IMPORT_NAME(WASMUX_KERNEL_MODULE, WASMUX_KERNEL_SYSCALL5)
 long __kernel_syscall5(long number, long arg1, long arg2, long arg3, long arg4, long arg5);
 
-__attribute__((import_module(WX_SYSINST_NAME), import_name(WX_SYSCALL_NAME6)))
+__ATTR_IMPORT_NAME(WASMUX_KERNEL_MODULE, WASMUX_KERNEL_SYSCALL6)
 long __kernel_syscall6(long number, long arg1, long arg2, long arg3, long arg4, long arg5, long arg6);
 
 #define __SYSCALL_ARG0(nr, a1, a2, a3, a4, a5, a6) nr

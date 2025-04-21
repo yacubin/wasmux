@@ -58,6 +58,7 @@ export default (mk) => {
     "include/wasmux/timerfd.h",
     "include/wasmux/types.h",
     "include/wasmux/uio.h",
+    "include/wasmux/wainst_names.h",
     "include/wasmux/wasm_header.h",
     "include/wasmux/wasm_module.h",
     "include/wasmux/wasm_symbols.h",
