@@ -134,8 +134,15 @@ export default (mk) => {
     output: syscall_nums_h,
   });
 
+  const syscall_list_h = mk.BINARY_DIR.join("include/wasmux/syscall-list.h");
+  mk.addCustomScript("<wasmux/syscall-list.h>", {
+    script: "src/syscall-list.h.mjs",
+    input: mk.PROJECT_SOURCE_DIR.join("data/syscall.js"),
+    output: syscall_list_h,
+  });
+
   const target = mk.addStaticLibrary("wacore", sources, headers);
-  target.addSources(webcall_nums_h, webcall_main_h, webcall_worker_h, syscall_nums_h);
+  target.addSources(webcall_nums_h, webcall_main_h, webcall_worker_h, syscall_nums_h, syscall_list_h);
   target.addPublicIncludes(includes);
   target.addPublicLibraries(libraries);
 }

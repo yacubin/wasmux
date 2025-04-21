@@ -35,7 +35,7 @@ module.exports = {
   stty:                         SC(31,  0,  null                               ),
   gtty:                         SC(32,  0,  null                               ),
   access:                       SC(33,  3,  "sys_access"                       ),
-  nice:                         SC(34,  1,  "sys_access"                       ),
+  nice:                         SC(34,  1,  "sys_nice"                         ),
   ftime:                        SC(35,  1,  null                               ),
   sync:                         SC(36,  0,  "sys_sync"                         ),
   kill:                         SC(37,  2,  "sys_kill"                         ),
