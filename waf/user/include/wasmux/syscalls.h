@@ -15,9 +15,6 @@
 extern "C" {
 #endif
 
-struct iovec;
-struct timespec32;
-
 #define WX_SYSINST_NAME "kernel"
 #define WX_SYSCALL_NAME0 "_syscall0"
 #define WX_SYSCALL_NAME1 "_syscall1"
