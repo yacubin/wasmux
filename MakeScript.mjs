@@ -3,6 +3,10 @@ import fs from "node:fs";
 export default function(mk) {
   mk.addCacheVariables("data/variables.js");
 
+  mk.WASMUX_VERSION = mk.PROJECT_VERSION;
+  mk.WASMUX_DESCRIPTION = mk.PROJECT_DESCRIPTION;
+  mk.WASMUX_URL = mk.PROJECT_HOMEPAGE_URL;
+
   mk.INSTALL_BINDIR = "bin";
   mk.INSTALL_INCLUDEDIR = "include";
   mk.INSTALL_LIBDIR = "lib";

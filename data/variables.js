@@ -1,15 +1,15 @@
 module.exports = {
   WASMUX_VERSION: {
     description: "WASMUX Version",
-    value: "${PROJECT_VERSION}",
+    type: "string",
   },
   WASMUX_DESCRIPTION: {
     description: "WASMUX Description",
-    value: "${PROJECT_DESCRIPTION}",
+    type: "string",
   },
   WASMUX_URL: {
     description: "WASMUX URL",
-    value: "${PROJECT_HOMEPAGE_URL}",
+    type: "string",
   },
   WASMUX_LOADER_SECTION: {
     description: "Loader section",
@@ -78,11 +78,6 @@ module.exports = {
   WASMUX_CORE_MAX_PAGES: {
     description: "Maximum size of core pages",
     value: 124,
-  },
-  WASMUX_TARGET_SYSTEM: {
-    description: "Target system",
-    type: [ "wasm32", "wasm64", "wasm32-wasi", "wasm64-wasi" ],
-    value: "${CMAKE_SYSTEM_PROCESSOR}",
   },
   WASMUX_LIBC_FEATURES: {
     description: "Choosing features for libc",

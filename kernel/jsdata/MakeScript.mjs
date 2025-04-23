@@ -1,9 +1,7 @@
 export default async (mk) => {
   const settings = {};
-  const variables = await import(mk.PROJECT_SOURCE_DIR.join("data/variables.js").toString());
-  for (const key of Object.keys(variables)) {
-    settings[key] = mk[key];
-  }
+  for (const name of Object.keys(mk.getCacheVariables()))
+    settings[name] = mk[name];
 
   const MainCalls_mjs = mk.BINARY_DIR.join("generated/MainCalls.mjs");
   mk.addCustomScript("MainCalls.mjs", {
