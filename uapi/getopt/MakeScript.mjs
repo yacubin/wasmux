@@ -13,8 +13,12 @@ export default (mk) => {
     mk.SOURCE_DIR.join("include"),
   ];
 
-  mk.script("<gnu-versions.h>").addProperty("GNU_VERSIONS_INCLUDE_LIST", "#include <bits/__getopt_version.h>");
-  mk.script("<unistd.h>").addProperty("UNISTD_INCLUDE_LIST", "#include <bits/__getopt_base.h>");
+  mk.script("<gnu-versions.h>").mergeVariables({
+    GNU_VERSIONS_INCLUDE_LIST: [ "#include <bits/__getopt_version.h>" ],
+  });
+  mk.script("<unistd.h>").mergeVariables({
+    UNISTD_INCLUDE_LIST: [ "#include <bits/__getopt_base.h>" ],
+  });
 
   mk.target("libc").addSources(headers, sources);
   mk.target("libc").addPublicIncludes(includes);

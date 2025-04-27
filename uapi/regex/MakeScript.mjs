@@ -16,7 +16,9 @@ export default (mk) => {
     mk.target("wauser"),
   ];
 
-  mk.script("<gnu-versions.h>").addProperty("GNU_VERSIONS_INCLUDE_LIST", "#include <bits/__regex_version.h>");
+  mk.script("<gnu-versions.h>").mergeVariables({
+    GNU_VERSIONS_INCLUDE_LIST: [ "#include <bits/__regex_version.h>" ],
+  });
 
   mk.target("libc").addSources(headers, sources);
   mk.target("libc").addPublicIncludes(includes);

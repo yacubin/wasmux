@@ -11,7 +11,9 @@ export default (mk) => {
     mk.SOURCE_DIR.join("include"),
   ];
 
-  mk.script("<ctype.h>").addProperty("CTYPE_INCLUDE_LIST", "#include <bits/__ctype_base.h>");
+  mk.script("<ctype.h>").mergeVariables({
+    CTYPE_INCLUDE_LIST: [ "#include <bits/__ctype_base.h>" ],
+  });
 
   mk.target("libc").addSources(headers, sources);
   mk.target("libc").addPublicIncludes(includes);

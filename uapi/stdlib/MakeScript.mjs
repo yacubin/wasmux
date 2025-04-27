@@ -14,7 +14,9 @@ export default (mk) => {
     mk.SOURCE_DIR.join("include"),
   ];
 
-  mk.script("<stdlib.h>").addProperty("STDLIB_INCLUDE_LIST", "#include <bits/__stdlib.h>");
+  mk.script("<stdlib.h>").mergeVariables({
+    STDLIB_INCLUDE_LIST: [ "#include <bits/__stdlib.h>" ],
+  });
 
   mk.target("libc").addSources(headers, sources);
   mk.target("libc").addPublicIncludes(includes);

@@ -12,7 +12,9 @@ export default (mk) => {
     mk.SOURCE_DIR.join("include"),
   ];
 
-  mk.script("<gnu-versions.h>").addProperty("GNU_VERSIONS_INCLUDE_LIST", "#include <bits/__obstack_version.h>");
+  mk.script("<gnu-versions.h>").mergeVariables({
+    GNU_VERSIONS_INCLUDE_LIST: [ "#include <bits/__obstack_version.h>" ],
+  });
 
   mk.target("libc").addSources(headers, sources);
   mk.target("libc").addPublicIncludes(includes);
