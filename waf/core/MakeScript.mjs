@@ -108,36 +108,36 @@ export default (mk) => {
   }
 
   const webcall_nums_h = mk.BINARY_DIR.join("include/wasmux/webcall-nums.h");
-  mk.addCustomScript("<wasmux/webcall-nums.h>", {
-    script: "src/webcall-nums.h.js",
+  mk.addCustomScript("src/webcall-nums.h.js", {
+    name: "<wasmux/webcall-nums.h>",
     input:  mk.PROJECT_SOURCE_DIR.join("data/webcalls.js"),
     output: webcall_nums_h,
   });
 
   const webcall_main_h = mk.BINARY_DIR.join("include/wasmux/webcall-main.h");
-  mk.addCustomScript("<wasmux/webcall-main.h>", {
-    script: "src/webcall-main.h.js",
+  mk.addCustomScript("src/webcall-main.h.js", {
+    name: "<wasmux/webcall-main.h>",
     input: mk.PROJECT_SOURCE_DIR.join("data/webcalls.js"),
     output: webcall_main_h,
   });
 
   const webcall_worker_h = mk.BINARY_DIR.join("include/wasmux/webcall-worker.h");
-  mk.addCustomScript("<wasmux/webcall-worker.h>", {
-    script: "src/webcall-worker.h.js",
+  mk.addCustomScript("src/webcall-worker.h.js", {
+    name: "<wasmux/webcall-worker.h>",
     input: mk.PROJECT_SOURCE_DIR.join("data/webcalls.js"),
     output: webcall_worker_h,
   });
 
   const syscall_nums_h = mk.BINARY_DIR.join("include/wasmux/syscall-nums.h");
-  mk.addCustomScript("<wasmux/syscall-nums.h>", {
-    script: "src/syscall-nums.h.mjs",
+  mk.addCustomScript("src/syscall-nums.h.mjs", {
+    name: "<wasmux/syscall-nums.h>",
     input: mk.PROJECT_SOURCE_DIR.join("data/syscall.js"),
     output: syscall_nums_h,
   });
 
   const syscall_list_h = mk.BINARY_DIR.join("include/wasmux/syscall-list.h");
-  mk.addCustomScript("<wasmux/syscall-list.h>", {
-    script: "src/syscall-list.h.mjs",
+  mk.addCustomScript("src/syscall-list.h.mjs", {
+    name: "<wasmux/syscall-list.h>",
     input: mk.PROJECT_SOURCE_DIR.join("data/syscall.js"),
     output: syscall_list_h,
   });

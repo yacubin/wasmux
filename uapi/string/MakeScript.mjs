@@ -28,8 +28,7 @@ export default (mk) => {
   ];
 
   const strerror_cpp = mk.BINARY_DIR.join("src/strerror.cpp");
-  mk.addCustomScript("strerror.cpp", {
-    script: "src/strerror.cpp.js",
+  mk.addCustomScript("src/strerror.cpp.js", {
     input: mk.PROJECT_SOURCE_DIR.join("data/errno.js"),
     output: strerror_cpp,
   });
