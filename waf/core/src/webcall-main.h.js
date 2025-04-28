@@ -3,7 +3,7 @@ const path = require("node:path");
 
 const { loadWebcalls } = require("###/LoadWebcalls.js");
 
-module.exports = function({input, output})
+module.exports = function(mk, {input, output})
 {
   const webcalls = loadWebcalls(input, "main");
 

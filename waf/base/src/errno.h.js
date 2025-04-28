@@ -3,7 +3,7 @@ const path = require("node:path");
 
 const { cxx } = require("bitmake");
 
-module.exports = function({input, output})
+module.exports = function(mk, {input, output})
 {
   if (!input) {
     throw "Not pass the binary dir";

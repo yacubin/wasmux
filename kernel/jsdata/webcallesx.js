@@ -4,7 +4,7 @@ const { cxx } = require("bitmake");
 
 const { loadWebcalls } = require("###/LoadWebcalls.js");
 
-module.exports = function({side, input, output})
+module.exports = function(mk, {side, input, output})
 {
   const webcalls = loadWebcalls(input, side);
 

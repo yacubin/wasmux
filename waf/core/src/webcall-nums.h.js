@@ -4,7 +4,7 @@ const path = require("node:path");
 const { cxx } = require("bitmake");
 const { loadWebcalls } = require("###/LoadWebcalls.js");
 
-module.exports = function({input, output})
+module.exports = function(mk, {input, output})
 {
   const webcalls = loadWebcalls(input, 'both');
 

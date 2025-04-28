@@ -4,7 +4,7 @@ import path from "node:path";
 import bitmake from "bitmake";
 const { cxx } = bitmake;
 
-export default async function({input, output})
+export default async function(mk, {input, output})
 {
   const syscalls = (await import(input)).default;
 

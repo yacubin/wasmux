@@ -3,7 +3,7 @@ const path = require("node:path");
 
 const { cxx } = require("bitmake");
 
-module.exports = function({input, output})
+module.exports = function(mk, {input, output})
 {
   const config = require(input);
   const syscalls = Object.entries(config).sort((a, b) => a[1].number - b[1].number);

@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-export default async ({input, output}) => {
+export default async (mk, {input, output}) => {
   const syscalls = (await import(input)).default;
 
   const lines = [];

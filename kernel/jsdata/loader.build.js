@@ -1,7 +1,7 @@
 const path = require("node:path");
 const webpack = require("webpack");
 
-module.exports = async function({ input, buildType, buildDirectory, settings, output })
+module.exports = async function(mk, { input, buildType, buildDirectory, settings, output })
 {
   const isDebug = (buildType === 'Debug');
 

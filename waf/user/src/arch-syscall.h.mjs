@@ -4,7 +4,7 @@ import path from "node:path";
 import bitmake from "bitmake";
 const { cxx } = bitmake;
 
-export default async function({input, output})
+export default async function(mk, {input, output})
 {
   const config = (await import(input)).default;
   const syscalls = Object.entries(config).sort((a, b) => a[1].number - b[1].number);
