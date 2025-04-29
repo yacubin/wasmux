@@ -26,7 +26,7 @@
     "libc"
   ],
   "dependencies": {
-    "bitmake": "github:ykbin/bitmake#20250419_dev6",
+    "bitmake": "github:ykbin/bitmake#20250501_dev7",
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4"
   }

@@ -23,10 +23,6 @@ module.exports = {
     description: "Version section",
     value: ".jsdata.version",
   },
-  WASMUX_ENABLE_INSTALL_HEADERS: {
-    description: "Enable install headers",
-    value: true,
-  },
   WASMUX_ENABLE_THREADS: {
     description: "Enable threads",
     value: true,
@@ -35,32 +31,8 @@ module.exports = {
     description: "Enable kernel installation",
     value: false,
   },
-  WASMUX_ENABLE_LIBGCC: {
-    description: "Enable libgcc library",
-    value: true,
-  },
   WASMUX_ENABLE_LIBC: {
     description: "Enable libc library",
-    value: true,
-  },
-  WASMUX_ENABLE_CRT: {
-    description: "Enable C Run-Time",
-    value: true,
-  },
-  WASMUX_ENABLE_LIBM: {
-    description: "Enable Math library",
-    value: true,
-  },
-  WASMUX_ENABLE_DL: {
-    description: "Enable Dynamic library",
-    value: true,
-  },
-  WASMUX_ENABLE_LIBCXX: {
-    description: "Enable libc++ library",
-    value: true,
-  },
-  WASMUX_ENABLE_PTHREAD: {
-    description: "Enable pthread library",
     value: true,
   },
   WASMUX_ENABLE_MAIN_ENV_ARG: {

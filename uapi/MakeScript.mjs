@@ -32,25 +32,11 @@ export default (mk) => {
     mk.addSubdirectory("ulinux");
     mk.addSubdirectory("libc");
   }
-  if (mk.WASMUX_ENABLE_LIBGCC) {
-    mk.addSubdirectory("libgcc");
-  }
-  if (mk.WASMUX_ENABLE_CRT) {
-    mk.addSubdirectory("crt");
-  }
-  if (mk.WASMUX_ENABLE_LIBCXX) {
-    mk.addSubdirectory("libcxx");
-  }
-  if (mk.WASMUX_ENABLE_LIBCXX) {
-    mk.addSubdirectory("libcxxabi");
-  }
-  if (mk.WASMUX_ENABLE_LIBM) {
-    mk.addSubdirectory("libm");
-  }
-  if (mk.WASMUX_ENABLE_DL) {
-    mk.addSubdirectory("dl");
-  }
-  if (mk.WASMUX_ENABLE_PTHREAD) {
-    mk.addSubdirectory("pthread");
-  }
+  mk.addSubdirectory("crt");
+  mk.addSubdirectory("libgcc");
+  mk.addSubdirectory("libcxx");
+  mk.addSubdirectory("libcxxabi");
+  mk.addSubdirectory("libm");
+  mk.addSubdirectory("dl");
+  mk.addSubdirectory("pthread");
 }
