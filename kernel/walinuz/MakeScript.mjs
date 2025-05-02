@@ -3,10 +3,12 @@ export default (mk) => {
   ];
 
   const sources = [
-    "InstanceExit.cpp",
-    "InstancePerform.cpp",
-    "StartKernel.cpp",
-    "KernelVersion.cpp",
+    "src/InstanceExit.cpp",
+    "src/InstancePerform.cpp",
+    "src/StartKernel.cpp",
+    "src/KernelVersion.cpp",
+    "src/syscall-stub.cpp",
+    "src/syscall.cpp",
   ];
 
   const includes = [
@@ -19,17 +21,17 @@ export default (mk) => {
   ];
 
   if (mk.SYSTEM_PROCESSOR.match(/wasm(32|64)/)) {
-    sources.push("StartKernel.S");
+    sources.push("src/StartKernel.S");
   }
 
   if (mk.SYSTEM_NAME === "Windows") {
     sources.push(
-      "StartWindows.cpp",
-      "walinuz.lds",
+      "src/StartWindows.cpp",
+      "src/walinuz.lds",
     );
     mk.EXE_LINKER_FLAGS.push(
       "-Wl,--stack,65536",
-      "-Wl,--script=" + mk.SOURCE_DIR.join("walinuz.lds"),
+      "-Wl,--script=" + mk.SOURCE_DIR.join("src/walinuz.lds"),
     );
   }
 
