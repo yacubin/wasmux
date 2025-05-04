@@ -54,7 +54,7 @@ export default (mk) => {
 
     const waeditor = mk.findProgram("waeditor");
     if (waeditor) {
-      
+      walinuz.addPostBuild(waeditor, [ "--add-user-memory", walinuz.targetFile ]);
     }
   }
 }
