@@ -3,17 +3,9 @@ const path = require("node:path");
 
 const { cxx } = require("bitmake");
 
-module.exports = function(mk, {input, output})
+module.exports = function(mk)
 {
-  if (!input) {
-    throw "Not pass the binary dir";
-  }
-
-  if (!output) {
-    throw "Not pass the output";
-  }
-
-  const config = require(input);
+  const config = require(mk.SCRIPT_INPUT.toString());
 
   let errors = [];
   let aliases = [];
@@ -39,7 +31,7 @@ module.exports = function(mk, {input, output})
 
   const lines = [];
 
-  const pragmaOnce = cxx.filenameToPragmaOnceMacro(output);
+  const pragmaOnce = cxx.filenameToPragmaOnceMacro(mk.SCRIPT_OUTPUT.toString());
   lines.push(cxx.generatedScriptNameComment(__filename));
   lines.push("");
   lines.push(`#ifndef ${pragmaOnce}`);
@@ -58,6 +50,6 @@ module.exports = function(mk, {input, output})
   lines.push(`#endif /* ${pragmaOnce} */`);
   lines.push("");
 
-  fs.mkdirSync(path.dirname(output), { recursive: true });
-  fs.writeFileSync(output, lines.join('\n'), "utf8");
+  fs.mkdirSync(path.dirname(mk.SCRIPT_OUTPUT.toString()), { recursive: true });
+  fs.writeFileSync(mk.SCRIPT_OUTPUT.toString(), lines.join('\n'), "utf8");
 }

@@ -4,9 +4,9 @@ const { cxx } = require("bitmake");
 
 const { loadWebcalls } = require("###/LoadWebcalls.js");
 
-module.exports = function(mk, {side, input, output})
+module.exports = function(mk, {side})
 {
-  const webcalls = loadWebcalls(input, side);
+  const webcalls = loadWebcalls(mk.SCRIPT_INPUT.toString(), side);
 
   let lines = [];
 
@@ -21,6 +21,6 @@ module.exports = function(mk, {side, input, output})
   lines.push(`];`);
   lines.push('');
 
-  fs.mkdirSync(path.dirname(output), { recursive: true });
-  fs.writeFileSync(output, lines.join('\n'), "utf8");
+  fs.mkdirSync(path.dirname(mk.SCRIPT_OUTPUT.toString()), { recursive: true });
+  fs.writeFileSync(mk.SCRIPT_OUTPUT.toString(), lines.join('\n'), "utf8");
 }

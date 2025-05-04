@@ -110,36 +110,36 @@ export default (mk) => {
   const webcall_nums_h = mk.BINARY_DIR.join("include/wasmux/webcall-nums.h");
   mk.addCustomScript("src/webcall-nums.h.js", {
     name: "<wasmux/webcall-nums.h>",
-    input:  mk.PROJECT_SOURCE_DIR.join("data/webcalls.js"),
-    output: webcall_nums_h,
+    SCRIPT_INPUT:  mk.PROJECT_SOURCE_DIR.join("data/webcalls.js"),
+    SCRIPT_OUTPUT: webcall_nums_h,
   });
 
   const webcall_main_h = mk.BINARY_DIR.join("include/wasmux/webcall-main.h");
   mk.addCustomScript("src/webcall-main.h.js", {
     name: "<wasmux/webcall-main.h>",
-    input: mk.PROJECT_SOURCE_DIR.join("data/webcalls.js"),
-    output: webcall_main_h,
+    SCRIPT_INPUT: mk.PROJECT_SOURCE_DIR.join("data/webcalls.js"),
+    SCRIPT_OUTPUT: webcall_main_h,
   });
 
   const webcall_worker_h = mk.BINARY_DIR.join("include/wasmux/webcall-worker.h");
   mk.addCustomScript("src/webcall-worker.h.js", {
     name: "<wasmux/webcall-worker.h>",
-    input: mk.PROJECT_SOURCE_DIR.join("data/webcalls.js"),
-    output: webcall_worker_h,
+    SCRIPT_INPUT: mk.PROJECT_SOURCE_DIR.join("data/webcalls.js"),
+    SCRIPT_OUTPUT: webcall_worker_h,
   });
 
   const syscall_nums_h = mk.BINARY_DIR.join("include/wasmux/syscall-nums.h");
   mk.addCustomScript("src/syscall-nums.h.mjs", {
     name: "<wasmux/syscall-nums.h>",
-    input: mk.PROJECT_SOURCE_DIR.join("data/syscall.js"),
-    output: syscall_nums_h,
+    SCRIPT_INPUT: mk.PROJECT_SOURCE_DIR.join("data/syscall.js"),
+    SCRIPT_OUTPUT: syscall_nums_h,
   });
 
   const syscall_list_h = mk.BINARY_DIR.join("include/wasmux/syscall-list.h");
   mk.addCustomScript("src/syscall-list.h.mjs", {
     name: "<wasmux/syscall-list.h>",
-    input: mk.PROJECT_SOURCE_DIR.join("data/syscall.js"),
-    output: syscall_list_h,
+    SCRIPT_INPUT: mk.PROJECT_SOURCE_DIR.join("data/syscall.js"),
+    SCRIPT_OUTPUT: syscall_list_h,
   });
 
   const target = mk.addStaticLibrary("wacore", sources, headers);

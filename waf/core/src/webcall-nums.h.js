@@ -4,13 +4,13 @@ const path = require("node:path");
 const { cxx } = require("bitmake");
 const { loadWebcalls } = require("###/LoadWebcalls.js");
 
-module.exports = function(mk, {input, output})
+module.exports = function(mk)
 {
-  const webcalls = loadWebcalls(input, 'both');
+  const webcalls = loadWebcalls(mk.SCRIPT_INPUT.toString(), 'both');
 
   let lines = [];
 
-  const pragmaOnce = cxx.filenameToPragmaOnceMacro(output);
+  const pragmaOnce = cxx.filenameToPragmaOnceMacro(mk.SCRIPT_OUTPUT.toString());
 
   lines.push(cxx.generatedScriptNameComment(__filename));
   lines.push(`#ifndef ${pragmaOnce}`);
@@ -30,6 +30,6 @@ module.exports = function(mk, {input, output})
   lines.push('');
   lines.push(`#endif /* ${pragmaOnce} */`);
 
-  fs.mkdirSync(path.dirname(output), { recursive: true });
-  fs.writeFileSync(output, lines.join('\n'), "utf8");
+  fs.mkdirSync(path.dirname(mk.SCRIPT_OUTPUT.toString()), { recursive: true });
+  fs.writeFileSync(mk.SCRIPT_OUTPUT.toString(), lines.join('\n'), "utf8");
 }

@@ -4,12 +4,12 @@ import path from "node:path";
 import bitmake from "bitmake";
 const { cxx } = bitmake;
 
-export default async function(mk, {input, output})
+export default async function(mk)
 {
-  const syscalls = (await import(input)).default;
+  const syscalls = (await import(mk.SCRIPT_INPUT.toString())).default;
 
   const lines = [];
-  const pragmaOnce = cxx.filenameToPragmaOnceMacro(output);
+  const pragmaOnce = cxx.filenameToPragmaOnceMacro(mk.SCRIPT_OUTPUT.toString());
 
   lines.push(cxx.generatedScriptNameComment(import.meta.url));
   lines.push(`#ifndef ${pragmaOnce}`);
@@ -29,6 +29,6 @@ export default async function(mk, {input, output})
   lines.push(``);
   lines.push(`#endif /* ${pragmaOnce} */`);
 
-  fs.mkdirSync(path.dirname(output), { recursive: true });
-  fs.writeFileSync(output, lines.join('\n'), "utf8");
+  fs.mkdirSync(path.dirname(mk.SCRIPT_OUTPUT.toString()), { recursive: true });
+  fs.writeFileSync(mk.SCRIPT_OUTPUT.toString(), lines.join('\n'), "utf8");
 }

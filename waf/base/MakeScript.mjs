@@ -87,8 +87,8 @@ export default (mk) => {
   const errno_h = mk.BINARY_DIR.join("include/wasmux/errno.h");
   mk.addCustomScript("src/errno.h.js", {
     name: "<wasmux/errno.h>",
-    input:  mk.PROJECT_SOURCE_DIR.join("data/errno.js"),
-    output: errno_h,
+    SCRIPT_INPUT:  mk.PROJECT_SOURCE_DIR.join("data/errno.js"),
+    SCRIPT_OUTPUT: errno_h,
   });
 
   const wabase = mk.addStaticLibrary("wabase", headers, sources, errno_h);

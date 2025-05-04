@@ -1,8 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 
-export default async (mk, {input, output}) => {
-  const syscalls = (await import(input)).default;
+export default async (mk) => {
+  const syscalls = (await import(mk.SCRIPT_INPUT.toString())).default;
 
   const lines = [];
   let nextNumber = 0;
@@ -16,6 +16,6 @@ export default async (mk, {input, output}) => {
       nextNumber = number + 1;
   }
 
-  await fs.promises.mkdir(path.dirname(output), { recursive: true });
-  await fs.promises.writeFile(output, lines.join('\n'), "utf8");
+  await fs.promises.mkdir(path.dirname(mk.SCRIPT_OUTPUT.toString()), { recursive: true });
+  await fs.promises.writeFile(mk.SCRIPT_OUTPUT.toString(), lines.join('\n'), "utf8");
 }

@@ -174,43 +174,43 @@ export default (mk) => {
   const syscall_h = mk.BINARY_DIR.join("include/sys/syscall.h");
   mk.addCustomScript("src/sys/syscall.h.js", {
     name: "<sys/syscall.h>",
-    input: mk.PROJECT_SOURCE_DIR.join("data/syscall.js"),
-    output: syscall_h,
+    SCRIPT_INPUT: mk.PROJECT_SOURCE_DIR.join("data/syscall.js"),
+    SCRIPT_OUTPUT: syscall_h,
   });
 
   const ctype_h = mk.BINARY_DIR.join("include/ctype.h");
   mk.addCustomScript("configure_file", {
     name: "<ctype.h>",
-    input: mk.SOURCE_DIR.join("include/ctype.h.in"),
-    output: ctype_h,
+    SCRIPT_INPUT: mk.SOURCE_DIR.join("include/ctype.h.in"),
+    SCRIPT_OUTPUT: ctype_h,
   });
 
   const gnu_versions_h = mk.BINARY_DIR.join("include/gnu-versions.h");
   mk.addCustomScript("configure_file", {
     name: "<gnu-versions.h>",
-    input: mk.SOURCE_DIR.join("include/gnu-versions.h.in"),
-    output: gnu_versions_h,
+    SCRIPT_INPUT: mk.SOURCE_DIR.join("include/gnu-versions.h.in"),
+    SCRIPT_OUTPUT: gnu_versions_h,
   });
 
   const stdlib_h = mk.BINARY_DIR.join("include/stdlib.h");
   mk.addCustomScript("configure_file", {
     name: "<stdlib.h>",
-    input: mk.SOURCE_DIR.join("include/stdlib.h.in"),
-    output: stdlib_h,
+    SCRIPT_INPUT: mk.SOURCE_DIR.join("include/stdlib.h.in"),
+    SCRIPT_OUTPUT: stdlib_h,
   });
 
   const unistd_h = mk.BINARY_DIR.join("include/unistd.h");
   mk.addCustomScript("configure_file", {
     name: "<unistd.h>",
-    input: mk.SOURCE_DIR.join("include/unistd.h.in"),
-    output: unistd_h,
+    SCRIPT_INPUT: mk.SOURCE_DIR.join("include/unistd.h.in"),
+    SCRIPT_OUTPUT: unistd_h,
   });
 
   const features_h = mk.BINARY_DIR.join("include/features.h");
   mk.addCustomScript("configure_file", {
     name: "<features.h>",
-    input: mk.SOURCE_DIR.join(`features/${mk.WASMUX_LIBC_FEATURES}-features.h`),
-    output: features_h,
+    SCRIPT_INPUT: mk.SOURCE_DIR.join(`features/${mk.WASMUX_LIBC_FEATURES}-features.h`),
+    SCRIPT_OUTPUT: features_h,
   });
 
   const libc = mk.addStaticLibrary("libc", headers, sources);

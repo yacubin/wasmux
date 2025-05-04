@@ -2,7 +2,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const { cxx } = require("bitmake");
 
-module.exports = function(mk, {cpu, section, input, output})
+module.exports = function(mk, {cpu, section})
 {
   const lines = [];
 
@@ -19,7 +19,7 @@ module.exports = function(mk, {cpu, section, input, output})
     throw `Unknown '${cpu}' cpu name`;
   }
 
-  const buffer = fs.readFileSync(input);
+  const buffer = fs.readFileSync(mk.SCRIPT_INPUT.toString());
 
   let line = '';
   for (let i = 0; i < buffer.length; i++) {
@@ -37,6 +37,6 @@ module.exports = function(mk, {cpu, section, input, output})
   line && lines.push(line);
   lines.push('');
 
-  fs.mkdirSync(path.dirname(output), { recursive: true });
-  fs.writeFileSync(output, lines.join('\n'), "utf8");
+  fs.mkdirSync(path.dirname(mk.SCRIPT_OUTPUT.toString()), { recursive: true });
+  fs.writeFileSync(mk.SCRIPT_OUTPUT.toString(), lines.join('\n'), "utf8");
 }
