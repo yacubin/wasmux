@@ -20,7 +20,7 @@ export default (mk) => {
 
   const arch_syscall_h = mk.BINARY_DIR.join("include/wasmux/arch-syscall.h");
   mk.addCustomScript("src/arch-syscall.h.mjs", {
-    name: "<wasmux/arch-syscall.h>",
+    SCRIPT_NAME: "<wasmux/arch-syscall.h>",
     SCRIPT_INPUT: mk.PROJECT_SOURCE_DIR.join("data/syscall.js"),
     SCRIPT_OUTPUT: arch_syscall_h,
   });

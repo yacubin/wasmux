@@ -86,7 +86,7 @@ export default (mk) => {
 
   const errno_h = mk.BINARY_DIR.join("include/wasmux/errno.h");
   mk.addCustomScript("src/errno.h.js", {
-    name: "<wasmux/errno.h>",
+    SCRIPT_NAME: "<wasmux/errno.h>",
     SCRIPT_INPUT:  mk.PROJECT_SOURCE_DIR.join("data/errno.js"),
     SCRIPT_OUTPUT: errno_h,
   });

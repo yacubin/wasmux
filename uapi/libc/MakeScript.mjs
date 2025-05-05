@@ -173,42 +173,42 @@ export default (mk) => {
 
   const syscall_h = mk.BINARY_DIR.join("include/sys/syscall.h");
   mk.addCustomScript("src/sys/syscall.h.js", {
-    name: "<sys/syscall.h>",
+    SCRIPT_NAME: "<sys/syscall.h>",
     SCRIPT_INPUT: mk.PROJECT_SOURCE_DIR.join("data/syscall.js"),
     SCRIPT_OUTPUT: syscall_h,
   });
 
   const ctype_h = mk.BINARY_DIR.join("include/ctype.h");
   mk.addCustomScript("configure_file", {
-    name: "<ctype.h>",
+    SCRIPT_NAME: "<ctype.h>",
     SCRIPT_INPUT: mk.SOURCE_DIR.join("include/ctype.h.in"),
     SCRIPT_OUTPUT: ctype_h,
   });
 
   const gnu_versions_h = mk.BINARY_DIR.join("include/gnu-versions.h");
   mk.addCustomScript("configure_file", {
-    name: "<gnu-versions.h>",
+    SCRIPT_NAME: "<gnu-versions.h>",
     SCRIPT_INPUT: mk.SOURCE_DIR.join("include/gnu-versions.h.in"),
     SCRIPT_OUTPUT: gnu_versions_h,
   });
 
   const stdlib_h = mk.BINARY_DIR.join("include/stdlib.h");
   mk.addCustomScript("configure_file", {
-    name: "<stdlib.h>",
+    SCRIPT_NAME: "<stdlib.h>",
     SCRIPT_INPUT: mk.SOURCE_DIR.join("include/stdlib.h.in"),
     SCRIPT_OUTPUT: stdlib_h,
   });
 
   const unistd_h = mk.BINARY_DIR.join("include/unistd.h");
   mk.addCustomScript("configure_file", {
-    name: "<unistd.h>",
+    SCRIPT_NAME: "<unistd.h>",
     SCRIPT_INPUT: mk.SOURCE_DIR.join("include/unistd.h.in"),
     SCRIPT_OUTPUT: unistd_h,
   });
 
   const features_h = mk.BINARY_DIR.join("include/features.h");
   mk.addCustomScript("configure_file", {
-    name: "<features.h>",
+    SCRIPT_NAME: "<features.h>",
     SCRIPT_INPUT: mk.SOURCE_DIR.join(`features/${mk.WASMUX_LIBC_FEATURES}-features.h`),
     SCRIPT_OUTPUT: features_h,
   });
