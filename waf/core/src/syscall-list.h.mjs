@@ -1,8 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
+import url from "node:url";
 
 export default async (mk) => {
-  const syscalls = (await import(mk.SCRIPT_INPUT.toString())).default;
+  const scriptUrl = url.pathToFileURL(mk.SCRIPT_INPUT.toString());
+  const syscalls = (await import(scriptUrl)).default;
 
   const lines = [];
   let nextNumber = 0;

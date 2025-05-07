@@ -1,8 +1,10 @@
 import fs from "node:fs";
+import url from "node:url";
 import bitmake from "bitmake";
 
 export default async function(mk) {
-  const config = (await import(mk.SCRIPT_INPUT.toString())).default;
+  const configUrl = url.pathToFileURL(mk.SCRIPT_INPUT.toString());
+  const config = (await import(configUrl)).default;
   const syscalls = Object.entries(config).sort((a, b) => a[1].number - b[1].number);
   const pragmaOnce = bitmake.cxx.filenameToPragmaOnceMacro(mk.SCRIPT_OUTPUT.toString());
 

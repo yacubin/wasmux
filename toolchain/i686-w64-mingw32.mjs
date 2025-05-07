@@ -1,6 +1,8 @@
-import path from "node:path";
 import fs from "node:fs";
 import os from "node:os";
+import bitmake from "bitmake";
+
+const { path } = bitmake;
 
 const toolchainUtils = {
   ASM_COMPILER: "clang",
@@ -37,7 +39,7 @@ export default (mk) => {
 
   for (const [key, val] of Object.entries(toolchainUtils)) {
     const filename = val + toolchainSuffix;
-    mk[key] = toolchainPrefix ? path.posix.resolve(toolchainPrefix, filename) : filename;
+    mk[key] = toolchainPrefix ? path.resolve(toolchainPrefix, filename) : filename;
   }
 
   const compilerFlags = [

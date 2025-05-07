@@ -1,12 +1,13 @@
 import fs from "node:fs";
 import path from "node:path";
+import url from "node:url";
 
 import bitmake from "bitmake";
 const { cxx } = bitmake;
 
-export default async function(mk)
-{
-  const syscalls = (await import(mk.SCRIPT_INPUT.toString())).default;
+export default async function(mk) {
+  const scriptUrl = url.pathToFileURL(mk.SCRIPT_INPUT.toString());
+  const syscalls = (await import(scriptUrl)).default;
 
   const lines = [];
   const pragmaOnce = cxx.filenameToPragmaOnceMacro(mk.SCRIPT_OUTPUT.toString());
