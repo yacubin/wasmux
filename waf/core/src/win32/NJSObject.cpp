@@ -6,9 +6,9 @@
 
 #include <wasmux-config.h>
 
-#include "NJSObject.h"
-#include "OSMalloc.h"
-#include "NJSString.h"
+#include <wasmux/win32/NJSObject.h>
+#include <wasmux/win32/OSMalloc.h>
+#include <wasmux/win32/NJSString.h>
 
 namespace WEI {
 

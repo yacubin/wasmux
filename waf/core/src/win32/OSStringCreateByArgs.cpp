@@ -8,8 +8,8 @@
 #include <wasmux/platform.h>
 #include <wasmux/wei.h>
 
-#include "NJSString.h"
-#include "BaseThreadContext.h"
+#include <wasmux/win32/NJSString.h>
+#include <wasmux/win32/BaseThreadContext.h>
 
 #ifdef WA_OS_WINDOWS
 

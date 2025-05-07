@@ -6,7 +6,7 @@
 
 #include <wasmux-config.h>
 
-#include "MainThreadContext.h"
+#include <wasmux/win32/MainThreadContext.h>
 
 namespace WEI {
 

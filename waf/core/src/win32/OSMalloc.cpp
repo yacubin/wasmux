@@ -5,7 +5,7 @@
  */
 
 #include <wasmux-config.h>
-#include "OSMalloc.h"
+#include <wasmux/win32/OSMalloc.h>
 #include <wasmux/platform.h>
 
 #ifdef WA_OS_WINDOWS

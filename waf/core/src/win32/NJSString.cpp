@@ -6,12 +6,12 @@
 
 #include <wasmux-config.h>
 
-#include "NJSString.h"
+#include <wasmux/win32/NJSString.h>
 
 #include <wasmux/bulk-memory.h>
 #include <wasmux/cxx/New.h>
 
-#include "OSMalloc.h"
+#include <wasmux/win32/OSMalloc.h>
 
 namespace WEI {
 

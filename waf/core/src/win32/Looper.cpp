@@ -6,8 +6,8 @@
 
 #include <wasmux-config.h>
 
-#include "Looper.h"
-#include "BaseThreadContext.h"
+#include <wasmux/win32/Looper.h>
+#include <wasmux/win32/BaseThreadContext.h>
 
 namespace WEI {
 

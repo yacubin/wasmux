@@ -10,8 +10,8 @@
 
 #ifdef WA_OS_WINDOWS
 
-#include "NJSString.h"
-#include "BaseThreadContext.h"
+#include <wasmux/win32/NJSString.h>
+#include <wasmux/win32/BaseThreadContext.h>
 
 extern "C" int os_StringCreate(WEI_Object memory, const char* str, unsigned len)
 {

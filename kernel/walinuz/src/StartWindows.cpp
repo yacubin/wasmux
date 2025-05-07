@@ -9,9 +9,9 @@
 #include <wasmux/wasm_page.h>
 #include <wasmux/sprintf.h>
 #include <wasmux/log.h>
-#include <web/WebMainLoop.h>
+#include <wasmux/main_loop.h>
 #include <wasmux/web/console.h>
-#include <wei/windows/BaseThreadContext.h>
+#include <wasmux/win32/BaseThreadContext.h>
 
 #include <windows.h>
 

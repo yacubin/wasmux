@@ -6,14 +6,14 @@
 
 #include <wasmux-config.h>
 
-#include "NJSObjectList.h"
+#include <wasmux/win32/NJSObjectList.h>
 
 #include <wasmux/worker_thread.h>
 #include <wasmux/cxx/New.h>
 
-#include "OSMalloc.h"
-#include "MainThreadContext.h"
-#include "WorkerThreadContext.h"
+#include <wasmux/win32/OSMalloc.h>
+#include <wasmux/win32/MainThreadContext.h>
+#include <wasmux/win32/WorkerThreadContext.h>
 
 #include <windows.h>
 

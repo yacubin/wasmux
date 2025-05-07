@@ -12,8 +12,8 @@
 
 #include <windows.h>
 
-#include "NJSString.h"
-#include "BaseThreadContext.h"
+#include <wasmux/win32/NJSString.h>
+#include <wasmux/win32/BaseThreadContext.h>
 
 extern "C" int os_ConsoleWrite(int level, WEI_Object message)
 {
