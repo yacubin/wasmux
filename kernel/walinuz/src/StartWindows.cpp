@@ -4,6 +4,8 @@
  *
  */
 
+#define __SSIZE_T__ int // For windows.h
+
 #include <wasmux-config.h>
 #include <wasmux/memory_alloc.h>
 #include <wasmux/wasm_page.h>
