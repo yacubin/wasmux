@@ -29,7 +29,7 @@ export default (mk) => {
   let MINGW_TOOLCHAIN_ROOT = "";
   if (mk.MINGW_ROOT) {
     MINGW_TOOLCHAIN_ROOT = path.resolve(mk.MINGW_ROOT, mk.WASMUX_TARGET_TRIPLET);
-    if (fs.existsSync(MINGW_TOOLCHAIN_ROOT))
+    if (!fs.existsSync(MINGW_TOOLCHAIN_ROOT))
       MINGW_TOOLCHAIN_ROOT = path.resolve(mk.MINGW_ROOT, "x86_64-w64-mingw32");
   }
 
