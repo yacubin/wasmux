@@ -1,5 +1,7 @@
 import os from "node:os";
-import path from "node:path";
+import bitmake from "bitmake";
+
+const { path } = bitmake;
 
 const toolchainUtils = {
   ASM_COMPILER: "clang",
@@ -36,12 +38,12 @@ const toolchainSettings = {
 export default (mk) => {
   mk.SYSTEM_NAME = mk.SYSTEM_NAME || "Generic";
   const clangPath = mk.findProgram("clang");
-  const toolchainPrefix = clangPath ? path.posix.dirname(clangPath) : "";
+  const toolchainPrefix = clangPath ? path.dirname(clangPath) : "";
   const toolchainSuffix = (os.platform() === "win32") ? ".exe" : "";
 
   for (const [key, val] of Object.entries(toolchainUtils)) {
     const filename = val + toolchainSuffix;
-    mk[key] = toolchainPrefix ? path.posix.resolve(toolchainPrefix, filename) : filename;
+    mk[key] = toolchainPrefix ? path.resolve(toolchainPrefix, filename) : filename;
   }
 
   for (const [key, val] of Object.entries(toolchainSettings)) {

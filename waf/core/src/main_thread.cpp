@@ -9,7 +9,7 @@
 #include <wasmux/worker_thread.h>
 
 #ifdef WA_OS_WINDOWS
-#include <wasmux/windows/MainThreadContext.h>
+#include <wasmux/win32/MainThreadContext.h>
 void* g_mainInstance;
 #endif
 

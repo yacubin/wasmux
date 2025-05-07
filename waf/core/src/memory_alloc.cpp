@@ -5,8 +5,13 @@
  */
 
 #include <wasmux-config.h>
-#include <wasmux/memory_alloc.h>
 #include <wasmux/platform.h>
+
+#ifdef WA_OS_WINDOWS
+#define __SSIZE_T__ int // For windows.h
+#endif
+
+#include <wasmux/memory_alloc.h>
 #include <wasmux/wasm_page.h>
 #include <wasmux/bulk-memory.h>
 #include <wasmux/cxx/StaticStorage.h>

@@ -4,11 +4,14 @@
  *
  */
 
-#define __SSIZE_T__ int // For windows.h
-
 #include <wasmux-config.h>
-#include <wasmux/log.h>
 #include <wasmux/platform.h>
+
+#ifdef WA_OS_WINDOWS
+#define __SSIZE_T__ int // For windows.h
+#endif
+
+#include <wasmux/log.h>
 
 #ifdef WA_OS_WINDOWS
 

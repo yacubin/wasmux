@@ -22,7 +22,7 @@
 #include <wasmux/main_loop.h>
 
 #ifdef WA_OS_WINDOWS
-#include "windows/WorkerThreadContext.h"
+#include <wasmux/win32/WorkerThreadContext.h>
 #endif
 
 extern "C" void WebWorkerInstanceInit(void* stack);

@@ -4,8 +4,10 @@
  *
  */
 
+#define __SSIZE_T__ int // For windows.h
+
 #include <wasmux-config.h>
-#include "WorkerThreadContext.h"
+#include <wasmux/win32/WorkerThreadContext.h>
 
 #include <wasmux/platform.h>
 #include <wasmux/worker_thread.h>

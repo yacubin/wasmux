@@ -10,7 +10,7 @@ const toolchainUtils = {
   CXX_COMPILER: "clang++",
   AR:           "llvm-ar",
   RANLIB:       "llvm-ranlib",
-  LINKER:       "wasm-ld",
+  LINKER:       "lld-link",
   NM:           "llvm-nm",
   OBJCOPY:      "llvm-objcopy",
   OBJDUMP:      "llvm-objdump",
@@ -28,8 +28,9 @@ export default (mk) => {
 
   let MINGW_TOOLCHAIN_ROOT = "";
   if (mk.MINGW_ROOT) {
-    MINGW_TOOLCHAIN_ROOT = path.resolve(mk.MINGW_ROOT, mk.WASMUX_TARGET_TRIPLET);
-    if (!fs.existsSync(MINGW_TOOLCHAIN_ROOT))
+    if (fs.existsSync(path.resolve(mk.MINGW_ROOT, mk.WASMUX_TARGET_TRIPLET)))
+      MINGW_TOOLCHAIN_ROOT = path.resolve(mk.MINGW_ROOT, mk.WASMUX_TARGET_TRIPLET);
+    else if (fs.existsSync(path.resolve(mk.MINGW_ROOT, "x86_64-w64-mingw32")))
       MINGW_TOOLCHAIN_ROOT = path.resolve(mk.MINGW_ROOT, "x86_64-w64-mingw32");
   }
 
@@ -63,10 +64,31 @@ export default (mk) => {
       linkerFlags.push("-L" + path.resolve(MINGW_TOOLCHAIN_ROOT, "lib"));
   }
 
+  // win32
+  linkerFlags.push(
+    "-lkernel32",
+    "-luser32",
+    "-lgdi32",
+    "-lwinspool",
+    "-lshell32",
+    "-lole32",
+    "-loleaut32",
+    "-luuid",
+    "-lcomdlg32",
+    "-ladvapi32",
+  );
+
   if (mk.WASMUX_NO_STDLIB)
     compilerFlags.push("--no-standard-libraries");
 
+  compilerFlags.push(
+    "-fno-builtin-memset",
+    "-Wno-pragma-pack",
+    "-O3",
+  );
+
   mk.ASM_FLAGS.push(...compilerFlags);
-  mk.C_FLAGS.push(...compilerFlags, "-fno-builtin-memset", "-Wno-pragma-pack", "-O3");
-  mk.CXX_FLAGS.push(...compilerFlags, "-fno-builtin-memset", "-Wno-pragma-pack", "-O3", "-fno-exceptions", "-fno-rtti");
+  mk.C_FLAGS.push(...compilerFlags);
+  mk.CXX_FLAGS.push(...compilerFlags, "-fno-exceptions", "-fno-rtti");
+  mk.EXE_LINKER_FLAGS.push(...linkerFlags);
 }
