@@ -1,6 +1,5 @@
 export default (mk) => {
   const headers = [
-    "include/bits/__obstack_version.h",
     "include/obstack.h",
   ];
 
@@ -13,7 +12,7 @@ export default (mk) => {
   ];
 
   mk.script("<gnu-versions.h>").mergeVariables({
-    GNU_VERSIONS_INCLUDE_LIST: [ "#include <bits/__obstack_version.h>" ],
+    SCRIPT_DEFINES: [ "#define _GNU_OBSTACK_INTERFACE_VERSION 1" ],
   });
 
   mk.target("libc").addSources(headers, sources);

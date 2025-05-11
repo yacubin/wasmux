@@ -1,6 +1,5 @@
 export default (mk) => {
   const headers = [
-    "include/bits/__glob_version.h",
     "include/glob.h",
   ];
 
@@ -13,7 +12,7 @@ export default (mk) => {
   ];
 
   mk.script("<gnu-versions.h>").mergeVariables({
-    GNU_VERSIONS_INCLUDE_LIST: [ "#include <bits/__glob_version.h>" ],
+    SCRIPT_DEFINES: [ "#define _GNU_GLOB_INTERFACE_VERSION 2" ],
   });
 
   mk.target("libc").addSources(headers, sources);

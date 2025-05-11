@@ -1,6 +1,5 @@
 export default (mk) => {
   const headers = [
-    "include/bits/__getopt_version.h",
     "include/bits/__getopt_base.h",
     "include/getopt.h",
   ];
@@ -14,7 +13,7 @@ export default (mk) => {
   ];
 
   mk.script("<gnu-versions.h>").mergeVariables({
-    GNU_VERSIONS_INCLUDE_LIST: [ "#include <bits/__getopt_version.h>" ],
+    SCRIPT_DEFINES: [ "#define _GNU_GETOPT_INTERFACE_VERSION 2" ],
   });
   mk.script("<unistd.h>").mergeVariables({
     UNISTD_INCLUDE_LIST: [ "#include <bits/__getopt_base.h>" ],

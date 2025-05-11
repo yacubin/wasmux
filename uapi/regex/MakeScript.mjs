@@ -1,6 +1,5 @@
 export default (mk) => {
   const headers = [
-    "include/bits/__regex_version.h",
     "include/regex.h",
   ];
 
@@ -12,12 +11,8 @@ export default (mk) => {
     mk.SOURCE_DIR.join("include"),
   ];
 
-  const libraries = [
-    mk.target("wauser"),
-  ];
-
   mk.script("<gnu-versions.h>").mergeVariables({
-    GNU_VERSIONS_INCLUDE_LIST: [ "#include <bits/__regex_version.h>" ],
+    SCRIPT_DEFINES: [ "#define _GNU_REGEX_INTERFACE_VERSION 1" ],
   });
 
   mk.target("libc").addSources(headers, sources);

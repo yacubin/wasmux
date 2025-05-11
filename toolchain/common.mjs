@@ -1,4 +1,3 @@
-import os from "node:os";
 import bitmake from "bitmake";
 
 const { path } = bitmake;
@@ -39,10 +38,9 @@ export default (mk) => {
   mk.SYSTEM_NAME = mk.SYSTEM_NAME || "Generic";
   const clangPath = mk.findProgram("clang");
   const toolchainPrefix = clangPath ? path.dirname(clangPath) : "";
-  const toolchainSuffix = (os.platform() === "win32") ? ".exe" : "";
 
   for (const [key, val] of Object.entries(toolchainUtils)) {
-    const filename = val + toolchainSuffix;
+    const filename = val + mk.HOST_EXECUTABLE_SUFFIX;
     mk[key] = toolchainPrefix ? path.resolve(toolchainPrefix, filename) : filename;
   }
 

@@ -190,6 +190,7 @@ export default (mk) => {
     SCRIPT_NAME: "<gnu-versions.h>",
     SCRIPT_INPUT: mk.SOURCE_DIR.join("include/gnu-versions.h.in"),
     SCRIPT_OUTPUT: gnu_versions_h,
+    SCRIPT_DEFINES: [],
   });
 
   const stdlib_h = mk.BINARY_DIR.join("include/stdlib.h");
