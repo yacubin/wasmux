@@ -11,6 +11,11 @@
 
 #define STATX_BASIC_STATS 0x000007ffU
 
+/* Special value indicating "set to current system time" */
+#define UTIME_NOW  ((1l << 30) - 1l)
+/* Special value indicating "leave the timestamp unchanged" */
+#define UTIME_OMIT ((1l << 30) - 2l)
+
 struct statx_timestamp {
   int64_t tv_sec;
   uint32_t tv_nsec;
