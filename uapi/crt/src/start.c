@@ -28,7 +28,7 @@ int main(int argc, char** argv, char** env)
 }
 #endif
 
-__attribute__((export_name("_start")))
+__ATTR_EXPORT_NAME("_start")
 void _start(void)
 {
   __DO_SYSCALL(brk, &__heap_base);

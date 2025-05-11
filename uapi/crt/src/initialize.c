@@ -6,8 +6,9 @@
  */
 
 #include <wasmux-config.h>
+#include <wasmux/compiler.h>
 
-__attribute__((export_name("_initialize")))
+__ATTR_EXPORT_NAME("_initialize")
 void _initialize(void)
 {
 }

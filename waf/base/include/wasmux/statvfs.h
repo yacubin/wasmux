@@ -8,7 +8,6 @@
 #define _WASMUX_STATVFS_H
 
 #include <wasmux/types.h>
-#include <wasmux/posix_types.h>
 #include <wasmux/fsblkcnt.h>
 #include <wasmux/fsfilcnt.h>
 
@@ -21,8 +20,8 @@ struct statvfs {
   fsfilcnt_t f_files;
   fsfilcnt_t f_ffree;
   fsfilcnt_t f_favail;
-  __kernel_fsid_t f_fsid;
-  unsigned long f_flags;
+  unsigned long f_fsid;
+  unsigned long f_flag;
   unsigned long f_namemax;
   unsigned f_type;
   unsigned f_spare[5];
