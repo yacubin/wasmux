@@ -12,7 +12,7 @@ export default (mk) => {
   ];
 
   mk.script("<stdlib.h>").mergeVariables({
-    STDLIB_INCLUDE_LIST: [ "#include <alloca.h>", "#include <malloc.h>" ],
+    SCRIPT_INCLUDES: [ "#include <alloca.h>", "#include <malloc.h>" ],
   });
 
   mk.target("libc").addSources(headers, sources);

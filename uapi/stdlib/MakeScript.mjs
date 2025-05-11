@@ -15,7 +15,7 @@ export default (mk) => {
   ];
 
   mk.script("<stdlib.h>").mergeVariables({
-    STDLIB_INCLUDE_LIST: [ "#include <bits/__stdlib.h>" ],
+    SCRIPT_INCLUDES: [ "#include <bits/__stdlib.h>" ],
   });
 
   mk.target("libc").addSources(headers, sources);

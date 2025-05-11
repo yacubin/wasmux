@@ -11,7 +11,7 @@
 #include <wasmux/compiler.h>
 #include <wasmux/widechar.h>
 #include <wasmux/waitstatus.h>
-@STDLIB_INCLUDE_LIST@
+@SCRIPT_INCLUDES@
 
 #ifdef __cplusplus
 extern "C" {

@@ -36,7 +36,7 @@ export default (mk) => {
   ];
 
   mk.script("<stdlib.h>").mergeVariables({
-    STDLIB_INCLUDE_LIST: [ "#include <bits/wcsmbs_comm.h>" ],
+    SCRIPT_INCLUDES: [ "#include <bits/wcsmbs_comm.h>" ],
   });
 
   mk.target("libc").addSources(headers, sources);

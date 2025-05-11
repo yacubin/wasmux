@@ -199,6 +199,7 @@ export default (mk) => {
     SCRIPT_NAME: "<stdlib.h>",
     SCRIPT_INPUT: mk.SOURCE_DIR.join("include/stdlib.h.in"),
     SCRIPT_OUTPUT: stdlib_h,
+    SCRIPT_INCLUDES: [],
   });
 
   const unistd_h = mk.BINARY_DIR.join("include/unistd.h");
