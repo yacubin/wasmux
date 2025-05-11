@@ -18,7 +18,7 @@ export default (mk) => {
   ];
 
   mk.script("<ctype.h>").mergeVariables({
-    CTYPE_INCLUDE_LIST: [ "#include <bits/locale_ctype.h>" ],
+    SCRIPT_INCLUDES: [ "#include <bits/locale_ctype.h>" ],
   });
 
   mk.target("libc").addSources(headers, sources);

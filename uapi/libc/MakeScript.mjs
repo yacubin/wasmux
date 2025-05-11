@@ -183,6 +183,7 @@ export default (mk) => {
     SCRIPT_NAME: "<ctype.h>",
     SCRIPT_INPUT: mk.SOURCE_DIR.join("include/ctype.h.in"),
     SCRIPT_OUTPUT: ctype_h,
+    SCRIPT_INCLUDES: [],
   });
 
   const gnu_versions_h = mk.BINARY_DIR.join("include/gnu-versions.h");

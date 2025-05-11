@@ -12,7 +12,7 @@ export default (mk) => {
   ];
 
   mk.script("<ctype.h>").mergeVariables({
-    CTYPE_INCLUDE_LIST: [ "#include <bits/__ctype_base.h>" ],
+    SCRIPT_INCLUDES: [ "#include <bits/__ctype_base.h>" ],
   });
 
   mk.target("libc").addSources(headers, sources);
