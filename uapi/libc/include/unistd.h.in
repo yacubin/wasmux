@@ -10,7 +10,7 @@
 #include <features.h>
 #include <sys/types.h>
 #include <wasmux/fs.h>
-@UNISTD_INCLUDE_LIST@
+@SCRIPT_INCLUDES@
 
 #ifdef __cplusplus
 extern "C" {

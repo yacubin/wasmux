@@ -207,6 +207,7 @@ export default (mk) => {
     SCRIPT_NAME: "<unistd.h>",
     SCRIPT_INPUT: mk.SOURCE_DIR.join("include/unistd.h.in"),
     SCRIPT_OUTPUT: unistd_h,
+    SCRIPT_INCLUDES: [],
   });
 
   const features_h = mk.BINARY_DIR.join("include/features.h");
