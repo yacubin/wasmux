@@ -25,7 +25,7 @@ int __openat(int dirfd, const char* path, int flags, ...)
     mode = 0;
   }
 
-  auto ret = static_cast<int>(__SYSCALL(openat, path, flags, mode));
+  auto ret = static_cast<int>(__DO_SYSCALL(openat, path, flags, mode));
   if (ret < 0) {
     __set_local_errno(-ret);
     return -1;

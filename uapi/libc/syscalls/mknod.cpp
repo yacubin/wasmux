@@ -13,7 +13,7 @@
 __ATTR_HIDDEN
 extern "C" int __mknod(const char* path, mode_t mode, dev_t dev)
 {
-  auto ret = sys_mknod(path, static_cast<umode_t>(mode), dev);
+  auto ret = __DO_SYSCALL(mknod, path, mode, dev);
   if (ret < 0) {
     __set_local_errno(-static_cast<int>(ret));
     return -1;

@@ -12,7 +12,7 @@
 __ATTR_HIDDEN
 extern "C" pid_t __getpgrp(void)
 {
-  return static_cast<pid_t>(__SYSCALL(getpgrp));
+  return static_cast<pid_t>(__DO_SYSCALL(getpgrp));
 }
 
 extern "C" __ATTR_ALIAS(__getpgrp, getpgrp) __ATTR_WEAK;

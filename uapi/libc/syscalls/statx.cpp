@@ -13,7 +13,7 @@
 __ATTR_HIDDEN
 extern "C" int __statx(int dirfd, const char* path, int flags, unsigned mask, struct statx* buf)
 {
-  auto ret = __SYSCALL(statx, dirfd, path, flags, mask, buf);
+  auto ret = __DO_SYSCALL(statx, dirfd, path, flags, mask, buf);
   if (ret < 0) {
     __set_local_errno(-static_cast<int>(ret));
     return -1;

@@ -12,7 +12,7 @@
 __ATTR_HIDDEN
 extern "C" char* __getcwd(char* buf, size_t size)
 {
-  long ret = sys_getcwd(buf, static_cast<unsigned long>(size));
+  auto ret = __DO_SYSCALL(getcwd, buf, size);
   if (ret < 0) {
     __set_local_errno(-static_cast<int>(ret));
     return nullptr;

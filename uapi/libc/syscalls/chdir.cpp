@@ -12,7 +12,7 @@
 __ATTR_HIDDEN
 extern "C" int __chdir(const char* path)
 {
-  auto ret = sys_chdir(path);
+  auto ret = __DO_SYSCALL(chdir, path);
   if (ret < 0) {
     __set_local_errno(-static_cast<int>(ret));
     return -1;

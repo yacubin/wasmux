@@ -9,13 +9,12 @@
 
 #include <wasmux/types.h>
 #include <wasmux/time.h>
-#include <wasmux/arch-syscall.h>
 #include <wasmux/compiler.h>
 #include <wasmux/wainst_names.h>
+#include <wasmux/export.h>
+#include <wasmux/arch-syscall.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+__EXTERN_C_BEGIN
 
 __ATTR_IMPORT_NAME(WASMUX_KERNEL_MODULE, WASMUX_KERNEL_SYSCALL0)
 long __kernel_syscall0(long number);
@@ -56,75 +55,6 @@ long __kernel_syscall6(long number, long arg1, long arg2, long arg3, long arg4, 
 #define __DO_SYSCALL(...) ___DO_SYSCALL(__SC_NR_CAST, __VA_ARGS__)
 #define __DO_SYSCALL_NR(...) ___DO_SYSCALL(__SR_NO_CAST, __VA_ARGS__)
 
-#define __SYSCALL __DO_SYSCALL
-
-static inline long sys_write(unsigned int fd, const char* buf, size_t count)
-{
-  return __DO_SYSCALL(write, fd, buf, count);
-}
-
-static inline long sys_close(unsigned int fd)
-{
-  return __DO_SYSCALL(close, fd);
-}
-
-static inline long sys_getcwd(char* buf, unsigned long len)
-{
-  return __DO_SYSCALL(getcwd, buf, len);
-}
-
-static inline long sys_gettid(void)
-{
-  return __DO_SYSCALL(gettid);
-}
-
-static inline long sys_ioctl(unsigned int fd, unsigned int cmd, unsigned long arg)
-{
-  return __DO_SYSCALL(ioctl, fd, cmd, arg);
-}
-
-static inline long sys_fork(void)
-{
-  return __DO_SYSCALL(fork);
-}
-
-static inline long sys_exit(int error_code)
-{
-  return __DO_SYSCALL(exit, error_code);
-}
-
-static inline long sys_link(const char* oldname, const char* newname)
-{
-  return __DO_SYSCALL(link, oldname, newname);
-}
-
-static inline long sys_unlink(const char* pathname)
-{
-  return __DO_SYSCALL(unlink, pathname);
-}
-
-static inline long sys_execve(const char* filename, const char* const* argv, const char* const* envp)
-{
-  return __DO_SYSCALL(execve, filename, argv, envp);
-}
-
-static inline long sys_chdir(const char* filename)
-{
-  return __DO_SYSCALL(chdir, filename);
-}
-
-static inline long sys_mknod(const char* filename, umode_t mode, unsigned dev)
-{
-  return __DO_SYSCALL(mknod, filename, mode, dev);
-}
-
-static inline long sys_getuid(void)
-{
-  return __DO_SYSCALL(getuid32);
-}
-
-#ifdef __cplusplus
-}
-#endif
+__EXTERN_C_END
 
 #endif /* _WASMUX_SYSCALLS_H */

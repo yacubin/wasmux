@@ -20,7 +20,7 @@ extern "C" int __ioctl(int fd, int request, ...)
   void* arg = va_arg(args, void*);
   va_end(args);
 
-  ret = static_cast<int>(sys_ioctl(fd, static_cast<unsigned>(request), reinterpret_cast<unsigned long>(args)));
+  ret = static_cast<int>(__DO_SYSCALL(ioctl, fd, request, args));
   if (ret < 0) {
     __set_local_errno(-ret);
     return -1;

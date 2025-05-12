@@ -12,7 +12,7 @@
 __ATTR_HIDDEN
 extern "C" int __close(int fd)
 {
-  int ret = static_cast<int>(sys_close(fd));
+  int ret = static_cast<int>(__DO_SYSCALL(close, fd));
   if (ret < 0) {
     __set_local_errno(-ret);
     return -1;

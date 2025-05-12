@@ -19,6 +19,7 @@ export default (mk) => {
     "include/wasmux/compiler.h",
     "include/wasmux/eventfd.h",
     "include/wasmux/eventpoll.h",
+    "include/wasmux/export.h",
     "include/wasmux/fcntl.h",
     "include/wasmux/fs.h",
     "include/wasmux/fsblkcnt.h",
