@@ -4,11 +4,11 @@
  *
  */
 
-#ifndef _WA_LIBC_ERRNO_H
-#define _WA_LIBC_ERRNO_H
+#ifndef _ERRNO_H
+#define _ERRNO_H
 
 #include <wasmux/errno.h>
-#include <wasmux/thread_data.h>
+#include <bits/thread_data.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -23,4 +23,4 @@ extern char* program_invocation_short_name;
 }
 #endif
 
-#endif /* _WA_LIBC_ERRNO_H */
+#endif /* _ERRNO_H */

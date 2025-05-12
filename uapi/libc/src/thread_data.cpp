@@ -5,7 +5,7 @@
  */
 
 #include <wasmux-config.h>
-#include <wasmux/thread_data.h>
+#include <bits/thread_data.h>
 
 static struct wax_thread_data s_main_thread_data = { 0 };
 

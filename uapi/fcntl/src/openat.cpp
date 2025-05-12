@@ -5,11 +5,12 @@
  */
 
 #include <wasmux-config.h>
+#include <wasmux/compiler.h>
+
+#include <bits/syscalls.h>
 #include <fcntl.h>
 #include <stdarg.h>
 #include <errno.h>
-#include <wasmux/compiler.h>
-#include <wasmux/syscalls.h>
 
 int __openat(int dirfd, const char* path, int flags, ...)
 {

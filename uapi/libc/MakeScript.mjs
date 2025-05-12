@@ -1,6 +1,9 @@
 export default (mk) => {
   const headers = [
     "include/arpa/inet.h",
+    "include/bits/syscalls.h",
+    "include/bits/thread_data.h",
+    "include/bits/waitstatus.h",
     "include/net/if.h",
     "include/netinet/in.h",
     "include/netinet/tcp.h",
@@ -158,19 +161,27 @@ export default (mk) => {
     "src/gethostname.cpp",
     "src/posix_openpt.cpp",
     "src/sbrk.cpp",
+    "src/thread_data.cpp",
     "src/usleep.cpp",
     mk.target("wabase").objects,
-    mk.target("wauser").objects,
   ];
 
   const includes = [
     mk.BINARY_DIR.join("include"),
+    mk.SOURCE_DIR.join("internal"),
     mk.SOURCE_DIR.join("include"),
   ];
 
   const libraries = [
-    mk.target("wauser"),
+    mk.target("wabase"),
   ];
+
+  const arch_syscall_h = mk.BINARY_DIR.join("include/bits/arch-syscall.h");
+  mk.addCustomScript("include/bits/arch-syscall.h.mjs", {
+    SCRIPT_NAME: "<bits/arch-syscall.h>",
+    SCRIPT_INPUT: mk.PROJECT_SOURCE_DIR.join("data/syscall.js"),
+    SCRIPT_OUTPUT: arch_syscall_h,
+  });
 
   const syscall_h = mk.BINARY_DIR.join("include/sys/syscall.h");
   mk.addCustomScript("src/sys/syscall.h.js", {
@@ -219,7 +230,7 @@ export default (mk) => {
   });
 
   const libc = mk.addStaticLibrary("libc", headers, sources);
-  libc.addSources(syscall_h, ctype_h, gnu_versions_h, stdlib_h, unistd_h, features_h);
+  libc.addSources(arch_syscall_h, syscall_h, ctype_h, gnu_versions_h, stdlib_h, unistd_h, features_h);
   libc.addPublicIncludes(includes);
   libc.addPublicLibraries(libraries);
   libc.setPrefix("");
@@ -228,7 +239,7 @@ export default (mk) => {
     destination: mk.INSTALL_INCLUDEDIR,
     baseDir: "include",
   });
-  mk.install([ syscall_h, ctype_h, gnu_versions_h, stdlib_h, unistd_h, features_h ], {
+  mk.install([ arch_syscall_h, syscall_h, ctype_h, gnu_versions_h, stdlib_h, unistd_h, features_h ], {
     destination: mk.INSTALL_INCLUDEDIR,
     baseDir: mk.BINARY_DIR.join("include"),
   });

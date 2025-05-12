@@ -5,7 +5,7 @@ export default (mk) => {
   ];
 
   const crt1_includes = [
-    mk.target("wauser").includes,
+    mk.target("libc").includes,
   ];
 
   const crt1 = mk.addObjectLibrary("crt1", crt1_sources);
@@ -19,7 +19,7 @@ export default (mk) => {
   ];
 
   const crt1_reactor_includes = [
-    mk.target("wauser").includes,
+    mk.target("libc").includes,
   ];
 
   const crt1_reactor = mk.addObjectLibrary("crt1_reactor", crt1_reactor_sources);

@@ -5,10 +5,11 @@
  */
 
 #include <wasmux-config.h>
+#include <wasmux/compiler.h>
+
+#include <bits/syscalls.h>
 #include <sys/uio.h>
 #include <errno.h>
-#include <wasmux/compiler.h>
-#include <wasmux/syscalls.h>
 
 __ATTR_HIDDEN
 extern "C" ssize_t __readv(int fd, const struct iovec* iov, int count)

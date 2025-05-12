@@ -6,7 +6,9 @@
 
 #include <wasmux-config.h>
 #include <wasmux/compiler.h>
-#include <wasmux/syscalls.h>
+
+#include <bits/syscalls.h>
+#include <unistd.h>
 
 __ATTR_HIDDEN
 extern "C" pid_t __gettid()

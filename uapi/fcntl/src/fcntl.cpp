@@ -5,10 +5,11 @@
  */
 
 #include <wasmux-config.h>
+
+#include <bits/syscalls.h>
 #include <fcntl.h>
 #include <stdarg.h>
 #include <errno.h>
-#include <wasmux/syscalls.h>
 
 int fcntl(int fd, int cmd, ...)
 {

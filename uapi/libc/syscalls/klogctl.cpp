@@ -5,10 +5,11 @@
  */
 
 #include <wasmux-config.h>
+#include <wasmux/compiler.h>
+
+#include <bits/syscalls.h>
 #include <sys/klog.h>
 #include <errno.h>
-#include <wasmux/compiler.h>
-#include <wasmux/syscalls.h>
 
 __ATTR_HIDDEN
 extern "C" int __klogctl(int type, char* buf, int len)

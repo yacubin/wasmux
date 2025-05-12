@@ -23,7 +23,6 @@ module.exports = function(mk)
   lines.push("#include <string.h>");
   lines.push("#include <errno.h>");
   lines.push("#include <wasmux/compiler.h>");
-  lines.push("#include <wasmux/thread_data.h>");
   lines.push("");
   lines.push(`static const char* s_errors[${errors.length}] =`);
   lines.push("{");

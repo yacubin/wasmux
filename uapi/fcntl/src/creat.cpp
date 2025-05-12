@@ -5,9 +5,10 @@
  */
 
 #include <wasmux-config.h>
+
+#include <bits/syscalls.h>
 #include <fcntl.h>
 #include <errno.h>
-#include <wasmux/syscalls.h>
 
 int __creat(const char* path, mode_t mode)
 {

@@ -6,8 +6,9 @@
 
 #include <wasmux-config.h>
 #include <wasmux/compiler.h>
-#include <wasmux/thread_data.h>
-#include <wasmux/syscalls.h>
+
+#include <bits/syscalls.h>
+#include <errno.h>
 
 __ATTR_HIDDEN
 extern "C" int __execve(const char* path, char* const argv[], char* const envp[])

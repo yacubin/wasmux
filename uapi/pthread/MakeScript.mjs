@@ -12,7 +12,7 @@ export default (mk) => {
   ];
 
   const libraries = [
-    mk.target("wauser"),
+    mk.target("wabase"),
   ];
 
   const pthread = mk.addStaticLibrary("pthread", headers, sources);

@@ -10,7 +10,7 @@
 #include <wasmux/types.h>
 #include <wasmux/compiler.h>
 #include <wasmux/widechar.h>
-#include <wasmux/waitstatus.h>
+#include <bits/waitstatus.h>
 @SCRIPT_INCLUDES@
 
 #ifdef __cplusplus

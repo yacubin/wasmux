@@ -13,7 +13,7 @@ export default (mk) => {
   ];
 
   const libraries = [
-    mk.target("wauser"),
+    mk.target("wabase"),
   ];
 
   const libcxx = mk.addStaticLibrary("libcxx", headers, sources);

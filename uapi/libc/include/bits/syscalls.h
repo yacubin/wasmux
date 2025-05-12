@@ -4,15 +4,14 @@
  *
  */
 
-#ifndef _WASMUX_SYSCALLS_H
-#define _WASMUX_SYSCALLS_H
+#ifndef _BITS_SYSCALLS_H
+#define _BITS_SYSCALLS_H
 
-#include <wasmux/types.h>
-#include <wasmux/time.h>
+#include <wasmux/export.h>
 #include <wasmux/compiler.h>
 #include <wasmux/wainst_names.h>
-#include <wasmux/export.h>
-#include <wasmux/arch-syscall.h>
+
+#include <bits/arch-syscall.h>
 
 __EXTERN_C_BEGIN
 
@@ -53,8 +52,8 @@ long __kernel_syscall6(long number, long arg1, long arg2, long arg3, long arg4, 
 
 #define ___DO_SYSCALL(...) __SYSCALL_CALL(__VA_ARGS__, 6, 5, 4, 3, 2, 1, 0)
 #define __DO_SYSCALL(...) ___DO_SYSCALL(__SC_NR_CAST, __VA_ARGS__)
-#define __DO_SYSCALL_NR(...) ___DO_SYSCALL(__SR_NO_CAST, __VA_ARGS__)
+#define __SYSCALL(...) ___DO_SYSCALL(__SR_NO_CAST, __VA_ARGS__)
 
 __EXTERN_C_END
 
-#endif /* _WASMUX_SYSCALLS_H */
+#endif /* _BITS_SYSCALLS_H */

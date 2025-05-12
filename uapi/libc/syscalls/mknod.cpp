@@ -5,10 +5,11 @@
  */
 
 #include <wasmux-config.h>
-#include <sys/stat.h>
 #include <wasmux/compiler.h>
-#include <wasmux/thread_data.h>
-#include <wasmux/syscalls.h>
+
+#include <bits/syscalls.h>
+#include <sys/stat.h>
+#include <errno.h>
 
 __ATTR_HIDDEN
 extern "C" int __mknod(const char* path, mode_t mode, dev_t dev)

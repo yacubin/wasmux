@@ -6,9 +6,10 @@
 
 #include <wasmux-config.h>
 #include <wasmux/compiler.h>
-#include <wasmux/stdarg.h>
-#include <wasmux/thread_data.h>
-#include <wasmux/syscalls.h>
+
+#include <bits/syscalls.h>
+#include <stdarg.h>
+#include <errno.h>
 
 __ATTR_HIDDEN
 extern "C" int __ioctl(int fd, int request, ...)

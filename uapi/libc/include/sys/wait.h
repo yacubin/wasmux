@@ -8,7 +8,7 @@
 #define _SYS_WAIT_H
 
 #include <sys/types.h>
-#include <wasmux/waitstatus.h>
+#include <bits/waitstatus.h>
 
 #ifdef __cplusplus
 extern "C" {
