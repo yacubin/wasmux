@@ -5,9 +5,10 @@
  */
 
 #include <wasmux-config.h>
+#include <wasmux/compiler.h>
+
 #include <sys/stat.h>
 #include <sys/sysmacros.h>
-#include <wasmux/compiler.h>
 
 __ATTR_HIDDEN
 extern "C" int __fstatat(int dirfd, const char* path, struct stat* buf, int flags)

@@ -4,16 +4,16 @@
  *
  */
 
-#ifndef _BITS_SYSCALLS_H
-#define _BITS_SYSCALLS_H
+#ifndef _ASM_SYSCALLS_H
+#define _ASM_SYSCALLS_H
 
 #include <wasmux/export.h>
 #include <wasmux/compiler.h>
 #include <wasmux/wainst_names.h>
 
-#include <bits/arch-syscall.h>
+#include <asm/arch-syscall.h>
 
-__EXTERN_C_BEGIN
+__EXPORT_BEGIN
 
 __ATTR_IMPORT_NAME(WASMUX_KERNEL_MODULE, WASMUX_KERNEL_SYSCALL0)
 long __kernel_syscall0(long number);
@@ -54,6 +54,6 @@ long __kernel_syscall6(long number, long arg1, long arg2, long arg3, long arg4, 
 #define __DO_SYSCALL(...) ___DO_SYSCALL(__SC_NR_CAST, __VA_ARGS__)
 #define __SYSCALL(...) ___DO_SYSCALL(__SR_NO_CAST, __VA_ARGS__)
 
-__EXTERN_C_END
+__EXPORT_END
 
-#endif /* _BITS_SYSCALLS_H */
+#endif /* _ASM_SYSCALLS_H */

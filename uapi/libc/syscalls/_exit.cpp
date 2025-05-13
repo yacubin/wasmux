@@ -8,7 +8,7 @@
 #include <wasmux/compiler.h>
 #include <wasmux/assert.h>
 
-#include <bits/syscalls.h>
+#include <asm/syscalls.h>
 #include <stdlib.h>
 #include <unistd.h>
 

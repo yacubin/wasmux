@@ -8,13 +8,13 @@
 #define _WASMUX_EXPORT_H
 
 #ifdef __cplusplus
-# define __EXTERN_C extern "C"
-# define __EXTERN_C_BEGIN extern "C" {
-# define __EXTERN_C_END }
+# define __EXPORT extern "C"
+# define __EXPORT_BEGIN extern "C" {
+# define __EXPORT_END }
 #else
-# define __EXTERN_C
-# define __EXTERN_C_BEGIN
-# define __EXTERN_C_END
+# define __EXPORT
+# define __EXPORT_BEGIN
+# define __EXPORT_END
 #endif
 
 #endif /* _WASMUX_EXPORT_H */

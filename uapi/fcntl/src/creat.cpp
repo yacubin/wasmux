@@ -6,7 +6,7 @@
 
 #include <wasmux-config.h>
 
-#include <bits/syscalls.h>
+#include <asm/syscalls.h>
 #include <fcntl.h>
 #include <errno.h>
 

@@ -9,13 +9,13 @@
 #include <wasmux/export.h>
 
 #define __SYSCALL_DECL_x(nr, sym)
-#define __SYSCALL_DECL_0(nr, sym) __EXTERN_C long __waml_##sym();
-#define __SYSCALL_DECL_1(nr, sym) __EXTERN_C long __waml_##sym(long arg1);
-#define __SYSCALL_DECL_2(nr, sym) __EXTERN_C long __waml_##sym(long arg1, long arg2);
-#define __SYSCALL_DECL_3(nr, sym) __EXTERN_C long __waml_##sym(long arg1, long arg2, long arg3);
-#define __SYSCALL_DECL_4(nr, sym) __EXTERN_C long __waml_##sym(long arg1, long arg2, long arg3, long arg4);
-#define __SYSCALL_DECL_5(nr, sym) __EXTERN_C long __waml_##sym(long arg1, long arg2, long arg3, long arg4, long arg5);
-#define __SYSCALL_DECL_6(nr, sym) __EXTERN_C long __waml_##sym(long arg1, long arg2, long arg3, long arg4, long arg5, long arg6);
+#define __SYSCALL_DECL_0(nr, sym) __EXPORT long __waml_##sym();
+#define __SYSCALL_DECL_1(nr, sym) __EXPORT long __waml_##sym(long arg1);
+#define __SYSCALL_DECL_2(nr, sym) __EXPORT long __waml_##sym(long arg1, long arg2);
+#define __SYSCALL_DECL_3(nr, sym) __EXPORT long __waml_##sym(long arg1, long arg2, long arg3);
+#define __SYSCALL_DECL_4(nr, sym) __EXPORT long __waml_##sym(long arg1, long arg2, long arg3, long arg4);
+#define __SYSCALL_DECL_5(nr, sym) __EXPORT long __waml_##sym(long arg1, long arg2, long arg3, long arg4, long arg5);
+#define __SYSCALL_DECL_6(nr, sym) __EXPORT long __waml_##sym(long arg1, long arg2, long arg3, long arg4, long arg5, long arg6);
 
 #define __SYSCALL(nr, argc, sym) __SYSCALL_DECL_##argc(nr, sym)
 #include <wasmux/syscall-list.h>

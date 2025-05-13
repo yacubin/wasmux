@@ -55,6 +55,7 @@ export default (mk) => {
     "include/wasmux/statvfs.h",
     "include/wasmux/stdarg.h",
     "include/wasmux/swab.h",
+    "include/wasmux/sys_ni.h",
     "include/wasmux/sysinfo.h",
     "include/wasmux/termios.h",
     "include/wasmux/time.h",
@@ -79,6 +80,7 @@ export default (mk) => {
     "src/PrintTo.cpp",
     "src/sleep_ms.cpp",
     "src/sprintf.cpp",
+    "src/sys_ni.cpp",
     "src/TypesCheck.cpp",
     "src/wasm_module.cpp",
   ];

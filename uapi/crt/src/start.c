@@ -9,7 +9,7 @@
 #include <wasmux/wasm_symbols.h>
 #include <wasmux/compiler.h>
 
-#include <bits/syscalls.h>
+#include <asm/syscalls.h>
 
 __ATTR_WEAK
 int __main_void(void);

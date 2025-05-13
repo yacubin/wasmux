@@ -51,6 +51,11 @@ module.exports = {
     description: "Maximum size of core pages",
     value: 124,
   },
+  WASMUX_LIBC_ARCH: {
+    description: "Target architecture for libc",
+    type: [ "waml", "seal" ],
+    value: "waml",
+  },
   WASMUX_LIBC_FEATURES: {
     description: "Choosing features for libc",
     type: [ "none", "glibc", "uclibc" ],
