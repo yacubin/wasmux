@@ -7,7 +7,7 @@
 #include <wasmux-config.h>
 #include <wasmux/compiler.h>
 #include <wasmux/errno.h>
-#include <asm/syscall-define.h>
+#include <wasmux/arch/syscall-define.h>
 
 SYSCALL_DEFINE1(brk, long, a1) __ATTR_WEAK
 {

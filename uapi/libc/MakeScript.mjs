@@ -174,49 +174,6 @@ export default (mk) => {
     mk.target("wabase"),
   ];
 
-  if (mk.WASMUX_LIBC_ARCH === "waml") {
-    headers.push(
-      "arch/waml/include/asm/syscalls.h",
-    );
-
-    includes.push(
-      mk.SOURCE_DIR.join("arch/waml/include"),
-    );
-
-    const arch_syscall_h = mk.BINARY_DIR.join("include/asm/arch-syscall.h");
-    mk.addCustomScript("arch/waml/include/asm/arch-syscall.h.mjs", {
-      SCRIPT_NAME: "<asm/arch-syscall.h>",
-      SCRIPT_INPUT: mk.PROJECT_SOURCE_DIR.join("data/syscall.js"),
-      SCRIPT_OUTPUT: arch_syscall_h,
-    });
-
-    headers.push(arch_syscall_h);
-  }
-
-  if (mk.WASMUX_LIBC_ARCH === "seal") {
-    headers.push(
-      "arch/seal/include/asm/syscall-define.h",
-      "arch/seal/include/asm/syscalls.h",
-    );
-
-    sources.push(
-      "arch/seal/src/sys.cpp",
-    );
-
-    includes.push(
-      mk.SOURCE_DIR.join("arch/seal/include"),
-    );
-
-    const arch_syscall_h = mk.BINARY_DIR.join("include/asm/arch-syscall.h");
-    mk.addCustomScript("arch/seal/include/asm/arch-syscall.h.mjs", {
-      SCRIPT_NAME: "<asm/arch-syscall.h>",
-      SCRIPT_INPUT: mk.PROJECT_SOURCE_DIR.join("data/syscall.js"),
-      SCRIPT_OUTPUT: arch_syscall_h,
-    });
-
-    headers.push(arch_syscall_h);
-  }
-
   const syscall_h = mk.BINARY_DIR.join("include/sys/syscall.h");
   mk.addCustomScript("src/sys/syscall.h.js", {
     SCRIPT_NAME: "<sys/syscall.h>",

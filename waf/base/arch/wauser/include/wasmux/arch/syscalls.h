@@ -4,14 +4,14 @@
  *
  */
 
-#ifndef _ASM_SYSCALLS_H
-#define _ASM_SYSCALLS_H
+#ifndef _WASMUX_ARCH_SYSCALLS_H
+#define _WASMUX_ARCH_SYSCALLS_H
 
 #include <wasmux/export.h>
 #include <wasmux/compiler.h>
 #include <wasmux/wainst_names.h>
 
-#include <asm/arch-syscall.h>
+#include <wasmux/arch/arch-syscall.h>
 
 __EXPORT_BEGIN
 
@@ -56,4 +56,4 @@ long __kernel_syscall6(long number, long arg1, long arg2, long arg3, long arg4, 
 
 __EXPORT_END
 
-#endif /* _ASM_SYSCALLS_H */
+#endif /* _WASMUX_ARCH_SYSCALLS_H */

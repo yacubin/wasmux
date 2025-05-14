@@ -4,10 +4,10 @@
  *
  */
 
-#ifndef _BITS_SYSCALLS_H
-#define _BITS_SYSCALLS_H
+#ifndef _WASMUX_ARCH_SYSCALLS_H
+#define _WASMUX_ARCH_SYSCALLS_H
 
-#include <asm/arch-syscall.h>
+#include <wasmux/arch/arch-syscall.h>
 
 #define __SYSCALL_ARG0(fn, a1, a2, a3, a4, a5, a6) fn()
 #define __SYSCALL_ARG1(fn, a1, a2, a3, a4, a5, a6) fn((long)(a1))
@@ -27,4 +27,4 @@
 #define __DO_SYSCALL(...) ___DO_SYSCALL(__SC_NR_CAST, __VA_ARGS__)
 #define __SYSCALL(...) ___DO_SYSCALL(__SR_NO_CAST, __VA_ARGS__)
 
-#endif /* _BITS_SYSCALLS_H */
+#endif /* _WASMUX_ARCH_SYSCALLS_H */

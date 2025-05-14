@@ -7,7 +7,7 @@
 #include <wasmux-config.h>
 #include <wasmux/compiler.h>
 
-#include <asm/syscalls.h>
+#include <wasmux/arch/syscalls.h>
 #include <fcntl.h>
 #include <stdarg.h>
 #include <errno.h>

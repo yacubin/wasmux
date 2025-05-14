@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _KERN_SYSCALLS_H
-#define _KERN_SYSCALLS_H
+#ifndef _WASMUX_ARCH_SYSCALL_DEFINE_H
+#define _WASMUX_ARCH_SYSCALL_DEFINE_H
 
 #include <wasmux/export.h>
 
@@ -65,4 +65,4 @@
   } \
   __EXPORT long sys_##name(t1 a1, t2 a2, t3 a3, t4 a4, t5 a5, t6 a6)
 
-#endif /* _KERN_SYSCALLS_H */
+#endif /* _WASMUX_ARCH_SYSCALL_DEFINE_H */

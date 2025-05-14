@@ -90,6 +90,49 @@ export default (mk) => {
     mk.SOURCE_DIR.join("include"),
   ];
 
+  if (mk.WASMUX_ARCH === "wauser") {
+    headers.push(
+      "arch/wauser/include/wasmux/arch/syscalls.h",
+    );
+
+    includes.push(
+      mk.SOURCE_DIR.join("arch/wauser/include"),
+    );
+
+    const arch_syscall_h = mk.BINARY_DIR.join("include/wasmux/arch/arch-syscall.h");
+    mk.addCustomScript("arch/wauser/include/wasmux/arch/arch-syscall.h.mjs", {
+      SCRIPT_NAME: "<wasmux/arch/arch-syscall.h>",
+      SCRIPT_INPUT: mk.PROJECT_SOURCE_DIR.join("data/syscall.js"),
+      SCRIPT_OUTPUT: arch_syscall_h,
+    });
+
+    headers.push(arch_syscall_h);
+  }
+
+  if (mk.WASMUX_ARCH === "seal") {
+    headers.push(
+      "arch/seal/include/wasmux/arch/syscall-define.h",
+      "arch/seal/include/wasmux/arch/syscalls.h",
+    );
+
+    sources.push(
+      "arch/seal/src/sys.cpp",
+    );
+
+    includes.push(
+      mk.SOURCE_DIR.join("arch/seal/include"),
+    );
+
+    const arch_syscall_h = mk.BINARY_DIR.join("include/wasmux/arch/arch-syscall.h");
+    mk.addCustomScript("arch/seal/include/wasmux/arch/arch-syscall.h.mjs", {
+      SCRIPT_NAME: "<wasmux/arch/arch-syscall.h>",
+      SCRIPT_INPUT: mk.PROJECT_SOURCE_DIR.join("data/syscall.js"),
+      SCRIPT_OUTPUT: arch_syscall_h,
+    });
+
+    headers.push(arch_syscall_h);
+  }
+
   const errno_h = mk.BINARY_DIR.join("include/wasmux/errno.h");
   mk.addCustomScript("src/errno.h.js", {
     SCRIPT_NAME: "<wasmux/errno.h>",

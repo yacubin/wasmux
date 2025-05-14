@@ -6,8 +6,8 @@
 
 #include <wasmux-config.h>
 #include <wasmux/compiler.h>
+#include <wasmux/arch/syscalls.h>
 
-#include <asm/syscalls.h>
 #include <unistd.h>
 
 __ATTR_HIDDEN
