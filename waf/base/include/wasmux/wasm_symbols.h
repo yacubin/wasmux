@@ -1,5 +1,11 @@
-#ifndef _WA_KERNEL_WASM_SYMBOLS_H
-#define _WA_KERNEL_WASM_SYMBOLS_H
+/*
+ *
+ *  Copyright (C) 2025  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *
+ */
+
+#ifndef _WASMUX_WASM_SYMBOLS_H
+#define _WASMUX_WASM_SYMBOLS_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -18,4 +24,4 @@ extern char __table_base;
 }
 #endif
 
-#endif /* _WA_KERNEL_WASM_SYMBOLS_H */
+#endif /* _WASMUX_WASM_SYMBOLS_H */

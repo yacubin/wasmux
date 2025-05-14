@@ -21,7 +21,6 @@ export default (mk) => {
     "include/wasmux/memory_alloc.h",
     "include/wasmux/syscalls.h",
     "include/wasmux/user_access.h",
-    "include/wasmux/wasm_page.h",
     "include/wasmux/wei.h",
     "include/wasmux/worker_instance.h",
     "include/wasmux/worker_thread.h",

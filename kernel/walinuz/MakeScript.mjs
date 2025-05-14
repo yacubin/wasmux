@@ -48,8 +48,8 @@ export default (mk) => {
   if (mk.SYSTEM_PROCESSOR.match(/wasm(32|64)/)) {
     walinuz.addLinkOptions(
       "-Wl,--export=_start_kernel",
-      "-Wl,--export=WEI_perform",
-      "-Wl,--export=WEI_exit",
+      // "-Wl,--export=WEI_perform",
+      // "-Wl,--export=WEI_exit",
     );
 
     const waeditor = mk.findProgram("waeditor");

@@ -40,7 +40,6 @@ export default (mk) => {
     "include/sys/vfs.h",
     "include/sys/wait.h",
     "include/sys/xattr.h",
-    "include/alloca.h",
     "include/ar.h",
     "include/assert.h",
     "include/byteswap.h",

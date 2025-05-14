@@ -8,7 +8,8 @@
 #include <wasmux/wei.h>
 #include <wasmux/memory_alloc.h>
 
-void WEI_perform(long callbackAddr, long userdataAddr, long arg1, long arg2, long arg3, long arg4)
+__ATTR_EXPORT_NAME("perform") __ATTR_USED
+void _perform_kernel(long callbackAddr, long userdataAddr, long arg1, long arg2, long arg3, long arg4)
 {
   if (callbackAddr) {
     auto userdata = reinterpret_cast<void*>(userdataAddr);
@@ -35,7 +36,8 @@ void WEI_perform(long callbackAddr, long userdataAddr, long arg1, long arg2, lon
   }
 }
 
-void WEI_exit(void)
+__ATTR_EXPORT_NAME("_exit_kernel") __ATTR_USED
+void _exit_kernel(void)
 {
   // TODO: call destructor of array
   WebMemoryAllocExit();

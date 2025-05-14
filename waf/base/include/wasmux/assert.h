@@ -1,12 +1,12 @@
 
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_KERNEL_ASSERT_H
-#define _WA_KERNEL_ASSERT_H
+#ifndef _WASMUX_ASSERT_H
+#define _WASMUX_ASSERT_H
 
 #if __has_builtin(__builtin_trap) || defined(__GNUC__)
 # define WA_UNREACHABLE __builtin_trap
@@ -31,4 +31,4 @@ static inline void unreachable(void)
     }                   \
   } while(0)
 
-#endif /* _WA_KERNEL_ASSERT_H */
+#endif /* _WASMUX_ASSERT_H */

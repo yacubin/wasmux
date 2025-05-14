@@ -14,12 +14,6 @@
 extern "C" {
 #endif
 
-__ATTR_EXPORT_NAME("perform") __ATTR_USED
-void WEI_perform(long callbackAddr, long userdataAddr, long arg1, long arg2, long arg3, long arg4);
-
-__ATTR_EXPORT_NAME("_exit_kernel") __ATTR_USED
-void WEI_exit();
-
 __ATTR_IMPORT_NAME(WASMUX_BROWSER_MODULE, "math_random")
 double WEI_mathRandom();
 
