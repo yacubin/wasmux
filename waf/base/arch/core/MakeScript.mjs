@@ -56,10 +56,6 @@ export default (mk) => {
     mk.SOURCE_DIR.join("include"),
   ];
 
-  const libraries = [
-    mk.target("wabase"),
-  ];
-
   if (mk.SYSTEM_NAME === "Windows") {
     headers.push(
       "include/wasmux/win32/BaseThreadContext.h",
@@ -141,8 +137,7 @@ export default (mk) => {
     SCRIPT_OUTPUT: syscall_list_h,
   });
 
-  const target = mk.addStaticLibrary("wacore", sources, headers);
-  target.addSources(webcall_nums_h, webcall_main_h, webcall_worker_h, syscall_nums_h, syscall_list_h);
-  target.addPublicIncludes(includes);
-  target.addPublicLibraries(libraries);
+  mk.target("wabase").addSources(sources, headers);
+  mk.target("wabase").addSources(webcall_nums_h, webcall_main_h, webcall_worker_h, syscall_nums_h, syscall_list_h);
+  mk.target("wabase").addPublicIncludes(includes);
 }

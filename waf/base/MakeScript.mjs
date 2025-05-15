@@ -91,14 +91,6 @@ export default (mk) => {
     mk.SOURCE_DIR.join("include"),
   ];
 
-  if (mk.WASMUX_ARCH === "wauser") {
-    mk.addSubdirectory("arch/wauser");
-  }
-
-  if (mk.WASMUX_ARCH === "seal") {
-    mk.addSubdirectory("arch/seal");
-  }
-
   const errno_h = mk.BINARY_DIR.join("include/wasmux/errno.h");
   mk.addCustomScript("src/errno.h.js", {
     SCRIPT_NAME: "<wasmux/errno.h>",
@@ -117,4 +109,6 @@ export default (mk) => {
     destination: mk.INSTALL_INCLUDEDIR,
     baseDir: mk.BINARY_DIR.join("include"),
   });
+
+  mk.addSubdirectory(`arch/${mk.WASMUX_ARCH}`);
 }

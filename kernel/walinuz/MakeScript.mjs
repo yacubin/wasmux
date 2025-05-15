@@ -17,7 +17,7 @@ export default (mk) => {
   ];
 
   const libraries = [
-    mk.target("wacore"),
+    mk.target("wabase"),
   ];
 
   if (mk.SYSTEM_PROCESSOR.match(/wasm(32|64)/)) {
@@ -46,11 +46,7 @@ export default (mk) => {
   mk.install(walinuz, "/boot");
 
   if (mk.SYSTEM_PROCESSOR.match(/wasm(32|64)/)) {
-    walinuz.addLinkOptions(
-      "-Wl,--export=_start_kernel",
-      // "-Wl,--export=WEI_perform",
-      // "-Wl,--export=WEI_exit",
-    );
+    walinuz.addLinkOptions("-Wl,--export=_start_kernel");
 
     const waeditor = mk.findProgram("waeditor");
     if (waeditor) {

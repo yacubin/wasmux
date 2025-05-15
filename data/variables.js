@@ -53,8 +53,8 @@ module.exports = {
   },
   WASMUX_ARCH: {
     description: "Target architecture for libc",
-    type: [ "wauser", "wacore", "seal" ],
-    value: "wauser",
+    type: [ "user", "core", "seal" ],
+    value: "user",
   },
   WASMUX_LIBC_FEATURES: {
     description: "Choosing features for libc",
