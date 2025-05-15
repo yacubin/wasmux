@@ -30,7 +30,7 @@ SYSCALL_DEFINE1(brk, unsigned long, brk)
     return __curbrk;
 
   if (brk > __curbrk) {
-    unsigned long sizeInBytes = __builtin_wasm_memory_size(kMemoryIndex);
+    unsigned long sizeInBytes = __builtin_wasm_memory_size(kMemoryIndex) * WA_MEMORY_PAGE_SIZE;
     if (brk > sizeInBytes) {
       unsigned curpages = sizeInBytes / WA_MEMORY_PAGE_SIZE;
       unsigned total = (brk + (WA_MEMORY_PAGE_SIZE - 1)) / WA_MEMORY_PAGE_SIZE;

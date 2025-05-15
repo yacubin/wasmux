@@ -20,7 +20,7 @@ extern "C" void* __sbrk(intptr_t increment)
       return BAD_ADDR;
   }
 
-  if (increment != 0) {
+  if (increment == 0) {
     return __curbrk;
   }
 
