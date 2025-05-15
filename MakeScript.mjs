@@ -23,7 +23,7 @@ export default function(mk) {
 
   mk.addIncludeDirectories(mk.BINARY_DIR);
 
-  mk.addSubdirectory("waf");
+  mk.addSubdirectory("wasmux");
   mk.addSubdirectory("uapi");
   mk.addSubdirectory("kernel");
   mk.addSubdirectory("tools");
