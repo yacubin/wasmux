@@ -6,13 +6,14 @@
 
 #include <wasmux-config.h>
 #include <wasmux/compiler.h>
-#include <wasmux/thread_data.h>
-#include <wasmux/syscalls.h>
+#include <wasmux/arch/syscalls.h>
+
+#include <errno.h>
 
 __ATTR_HIDDEN
 extern "C" int __close(int fd)
 {
-  int ret = static_cast<int>(sys_close(fd));
+  int ret = static_cast<int>(__DO_SYSCALL(close, fd));
   if (ret < 0) {
     __set_local_errno(-ret);
     return -1;

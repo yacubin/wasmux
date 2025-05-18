@@ -5,11 +5,10 @@
  */
 
 #include <wasmux-config.h>
-#include <sys/statfs.h>
-
 #include <wasmux/assert.h>
-#include <wasmux/errno.h>
-#include <wasmux/thread_data.h>
+
+#include <sys/statfs.h>
+#include <errno.h>
 
 int statfs(const char* path, struct statfs* buf)
 {

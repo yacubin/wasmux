@@ -5,15 +5,16 @@
  */
 
 #include <wasmux-config.h>
+#include <wasmux/compiler.h>
+#include <wasmux/arch/syscalls.h>
+
 #include <sys/reboot.h>
 #include <errno.h>
-#include <wasmux/compiler.h>
-#include <wasmux/syscalls.h>
 
 __ATTR_HIDDEN
 extern "C" int __reboot(int type)
 {
-  auto ret = __DO_SYSCALL(reboot, LINUX_REBOOT_MAGIC1, LINUX_REBOOT_MAGIC2, type);
+  auto ret = __DO_SYSCALL(reboot, LINUX_REBOOT_MAGIC1, LINUX_REBOOT_MAGIC2, type, nullptr);
   if (ret < 0) {
     __set_local_errno(-static_cast<int>(ret));
   return -1;

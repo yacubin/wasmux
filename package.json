@@ -1,6 +1,6 @@
 {
   "name": "wasmux",
-  "version": "0.0.3-develop.3",
+  "version": "0.0.3-develop.4",
   "description": "WebAssembly toolchain for compiling libc and kernel into system-level WASM modules",
   "author": "Yurii Yakubin",
   "homepage": "https://github.com/ykbin/wasmux#readme",
@@ -26,7 +26,7 @@
     "libc"
   ],
   "dependencies": {
-    "bitmake": "^0.0.1-develop.5",
+    "bitmake": "^0.0.1-develop.7",
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4"
   }

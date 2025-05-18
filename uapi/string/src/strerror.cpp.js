@@ -3,17 +3,9 @@ const path = require("node:path");
 
 const { cxx } = require("bitmake");
 
-module.exports = function({input, output})
+module.exports = function(mk)
 {
-  if (!input) {
-    throw "Not pass the binary dir";
-  }
-
-  if (!output) {
-    throw "Not pass the output";
-  }
-
-  const config = require(input);
+  const config = require(mk.SCRIPT_INPUT.toString());
 
   const unkErrorStr = "Unknown error";
 
@@ -31,7 +23,6 @@ module.exports = function({input, output})
   lines.push("#include <string.h>");
   lines.push("#include <errno.h>");
   lines.push("#include <wasmux/compiler.h>");
-  lines.push("#include <wasmux/thread_data.h>");
   lines.push("");
   lines.push(`static const char* s_errors[${errors.length}] =`);
   lines.push("{");
@@ -55,6 +46,6 @@ module.exports = function({input, output})
   lines.push('extern "C" __ATTR_ALIAS(__strerror, strerror) __ATTR_WEAK;');
   lines.push("");
 
-  fs.mkdirSync(path.dirname(output), { recursive: true });
-  fs.writeFileSync(output, lines.join('\n'), "utf8");
+  fs.mkdirSync(path.dirname(mk.SCRIPT_OUTPUT.toString()), { recursive: true });
+  fs.writeFileSync(mk.SCRIPT_OUTPUT.toString(), lines.join('\n'), "utf8");
 }

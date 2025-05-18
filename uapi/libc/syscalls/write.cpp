@@ -6,13 +6,14 @@
 
 #include <wasmux-config.h>
 #include <wasmux/compiler.h>
-#include <wasmux/thread_data.h>
-#include <wasmux/syscalls.h>
+#include <wasmux/arch/syscalls.h>
+
+#include <errno.h>
 
 __ATTR_HIDDEN
 extern "C" ssize_t __write(int fd, const void* buf, size_t count)
 {
-  long ret = sys_write(static_cast<unsigned>(fd), reinterpret_cast<const char*>(buf), count);
+  auto ret = __DO_SYSCALL(write, fd, buf, count);
   if (ret < 0) {
     __set_local_errno(-static_cast<int>(ret));
     return -1;

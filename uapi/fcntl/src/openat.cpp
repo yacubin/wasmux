@@ -5,11 +5,12 @@
  */
 
 #include <wasmux-config.h>
+#include <wasmux/compiler.h>
+
+#include <wasmux/arch/syscalls.h>
 #include <fcntl.h>
 #include <stdarg.h>
 #include <errno.h>
-#include <wasmux/compiler.h>
-#include <wasmux/syscalls.h>
 
 int __openat(int dirfd, const char* path, int flags, ...)
 {
@@ -25,7 +26,7 @@ int __openat(int dirfd, const char* path, int flags, ...)
     mode = 0;
   }
 
-  auto ret = static_cast<int>(__SYSCALL(openat, path, flags, mode));
+  auto ret = static_cast<int>(__DO_SYSCALL(openat, dirfd, path, flags, mode));
   if (ret < 0) {
     __set_local_errno(-ret);
     return -1;

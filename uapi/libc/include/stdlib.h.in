@@ -10,8 +10,8 @@
 #include <wasmux/types.h>
 #include <wasmux/compiler.h>
 #include <wasmux/widechar.h>
-#include <wasmux/waitstatus.h>
-@STDLIB_INCLUDE_LIST@
+#include <bits/waitstatus.h>
+@SCRIPT_INCLUDES@
 
 #ifdef __cplusplus
 extern "C" {

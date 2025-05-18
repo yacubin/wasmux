@@ -3,6 +3,10 @@ import fs from "node:fs";
 export default function(mk) {
   mk.addCacheVariables("data/variables.js");
 
+  mk.WASMUX_VERSION = mk.PROJECT_VERSION;
+  mk.WASMUX_DESCRIPTION = mk.PROJECT_DESCRIPTION;
+  mk.WASMUX_URL = mk.PROJECT_HOMEPAGE_URL;
+
   mk.INSTALL_BINDIR = "bin";
   mk.INSTALL_INCLUDEDIR = "include";
   mk.INSTALL_LIBDIR = "lib";
@@ -19,33 +23,58 @@ export default function(mk) {
 
   mk.addIncludeDirectories(mk.BINARY_DIR);
 
-  mk.addSubdirectory("waf");
+  mk.addSubdirectory("wasmux");
   mk.addSubdirectory("uapi");
   mk.addSubdirectory("kernel");
   mk.addSubdirectory("tools");
 
   if (mk.WASMUX_TARGET_TRIPLET) {
-    const toolchainContent1 = fs.readFileSync("cmake/LinuxSystem.cmake");
-    const toolchainContent2 = fs.readFileSync("cmake/UserConfig.cmake");
-    const toolchainContent3 = fs.readFileSync("cmake/CommonToolchain.cmake");
+    const toolchainLines = [
+      `set(WASMUX_TARGET_TRIPLET ${mk.WASMUX_TARGET_TRIPLET})`,
+      "",
+      "set(CMAKE_SYSTEM_NAME Linux)",
+      "set(CMAKE_SYSTEM_VERSION 1)",
+      `set(CMAKE_SYSTEM_PROCESSOR ${mk.SYSTEM_PROCESSOR})`,
+      `set(CMAKE_SIZEOF_VOID_P ${mk.SIZEOF_VOID_P})`,
+      `set(CONFIG_BUILD_C_COMPILER \"${mk.C_COMPILER}\")`,
+      `set(CONFIG_BUILD_CXX_COMPILER \"${mk.CXX_COMPILER}\")`,
+      "",
+      'get_filename_component(CMAKE_SYSROOT "${CMAKE_CURRENT_LIST_DIR}/../.." ABSOLUTE)',
+      "set(CONFIG_NO_START_FILES OFF)",
+      "set(CONFIG_NO_ENTRY OFF)",
+      "set(CONFIG_NO_STDLIB OFF)",
+      "set(CONFIG_NODEFAULTLIBS OFF)",
+      "set(CONFIG_EXPORT_DYNAMIC ON)",
+      "set(CONFIG_STACK_FIRST ON)",
+      "set(CONFIG_STACK_SIZE 131072)",
+      "set(CONFIG_MAX_MEMORY 2147483648)",
+      "set(CONFIG_GLOBAL_BASE 0)",
+      "set(CONFIG_NO_GC_SECTIONS OFF)",
+      "set(CONFIG_LLVM_RTLIB libgcc)",
+      "set(CONFIG_LLVM_LTO OFF)",
+      "set(CONFIG_LLVM_USE_FIND_UNIX_PATHS ON)",
+      "",
+      "if (NOT DEFINED WASMUX_IMPORT_MEMORY)",
+      "  set(WASMUX_IMPORT_MEMORY ON)",
+      "endif ()",
+      "",
+      "if (NOT DEFINED WASMUX_EXPORT_MEMORY)",
+      "  set(WASMUX_EXPORT_MEMORY OFF)",
+      "endif ()",
+      "",
+      "if (NOT DEFINED WASMUX_SHARED_MEMORY)",
+      "  set(WASMUX_SHARED_MEMORY OFF)",
+      "endif ()",
+      "",
+    ];
 
-    const toolchainOutput = `
-set(WASMUX_TARGET_TRIPLET ${mk.WASMUX_TARGET_TRIPLET})\n
-${toolchainContent1}
-set(CMAKE_SYSTEM_PROCESSOR ${mk.SYSTEM_PROCESSOR})
-set(CMAKE_SIZEOF_VOID_P ${mk.SIZEOF_VOID_P})
-set(CONFIG_BUILD_C_COMPILER \"${mk.C_COMPILER}\")
-set(CONFIG_BUILD_CXX_COMPILER \"${mk.CXX_COMPILER}\")
+    const commonToolchain = fs.readFileSync("cmake/CommonToolchain.cmake");
+    const toolchainOutput = toolchainLines.join("\n") + commonToolchain;
 
-get_filename_component(CMAKE_SYSROOT "\${CMAKE_CURRENT_LIST_DIR}/../.." ABSOLUTE)
-
-${toolchainContent2}
-${toolchainContent3}
-`;
-
-    const toolchainFilename = mk.BINARY_DIR.join("cmake", mk.SYSTEM_PROCESSOR + (mk.WASMUX_TARGET_TRIPLET.match(/-wasi$/) ? "-wasi" : "") + ".toolchain.cmake");
-    fs.mkdirSync(toolchainFilename.dirname().toString(), { recursive: true });
-    fs.writeFileSync(toolchainFilename.toString(), toolchainOutput, "utf8");
-    mk.install(toolchainFilename.toString(), "share/wasmux");
+    const toolchainName = mk.SYSTEM_PROCESSOR + (mk.WASMUX_TARGET_TRIPLET.match(/-wasi$/) ? "-wasi" : "") + ".toolchain.cmake";
+    const toolchainFile = mk.BINARY_DIR.join("cmake", toolchainName);
+    fs.mkdirSync(toolchainFile.dirname().toString(), { recursive: true });
+    fs.writeFileSync(toolchainFile.toString(), toolchainOutput, "utf8");
+    mk.install(toolchainFile.toString(), "share/wasmux");
   }
 }

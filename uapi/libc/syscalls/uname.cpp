@@ -5,10 +5,11 @@
  */
 
 #include <wasmux-config.h>
+#include <wasmux/compiler.h>
+#include <wasmux/arch/syscalls.h>
+
 #include <sys/utsname.h>
 #include <errno.h>
-#include <wasmux/compiler.h>
-#include <wasmux/syscalls.h>
 
 __ATTR_HIDDEN
 extern "C" int __uname(struct utsname* buf)

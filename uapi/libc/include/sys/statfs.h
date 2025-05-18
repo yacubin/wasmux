@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_LIBC_SYS_STATFS_H
-#define _WA_LIBC_SYS_STATFS_H
+#ifndef _SYS_STATFS_H
+#define _SYS_STATFS_H
 
 #include <wasmux/statfs.h>
 
@@ -20,4 +20,4 @@ int fstatfs(int fd, struct statfs* buf);
 }
 #endif
 
-#endif /* _WA_LIBC_SYS_STATFS_H */
+#endif /* _SYS_STATFS_H */

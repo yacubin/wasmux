@@ -1,0 +1,26 @@
+export default (mk) => {
+  const headers = [
+    "include/alloca.h",
+    "include/malloc.h",
+  ];
+
+  const sources = [
+    "src/malloc.cpp",
+  ];
+
+  const includes = [
+    mk.SOURCE_DIR.join("include"),
+  ];
+
+  mk.target("libc").addSources(headers, sources);
+  mk.target("libc").addPublicIncludes(includes);
+
+  mk.script("<stdlib.h>").mergeVariables({
+    SCRIPT_INCLUDES: [ "#include <alloca.h>", "#include <malloc.h>" ],
+  });
+
+  mk.install(headers, {
+    destination: mk.INSTALL_INCLUDEDIR,
+    baseDir: "include",
+  });
+}

@@ -6,7 +6,10 @@
  */
 
 #include <wasmux-config.h>
+#include <wasmux/wasm_symbols.h>
 #include <wasmux/compiler.h>
+
+#include <wasmux/arch/syscalls.h>
 
 __ATTR_WEAK
 int __main_void(void);
@@ -25,9 +28,11 @@ int main(int argc, char** argv, char** env)
 }
 #endif
 
-__attribute__((export_name("_start")))
+__ATTR_EXPORT_NAME("_start")
 void _start(void)
 {
+  __DO_SYSCALL(brk, &__heap_base);
+
   int argc = 0;
   const char* argv[] = { 0 };
 

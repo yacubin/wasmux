@@ -6,9 +6,10 @@
 
 #include <wasmux-config.h>
 #include <wasmux/compiler.h>
-#include <wasmux/stdarg.h>
-#include <wasmux/thread_data.h>
-#include <wasmux/syscalls.h>
+#include <wasmux/arch/syscalls.h>
+
+#include <stdarg.h>
+#include <errno.h>
 
 __ATTR_HIDDEN
 extern "C" int __ioctl(int fd, int request, ...)
@@ -20,7 +21,7 @@ extern "C" int __ioctl(int fd, int request, ...)
   void* arg = va_arg(args, void*);
   va_end(args);
 
-  ret = static_cast<int>(sys_ioctl(fd, static_cast<unsigned>(request), reinterpret_cast<unsigned long>(args)));
+  ret = static_cast<int>(__DO_SYSCALL(ioctl, fd, request, args));
   if (ret < 0) {
     __set_local_errno(-ret);
     return -1;

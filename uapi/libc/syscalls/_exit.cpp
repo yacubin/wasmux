@@ -5,11 +5,12 @@
  */
 
 #include <wasmux-config.h>
+#include <wasmux/compiler.h>
+#include <wasmux/assert.h>
+#include <wasmux/arch/syscalls.h>
+
 #include <stdlib.h>
 #include <unistd.h>
-#include <wasmux/compiler.h>
-#include <wasmux/syscalls.h>
-#include <wasmux/assert.h>
 
 void _exit(int status)
 {

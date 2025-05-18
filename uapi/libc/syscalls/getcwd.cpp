@@ -6,13 +6,14 @@
 
 #include <wasmux-config.h>
 #include <wasmux/compiler.h>
-#include <wasmux/thread_data.h>
-#include <wasmux/syscalls.h>
+#include <wasmux/arch/syscalls.h>
+
+#include <errno.h>
 
 __ATTR_HIDDEN
 extern "C" char* __getcwd(char* buf, size_t size)
 {
-  long ret = sys_getcwd(buf, static_cast<unsigned long>(size));
+  auto ret = __DO_SYSCALL(getcwd, buf, size);
   if (ret < 0) {
     __set_local_errno(-static_cast<int>(ret));
     return nullptr;

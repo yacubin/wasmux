@@ -1,15 +1,15 @@
 module.exports = {
   WASMUX_VERSION: {
     description: "WASMUX Version",
-    value: "${PROJECT_VERSION}",
+    type: "string",
   },
   WASMUX_DESCRIPTION: {
     description: "WASMUX Description",
-    value: "${PROJECT_DESCRIPTION}",
+    type: "string",
   },
   WASMUX_URL: {
     description: "WASMUX URL",
-    value: "${PROJECT_HOMEPAGE_URL}",
+    type: "string",
   },
   WASMUX_LOADER_SECTION: {
     description: "Loader section",
@@ -23,10 +23,6 @@ module.exports = {
     description: "Version section",
     value: ".jsdata.version",
   },
-  WASMUX_ENABLE_INSTALL_HEADERS: {
-    description: "Enable install headers",
-    value: true,
-  },
   WASMUX_ENABLE_THREADS: {
     description: "Enable threads",
     value: true,
@@ -35,32 +31,8 @@ module.exports = {
     description: "Enable kernel installation",
     value: false,
   },
-  WASMUX_ENABLE_LIBGCC: {
-    description: "Enable libgcc library",
-    value: true,
-  },
   WASMUX_ENABLE_LIBC: {
     description: "Enable libc library",
-    value: true,
-  },
-  WASMUX_ENABLE_CRT: {
-    description: "Enable C Run-Time",
-    value: true,
-  },
-  WASMUX_ENABLE_LIBM: {
-    description: "Enable Math library",
-    value: true,
-  },
-  WASMUX_ENABLE_DL: {
-    description: "Enable Dynamic library",
-    value: true,
-  },
-  WASMUX_ENABLE_LIBCXX: {
-    description: "Enable libc++ library",
-    value: true,
-  },
-  WASMUX_ENABLE_PTHREAD: {
-    description: "Enable pthread library",
     value: true,
   },
   WASMUX_ENABLE_MAIN_ENV_ARG: {
@@ -79,10 +51,10 @@ module.exports = {
     description: "Maximum size of core pages",
     value: 124,
   },
-  WASMUX_TARGET_SYSTEM: {
-    description: "Target system",
-    type: [ "wasm32", "wasm64", "wasm32-wasi", "wasm64-wasi" ],
-    value: "${CMAKE_SYSTEM_PROCESSOR}",
+  WASMUX_ARCH: {
+    description: "Target architecture for libc",
+    type: [ "user", "core", "seal" ],
+    value: "user",
   },
   WASMUX_LIBC_FEATURES: {
     description: "Choosing features for libc",

@@ -5,15 +5,16 @@
  */
 
 #include <wasmux-config.h>
-#include <sys/stat.h>
 #include <wasmux/compiler.h>
-#include <wasmux/thread_data.h>
-#include <wasmux/syscalls.h>
+#include <wasmux/arch/syscalls.h>
+
+#include <sys/stat.h>
+#include <errno.h>
 
 __ATTR_HIDDEN
 extern "C" int __mknod(const char* path, mode_t mode, dev_t dev)
 {
-  auto ret = sys_mknod(path, static_cast<umode_t>(mode), dev);
+  auto ret = __DO_SYSCALL(mknod, path, mode, dev);
   if (ret < 0) {
     __set_local_errno(-static_cast<int>(ret));
     return -1;

@@ -1,16 +1,14 @@
 const path = require("node:path");
 const webpack = require("webpack");
 
-module.exports = async function({ input, buildType, buildDirectory, settings, output })
+module.exports = async function(mk)
 {
-  const isDebug = (buildType === 'Debug');
+  const isDebug = (mk.BUILD_TYPE === "Debug");
 
   const defineParams = {};
-  if (settings) {
-    for (const key of Object.keys(settings)) {
-      const name = "process.env." + key;
-      defineParams[name] = JSON.stringify(settings[key]);
-    }
+  for (const key in mk) {
+    const name = "process.env." + key;
+    defineParams[name] = JSON.stringify(mk[key]);
   }
 
   const params = {
@@ -19,14 +17,14 @@ module.exports = async function({ input, buildType, buildDirectory, settings, ou
     context: __dirname,
     resolve: {
       alias: {
-        generated: path.resolve(buildDirectory, 'generated/'),
+        generated: mk.BINARY_DIR.join("generated/").toString(),
         src: path.resolve(__dirname, 'src/'),
       },
     },
     entry: "./src/MainThreadContext.mjs",
     output: {
       filename: 'loader.js',
-      path: path.resolve(buildDirectory, 'dist'),
+      path: mk.BINARY_DIR.join("dist").toString(),
       library: {
         type: 'module',
       },

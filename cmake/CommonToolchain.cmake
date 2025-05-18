@@ -120,9 +120,14 @@ if (CONFIG_NO_ENTRY)
   list(APPEND _WASM_EXE_LINKER_FLAGS -Wl,--no-entry)
 endif ()
 
-if (CONFIG_IMPORT_MEMORY)
+if (WASMUX_IMPORT_MEMORY)
   list(APPEND _WASM_EXE_LINKER_FLAGS -Wl,--import-memory)
   list(APPEND _WASMUX_SHARED_LINKER_FLAGS -Wl,--import-memory)
+endif ()
+
+if (WASMUX_EXPORT_MEMORY)
+  list(APPEND _WASM_EXE_LINKER_FLAGS -Wl,--export-memory)
+  list(APPEND _WASMUX_SHARED_LINKER_FLAGS -Wl,--export-memory)
 endif ()
 
 if (CONFIG_EXPORT_DYNAMIC)

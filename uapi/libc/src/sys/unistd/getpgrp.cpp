@@ -5,14 +5,15 @@
  */
 
 #include <wasmux-config.h>
-#include <unistd.h>
 #include <wasmux/compiler.h>
-#include <wasmux/syscalls.h>
+
+#include <wasmux/arch/syscalls.h>
+#include <unistd.h>
 
 __ATTR_HIDDEN
 extern "C" pid_t __getpgrp(void)
 {
-  return static_cast<pid_t>(__SYSCALL(getpgrp));
+  return static_cast<pid_t>(__DO_SYSCALL(getpgrp));
 }
 
 extern "C" __ATTR_ALIAS(__getpgrp, getpgrp) __ATTR_WEAK;

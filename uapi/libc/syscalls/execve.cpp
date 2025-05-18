@@ -6,13 +6,14 @@
 
 #include <wasmux-config.h>
 #include <wasmux/compiler.h>
-#include <wasmux/thread_data.h>
-#include <wasmux/syscalls.h>
+#include <wasmux/arch/syscalls.h>
+
+#include <errno.h>
 
 __ATTR_HIDDEN
 extern "C" int __execve(const char* path, char* const argv[], char* const envp[])
 {
-  auto ret = sys_execve(path, argv, envp);
+  auto ret = __DO_SYSCALL(execve, path, argv, envp);
   __set_local_errno(-static_cast<int>(ret));
   return -1;
 }

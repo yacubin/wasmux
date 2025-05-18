@@ -8,12 +8,12 @@
 #include <string.h>
 #include <strings.h>
 #include <wasmux/assert.h>
+#include <wasmux/cxx/MemoryUtils.h>
 #include <wasmux/cxx/Characters.h>
 
 int memcmp(const void* p1, const void* p2, size_t n)
 {
-  WA_UNREACHABLE();
-  return -1;
+  return WAF::memoryCompare(p1, p2, n);
 }
 
 void* memmove(void* dst, const void* src, size_t n)

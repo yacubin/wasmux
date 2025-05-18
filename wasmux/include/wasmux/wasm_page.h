@@ -1,0 +1,19 @@
+/*
+ *
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *
+ */
+
+#ifndef _WASMUX_WASM_PAGE_H
+#define _WASMUX_WASM_PAGE_H
+
+#define WA_MEMORY_PAGE_SHIFT 16
+#define WA_MEMORY_PAGE_SIZE (1UL << WA_MEMORY_PAGE_SHIFT)
+#define WA_MEMORY_PAGE_MASK (~(WA_MEMORY_PAGE_SIZE - 1))
+
+#define WA_STACK_PAGES 1
+#define WA_STACK_SHIFT WA_MEMORY_PAGE_SHIFT
+#define WA_STACK_SIZE WA_MEMORY_PAGE_SIZE
+#define WA_STACK_MASK WA_MEMORY_PAGE_MASK
+
+#endif /* _WASMUX_WASM_PAGE_H */
