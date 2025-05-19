@@ -5,8 +5,7 @@
  */
 
 #include <wasmux-config.h>
-#include <wasmux/compiler.h>
-#include <wasmux/arch/syscalls.h>
+#include <wasmux/syscalls.h>
 
 #include <unistd.h>
 #include <errno.h>

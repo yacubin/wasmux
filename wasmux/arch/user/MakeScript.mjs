@@ -1,6 +1,7 @@
 export default (mk) => {
   const headers = [
     "include/wasmux/arch/syscalls.h",
+    "include/wasmux/arch/unistd.h",
   ];
 
   const sources = [

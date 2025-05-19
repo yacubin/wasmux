@@ -57,6 +57,7 @@ export default (mk) => {
     "include/wasmux/stdarg.h",
     "include/wasmux/swab.h",
     "include/wasmux/sys_ni.h",
+    "include/wasmux/syscalls.h",
     "include/wasmux/sysinfo.h",
     "include/wasmux/termios.h",
     "include/wasmux/time.h",

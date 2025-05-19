@@ -7,6 +7,7 @@
 #ifndef _WASMUX_ARCH_SYSCALLS_H
 #define _WASMUX_ARCH_SYSCALLS_H
 
+#include <wasmux/arch/syscalls_define.h>
 #include <wasmux/arch/arch-syscall.h>
 
 #define __SYSCALL_ARG0(fn, a1, a2, a3, a4, a5, a6) fn()

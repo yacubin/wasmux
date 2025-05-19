@@ -5,10 +5,9 @@
  */
 
 #include <wasmux-config.h>
-#include <wasmux/compiler.h>
+#include <wasmux/syscalls.h>
 #include <wasmux/assert.h>
 #include <wasmux/errno.h>
-#include <wasmux/arch/syscall-define.h>
 
 SYSCALL_DEFINE3(fcntl64, long, a1, long, a2, long, a3) __ATTR_WEAK
 {
