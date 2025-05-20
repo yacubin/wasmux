@@ -11,11 +11,9 @@
 #include <wasmux/assert.h>
 #include <wasmux/errno.h>
 
-#define ARCH_HAS_WAMM
+#ifdef __ARCH_WANT_SYSCALL_DEFINES
 
-#ifdef __ARCH_WANT_SYS_BRK
-
-SYSCALL_DEFINE1(brk, unsigned long, brk)
+SYSCALL_DEFINE1(brk, unsigned long, brk) __ATTR_WEAK
 {
 #ifdef ARCH_HAS_WAMM
   constexpr unsigned kMemoryIndex = 0;
@@ -40,10 +38,11 @@ SYSCALL_DEFINE1(brk, unsigned long, brk)
 
   __curbrk = brk;
   return brk;
+
 #else
-  WA_UNREACHABLE();
   return -ENOSYS;
+
 #endif
 }
 
-#endif
+#endif /* __ARCH_WANT_SYSCALL_DEFINES */

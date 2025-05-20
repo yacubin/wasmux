@@ -6,8 +6,6 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/sys.cpp",
-    "src/wamm.cpp",
   ];
 
   const includes = [

@@ -15,13 +15,15 @@
 
 __EXPORT_BEGIN
 
-#ifdef __ARCH_WANT_KERNEL_SYSCALLS
-
 #ifdef __ARCH_WANT_EXPORT_SYSCALLS
 #define WASMUX_KERNEL_EXPORT(module, name) __ATTR_EXPORT_NAME(name)
-#else
+#endif
+
+#ifdef __ARCH_WANT_IMPORT_SYSCALLS
 #define WASMUX_KERNEL_EXPORT(module, name) __ATTR_IMPORT_NAME(module, name)
 #endif
+
+#ifdef WASMUX_KERNEL_EXPORT
 
 WASMUX_KERNEL_EXPORT(WASMUX_KERNEL_MODULE, WASMUX_KERNEL_SYSCALL0)
 long __kernel_syscall0(long number);
@@ -44,7 +46,7 @@ long __kernel_syscall5(long number, long arg1, long arg2, long arg3, long arg4, 
 WASMUX_KERNEL_EXPORT(WASMUX_KERNEL_MODULE, WASMUX_KERNEL_SYSCALL6)
 long __kernel_syscall6(long number, long arg1, long arg2, long arg3, long arg4, long arg5, long arg6);
 
-#endif /* __ARCH_WANT_USER_SYSCALLS */
+#endif /* WASMUX_KERNEL_EXPORT */
 
 __EXPORT_END
 

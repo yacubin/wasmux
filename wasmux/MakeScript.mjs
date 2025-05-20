@@ -74,6 +74,9 @@ export default (mk) => {
   ];
 
   const sources = [
+    "src/kernel/sys.cpp",
+    "src/kernel/sys_ni.cpp",
+    "src/kernel/wamm.cpp",
     "src/bulk-memory.cpp",
     "src/bulk-memory.S",
     "src/byteorder.cpp",
@@ -83,7 +86,6 @@ export default (mk) => {
     "src/PrintTo.cpp",
     "src/sleep_ms.cpp",
     "src/sprintf.cpp",
-    "src/sys_ni.cpp",
     "src/TypesCheck.cpp",
     "src/wasm_module.cpp",
   ];
