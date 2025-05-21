@@ -74,6 +74,7 @@ export default (mk) => {
   ];
 
   const sources = [
+    "src/fs/fcntl.cpp",
     "src/kernel/sys.cpp",
     "src/kernel/sys_ni.cpp",
     "src/kernel/wamm.cpp",

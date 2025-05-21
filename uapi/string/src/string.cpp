@@ -37,17 +37,6 @@ size_t strnlen(const char* str, size_t len)
   return WAF::charactersLength(str, len);
 }
 
-int strcmp(const char* str1, const char* str2)
-{
-  return WAF::charactersCompare(str1, str2);
-}
-
-int strncmp(const char* s1, const char* s2, size_t n)
-{
-  WA_UNREACHABLE();
-  return -1;
-}
-
 char* strcpy(char* dst, const char* src)
 {
   return WAF::charactersCopy(dst, src);

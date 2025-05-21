@@ -7,9 +7,9 @@
 #include <wasmux-config.h>
 #include <wasmux/cxx/Characters.h>
 
-#include <wchar.h>
+#include <string.h>
 
-int wcsncmp(const wchar_t* wcs1, const wchar_t* wcs2, size_t len)
+int strcmp(const char* str1, const char* str2)
 {
-  return WAF::charactersCompare(wcs1, wcs2, len);
+  return WAF::charactersCompare(str1, str2);
 }
