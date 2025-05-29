@@ -103,8 +103,8 @@ export default (mk) => {
     SCRIPT_OUTPUT: errno_h,
   });
 
-  const wabase = mk.addStaticLibrary("wabase", headers, sources, errno_h);
-  wabase.addPublicIncludes(includes);
+  const wasmux = mk.addStaticLibrary("wasmux", headers, sources, errno_h);
+  wasmux.addPublicIncludes(includes);
 
   mk.install(headers, {
     destination: mk.INSTALL_INCLUDEDIR,

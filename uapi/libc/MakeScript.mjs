@@ -161,7 +161,7 @@ export default (mk) => {
     "src/sbrk.cpp",
     "src/thread_data.cpp",
     "src/usleep.cpp",
-    mk.target("wabase").objects,
+    mk.target("wasmux").objects,
   ];
 
   const includes = [
@@ -170,7 +170,7 @@ export default (mk) => {
   ];
 
   const libraries = [
-    mk.target("wabase"),
+    mk.target("wasmux"),
   ];
 
   const syscall_h = mk.BINARY_DIR.join("include/sys/syscall.h");

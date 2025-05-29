@@ -12,7 +12,7 @@ export default (mk) => {
   ];
 
   const libraries = [
-    mk.target("wabase"),
+    mk.target("wasmux"),
   ];
 
   const pthread = mk.addStaticLibrary("pthread", headers, sources);

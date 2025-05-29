@@ -12,7 +12,7 @@ export default (mk) => {
   ];
 
   const libraries = [
-    mk.target("wabase"),
+    mk.target("wasmux"),
     mk.target("libc"),
   ];
 

@@ -58,6 +58,7 @@ export default function(mk) {
       "set(WASMUX_EXPORT_MEMORY_DEFAULT OFF)",
       "set(WASMUX_SHARED_MEMORY_DEFAULT OFF)",
       "",
+      "",
     ];
 
     const commonToolchain = fs.readFileSync("cmake/CommonToolchain.cmake");

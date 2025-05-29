@@ -138,7 +138,7 @@ export default (mk) => {
     SCRIPT_OUTPUT: syscall_list_h,
   });
 
-  mk.target("wabase").addSources(sources, headers);
-  mk.target("wabase").addSources(webcall_nums_h, webcall_main_h, webcall_worker_h, syscall_nums_h, syscall_list_h);
-  mk.target("wabase").addPublicIncludes(includes);
+  mk.target("wasmux").addSources(sources, headers);
+  mk.target("wasmux").addSources(webcall_nums_h, webcall_main_h, webcall_worker_h, syscall_nums_h, syscall_list_h);
+  mk.target("wasmux").addPublicIncludes(includes);
 }

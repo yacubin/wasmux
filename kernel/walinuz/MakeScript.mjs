@@ -17,7 +17,7 @@ export default (mk) => {
   ];
 
   const libraries = [
-    mk.target("wabase"),
+    mk.target("wasmux"),
   ];
 
   if (mk.SYSTEM_PROCESSOR.match(/wasm(32|64)/)) {
