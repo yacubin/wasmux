@@ -10,7 +10,7 @@
 #include <wasmux/assert.h>
 #include <wasmux/limits-base.h>
 
-namespace WAF {
+namespace wasmux {
 
 template<typename T>
 inline WEI_Object object_idx_cast(T* ptr)
@@ -25,6 +25,6 @@ inline T* object_ptr_cast(WEI_Object object)
   return reinterpret_cast<T*>(object);
 }
 
-}  // namespace WAF
+} // namespace wasmux
 
-using namespace WAF;
+using namespace wasmux;

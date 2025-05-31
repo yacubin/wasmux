@@ -11,5 +11,5 @@
 
 int strncmp(const char* s1, const char* s2, size_t n)
 {
-  return WAF::charactersCompare(s1, s2, n);
+  return wasmux::charactersCompare(s1, s2, n);
 }

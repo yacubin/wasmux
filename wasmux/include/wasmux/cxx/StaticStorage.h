@@ -10,7 +10,7 @@
 #include <wasmux/cxx/New.h>
 #include <wasmux/cxx/TypeTraits.h>
 
-namespace WAF {
+namespace wasmux {
 
 template<typename T>
 union StaticStorage {
@@ -20,7 +20,7 @@ union StaticStorage {
   template<typename... Args>
   void initialize(Args&&... args)
   {
-    new (WAF::CtorOnly, &m_value) T(forward<Args>(args)...);
+    new (wasmux::CtorOnly, &m_value) T(forward<Args>(args)...);
   }
 
   void finalize()
@@ -41,6 +41,6 @@ private:
   unsigned char m_buffer[sizeof(T)];
 };
 
-} // namespace WAF
+} // namespace wasmux
 
-using WAF::StaticStorage;
+using wasmux::StaticStorage;

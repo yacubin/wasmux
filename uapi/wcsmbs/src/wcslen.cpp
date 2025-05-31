@@ -5,11 +5,11 @@
  */
 
 #include <wasmux-config.h>
-#include <wchar.h>
-#include <wasmux/assert.h>
 #include <wasmux/cxx/Characters.h>
+
+#include <wchar.h>
 
 size_t wcslen(const wchar_t* wcs)
 {
-  return WAF::charactersLength(wcs);
+  return wasmux::charactersLength(wcs);
 }

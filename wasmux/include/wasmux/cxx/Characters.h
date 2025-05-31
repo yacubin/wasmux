@@ -30,7 +30,7 @@ template<> struct IntHelper<8> {
 
 }  // namespace
 
-namespace WAF {
+namespace wasmux {
 
 template<typename CHAR>
 size_t charactersLength(const CHAR* characters)
@@ -158,4 +158,4 @@ const CHAR* charactersReverseFind(const CHAR* characters, CHAR ch, size_t length
   return WITH_NULL ? nullptr : characters + length;
 }
 
-}  // namespace WAF
+} // namespace wasmux

@@ -8,7 +8,7 @@
 
 #include <wasmux/types.h>
 
-namespace WAF {
+namespace wasmux {
 
 namespace {
 
@@ -39,4 +39,4 @@ int memoryCompare(const T* mem1, const T* mem2, size_t n)
   return 0;
 }
 
-}  // namespace WAF
+}  // namespace wasmux

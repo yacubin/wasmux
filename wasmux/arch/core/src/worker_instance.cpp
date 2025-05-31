@@ -41,7 +41,7 @@ static void workerInstanceRun(void* userdata)
 
 void WebWorkerInstance_init(WebWorkerInstance* instance, const char* name)
 {
-  WAF::charactersCopy(instance->name, name);
+  wasmux::charactersCopy(instance->name, name);
 
   /*
    * The stack cannot point to the top because of receiving

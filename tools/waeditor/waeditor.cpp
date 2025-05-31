@@ -43,7 +43,7 @@ struct WasmModule {
 static size_t getName(const uint8_t* data, const uint8_t* end, std::string& result)
 {
   uint32_t length;
-  uint32_t lengthSize = WAF::readLeb128(data, end - data, length);
+  uint32_t lengthSize = wasmux::readLeb128(data, end - data, length);
   if (lengthSize == 0) {
     printf("[waeditor] Length of name has wrong format\n");
     return 0;
@@ -86,7 +86,7 @@ bool WasmModule::getImportMemory(MemoryInfo& result) const
 
   while (sectionData < sectionEnd) {
     uint32_t vectorCount;
-    uint32_t vectorCountSize = WAF::readLeb128(sectionData, sectionEnd - sectionData, vectorCount);
+    uint32_t vectorCountSize = wasmux::readLeb128(sectionData, sectionEnd - sectionData, vectorCount);
     if (vectorCountSize == 0) {
       printf("[waeditor] Import vector count format is wrong\n");
       return false;
@@ -118,7 +118,7 @@ bool WasmModule::getImportMemory(MemoryInfo& result) const
       switch (importId) {
       case WASM_IMPORT_FUNC_ID: {
         uint32_t typeidx;
-        size_t typeidxSize =  WAF::readLeb128(sectionData, sectionEnd - sectionData, typeidx);
+        size_t typeidxSize =  wasmux::readLeb128(sectionData, sectionEnd - sectionData, typeidx);
         if (typeidxSize == 0) {
           printf("[waeditor] Unexpected end of typeidx reached\n");
           return 0;
@@ -138,14 +138,14 @@ bool WasmModule::getImportMemory(MemoryInfo& result) const
           shared = true;
           hasMaxValue = true;
 
-          size_t minValueSize = WAF::readLeb128(sectionData, sectionEnd - sectionData, minValue);
+          size_t minValueSize = wasmux::readLeb128(sectionData, sectionEnd - sectionData, minValue);
           if (minValueSize == 0) {
               printf("[waeditor] Import mem min format is wrong\n");
               return false;
           }
           sectionData += minValueSize;
 
-          size_t maxValueSize = WAF::readLeb128(sectionData, sectionEnd - sectionData, maxValue);
+          size_t maxValueSize = wasmux::readLeb128(sectionData, sectionEnd - sectionData, maxValue);
           if (maxValueSize == 0) {
               printf("[waeditor] Import mem max format is wrong\n");
               return false;
@@ -178,23 +178,23 @@ void WasmModule::addImportMemory(const MemoryInfo& result)
   WasmSection* importSection = const_cast<WasmSection*>(getSectionById(WASM_SECTION_IMPORT_ID));
   auto& bytes = importSection->data;
 
-  WAF::Leb128Traits<uint32_t>::Buffer buffer;
+  wasmux::Leb128Traits<uint32_t>::Buffer buffer;
 
-  size_t modLengthSize = WAF::writeLeb128(result.module.length(), buffer);
+  size_t modLengthSize = wasmux::writeLeb128(result.module.length(), buffer);
   bytes.insert(bytes.end(), buffer, buffer + modLengthSize);
   bytes.insert(bytes.end(), result.module.data(), result.module.data() + result.module.length());
 
-  size_t nameLengthSize = WAF::writeLeb128(result.name.length(), buffer);
+  size_t nameLengthSize = wasmux::writeLeb128(result.name.length(), buffer);
   bytes.insert(bytes.end(), buffer, buffer + nameLengthSize);
   bytes.insert(bytes.end(), result.name.data(), result.name.data() + result.name.length());
 
   bytes.push_back(WASM_IMPORT_MEM_ID);
   bytes.push_back(0x03);
 
-  size_t minValueSize = WAF::writeLeb128(result.minValue, buffer);
+  size_t minValueSize = wasmux::writeLeb128(result.minValue, buffer);
   bytes.insert(bytes.end(), buffer, buffer + minValueSize);
 
-  size_t maxValueSize = WAF::writeLeb128(result.maxValue, buffer);
+  size_t maxValueSize = wasmux::writeLeb128(result.maxValue, buffer);
   bytes.insert(bytes.end(), buffer, buffer + maxValueSize);
 
   bytes[0]++; // FIXME
@@ -226,8 +226,8 @@ bool WasmModule::writeTo(const char* filename) const
   }
 
   for (const auto& iter : this->sections) {
-    WAF::Leb128Traits<uint32_t>::Buffer buffer;
-    size_t sectionLengthSize = WAF::writeLeb128(iter.data.size(), buffer);
+    wasmux::Leb128Traits<uint32_t>::Buffer buffer;
+    size_t sectionLengthSize = wasmux::writeLeb128(iter.data.size(), buffer);
 
     if (!fileWrite(file, &iter.id, sizeof(iter.id))) {
       printf("[waeditor] Can not write to '%s'\n", filename);
@@ -362,7 +362,7 @@ static bool printModule(const std::vector<uint8_t>& bytes, WasmModule& module)
     uint32_t contentSize;
 
     uint32_t sectionSizeOffset = static_cast<uint32_t>(pos - data);
-    uint32_t sectionSizeSize = WAF::readLeb128(pos, end - pos, contentSize);
+    uint32_t sectionSizeSize = wasmux::readLeb128(pos, end - pos, contentSize);
 
     if (sectionSizeSize == 0) {
       printf("[waeditor] Size format is wrong\n");
@@ -384,7 +384,7 @@ static bool printModule(const std::vector<uint8_t>& bytes, WasmModule& module)
       case WASM_SECTION_IMPORT_ID: {
         while (sectionData < sectionEnd) {
           uint32_t vectorCount;
-          uint32_t vectorCountSize = WAF::readLeb128(sectionData, sectionEnd - sectionData, vectorCount);
+          uint32_t vectorCountSize = wasmux::readLeb128(sectionData, sectionEnd - sectionData, vectorCount);
           if (vectorCountSize == 0) {
             printf("[waeditor] Import vector count format is wrong\n");
             return false;
@@ -416,7 +416,7 @@ static bool printModule(const std::vector<uint8_t>& bytes, WasmModule& module)
             switch (importId) {
             case WASM_IMPORT_FUNC_ID: {
               uint32_t typeidx;
-              size_t typeidxSize = WAF::readLeb128(sectionData, sectionEnd - sectionData, typeidx);
+              size_t typeidxSize = wasmux::readLeb128(sectionData, sectionEnd - sectionData, typeidx);
               if (typeidxSize == 0) {
                 printf("[waeditor] Unexpected end of typeidx reached\n");
                 return 0;
@@ -439,14 +439,14 @@ static bool printModule(const std::vector<uint8_t>& bytes, WasmModule& module)
                 shared = true;
                 hasMaxValue = true;
 
-                size_t minValueSize = WAF::readLeb128(sectionData, sectionEnd - sectionData, minValue);
+                size_t minValueSize = wasmux::readLeb128(sectionData, sectionEnd - sectionData, minValue);
                 if (minValueSize == 0) {
                     printf("[waeditor] Import mem min format is wrong\n");
                     return false;
                 }
                 sectionData += minValueSize;
 
-                size_t maxValueSize = WAF::readLeb128(sectionData, sectionEnd - sectionData, maxValue);
+                size_t maxValueSize = wasmux::readLeb128(sectionData, sectionEnd - sectionData, maxValue);
                 if (maxValueSize == 0) {
                     printf("[waeditor] Import mem max format is wrong\n");
                     return false;

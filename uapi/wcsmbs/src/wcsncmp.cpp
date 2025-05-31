@@ -11,5 +11,5 @@
 
 int wcsncmp(const wchar_t* wcs1, const wchar_t* wcs2, size_t len)
 {
-  return WAF::charactersCompare(wcs1, wcs2, len);
+  return wasmux::charactersCompare(wcs1, wcs2, len);
 }

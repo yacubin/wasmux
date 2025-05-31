@@ -5,6 +5,6 @@
  */
 
 #include <wasmux-config.h>
-#include <wasmux/cxx/Section.h>
+#include <wasmux/section.h>
 
 WA_CUSTOM_SECTION_STR(WASMUX_VERSION_SECTION, WASMUX_VERSION);

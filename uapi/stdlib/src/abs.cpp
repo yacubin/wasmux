@@ -10,15 +10,15 @@
 
 int abs(int i)
 {
-  return WAF::abs(i);
+  return wasmux::abs(i);
 }
 
 long labs(long i)
 {
-  return WAF::abs(i);
+  return wasmux::abs(i);
 }
 
 long long llabs(long long i)
 {
-  return WAF::abs(i);
+  return wasmux::abs(i);
 }

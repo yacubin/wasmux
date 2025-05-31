@@ -31,4 +31,4 @@ private:
   size_t m_size;
 };
 
-}  // namespace WEI
+} // namespace WEI

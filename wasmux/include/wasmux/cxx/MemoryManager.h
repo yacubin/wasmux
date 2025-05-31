@@ -14,7 +14,7 @@
 #include <wasmux/cxx/New.h>
 #include <wasmux/cxx/BitVector.h>
 
-namespace WAF {
+namespace wasmux {
 
 template<size_t pageShift, size_t initOrder, size_t maxOrder, typename Heap>
 class MemoryManager {
@@ -192,7 +192,7 @@ MemoryManager<pageShift, initOrder, maxOrder, Heap>::MemoryManager(Heap& heap)
     if ((reinterpret_cast<char*>(&firstBSet) + sblockSetSize) < m_heap.heapBase())
       m_indexStart++;
     else {
-      new (WAF::CtorOnly, &firstBSet) SBlockSet(m_heap.heapBase());
+      new (wasmux::CtorOnly, &firstBSet) SBlockSet(m_heap.heapBase());
       auto num = m_indexStart - m_indexBase;
       m_sblockPages.set(num);
       m_freeBlocks += firstBSet.freeCount;
@@ -393,7 +393,7 @@ void* MemoryManager<pageShift, initOrder, maxOrder, Heap>::allocBlockInternal(un
     auto num = index - m_indexBase;
     m_sblockPages.set(num);
     auto& bset = sblockSet(page);
-    new (WAF::CtorOnly, &bset) SBlockSet(page);
+    new (wasmux::CtorOnly, &bset) SBlockSet(page);
     void* ptr = bset.allocBlock(nblocks);
     m_freeBlocks += bset.freeCount;
     return ptr;
@@ -474,4 +474,4 @@ void MemoryManager<pageShift, initOrder, maxOrder, Heap>::fetchMetrics(Metrics& 
   wa_mutex_unlock(&m_mutex);
 }
 
-}  // namespace WAF
+} // namespace wasmux

@@ -268,7 +268,7 @@ int printTo(PrintCallback* callback, void* ptr, const char* fmt, va_list args)
     case PRINT_FORMAT_STR: {
       const char* value = va_arg(args, const char*);
       if (value != NULL) {
-        len = (unsigned)WAF::charactersLength(value); // TODO: UINT_MAX
+        len = (unsigned)wasmux::charactersLength(value); // TODO: UINT_MAX
       }
       else {
         value = "(null)";
