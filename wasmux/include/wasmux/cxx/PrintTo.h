@@ -10,10 +10,10 @@
 #include <wasmux/stdarg.h>
 #include <wasmux/compiler.h>
 
-namespace WAF {
+namespace wasmux {
 
 typedef void (PrintCallback) (void* ptr, const char* str, unsigned len);
 
 int printTo(PrintCallback* callback, void* ptr, const char* fmt, va_list args) __ATTR_PRINTF(3, 0);
 
-}  // namespace WAF
+}  // namespace wasmux

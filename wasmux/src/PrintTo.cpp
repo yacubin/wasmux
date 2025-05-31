@@ -8,7 +8,7 @@
 #include <wasmux/cxx/PrintTo.h>
 #include <wasmux/cxx/Characters.h>
 
-namespace WAF {
+namespace wasmux {
 
 enum {
   PRINT_FORMAT_NONE,
@@ -290,4 +290,4 @@ int printTo(PrintCallback* callback, void* ptr, const char* fmt, va_list args)
   return (int)count;
 }
 
-}  // namespace WAF
+}  // namespace wasmux

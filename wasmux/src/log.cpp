@@ -28,7 +28,7 @@ static void log_write(void* ptr, const char* data, unsigned size)
 int __kernel_log_vprint(const char* file, int line, const char* func, __kernel_log_level level, const char* fmt, va_list args)
 {
   HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-  return WAF::printTo(&log_write, hConsole, fmt, args);
+  return wasmux::printTo(&log_write, hConsole, fmt, args);
 }
 
 #else
