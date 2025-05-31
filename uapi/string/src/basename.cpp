@@ -5,7 +5,8 @@
  */
 
 #include <wasmux-config.h>
-#include <bits/__string_basename.h>
+
+#include <bits/string_basename.h>
 #include <assert.h>
 
 char* basename(char* path)

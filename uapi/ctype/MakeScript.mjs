@@ -1,6 +1,6 @@
 export default (mk) => {
   const headers = [
-    "include/bits/__ctype_base.h",
+    "include/bits/ctype_base.h",
   ];
 
   const sources = [
@@ -12,7 +12,7 @@ export default (mk) => {
   ];
 
   mk.script("<ctype.h>").mergeVariables({
-    SCRIPT_INCLUDES: [ "#include <bits/__ctype_base.h>" ],
+    SCRIPT_INCLUDES: [ "#include <bits/ctype_base.h>" ],
   });
 
   mk.target("libc").addSources(headers, sources);

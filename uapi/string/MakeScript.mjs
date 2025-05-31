@@ -1,6 +1,6 @@
 export default (mk) => {
   const headers = [
-    "include/bits/__string_basename.h",
+    "include/bits/string_basename.h",
     "include/libgen.h",
     "include/string.h",
     "include/strings.h",

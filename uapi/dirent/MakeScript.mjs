@@ -1,15 +1,16 @@
 export default (mk) => {
   const headers = [
     "include/dirent.h",
-    "include/bits/__dirent_dir_struct.h",
   ];
 
   const sources = [
+    "internal/dirent.h",
     "src/dirent.cpp",
     "src/dirfd.cpp",
   ];
 
   const includes = [
+    mk.SOURCE_DIR.join("internal"),
     mk.SOURCE_DIR.join("include"),
   ];
 

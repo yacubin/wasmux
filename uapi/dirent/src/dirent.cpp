@@ -5,6 +5,7 @@
  */
 
 #include <wasmux-config.h>
+
 #include <dirent.h>
 #include <errno.h>
 #include <assert.h>
