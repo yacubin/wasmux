@@ -1,12 +1,12 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #pragma once
 
-namespace WAF {
+namespace wasmux {
 
 template<typename T>
 T min(T a, T b)
@@ -26,4 +26,4 @@ T abs(T i)
   return i < 0 ? -i : i;
 }
 
-}  // namespace WAF
+} // namespace wasmux

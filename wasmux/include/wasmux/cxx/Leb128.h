@@ -8,7 +8,7 @@
 
 #include <wasmux/types.h>
 
-namespace WAF {
+namespace wasmux {
 
 template<typename T, size_t SIZE> struct Leb128Reader;
 
@@ -336,4 +336,4 @@ size_t writeLeb128(T value, void* data)
   return size;
 }
 
-}  // namespace WAF
+} // namespace wasmux

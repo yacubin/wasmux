@@ -32,7 +32,7 @@ bool NJSObjectList::init()
   m_objects = reinterpret_cast<RefPtr<NJSObject>*>(OSMalloc(m_capacity * sizeof(NJSObject)));
 
   for (unsigned i = 0; i < m_length; ++i) {
-    new (WAF::CtorOnly, &m_objects[i]) RefPtr<NJSObject>;
+    new (wasmux::CtorOnly, &m_objects[i]) RefPtr<NJSObject>;
   }
 
   m_objects[WEI_KERNEL_MEMORY_ID] = RefPtr<NJSObject>{};
@@ -57,7 +57,7 @@ unsigned NJSObjectList::add(const RefPtr<NJSObject>& object)
   if (m_objects) {
     if (m_length < m_capacity) {
       unsigned id = m_length++;
-      new (WAF::CtorOnly, &m_objects[id]) RefPtr<NJSObject>(object);
+      new (wasmux::CtorOnly, &m_objects[id]) RefPtr<NJSObject>(object);
       return id;
     }
   }

@@ -1,11 +1,11 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_WAF_SECTION_H
-#define _WA_WAF_SECTION_H
+#ifndef _WASMUX_SECTION_H
+#define _WASMUX_SECTION_H
 
 #ifdef __wasm__
 # define WA_CUSTOM_SECTION_STR(name, message) \
@@ -21,4 +21,4 @@
   )
 #endif
 
-#endif /* _WA_WAF_SECTION_H */
+#endif /* _WASMUX_SECTION_H */

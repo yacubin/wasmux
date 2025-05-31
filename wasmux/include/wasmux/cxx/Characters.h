@@ -30,7 +30,7 @@ template<> struct IntHelper<8> {
 
 }  // namespace
 
-namespace WAF {
+namespace wasmux {
 
 template<typename CHAR>
 size_t charactersLength(const CHAR* characters)
@@ -73,6 +73,31 @@ int charactersCompare(const CHAR* characters1, const CHAR* characters2)
 
     characters1++;
     characters2++;
+  }
+
+  return 0;
+}
+
+template<typename CHAR>
+int charactersCompare(const CHAR* characters1, const CHAR* characters2, size_t length)
+{
+  using UChar = typename IntHelper<sizeof(CHAR)>::UType;
+
+  UChar c1, c2;
+
+  while (length != 0) {
+    c1 = static_cast<UChar>(*characters1);
+    c2 = static_cast<UChar>(*characters2);
+
+    if (c1 != c2)
+      return c1 < c2 ? -1 : 1;
+
+    if (!c1)
+      break;
+
+    characters1++;
+    characters2++;
+    length--;
   }
 
   return 0;
@@ -133,4 +158,4 @@ const CHAR* charactersReverseFind(const CHAR* characters, CHAR ch, size_t length
   return WITH_NULL ? nullptr : characters + length;
 }
 
-}  // namespace WAF
+} // namespace wasmux

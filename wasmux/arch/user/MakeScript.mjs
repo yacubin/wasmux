@@ -1,6 +1,7 @@
 export default (mk) => {
   const headers = [
     "include/wasmux/arch/syscalls.h",
+    "include/wasmux/arch/unistd.h",
   ];
 
   const sources = [
@@ -18,8 +19,8 @@ export default (mk) => {
     SCRIPT_OUTPUT: arch_syscall_h,
   });
 
-  mk.target("wabase").addSources(headers, sources, arch_syscall_h);
-  mk.target("wabase").addPublicIncludes(includes);
+  mk.target("wasmux").addSources(headers, sources, arch_syscall_h);
+  mk.target("wasmux").addPublicIncludes(includes);
 
   mk.install(headers, {
     destination: mk.INSTALL_INCLUDEDIR,

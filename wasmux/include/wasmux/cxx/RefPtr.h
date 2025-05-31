@@ -1,12 +1,12 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #pragma once
 
-namespace WAF {
+namespace wasmux {
 
 template<typename T>
 class RefPtr {
@@ -124,7 +124,7 @@ RefPtr<T> newRef(T* ptr)
   return RefPtr<T>(RefPtr<T>::NewRefConstructor, ptr);
 }
 
-} // namespace WAF
+} // namespace wasmux
 
-using WAF::RefPtr;
-using WAF::newRef;
+using wasmux::RefPtr;
+using wasmux::newRef;

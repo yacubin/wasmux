@@ -30,8 +30,6 @@ export default function(mk) {
 
   if (mk.WASMUX_TARGET_TRIPLET) {
     const toolchainLines = [
-      `set(WASMUX_TARGET_TRIPLET ${mk.WASMUX_TARGET_TRIPLET})`,
-      "",
       "set(CMAKE_SYSTEM_NAME Linux)",
       "set(CMAKE_SYSTEM_VERSION 1)",
       `set(CMAKE_SYSTEM_PROCESSOR ${mk.SYSTEM_PROCESSOR})`,
@@ -50,21 +48,16 @@ export default function(mk) {
       "set(CONFIG_MAX_MEMORY 2147483648)",
       "set(CONFIG_GLOBAL_BASE 0)",
       "set(CONFIG_NO_GC_SECTIONS OFF)",
-      "set(CONFIG_LLVM_RTLIB libgcc)",
-      "set(CONFIG_LLVM_LTO OFF)",
-      "set(CONFIG_LLVM_USE_FIND_UNIX_PATHS ON)",
       "",
-      "if (NOT DEFINED WASMUX_IMPORT_MEMORY)",
-      "  set(WASMUX_IMPORT_MEMORY ON)",
-      "endif ()",
+      `set(WASMUX_TARGET_TRIPLET ${mk.WASMUX_TARGET_TRIPLET})`,
       "",
-      "if (NOT DEFINED WASMUX_EXPORT_MEMORY)",
-      "  set(WASMUX_EXPORT_MEMORY OFF)",
-      "endif ()",
+      "set(WASMUX_RTLIB_DEFAULT libgcc)",
+      "set(WASMUX_LTO_DEFAULT OFF)",
+      "set(WASMUX_USE_FIND_UNIX_PATHS_DEFAULT ON)",
+      "set(WASMUX_IMPORT_MEMORY_DEFAULT ON)",
+      "set(WASMUX_EXPORT_MEMORY_DEFAULT OFF)",
+      "set(WASMUX_SHARED_MEMORY_DEFAULT OFF)",
       "",
-      "if (NOT DEFINED WASMUX_SHARED_MEMORY)",
-      "  set(WASMUX_SHARED_MEMORY OFF)",
-      "endif ()",
       "",
     ];
 

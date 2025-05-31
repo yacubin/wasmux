@@ -1,12 +1,12 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #pragma once
 
-namespace WAF {
+namespace wasmux {
 
 template<typename T>
 class Atomic {
@@ -49,4 +49,4 @@ private:
   T m_counter;
 };
 
-}  // namespace WAF
+} // namespace wasmux

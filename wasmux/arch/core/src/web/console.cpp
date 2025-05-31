@@ -78,7 +78,7 @@ int WebConsoleVPrint(const char* fmt, va_list args)
     }
 	}
 
-  int ret = WAF::printTo(&console_buffer_write, &buffer, fmt, args);
+  int ret = wasmux::printTo(&console_buffer_write, &buffer, fmt, args);
   console_buffer_flush(&buffer);
 
   return ret;

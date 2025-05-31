@@ -12,16 +12,20 @@ export default (mk) => {
   ];
 
   const libraries = [
-    mk.target("wabase"),
+    mk.target("wasmux"),
   ];
 
   const pthread = mk.addStaticLibrary("pthread", headers, sources);
   pthread.addPublicIncludes(includes);
   pthread.addPublicLibraries(libraries);
 
+  if (mk.WASMUX_ENABLE_PTHREAD_WITH_LIBC)
+    mk.target("libc").addSources(mk.target("pthread").objects);
+  else
+    mk.install(pthread, mk.INSTALL_LIBDIR);
+
   mk.install(headers, {
     destination: mk.INSTALL_INCLUDEDIR,
     baseDir: "include",
   });
-  mk.install(pthread, mk.INSTALL_LIBDIR);
 }

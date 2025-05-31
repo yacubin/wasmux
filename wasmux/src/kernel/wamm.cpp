@@ -5,21 +5,17 @@
  */
 
 #include <wasmux-config.h>
-#include <wasmux/compiler.h>
-#include <wasmux/assert.h>
-#include <wasmux/errno.h>
+#include <wasmux/syscalls.h>
 #include <wasmux/wasm_page.h>
 #include <wasmux/wasm_symbols.h>
-#include <wasmux/arch/syscall-define.h>
-#include <wasmux/arch/unistd.h>
+#include <wasmux/assert.h>
+#include <wasmux/errno.h>
 
-#define ARCH_HAS_OWN_WAMM
+#ifdef __ARCH_WANT_SYSCALL_DEFINES
 
-#ifdef __ARCH_WANT_SYS_BRK
-
-SYSCALL_DEFINE1(brk, unsigned long, brk)
+SYSCALL_DEFINE1(brk, unsigned long, brk) __ATTR_WEAK
 {
-#ifdef ARCH_HAS_OWN_WAMM
+#ifdef ARCH_HAS_WAMM
   constexpr unsigned kMemoryIndex = 0;
   static unsigned long __curbrk = reinterpret_cast<unsigned long>(&__heap_base);
 
@@ -42,10 +38,11 @@ SYSCALL_DEFINE1(brk, unsigned long, brk)
 
   __curbrk = brk;
   return brk;
+
 #else
-  WA_UNREACHABLE();
   return -ENOSYS;
+
 #endif
 }
 
-#endif
+#endif /* __ARCH_WANT_SYSCALL_DEFINES */

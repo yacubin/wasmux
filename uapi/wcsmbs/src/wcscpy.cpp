@@ -5,10 +5,11 @@
  */
 
 #include <wasmux-config.h>
-#include <wchar.h>
 #include <wasmux/cxx/Characters.h>
+
+#include <wchar.h>
 
 wchar_t* wcscpy(wchar_t* dst, const wchar_t* src)
 {
-  return WAF::charactersCopy(dst, src);
+  return wasmux::charactersCopy(dst, src);
 }

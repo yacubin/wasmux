@@ -64,7 +64,7 @@ int __kernel_vsprintf(char* buf, const char* fmt, va_list args)
     .curr = buf,
   };
 
-  int ret = WAF::printTo(buf ? &sprintf_write : &sprintf_null_write, &data, fmt, args);
+  int ret = wasmux::printTo(buf ? &sprintf_write : &sprintf_null_write, &data, fmt, args);
   *data.curr = '\0';
 
   return ret;
@@ -87,7 +87,7 @@ int __kernel_vsnprintf(char* buf, size_t size, const char* fmt, va_list args)
     .end = buf + size,
   };
 
-  int ret = WAF::printTo(buf ? &snprintf_write : &sprintf_null_write, &data, fmt, args);
+  int ret = wasmux::printTo(buf ? &snprintf_write : &sprintf_null_write, &data, fmt, args);
   if (data.curr < data.end) {
     *data.curr = '\0';
   }

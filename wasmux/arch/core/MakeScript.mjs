@@ -3,6 +3,8 @@ export default (mk) => {
     "include/wasmux/cxx/HostHeap.h",
     "include/wasmux/cxx/ObjectCast.h",
     "include/wasmux/cxx/WasmHeap.h",
+    "include/wasmux/arch/syscalls.h",
+    "include/wasmux/arch/unistd.h",
     "include/wasmux/web/arraybuffer.h",
     "include/wasmux/web/console.h",
     "include/wasmux/web/getcurrenttimer.h",
@@ -19,7 +21,6 @@ export default (mk) => {
     "include/wasmux/main_loop.h",
     "include/wasmux/main_thread.h",
     "include/wasmux/memory_alloc.h",
-    "include/wasmux/syscalls.h",
     "include/wasmux/user_access.h",
     "include/wasmux/wei.h",
     "include/wasmux/worker_instance.h",
@@ -137,7 +138,7 @@ export default (mk) => {
     SCRIPT_OUTPUT: syscall_list_h,
   });
 
-  mk.target("wabase").addSources(sources, headers);
-  mk.target("wabase").addSources(webcall_nums_h, webcall_main_h, webcall_worker_h, syscall_nums_h, syscall_list_h);
-  mk.target("wabase").addPublicIncludes(includes);
+  mk.target("wasmux").addSources(sources, headers);
+  mk.target("wasmux").addSources(webcall_nums_h, webcall_main_h, webcall_worker_h, syscall_nums_h, syscall_list_h);
+  mk.target("wasmux").addPublicIncludes(includes);
 }

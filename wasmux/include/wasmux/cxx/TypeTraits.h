@@ -1,12 +1,12 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #pragma once
 
-namespace WAF {
+namespace wasmux {
 
 template <typename T>
 struct RemoveReference {
@@ -46,8 +46,8 @@ constexpr T&& forward(typename RemoveReference<T>::Type&& arg)
     return static_cast<T&&>(arg);
 }
 
-} // namespace WAF
+} // namespace wasmux
 
-using WAF::RemoveReference;
-using WAF::IsLvalueReference;
-using WAF::forward;
+using wasmux::RemoveReference;
+using wasmux::IsLvalueReference;
+using wasmux::forward;

@@ -23,7 +23,7 @@ WorkerThreadContext* WorkerThreadContext::create()
     // LOG
     return nullptr;
   }
-  return new (WAF::CtorOnly, ptr) WorkerThreadContext();
+  return new (wasmux::CtorOnly, ptr) WorkerThreadContext();
 }
 
 void WorkerThreadContext::destroy(WorkerThreadContext*)

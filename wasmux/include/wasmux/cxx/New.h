@@ -8,11 +8,13 @@
 
 #include <wasmux/types.h>
 
-namespace WAF {
-enum CtorOnlyTag {CtorOnly};
-}  // namespace WAF
+namespace wasmux {
 
-inline void* operator new(size_t size, WAF::CtorOnlyTag, void* ptr)
+enum CtorOnlyTag {CtorOnly};
+
+} // namespace wasmux
+
+inline void* operator new(size_t size, wasmux::CtorOnlyTag, void* ptr)
 {
   return ptr;
 }

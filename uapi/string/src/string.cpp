@@ -13,7 +13,7 @@
 
 int memcmp(const void* p1, const void* p2, size_t n)
 {
-  return WAF::memoryCompare(p1, p2, n);
+  return wasmux::memoryCompare(p1, p2, n);
 }
 
 void* memmove(void* dst, const void* src, size_t n)
@@ -24,33 +24,22 @@ void* memmove(void* dst, const void* src, size_t n)
 
 char* strchr(const char* str, int ch)
 {
-  return const_cast<char*>(WAF::charactersFind<char,true>(str, ch));
+  return const_cast<char*>(wasmux::charactersFind<char,true>(str, ch));
 }
 
 size_t strlen(const char* str)
 {
-  return WAF::charactersLength(str);
+  return wasmux::charactersLength(str);
 }
 
 size_t strnlen(const char* str, size_t len)
 {
-  return WAF::charactersLength(str, len);
-}
-
-int strcmp(const char* str1, const char* str2)
-{
-  return WAF::charactersCompare(str1, str2);
-}
-
-int strncmp(const char* s1, const char* s2, size_t n)
-{
-  WA_UNREACHABLE();
-  return -1;
+  return wasmux::charactersLength(str, len);
 }
 
 char* strcpy(char* dst, const char* src)
 {
-  return WAF::charactersCopy(dst, src);
+  return wasmux::charactersCopy(dst, src);
 }
 
 char* strncpy(char* dst, const char* src, size_t n)

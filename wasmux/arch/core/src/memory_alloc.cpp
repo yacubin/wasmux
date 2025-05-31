@@ -25,7 +25,7 @@ using MemoryManagerHeap = WEI::WasmCurrentHeap;
 using MemoryManagerHeap = WEI::HostHeap;
 #endif
 
-using WasmMemoryManager = WAF::MemoryManager<WA_MEMORY_PAGE_SHIFT, WASMUX_CORE_INIT_PAGES, WASMUX_CORE_MAX_PAGES, MemoryManagerHeap>;
+using WasmMemoryManager = wasmux::MemoryManager<WA_MEMORY_PAGE_SHIFT, WASMUX_CORE_INIT_PAGES, WASMUX_CORE_MAX_PAGES, MemoryManagerHeap>;
 
 static StaticStorage<MemoryManagerHeap> s_heap;
 static StaticStorage<WasmMemoryManager> s_memoryManager;

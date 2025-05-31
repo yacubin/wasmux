@@ -12,7 +12,7 @@
 
 WebString* WebString_create(const char* str)
 {
-  return WebString_create2(str, static_cast<unsigned>(WAF::charactersLength(str)));
+  return WebString_create2(str, static_cast<unsigned>(wasmux::charactersLength(str)));
 }
 
 WebString* WebString_create2(const char* str, unsigned len)

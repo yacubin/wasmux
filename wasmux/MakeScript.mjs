@@ -10,7 +10,6 @@ export default (mk) => {
     "include/wasmux/cxx/New.h",
     "include/wasmux/cxx/PrintTo.h",
     "include/wasmux/cxx/RefPtr.h",
-    "include/wasmux/cxx/Section.h",
     "include/wasmux/cxx/StaticStorage.h",
     "include/wasmux/cxx/TypeTraits.h",
     "include/wasmux/align.h",
@@ -43,6 +42,7 @@ export default (mk) => {
     "include/wasmux/prctl.h",
     "include/wasmux/reboot.h",
     "include/wasmux/sched.h",
+    "include/wasmux/section.h",
     "include/wasmux/signal.h",
     "include/wasmux/signalfd.h",
     "include/wasmux/sizeof.h",
@@ -57,6 +57,7 @@ export default (mk) => {
     "include/wasmux/stdarg.h",
     "include/wasmux/swab.h",
     "include/wasmux/sys_ni.h",
+    "include/wasmux/syscalls.h",
     "include/wasmux/sysinfo.h",
     "include/wasmux/termios.h",
     "include/wasmux/time.h",
@@ -73,6 +74,10 @@ export default (mk) => {
   ];
 
   const sources = [
+    "src/fs/fcntl.cpp",
+    "src/kernel/sys.cpp",
+    "src/kernel/sys_ni.cpp",
+    "src/kernel/wamm.cpp",
     "src/bulk-memory.cpp",
     "src/bulk-memory.S",
     "src/byteorder.cpp",
@@ -82,7 +87,6 @@ export default (mk) => {
     "src/PrintTo.cpp",
     "src/sleep_ms.cpp",
     "src/sprintf.cpp",
-    "src/sys_ni.cpp",
     "src/TypesCheck.cpp",
     "src/wasm_module.cpp",
   ];
@@ -99,8 +103,8 @@ export default (mk) => {
     SCRIPT_OUTPUT: errno_h,
   });
 
-  const wabase = mk.addStaticLibrary("wabase", headers, sources, errno_h);
-  wabase.addPublicIncludes(includes);
+  const wasmux = mk.addStaticLibrary("wasmux", headers, sources, errno_h);
+  wasmux.addPublicIncludes(includes);
 
   mk.install(headers, {
     destination: mk.INSTALL_INCLUDEDIR,

@@ -10,7 +10,7 @@
 #include <wasmux/types.h>
 #include <wasmux/bulk-memory.h>
 
-namespace WAF {
+namespace wasmux {
 
 class BitVector {
 public:
@@ -84,7 +84,7 @@ private:
   uintptr_t m_bits[wordSize];
 };
 
-} // namespace WAF
+} // namespace wasmux
 
-using WAF::BitVector;
-using WAF::BitSet;
+using wasmux::BitVector;
+using wasmux::BitSet;

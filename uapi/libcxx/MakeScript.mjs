@@ -13,7 +13,7 @@ export default (mk) => {
   ];
 
   const libraries = [
-    mk.target("wabase"),
+    mk.target("wasmux"),
   ];
 
   const libcxx = mk.addStaticLibrary("libcxx", headers, sources);

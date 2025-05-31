@@ -30,7 +30,7 @@ RefPtr<NJSString> NJSString::create(const char* characters, unsigned length)
   void* ptr = OSMalloc(sizeof(NJSString) + length);
   if (ptr == nullptr)
     return {};
-  return newRef(new (WAF::CtorOnly, ptr) NJSString(characters, length));
+  return newRef(new (wasmux::CtorOnly, ptr) NJSString(characters, length));
 }
 
 } // namespace WEI

@@ -35,6 +35,10 @@ module.exports = {
     description: "Enable libc library",
     value: true,
   },
+  WASMUX_ENABLE_PTHREAD_WITH_LIBC: {
+    description: "Built-in pthread in libc",
+    value: false,
+  },
   WASMUX_ENABLE_MAIN_ENV_ARG: {
     description: "Enable env argument for main function",
     value: false,

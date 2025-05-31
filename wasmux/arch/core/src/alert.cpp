@@ -29,7 +29,7 @@ void WebAlert(const char* message)
 {
   struct alert_params_s params = {
     .msg = message,
-    .len = WAF::charactersLength(message),
+    .len = wasmux::charactersLength(message),
   };
   WebMainLoopDispatch(&WebAlertImpl, (void*)&params, LP_SYNC);
 }

@@ -1,12 +1,13 @@
 {
   "name": "wasmux",
-  "version": "0.0.3-develop.4",
+  "version": "0.0.3-develop.5",
   "description": "WebAssembly toolchain for compiling libc and kernel into system-level WASM modules",
   "author": "Yurii Yakubin",
   "homepage": "https://github.com/ykbin/wasmux#readme",
   "exports": {
     ".": "./MakeScript.mjs",
     "./bitmake/presets/*": "./presets/*.mjs",
+    "./toolchain/*": "./toolchain/*.mjs",
     "./make-webpack-plugin": "./scripts/make-webpack-plugin.js"
   },
   "imports": {
@@ -26,7 +27,7 @@
     "libc"
   ],
   "dependencies": {
-    "bitmake": "^0.0.1-develop.7",
+    "bitmake": "^0.0.1-develop.8",
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4"
   }

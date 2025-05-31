@@ -1,20 +1,15 @@
 /*
  *
- *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #include <wasmux-config.h>
-#include <wasmux/compiler.h>
+#include <wasmux/syscalls.h>
 #include <wasmux/assert.h>
 #include <wasmux/errno.h>
-#include <wasmux/arch/syscall-define.h>
 
-SYSCALL_DEFINE3(fcntl64, long, a1, long, a2, long, a3) __ATTR_WEAK
-{
-  WA_UNREACHABLE();
-  return -ENOSYS;
-}
+#ifdef __ARCH_WANT_SYSCALL_DEFINES
 
 SYSCALL_DEFINE3(waitpid, long, a1, long, a2, long, a3) __ATTR_WEAK
 {
@@ -135,3 +130,5 @@ SYSCALL_DEFINE1(newuname, long, a1) __ATTR_WEAK
   WA_UNREACHABLE();
   return -ENOSYS;
 }
+
+#endif /* __ARCH_WANT_SYSCALL_DEFINES */

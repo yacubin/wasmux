@@ -45,27 +45,27 @@ const char* wa_strsecid(uint8_t id)
 
 uint32_t get_u32_leb128_1(const uint8_t* bytes)
 {
-  return WAF::Leb128Reader<uint32_t,1>::read(bytes);
+  return wasmux::Leb128Reader<uint32_t,1>::read(bytes);
 }
 
 uint32_t get_u32_leb128_2(const uint8_t* bytes)
 {
-  return WAF::Leb128Reader<uint32_t,2>::read(bytes);
+  return wasmux::Leb128Reader<uint32_t,2>::read(bytes);
 }
 
 uint32_t get_u32_leb128_3(const uint8_t* bytes)
 {
-  return WAF::Leb128Reader<uint32_t,3>::read(bytes);
+  return wasmux::Leb128Reader<uint32_t,3>::read(bytes);
 }
 
 uint32_t get_u32_leb128_4(const uint8_t* bytes)
 {
-  return WAF::Leb128Reader<uint32_t,4>::read(bytes);
+  return wasmux::Leb128Reader<uint32_t,4>::read(bytes);
 }
 
 uint32_t get_u32_leb128_5(const uint8_t* bytes)
 {
-  return WAF::Leb128Reader<uint32_t,5>::read(bytes);
+  return wasmux::Leb128Reader<uint32_t,5>::read(bytes);
 }
 
 int wa_module_reader_read_u32(struct wa_module_reader* reader, uint32_t* val)
