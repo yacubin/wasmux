@@ -43,11 +43,6 @@ int atoi(const char* str);
 long atol(const char* str);
 double atof(const char* str);
 
-char* getenv(const char* name);
-int setenv(const char* name, const char* value, int overwrite);
-int putenv(char* name);
-int unsetenv(const char* name);
-
 int mkstemp(char* temp);
 char* mktemp(char* pattern);
 char* mkdtemp(char* pattern);
