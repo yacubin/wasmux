@@ -1,22 +1,27 @@
 export default (mk) => {
   const headers = [
-    "include/bits/getopt_base.h",
-    "include/getopt.h",
+    "include/bits/env_stdlib.h",
+    "include/bits/env_unistd.h",
   ];
 
   const sources = [
-    "src/getopt.cpp",
+    "src/environ.cpp",
+    "src/getenv.cpp",
+    "src/putenv.cpp",
+    "src/setenv.cpp",
+    "src/unsetenv.cpp",
   ];
 
   const includes = [
     mk.SOURCE_DIR.join("include"),
   ];
 
-  mk.script("<gnu-versions.h>").mergeVariables({
-    SCRIPT_DEFINES: [ "#define _GNU_GETOPT_INTERFACE_VERSION 2" ],
+  mk.script("<stdlib.h>").mergeVariables({
+    SCRIPT_INCLUDES: [ "#include <bits/env_stdlib.h>" ],
   });
+
   mk.script("<unistd.h>").mergeVariables({
-    SCRIPT_INCLUDES: [ "#include <bits/getopt_base.h>" ],
+    SCRIPT_INCLUDES: [ "#include <bits/env_unistd.h>" ],
   });
 
   mk.target("libc").addSources(headers, sources);

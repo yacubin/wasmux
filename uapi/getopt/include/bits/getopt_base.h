@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _BITS___GETOPT_BASE_H
-#define _BITS___GETOPT_BASE_H
+#ifndef _BITS_GETOPT_BASE_H
+#define _BITS_GETOPT_BASE_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -22,4 +22,4 @@ int getopt(int argc, char* const* argv, const char* optstring);
 }
 #endif
 
-#endif /* _BITS___GETOPT_BASE_H */
+#endif /* _BITS_GETOPT_BASE_H */

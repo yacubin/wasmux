@@ -7,7 +7,7 @@
 #ifndef _LIBGEN_H
 #define _LIBGEN_H
 
-#include <bits/__string_basename.h>
+#include <bits/string_basename.h>
 
 #ifdef __cplusplus
 extern "C" {

@@ -1,6 +1,6 @@
 export default (mk) => {
   const headers = [
-    "include/bits/__stdlib.h",
+    "include/bits/stdlib_base.h",
   ];
 
   const sources = [
@@ -15,7 +15,7 @@ export default (mk) => {
   ];
 
   mk.script("<stdlib.h>").mergeVariables({
-    SCRIPT_INCLUDES: [ "#include <bits/__stdlib.h>" ],
+    SCRIPT_INCLUDES: [ "#include <bits/stdlib_base.h>" ],
   });
 
   mk.target("libc").addSources(headers, sources);

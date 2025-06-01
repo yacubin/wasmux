@@ -11,6 +11,10 @@ export default (mk) => {
     mk.addSubdirectory("libio");
     mk.addSubdirectory("backtrace");
     mk.addSubdirectory("dirent");
+
+    if (mk.WASMUX_ENV_WITH_LIBC)
+      mk.addSubdirectory("env");
+
     mk.addSubdirectory("grp");
     mk.addSubdirectory("pwd");
     mk.addSubdirectory("ftw");

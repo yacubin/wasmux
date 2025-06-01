@@ -16,8 +16,6 @@
 extern "C" {
 #endif
 
-extern char** environ;
-
 #define _POSIX_VERSION 200809L
 
 // File descriptors
