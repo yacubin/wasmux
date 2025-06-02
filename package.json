@@ -1,6 +1,6 @@
 {
   "name": "wasmux",
-  "version": "0.0.3-develop.6",
+  "version": "0.0.3-develop.7",
   "description": "WebAssembly toolchain for compiling libc and kernel into system-level WASM modules",
   "author": "Yurii Yakubin",
   "homepage": "https://github.com/ykbin/wasmux#readme",
