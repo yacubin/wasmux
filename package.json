@@ -6,7 +6,7 @@
   "homepage": "https://github.com/ykbin/wasmux#readme",
   "exports": {
     ".": "./MakeScript.mjs",
-    "./bitmake/presets/*": "./presets/*.mjs",
+    "./preset/*": "./preset/*.mjs",
     "./toolchain/*": "./toolchain/*.mjs",
     "./make-webpack-plugin": "./scripts/make-webpack-plugin.js"
   },
