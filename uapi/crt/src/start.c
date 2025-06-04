@@ -18,7 +18,7 @@ int __main_argc_argv(int argc, char** argv)
   return __main_void();
 }
 
-#if WASMUX_ENABLE_MAIN_ENV_ARG
+#if WASMUX_MAIN_ENV_ARG
 __ATTR_WEAK
 int main(int argc, char** argv, char** env)
 {
@@ -34,7 +34,7 @@ void _start(void)
   int argc = 0;
   const char* argv[] = { 0 };
 
-#if WASMUX_ENABLE_MAIN_ENV_ARG
+#if WASMUX_MAIN_ENV_ARG
   main(argc, (char**)argv, (char**)argv);
 #else
   __main_argc_argv(argc, (char**)argv);

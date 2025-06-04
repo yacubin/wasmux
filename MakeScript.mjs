@@ -1,7 +1,8 @@
 import fs from "node:fs";
 
 export default function(mk) {
-  mk.addCacheVariables("data/variables.js");
+  mk.addCacheVariables("wasmux/MakeConfig.js");
+  mk.addCacheVariables(`wasmux/arch/${mk.WASMUX_ARCH}/MakeConfig.js`);
 
   mk.WASMUX_VERSION = mk.PROJECT_VERSION;
   mk.WASMUX_DESCRIPTION = mk.PROJECT_DESCRIPTION;

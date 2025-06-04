@@ -26,7 +26,7 @@ module.exports = ({input, output}) => {
       lines.push(`#define ${name} "${entry.value.join(";")}"`);
     }
     else {
-      throw `Not supported value of ${entry.value}`;
+      throw new Error(`"${name}" has ${entry.value} value`);
     }
     lines.push("");
   }

@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = (scope) => {
-  if (scope.WASMUX_ENABLE_WAEDITOR) {
+  if (scope.WASMUX_WAEDITOR) {
     scope.addSubdirectory("waeditor");
   }
 }

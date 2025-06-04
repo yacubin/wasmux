@@ -1,4 +1,9 @@
 module.exports = {
+  WASMUX_ARCH: {
+    description: "Target architecture for libc",
+    type: [ "user", "core", "seal" ],
+    value: "user",
+  },
   WASMUX_VERSION: {
     description: "WASMUX Version",
     type: "string",
@@ -23,17 +28,22 @@ module.exports = {
     description: "Version section",
     value: ".jsdata.version",
   },
-  WASMUX_ENABLE_THREADS: {
+  WASMUX_THREADS: {
     description: "Enable threads",
     value: true,
   },
-  WASMUX_ENABLE_KERNEL: {
+  WASMUX_KERNEL: {
     description: "Enable kernel installation",
     value: false,
   },
-  WASMUX_ENABLE_LIBC: {
+  WASMUX_LIBC: {
     description: "Enable libc library",
     value: true,
+  },
+  WASMUX_LIBC_FEATURES: {
+    description: "Choosing features for libc",
+    type: [ "none", "glibc", "uclibc" ],
+    value: "glibc",
   },
   WASMUX_ENV_WITH_LIBC: {
     description: "Built-in env in libc",
@@ -47,11 +57,11 @@ module.exports = {
     description: "Built-in pthread in libc",
     value: false,
   },
-  WASMUX_ENABLE_MAIN_ENV_ARG: {
+  WASMUX_MAIN_ENV_ARG: {
     description: "Enable env argument for main function",
     value: false,
   },
-  WASMUX_ENABLE_WAEDITOR: {
+  WASMUX_WAEDITOR: {
     description: "Enable waeditor tool",
     value: false,
   },
@@ -62,15 +72,5 @@ module.exports = {
   WASMUX_CORE_MAX_PAGES: {
     description: "Maximum size of core pages",
     value: 124,
-  },
-  WASMUX_ARCH: {
-    description: "Target architecture for libc",
-    type: [ "user", "core", "seal" ],
-    value: "user",
-  },
-  WASMUX_LIBC_FEATURES: {
-    description: "Choosing features for libc",
-    type: [ "none", "glibc", "uclibc" ],
-    value: "glibc",
   },
 };

@@ -2,12 +2,9 @@ export default {
   "bundle:wasmux": {
     action: "bitmake",
     variables: {
-      TOOLCHAIN_FILE:  "${wasmux.mainDir}/toolchain/wasm32-wasi.js",
+      TOOLCHAIN_FILE: "import://wasmux/toolchain/wasm32-wasi",
       INSTALL_PREFIX: "/usr",
-      WASMUX_ENABLE_THREADS: true,
-      WASMUX_ENABLE_KERNEL: false,
-      WASMUX_ENABLE_LIBC: true,
-      WASMUX_ENABLE_MAIN_ENV_ARG: false,
+      WASMUX_ARCH: "user",
     },
     sourceDir: "${wasmux.mainDir}",
     destDir: "${binaryRoot}/sysroot",

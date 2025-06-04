@@ -1,5 +1,5 @@
 export default (mk) => {
-  if (mk.WASMUX_ENABLE_LIBC) {
+  if (mk.WASMUX_LIBC) {
     mk.addSubdirectory("malloc");
     mk.addSubdirectory("fcntl");
     mk.addSubdirectory("string");
