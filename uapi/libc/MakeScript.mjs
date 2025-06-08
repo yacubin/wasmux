@@ -218,6 +218,11 @@ export default (mk) => {
     SCRIPT_OUTPUT: features_h,
   });
 
+  if (mk.WASMUX_LIBC_FEATURES === "glibc") {
+    headers.push("include/gnu/libc-version.h");
+    sources.push("src/gnu/libc-version.cpp");
+  }
+
   const libc = mk.addStaticLibrary("libc", headers, sources);
   libc.addSources(syscall_h, ctype_h, gnu_versions_h, stdlib_h, unistd_h, features_h);
   libc.addPublicIncludes(includes);
