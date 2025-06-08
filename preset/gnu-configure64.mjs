@@ -14,7 +14,6 @@ export default {
   "bundle:output": {
     action: "configure",
     variables: {
-      build: "x86_64-pc-linux-gnu",
       host: "wasm64",
       target: "wasm64",
       prefix: "/usr",
