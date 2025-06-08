@@ -47,6 +47,7 @@ export default (mk) => {
     "include/err.h",
     "include/errno.h",
     "include/float.h",
+    "include/ifaddrs.h",
     "include/inttypes.h",
     "include/limits.h",
     "include/memory.h",
