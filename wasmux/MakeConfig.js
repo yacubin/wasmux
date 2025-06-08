@@ -38,12 +38,12 @@ module.exports = {
   },
   WASMUX_LIBC: {
     description: "Enable libc library",
-    value: true,
+    value: false,
   },
   WASMUX_LIBC_FEATURES: {
     description: "Choosing features for libc",
     type: [ "none", "glibc", "uclibc" ],
-    value: "glibc",
+    value: "none",
   },
   WASMUX_ENV_WITH_LIBC: {
     description: "Built-in env in libc",
@@ -51,6 +51,34 @@ module.exports = {
   },
   WASMUX_ENV_STUB: {
     description: "Stub implementations for env",
+    value: false,
+  },
+  WASMUX_CRT: {
+    description: "Enable C Runtime Library",
+    value: false,
+  },
+  WASMUX_LIBGCC: {
+    description: "Enable libgcc library",
+    value: false,
+  },
+  WASMUX_LIBCXX: {
+    description: "Enable libcxx library",
+    value: false,
+  },
+  WASMUX_LIBCXXABI: {
+    description: "Enable libcxxabi library",
+    value: false,
+  },
+  WASMUX_LIBM: {
+    description: "Enable Math library",
+    value: false,
+  },
+  WASMUX_DL: {
+    description: "Enable Dynamic linking library",
+    value: false,
+  },
+  WASMUX_PTHREAD: {
+    description: "Enable pthread library",
     value: false,
   },
   WASMUX_PTHREAD_WITH_LIBC: {
