@@ -47,6 +47,7 @@ module.exports.errors = {
     EMSGSIZE:       E(90,  "Message too long"),
     EOPNOTSUPP:     E(95,  "Operation not supported on socket"),
     EAFNOSUPPORT:   E(97,  "Address family not supported"),
+    EADDRINUSE:     E(98,  "Address already in use"),
     EADDRNOTAVAIL:  E(99,  "Address not available"),
     ECONNABORTED:   E(103, "Connection aborted"),
     ECONNRESET:     E(104, "Connection reset"),
@@ -59,6 +60,7 @@ module.exports.errors = {
     ESTALE:         E(116, "Stale file handle"),
     EDQUOT:         E(122, "Disk quota exceeded"),
     ECANCELED:      E(125, "Operation canceled"),
+    EOWNERDEAD:     E(130, "Owner died"),
 };
 module.exports.aliases = {
   ENOTSUP:     "EOPNOTSUPP",

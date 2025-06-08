@@ -29,3 +29,10 @@ int epoll_wait(int epfd, struct epoll_event* events, int maxevents, int timeout)
   errno = ENOSYS;
   return -1;
 }
+
+int epoll_pwait(int fd, struct epoll_event *ev, int cnt, int to, const sigset_t* sigs)
+{
+  assert(0);
+  errno = ENOSYS;
+  return -1;
+}

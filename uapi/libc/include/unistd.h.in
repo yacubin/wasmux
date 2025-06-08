@@ -28,6 +28,16 @@ extern "C" {
 #define W_OK 2
 #define R_OK 4
 
+// Retry expression if it fails with EINTR
+#define TEMP_FAILURE_RETRY(exp)           \
+  ({                                      \
+    __typeof__(exp) ret;                  \
+    do {                                  \
+      ret = (exp);                        \
+    } while(ret == -1 && errno == EINTR); \
+    ret;                                  \
+  })
+
 int access(const char* path, int mode);
 int link(const char* oldpath, const char* newpath);
 int unlink(const char* path);

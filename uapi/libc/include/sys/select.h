@@ -7,8 +7,8 @@
 #ifndef _SYS_SELECT_H
 #define _SYS_SELECT_H
 
+#include <wasmux/signal.h>
 #include <sys/types.h>
-#include <signal.h>
 
 #ifdef __cplusplus
 extern "C" {

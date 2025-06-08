@@ -15,9 +15,6 @@
 extern "C" {
 #endif
 
-#define MSG_PEEK     0x00000002
-#define MSG_NOSIGNAL 0x00004000
-
 #define SOL_SOCKET 1
 
 #define SO_DEBUG      1
@@ -29,6 +26,7 @@ extern "C" {
 #define SO_SNDBUF     7
 #define SO_RCVBUF     8
 #define SO_KEEPALIVE  9
+#define SO_LINGER     13
 
 #define SCM_RIGHTS 0x01
 
@@ -51,6 +49,11 @@ enum {
   SHUT_RDWR,
 };
 
+struct linger {
+  int l_onoff;
+  int l_linger;
+};
+
 struct cmsghdr {
   socklen_t  cmsg_len;    // Length of the control message, including header
   int        cmsg_level;  // Protocol level (e.g., SOL_SOCKET)
@@ -65,6 +68,11 @@ struct msghdr {
   void*         msg_control;    // Ancillary data (control messages)
   size_t        msg_controllen; // Ancillary data buffer length
   int           msg_flags;      // Flags on received message
+};
+
+struct mmsghdr {
+  struct msghdr msg_hdr;  // Actual message header
+  unsigned      msg_len;  // Number of bytes transmitted/received (output only)
 };
 
 #define CMSG_ALIGN(len) (((len) + sizeof(size_t) - 1) & ~(size_t)(sizeof(size_t) - 1))
@@ -100,6 +108,8 @@ ssize_t recvfrom(int sock, void* data, size_t size, int flags, struct sockaddr* 
 ssize_t sendto(int sock, const void* data, size_t size, int flags, const struct sockaddr* addr, socklen_t addrlen);
 ssize_t recvmsg(int sock, struct msghdr* message, int flags);
 ssize_t sendmsg(int sock, const struct msghdr* message, int flags);
+int sendmmsg(int fd, struct mmsghdr* msgvec, unsigned vlen, unsigned flags);
+int recvmmsg(int fd, struct mmsghdr* msgvec, unsigned vlen, unsigned flags, struct timespec* timeout);
 int getpeername(int sock, struct sockaddr* addr, socklen_t* addrlen);
 int getsockname(int sock, struct sockaddr* addr, socklen_t* addrlen);
 int shutdown(int sock, int how);

@@ -17,6 +17,7 @@ export default (mk) => {
     "include/wasmux/bulk-memory.h",
     "include/wasmux/byteorder.h",
     "include/wasmux/compiler.h",
+    "include/wasmux/cpu_set.h",
     "include/wasmux/eventfd.h",
     "include/wasmux/eventpoll.h",
     "include/wasmux/export.h",

@@ -111,6 +111,13 @@ int clock_gettime(clockid_t clock_id, struct timespec* ts)
   return -1;
 }
 
+int clock_getres(clockid_t clock_id, struct timespec* ts)
+{
+  assert(0);
+  errno = ENOSYS;
+  return -1;
+}
+
 int clock_nanosleep(clockid_t clock_id, int flags, const struct timespec* req, struct timespec* rem)
 {
   assert(0);

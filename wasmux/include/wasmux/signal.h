@@ -52,4 +52,8 @@
 #define SIG_UNBLOCK  1
 #define SIG_SETMASK  2
 
+typedef struct {
+  unsigned long sig[_NSIG_WORDS];
+} sigset_t;
+
 #endif /* _WASMUX_SIGNAL_H */

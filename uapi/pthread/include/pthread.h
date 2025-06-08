@@ -4,12 +4,13 @@
  *
  */
 
-#ifndef _WA_PTHREAD_PTHREAD_H
-#define _WA_PTHREAD_PTHREAD_H
+#ifndef _PTHREAD_H
+#define _PTHREAD_H
 
 #include <wasmux/types.h>
 #include <wasmux/time.h>
 #include <wasmux/sched.h>
+#include <wasmux/cpu_set.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -24,16 +25,6 @@ typedef struct {
 } pthread_mutex_t;
 
 #define PTHREAD_MUTEX_INITIALIZER (pthread_mutex_t) { 0 }
-
-typedef struct {
-  int dummy;
-} pthread_condattr_t;
-
-typedef struct {
-  int dummy;
-} pthread_cond_t;
-
-#define PTHREAD_COND_INITIALIZER (pthread_cond_t) { 0 }
 
 typedef struct {
   int dummy;
@@ -57,6 +48,20 @@ int pthread_mutex_destroy(pthread_mutex_t* mutex);
 int pthread_mutex_trylock(pthread_mutex_t* mutex);
 int pthread_mutex_lock(pthread_mutex_t* mutex);
 int pthread_mutex_unlock(pthread_mutex_t* mutex);
+
+typedef struct {
+  int dummy;
+} pthread_condattr_t;
+
+int pthread_condattr_init(pthread_condattr_t* condattr);
+int pthread_condattr_destroy(pthread_condattr_t* condattr);
+int pthread_condattr_setclock(pthread_condattr_t* condattr, clockid_t clock_id);
+
+typedef struct {
+  int dummy;
+} pthread_cond_t;
+
+#define PTHREAD_COND_INITIALIZER (pthread_cond_t) { 0 }
 
 int pthread_cond_destroy(pthread_cond_t* cond);
 int pthread_cond_init(pthread_cond_t* cond, const pthread_condattr_t* attr);
@@ -130,10 +135,16 @@ enum __pthread_cancel_state {
 
 int pthread_setcancelstate(int state, int* oldstate);
 
+int pthread_getname_np(pthread_t thread, char* buf, size_t len);
+int pthread_setname_np(pthread_t thread, const char* name);
+
+int pthread_getaffinity_np(pthread_t thread, size_t cpuset_size, cpu_set_t* cpuset);
+int pthread_setaffinity_np(pthread_t thread, size_t cpuset_size, const cpu_set_t* cpuset);
+
 int pthread_equal(pthread_t a, pthread_t b);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _WA_PTHREAD_PTHREAD_H */
+#endif /* _PTHREAD_H */

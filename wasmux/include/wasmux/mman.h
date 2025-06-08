@@ -18,8 +18,9 @@
 #define PROT_EXEC   0x00000004
 
 /* mmap() flags */
-#define MAP_SHARED  0x00000001
-#define MAP_PRIVATE 0x00000002
+#define MAP_SHARED   0x00000001
+#define MAP_PRIVATE  0x00000002
+#define MAP_POPULATE 0x00008000
 
 #define MREMAP_MAYMOVE 1
 #define MREMAP_FIXED   2

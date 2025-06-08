@@ -32,4 +32,7 @@ struct ifaddrs {
   void*            ifa_data;        // Optional data (depends on platform)
 };
 
+int getifaddrs(struct ifaddrs** ifap);
+void freeifaddrs(struct ifaddrs* ifp);
+
 #endif /* _IFADDRS_H */
