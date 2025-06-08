@@ -2,12 +2,9 @@ export default {
   "bundle:wasmux": {
     action: "bitmake",
     variables: {
-      TOOLCHAIN_FILE:  "${wasmux.mainDir}/toolchain/wasm32-wasi.js",
+      TOOLCHAIN_FILE: "import://wasmux/toolchain/wasm64-wasi",
       INSTALL_PREFIX: "/usr",
-      WASMUX_ENABLE_THREADS: true,
-      WASMUX_ENABLE_KERNEL: false,
-      WASMUX_ENABLE_LIBC: true,
-      WASMUX_ENABLE_MAIN_ENV_ARG: false,
+      WASMUX_ARCH: "user",
     },
     sourceDir: "${wasmux.mainDir}",
     destDir: "${binaryRoot}/sysroot",
@@ -17,9 +14,8 @@ export default {
   "bundle:output": {
     action: "configure",
     variables: {
-      build: "x86_64-pc-linux-gnu",
-      host: "wasm32-wasi",
-      target: "wasm32-wasi",
+      host: "wasm64-wasi",
+      target: "wasm64-wasi",
       prefix: "/usr",
     },
     environment: {
@@ -31,7 +27,7 @@ export default {
       STRIP: "llvm-strip",
       RANLIB: "llvm-ranlib",
       CFLAGS: [
-        "--target=wasm32-wasi",
+        "--target=wasm64-wasi",
         "-matomics",
         "-mmultivalue",
         "-mbulk-memory",
@@ -39,7 +35,7 @@ export default {
         "--sysroot=${bundle:wasmux.destDir}/usr",
       ],
       CXXFLAGS: [
-        "--target=wasm32-wasi",
+        "--target=wasm64-wasi",
         "-matomics",
         "-mmultivalue",
         "-mbulk-memory",

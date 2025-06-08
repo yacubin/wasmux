@@ -118,6 +118,22 @@ CHAR* charactersCopy(CHAR* dst, const CHAR* src)
   return ret;
 }
 
+template<typename CHAR>
+CHAR* charactersCopy(CHAR* dst, const CHAR* src, size_t length)
+{
+  size_t i = 0;
+  while (i < length) {
+    CHAR ch = src[i];
+    if (ch == '\0')
+      break;
+    dst[i++] = ch;
+  }
+
+  dst[i] = '\0';
+
+  return dst;
+}
+
 template<typename CHAR, bool WITH_NULL>
 const CHAR* charactersFind(const CHAR* characters, CHAR ch)
 {

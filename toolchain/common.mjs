@@ -63,16 +63,16 @@ export default (mk) => {
 
   const objectFlags = [];
 
-  if (mk.WASMUX_ENABLE_EH)
+  if (mk.WASMUX_EH)
     objectFlags.push("-mllvm", "-wasm-enable-eh");
 
-  if (mk.WASMUX_ENABLE_SJLJ)
+  if (mk.WASMUX_SJLJ)
     objectFlags.push("-mllvm", "-wasm-enable-sjlj");
 
-  if (mk.WASMUX_ENABLE_EMSCRIPTEN_SJLJ)
+  if (mk.WASMUX_EMSCRIPTEN_SJLJ)
     objectFlags.push("-mllvm", "-enable-emscripten-sjlj");
 
-  if (mk.WASMUX_ENABLE_EMSCRIPTEN_CXX_EXCEPTIONS)
+  if (mk.WASMUX_EMSCRIPTEN_CXX_EXCEPTIONS)
     objectFlags.push("-mllvm", "-enable-emscripten-cxx-exceptions");
 
   mk.ASM_FLAGS.push(...compilerFlags);

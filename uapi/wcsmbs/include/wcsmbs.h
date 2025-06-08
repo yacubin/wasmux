@@ -19,6 +19,7 @@ size_t wcslen(const wchar_t* wcs);
 int wcscmp(const wchar_t* wcs1, const wchar_t* wcs2);
 int wcsncmp(const wchar_t* wcs1, const wchar_t* wcs2, size_t len);
 wchar_t* wcscpy(wchar_t* dst, const wchar_t* src);
+wchar_t* wcsncpy(wchar_t* dst, const wchar_t* src, size_t n);
 wchar_t* wcscat(wchar_t* dst, const wchar_t* src);
 wchar_t* wcschr(const wchar_t* wcs, wchar_t wch);
 wchar_t* wmemcpy(wchar_t* wcs1, const wchar_t* wcs2, size_t len);

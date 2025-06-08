@@ -37,17 +37,6 @@ size_t strnlen(const char* str, size_t len)
   return wasmux::charactersLength(str, len);
 }
 
-char* strcpy(char* dst, const char* src)
-{
-  return wasmux::charactersCopy(dst, src);
-}
-
-char* strncpy(char* dst, const char* src, size_t n)
-{
-  WA_UNREACHABLE();
-  return nullptr;
-}
-
 char* strtok(char* str, const char* delim)
 {
   WA_UNREACHABLE();

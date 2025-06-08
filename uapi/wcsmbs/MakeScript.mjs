@@ -22,6 +22,7 @@ export default (mk) => {
     "src/wcscpy.cpp",
     "src/wcslen.cpp",
     "src/wcsncmp.cpp",
+    "src/wcsncpy.cpp",
     "src/wcsrtombs.cpp",
     "src/wcstombs.cpp",
     "src/wctob.cpp",
