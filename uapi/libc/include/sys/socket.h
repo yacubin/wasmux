@@ -67,8 +67,25 @@ struct msghdr {
   int           msg_flags;      // Flags on received message
 };
 
+#define CMSG_ALIGN(len) (((len) + sizeof(size_t) - 1) & ~(size_t)(sizeof(size_t) - 1))
+
+static inline struct cmsghdr* __cmsg_nxthdr(struct msghdr* msg, struct cmsghdr* cmsg)
+{
+  struct cmsghdr* ptr;
+
+  ptr = (struct cmsghdr*)(((char*)cmsg) + CMSG_ALIGN(cmsg->cmsg_len));
+  if ((size_t)((char*)(ptr + 1) - (char*)msg->msg_control) > msg->msg_controllen)
+    return (struct cmsghdr*)0;
+
+  return ptr;
+}
+
 #define CMSG_DATA(cmsg) ((unsigned char *) ((struct cmsghdr *) (cmsg) + 1))
 #define CMSG_LEN(len) (sizeof(struct cmsghdr) + (len))
+#define CMSG_SPACE(len) (CMSG_ALIGN(sizeof(struct cmsghdr)) + CMSG_ALIGN(len))
+
+#define CMSG_FIRSTHDR(msg) ((size_t)(msg)->msg_controllen >= sizeof(struct cmsghdr) ? (struct cmsghdr*) (msg)->msg_control : (struct cmsghdr*)0)
+#define CMSG_NXTHDR(msg, cmsg) __cmsg_nxthdr((msg), (cmsg))
 
 int socket(int domain, int type, int protocol);
 int socketpair(int domain, int type, int protocol, int fds[2]);

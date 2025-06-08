@@ -14,5 +14,6 @@
 #define TIOCSWINSZ 0x5414 /* Command code for setting terminal window size */
 #define FIONREAD   0x541B /* Command to get the number of bytes available to read */
 #define FIONBIO    0x5421 /* Command to enable or disable non-blocking mode */
+#define TIOCGPTN   0x80045430
 
 #endif /* _WASMUX_IOCTLS_H */
