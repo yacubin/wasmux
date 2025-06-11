@@ -9,6 +9,10 @@
 
 #include <wasmux/socket.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 struct ifaddrs {
   struct ifaddrs*  ifa_next;        // Pointer to the next structure
   char*            ifa_name;        // Interface name (e.g., "eth0")
@@ -34,5 +38,9 @@ struct ifaddrs {
 
 int getifaddrs(struct ifaddrs** ifap);
 void freeifaddrs(struct ifaddrs* ifp);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _IFADDRS_H */
