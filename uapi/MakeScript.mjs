@@ -40,6 +40,9 @@ export default (mk) => {
   if (mk.WASMUX_CRT)
     mk.addSubdirectory("crt");
 
+  if (mk.WASMUX_RT)
+    mk.addSubdirectory("rt");
+
   if (mk.WASMUX_LIBGCC)
     mk.addSubdirectory("libgcc");
 

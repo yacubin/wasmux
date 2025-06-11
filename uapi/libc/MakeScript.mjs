@@ -65,7 +65,6 @@ export default (mk) => {
     "include/syscall.h",
     "include/sysexits.h",
     "include/syslog.h",
-    "include/time.h",
     "include/ucontext.h",
     "include/utime.h",
     "include/wchar.h",
@@ -218,6 +217,14 @@ export default (mk) => {
     SCRIPT_INCLUDES: [],
   });
 
+  const time_h = mk.BINARY_DIR.join("include/time.h");
+  mk.addCustomScript("configure_file", {
+    SCRIPT_NAME: "<time.h>",
+    SCRIPT_INPUT: mk.SOURCE_DIR.join("include/time.h.in"),
+    SCRIPT_OUTPUT: time_h,
+    SCRIPT_INCLUDES: [],
+  });
+
   const features_h = mk.BINARY_DIR.join("include/features.h");
   mk.addCustomScript("configure_file", {
     SCRIPT_NAME: "<features.h>",
@@ -231,7 +238,7 @@ export default (mk) => {
   }
 
   const libc = mk.addStaticLibrary("libc", headers, sources);
-  libc.addSources(syscall_h, ctype_h, gnu_versions_h, stdlib_h, unistd_h, features_h);
+  libc.addSources(syscall_h, ctype_h, gnu_versions_h, stdlib_h, unistd_h, time_h, features_h);
   libc.addPublicIncludes(includes);
   libc.addPublicLibraries(libraries);
   libc.setPrefix("");
@@ -240,7 +247,7 @@ export default (mk) => {
     destination: mk.INSTALL_INCLUDEDIR,
     baseDir: "include",
   });
-  mk.install([ syscall_h, ctype_h, gnu_versions_h, stdlib_h, unistd_h, features_h ], {
+  mk.install([ syscall_h, ctype_h, gnu_versions_h, stdlib_h, unistd_h, time_h, features_h ], {
     destination: mk.INSTALL_INCLUDEDIR,
     baseDir: mk.BINARY_DIR.join("include"),
   });

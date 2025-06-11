@@ -57,6 +57,10 @@ module.exports = {
     description: "Enable C Runtime Library",
     value: false,
   },
+  WASMUX_RT: {
+    description: "Enable Real-Time library",
+    value: false,
+  },
   WASMUX_LIBGCC: {
     description: "Enable libgcc library",
     value: false,
