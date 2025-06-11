@@ -4,9 +4,7 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/clock_getres.cpp",
-    "src/clock_gettime.cpp",
-    "src/clock_nanosleep.cpp",
+    "src/dummy.cpp",
   ];
 
   const libraries = [
@@ -21,6 +19,17 @@ export default (mk) => {
   mk.script("<time.h>").mergeVariables({
     SCRIPT_INCLUDES: [ "#include <bits/rt_base.h>" ],
   });
+
+  const clockSources = [
+    "src/clock_getres.cpp",
+    "src/clock_gettime.cpp",
+    "src/clock_nanosleep.cpp",
+  ];
+
+  if (mk.WASMUX_RT_CLOCK_WITH_LIBC)
+    mk.target("libc").addSources(clockSources);
+  else
+    sources.push(...clockSources);
 
   mk.target("libc").addPublicIncludes(includes);
 

@@ -61,6 +61,10 @@ module.exports = {
     description: "Enable Real-Time library",
     value: false,
   },
+  WASMUX_RT_CLOCK_WITH_LIBC: {
+    description: "Built-in  Real-Time clock in libc",
+    value: true,
+  },
   WASMUX_LIBGCC: {
     description: "Enable libgcc library",
     value: false,

@@ -12,8 +12,10 @@ extern "C" {
 #endif
 
 typedef struct {
-  int dummy;
+  long dummy;
 } sem_t;
+
+#define SEM_FAILED ((sem_t*)0)
 
 int sem_init(sem_t* sem, int pshared, unsigned value);
 int sem_destroy(sem_t* sem);
