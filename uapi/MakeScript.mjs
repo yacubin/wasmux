@@ -9,6 +9,7 @@ export default (mk) => {
     mk.addSubdirectory("semaphore");
     mk.addSubdirectory("wcsmbs");
     mk.addSubdirectory("libio");
+    mk.addSubdirectory("time");
     mk.addSubdirectory("backtrace");
     mk.addSubdirectory("dirent");
 
