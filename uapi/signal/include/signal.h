@@ -48,6 +48,10 @@ typedef void (*sighandler_t) (int);
 #define SIG_DFL ((sighandler_t)0)
 #define SIG_IGN ((sighandler_t)1)
 
+typedef struct {
+  unsigned long sig[_NSIG_WORDS];
+} sigset_t;
+
 struct sigaction {
   union {
     sighandler_t sa_handler;

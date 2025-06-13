@@ -8,7 +8,7 @@
 #define _SYS_EPOLL_H
 
 #include <wasmux/eventpoll.h>
-#include <wasmux/signal.h>
+#include <signal.h>
 
 #ifdef __cplusplus
 extern "C" {
