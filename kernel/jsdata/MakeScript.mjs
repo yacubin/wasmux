@@ -39,5 +39,5 @@ export default async (mk) => {
     SCRIPT_SECTION: mk.WASMUX_WORKER_SECTION,
   });
 
-  mk.target("walinuz").addSources(loader_S, worker_S);
+  mk.target("kapsule").addSources(loader_S, worker_S);
 }

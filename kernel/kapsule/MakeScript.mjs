@@ -27,30 +27,30 @@ export default (mk) => {
   if (mk.SYSTEM_NAME === "Windows") {
     sources.push(
       "src/StartWindows.cpp",
-      "src/walinuz.lds",
+      "src/kernel.lds",
     );
     mk.EXE_LINKER_FLAGS.push(
       "-Wl,--stack,65536",
-      "-Wl,--script=" + mk.SOURCE_DIR.join("src/walinuz.lds"),
+      "-Wl,--script=" + mk.SOURCE_DIR.join("src/kapsule.lds"),
     );
   }
 
   mk.EXE_LINKER_FLAGS.push(
-    "-Wl,--Map=" + mk.BINARY_DIR.join("walinuz.map"),
+    "-Wl,--Map=" + mk.BINARY_DIR.join("kapsule.map"),
   );
 
-  const walinuz = mk.addExecutable("walinuz", headers, sources);
-  walinuz.addIncludes(includes);
-  walinuz.addLibraries(libraries);
+  const kapsule = mk.addExecutable("kapsule", headers, sources);
+  kapsule.addIncludes(includes);
+  kapsule.addLibraries(libraries);
 
-  mk.install(walinuz, "/boot");
+  mk.install(kapsule, "/boot");
 
   if (mk.SYSTEM_PROCESSOR.match(/wasm(32|64)/)) {
-    walinuz.addLinkOptions("-Wl,--export=_start_kernel");
+    kapsule.addLinkOptions("-Wl,--export=_start_kernel");
 
     const waeditor = mk.findProgram("waeditor");
     if (waeditor) {
-      walinuz.addPostBuild(waeditor, [ "--add-user-memory", walinuz.targetFile ]);
+      kapsule.addPostBuild(waeditor, [ "--add-user-memory", kapsule.targetFile ]);
     }
   }
 }

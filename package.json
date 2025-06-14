@@ -7,7 +7,7 @@
   "types": "./dist/loader.d.ts",
   "exports": {
     ".": "./dist/loader.js",
-    "./MakeScript": "./MakeScript.mjs",
+    "./build": "./MakeScript.mjs",
     "./preset/*": "./preset/*.mjs",
     "./toolchain/*": "./toolchain/*.mjs",
     "./make-webpack-plugin": "./scripts/make-webpack-plugin.js"
