@@ -20,6 +20,7 @@ export default (mk) => {
     mk.addSubdirectory("pwd");
     mk.addSubdirectory("ftw");
     mk.addSubdirectory("wordexp");
+    mk.addSubdirectory("search");
     mk.addSubdirectory("login");
     mk.addSubdirectory("mntent");
     mk.addSubdirectory("shadow");
