@@ -24,6 +24,9 @@
 #define NL_ARGMAX 9
 #define IOV_MAX 1024
 
+/* Max length of a filename component (not including null terminator) */
+#define NAME_MAX 255
+
 /* Max length of a login username (including NIL) */
 #define LOGIN_NAME_MAX 256
 

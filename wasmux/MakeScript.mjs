@@ -133,14 +133,22 @@ export default (mk) => {
     SCRIPT_OUTPUT: errno_h,
   });
 
-  const wasmux = mk.addStaticLibrary("wasmux", headers, sources, errno_h);
+  const thread_data_h = mk.BINARY_DIR.join("include/wasmux/thread_data.h");
+  mk.addCustomScript("configure_file", {
+    SCRIPT_NAME: "<wasmux/thread_data.h>",
+    SCRIPT_INPUT: mk.SOURCE_DIR.join("include/wasmux/thread_data.h.in"),
+    SCRIPT_OUTPUT: thread_data_h,
+    SCRIPT_ENTITIES: [],
+  });
+
+  const wasmux = mk.addStaticLibrary("wasmux", headers, sources, errno_h, thread_data_h);
   wasmux.addPublicIncludes(includes);
 
   mk.install(headers, {
     destination: mk.INSTALL_INCLUDEDIR,
     baseDir: "include",
   });
-  mk.install(errno_h, {
+  mk.install([ errno_h, thread_data_h ], {
     destination: mk.INSTALL_INCLUDEDIR,
     baseDir: mk.BINARY_DIR.join("include"),
   });

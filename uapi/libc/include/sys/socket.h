@@ -8,6 +8,7 @@
 #define _SYS_SOCKET_H
 
 #include <wasmux/types.h>
+#include <wasmux/time.h>
 #include <wasmux/socket.h>
 #include <sys/uio.h>
 

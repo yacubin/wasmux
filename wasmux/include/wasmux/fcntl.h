@@ -21,6 +21,9 @@
 #ifndef O_CLOEXEC
 #define O_CLOEXEC   02000000
 #endif
+#ifndef O_NOFOLLOW
+#define O_NOFOLLOW  00400000
+#endif
 
 #ifndef __O_TMPFILE
 #define __O_TMPFILE 020000000

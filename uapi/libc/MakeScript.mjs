@@ -235,6 +235,10 @@ export default (mk) => {
     sources.push("src/gnu/libc-version.cpp");
   }
 
+  mk.script("<wasmux/thread_data.h>").mergeVariables({
+    SCRIPT_ENTITIES: [ "int errcode;", "char buffer[256];" ],
+  });
+
   const libc = mk.addStaticLibrary("libc", headers, sources);
   libc.addSources(syscall_h, ctype_h, gnu_versions_h, stdlib_h, unistd_h, time_h, features_h);
   libc.addPublicIncludes(includes);
