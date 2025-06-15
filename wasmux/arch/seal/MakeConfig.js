@@ -9,4 +9,5 @@ module.exports = {
   WASMUX_LIBM: true,
   WASMUX_DL: true,
   WASMUX_PTHREAD: true,
+  WASMUX_WEI: true,
 };

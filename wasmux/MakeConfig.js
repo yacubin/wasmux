@@ -109,4 +109,8 @@ module.exports = {
     description: "Maximum size of core pages",
     value: 124,
   },
+  WASMUX_WEI: {
+    description: "Enable Web Enviromet Interface",
+    value: false,
+  },
 };

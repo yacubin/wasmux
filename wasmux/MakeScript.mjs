@@ -97,6 +97,35 @@ export default (mk) => {
     mk.SOURCE_DIR.join("include"),
   ];
 
+  if (mk.WASMUX_WEI) {
+    headers.push("include/wasmux/wei.h");
+    sources.push("src/wei/wei.cpp");
+
+    const webcall_nums_h = mk.BINARY_DIR.join("include/wasmux/webcall-nums.h");
+    mk.addCustomScript("src/wei/webcall-nums.h.js", {
+      SCRIPT_NAME: "<wasmux/webcall-nums.h>",
+      SCRIPT_INPUT:  mk.PROJECT_SOURCE_DIR.join("data/webcalls.js"),
+      SCRIPT_OUTPUT: webcall_nums_h,
+    });
+    sources.push(webcall_nums_h);
+
+    const webcall_main_h = mk.BINARY_DIR.join("include/wasmux/webcall-main.h");
+    mk.addCustomScript("src/wei/webcall-main.h.js", {
+      SCRIPT_NAME: "<wasmux/webcall-main.h>",
+      SCRIPT_INPUT: mk.PROJECT_SOURCE_DIR.join("data/webcalls.js"),
+      SCRIPT_OUTPUT: webcall_main_h,
+    });
+    sources.push(webcall_main_h);
+
+    const webcall_worker_h = mk.BINARY_DIR.join("include/wasmux/webcall-worker.h");
+    mk.addCustomScript("src/wei/webcall-worker.h.js", {
+      SCRIPT_NAME: "<wasmux/webcall-worker.h>",
+      SCRIPT_INPUT: mk.PROJECT_SOURCE_DIR.join("data/webcalls.js"),
+      SCRIPT_OUTPUT: webcall_worker_h,
+    });
+    sources.push(webcall_worker_h);
+  }
+
   const errno_h = mk.BINARY_DIR.join("include/wasmux/errno.h");
   mk.addCustomScript("src/errno.h.js", {
     SCRIPT_NAME: "<wasmux/errno.h>",
