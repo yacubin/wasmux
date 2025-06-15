@@ -12,7 +12,7 @@ class MainThreadContext extends BaseThreadContext {
     // WebAssembly.Instance is disallowed on the main thread, if the buffer size is larger than 8MB
     const kinst = await WebAssembly.instantiate(this._kernelModule, this.makeImports());
     this._kernel = kinst.exports;
-    this._kernel._start();
+    this._kernel._start_kernel();
   }
 };
 

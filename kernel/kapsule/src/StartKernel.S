@@ -10,10 +10,10 @@
   */
 
 .section .text,"",@
-.globl _start
-.type _start,@function
-_start:
-  .functype _start () -> ()
+.globl _start_kernel
+.type _start_kernel,@function
+_start_kernel:
+  .functype _start_kernel () -> ()
 
   global.get __stack_pointer
   PTR.const PTR_SIZE
