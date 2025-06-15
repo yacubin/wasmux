@@ -27,4 +27,13 @@
 /* Max length of a login username (including NIL) */
 #define LOGIN_NAME_MAX 256
 
+/* Maximum number of bytes in a character class name */
+#define CHARCLASS_NAME_MAX 14
+
+/* Max repetitions allowed for {m,n} in POSIX regular expressions */
+#define RE_DUP_MAX 255
+
+/* Max length of terminal device name */
+#define TTY_NAME_MAX 32
+
 #endif /* _LIMITS_H */

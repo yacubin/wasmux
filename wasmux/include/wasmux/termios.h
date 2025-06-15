@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_KERNEL_TERMIOS_H
-#define _WA_KERNEL_TERMIOS_H
+#ifndef _WASMUX_TERMIOS_H
+#define _WASMUX_TERMIOS_H
 
 struct winsize {
 	unsigned short ws_row;
@@ -14,4 +14,4 @@ struct winsize {
 	unsigned short ws_ypixel;
 };
 
-#endif /* _WA_KERNEL_TERMIOS_H */
+#endif /* _WASMUX_TERMIOS_H */

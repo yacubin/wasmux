@@ -75,10 +75,6 @@ ssize_t pwrite(int fd, const void* data, size_t size, off_t offset);
 long fpathconf(int fd, int name);
 long pathconf(const char* path, int name);
 
-int isatty(int fd);
-char* ttyname(int fd);
-int ttyname_r(int fd, char* buf, size_t len);
-
 unsigned sleep(unsigned seconds);
 int usleep(useconds_t usec);
 unsigned alarm(unsigned seconds);
@@ -120,8 +116,6 @@ int setresuid(uid_t ruid, uid_t euid, uid_t suid);
 int setresgid(gid_t rgid, gid_t egid, gid_t sgid);
 pid_t setsid(void);
 pid_t getpgrp(void);
-pid_t tcgetpgrp(int fd);
-int tcsetpgrp(int fd, pid_t pidgrp);
 
 char* getlogin(void);
 int getpagesize(void);
