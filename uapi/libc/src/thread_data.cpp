@@ -7,7 +7,7 @@
 #include <wasmux-config.h>
 #include <bits/thread_data.h>
 
-static struct wax_thread_data s_main_thread_data = { 0 };
+static struct libc_thread_data s_main_thread_data = { 0 };
 
 #if WASMUX_THREADS
 static thread_local auto s_thread_data = &s_main_thread_data;
@@ -15,7 +15,7 @@ static thread_local auto s_thread_data = &s_main_thread_data;
 # define s_thread_data &s_main_thread_data
 #endif
 
-struct wax_thread_data* __get_thread_data()
+struct libc_thread_data* __get_thread_data()
 {
   return s_thread_data;
 }

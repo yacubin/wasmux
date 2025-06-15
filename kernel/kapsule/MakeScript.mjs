@@ -46,8 +46,6 @@ export default (mk) => {
   mk.install(kapsule, "/boot");
 
   if (mk.SYSTEM_PROCESSOR.match(/wasm(32|64)/)) {
-    kapsule.addLinkOptions("-Wl,--export=_start_kernel");
-
     const waeditor = mk.findProgram("waeditor");
     if (waeditor) {
       kapsule.addPostBuild(waeditor, [ "--add-user-memory", kapsule.targetFile ]);

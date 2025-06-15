@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WASMUX_THREAD_DATA_H
-#define _WASMUX_THREAD_DATA_H
+#ifndef _BITS_THREAD_DATA_H
+#define _BITS_THREAD_DATA_H
 
 #include <wasmux/types.h>
 
@@ -13,14 +13,14 @@
 extern "C" {
 #endif
 
-struct wax_thread_data {
+struct libc_thread_data {
   int errcode;
   char buffer[256];
   void* locale_data;
   void* libio_data;
 };
 
-struct wax_thread_data* __get_thread_data();
+struct libc_thread_data* __get_thread_data();
 
 #define __get_local_errno() __get_thread_data()->errcode
 #define __set_local_errno(code) __get_thread_data()->errcode = code
@@ -31,4 +31,4 @@ struct wax_thread_data* __get_thread_data();
 }
 #endif
 
-#endif /* _WASMUX_THREAD_DATA_H */
+#endif /* _BITS_THREAD_DATA_H */
