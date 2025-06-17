@@ -1,6 +1,6 @@
 export default (mk) => {
   const headers = [
-    "include/bits/time_base.h",
+    "include/bits/time.h",
   ];
 
   const sources = [
@@ -18,10 +18,6 @@ export default (mk) => {
     mk.SOURCE_DIR.join("include"),
   ];
 
-  mk.script("<time.h>").mergeVariables({
-    SCRIPT_INCLUDES: [ "#include <bits/time_base.h>" ],
-  });
-
   const time = mk.addObjectLibrary("time", headers, sources);
   time.addIncludes(includes);
   time.addLibraries(libraries);
@@ -33,5 +29,9 @@ export default (mk) => {
   mk.install(headers, {
     destination: mk.INSTALL_INCLUDEDIR,
     baseDir: "include",
+  });
+
+  mk.script("<time.h>").mergeVariables({
+    SCRIPT_INCLUDES: [ "#include <bits/time.h>" ],
   });
 }

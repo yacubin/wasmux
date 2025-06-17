@@ -1,6 +1,6 @@
 export default (mk) => {
   const headers = [
-    "include/bits/ctype_base.h",
+    "include/bits/ctype.h",
   ];
 
   const sources = [
@@ -11,15 +11,15 @@ export default (mk) => {
     mk.SOURCE_DIR.join("include"),
   ];
 
-  mk.script("<ctype.h>").mergeVariables({
-    SCRIPT_INCLUDES: [ "#include <bits/ctype_base.h>" ],
-  });
-
   mk.target("libc").addSources(headers, sources);
   mk.target("libc").addPublicIncludes(includes);
 
   mk.install(headers, {
     destination: mk.INSTALL_INCLUDEDIR,
     baseDir: "include",
+  });
+
+  mk.script("<ctype.h>").mergeVariables({
+    SCRIPT_INCLUDES: [ "#include <bits/ctype.h>" ],
   });
 }

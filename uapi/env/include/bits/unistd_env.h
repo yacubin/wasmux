@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _BITS_ENV_UNISTD_H
-#define _BITS_ENV_UNISTD_H
+#ifndef _BITS_UNISTD_ENV_H
+#define _BITS_UNISTD_ENV_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -17,4 +17,4 @@ extern char** environ;
 }
 #endif
 
-#endif /* _BITS_ENV_UNISTD_H */
+#endif /* _BITS_UNISTD_ENV_H */

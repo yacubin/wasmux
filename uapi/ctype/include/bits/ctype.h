@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _BITS_CTYPE_BASE_H
-#define _BITS_CTYPE_BASE_H
+#ifndef _BITS_CTYPE_H
+#define _BITS_CTYPE_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -34,4 +34,4 @@ int isblank(int ch);
 }
 #endif
 
-#endif /* _BITS_CTYPE_BASE_H */
+#endif /* _BITS_CTYPE_H */

@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _BITS_STDLIB_BASE_H
-#define _BITS_STDLIB_BASE_H
+#ifndef _BITS_STDLIB_H
+#define _BITS_STDLIB_H
 
 #include <wasmux/types.h>
 
@@ -27,4 +27,4 @@ char* realpath(const char* filename, char* resolved);
 }
 #endif
 
-#endif /* _BITS_STDLIB_BASE_H */
+#endif /* _BITS_STDLIB_H */

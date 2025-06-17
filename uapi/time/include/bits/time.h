@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _BITS_TIME_BASE_H
-#define _BITS_TIME_BASE_H
+#ifndef _BITS_TIME_H
+#define _BITS_TIME_H
 
 #include <wasmux/time.h>
 
@@ -21,4 +21,4 @@ int clock_nanosleep(clockid_t clock_id, int flags, const struct timespec* req, s
 }
 #endif
 
-#endif /* _BITS_TIME_BASE_H */
+#endif /* _BITS_TIME_H */

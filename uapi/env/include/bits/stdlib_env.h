@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _BITS_ENV_STDLIB_H
-#define _BITS_ENV_STDLIB_H
+#ifndef _BITS_STDLIB_ENV_H
+#define _BITS_STDLIB_ENV_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -20,4 +20,4 @@ int unsetenv(const char* name);
 }
 #endif
 
-#endif /* _BITS_ENV_STDLIB_H */
+#endif /* _BITS_STDLIB_ENV_H */
