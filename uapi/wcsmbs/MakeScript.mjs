@@ -2,7 +2,6 @@ export default (mk) => {
   const headers = [
     "include/bits/wcsmbs_base.h",
     "include/wcsmbs.h",
-    "include/wctype.h",
   ];
 
   const sources = [
@@ -27,7 +26,6 @@ export default (mk) => {
     "src/wcstombs.cpp",
     "src/wctob.cpp",
     "src/wctomb.cpp",
-    "src/wctype.cpp",
     "src/wmemchr.cpp",
     "src/wmemcpy.cpp",
   ];

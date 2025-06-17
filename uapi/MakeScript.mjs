@@ -4,6 +4,7 @@ export default (mk) => {
     mk.addSubdirectory("fcntl");
     mk.addSubdirectory("string");
     mk.addSubdirectory("ctype");
+    mk.addSubdirectory("wctype");
     mk.addSubdirectory("stdlib");
     mk.addSubdirectory("signal");
     mk.addSubdirectory("semaphore");
