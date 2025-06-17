@@ -3,6 +3,7 @@ export default (mk) => {
     mk.addSubdirectory("malloc");
     mk.addSubdirectory("fcntl");
     mk.addSubdirectory("string");
+    mk.addSubdirectory("wchar");
     mk.addSubdirectory("ctype");
     mk.addSubdirectory("wctype");
     mk.addSubdirectory("stdlib");

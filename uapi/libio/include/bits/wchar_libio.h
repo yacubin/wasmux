@@ -4,11 +4,11 @@
  *
  */
 
-#ifndef _LIBIO_WCHAR_H
-#define _LIBIO_WCHAR_H
+#ifndef _BITS_WCHAR_LIBIO_H
+#define _BITS_WCHAR_LIBIO_H
 
-#include <bits/file_struct.h>
 #include <wasmux/widechar.h>
+#include <bits/file_struct.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -20,4 +20,4 @@ wint_t putwc(wchar_t wc, FILE* stream);
 }
 #endif
 
-#endif /* _LIBIO_WCHAR_H */
+#endif /* _BITS_WCHAR_LIBIO_H */

@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _MCSMBS_BASE_H
-#define _MCSMBS_BASE_H
+#ifndef _BITS_STDLIB_MCSMBS_H
+#define _BITS_STDLIB_MCSMBS_H
 
 #include <wasmux/types.h>
 #include <wasmux/widechar.h>
@@ -25,4 +25,4 @@ size_t mbstowcs(wchar_t* dst, const char* src, size_t dstlen);
 }
 #endif
 
-#endif /* _MCSMBS_BASE_H */
+#endif /* _BITS_STDLIB_MCSMBS_H */

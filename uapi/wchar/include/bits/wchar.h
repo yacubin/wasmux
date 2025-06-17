@@ -4,13 +4,11 @@
  *
  */
 
-#ifndef _WCHAR_H
-#define _WCHAR_H
+#ifndef _BITS_WCHAR_H
+#define _BITS_WCHAR_H
 
 #include <stddef.h>
 #include <wctype.h>
-#include <wcsmbs.h>
-#include <libio_wchar.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -25,4 +23,4 @@ int wcscoll(const wchar_t* wcs1, const wchar_t* wcs2);
 }
 #endif
 
-#endif /* _WCHAR_H */
+#endif /* _BITS_WCHAR_H */

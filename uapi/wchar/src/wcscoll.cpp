@@ -6,10 +6,10 @@
 
 #include <wasmux-config.h>
 #include <wchar.h>
-#include <wasmux/assert.h>
+#include <stdlib.h>
 
-wint_t putwc(wchar_t wc, FILE* stream)
+int wcscoll(const wchar_t* wcs1, const wchar_t* wcs2)
 {
-  WA_UNREACHABLE();
-  return -1;
+  abort();
+  return 0;
 }

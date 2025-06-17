@@ -1,7 +1,7 @@
 export default (mk) => {
   const headers = [
-    "include/bits/wcsmbs_base.h",
-    "include/wcsmbs.h",
+    "include/bits/stdlib_wcsmbs.h",
+    "include/bits/wchar_wcsmbs.h",
   ];
 
   const sources = [
@@ -35,7 +35,11 @@ export default (mk) => {
   ];
 
   mk.script("<stdlib.h>").mergeVariables({
-    SCRIPT_INCLUDES: [ "#include <bits/wcsmbs_base.h>" ],
+    SCRIPT_INCLUDES: [ "#include <bits/stdlib_wcsmbs.h>" ],
+  });
+
+  mk.script("<wchar.h>").mergeVariables({
+    SCRIPT_INCLUDES: [ "#include <bits/wchar_wcsmbs.h>" ],
   });
 
   mk.target("libc").addSources(headers, sources);

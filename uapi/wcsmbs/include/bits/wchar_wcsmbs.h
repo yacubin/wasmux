@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _MCSMBS_H
-#define _MCSMBS_H
+#ifndef _BITS_WCHAR_MCSMBS_H
+#define _BITS_WCHAR_MCSMBS_H
 
 #include <wasmux/types.h>
 #include <wasmux/widechar.h>
@@ -48,4 +48,4 @@ size_t mbsnrtowcs(wchar_t* dst, const char** src, size_t srclen, size_t dstlen, 
 }
 #endif
 
-#endif /* _MCSMBS_H */
+#endif /* _BITS_WCHAR_MCSMBS_H */
