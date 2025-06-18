@@ -77,10 +77,3 @@ int versionsort(const struct dirent** a, const struct dirent** b)
   errno = ENOSYS;
   return -1;
 }
-
-ssize_t getdents(int fd, void* dir_list, size_t count)
-{
-  assert(0);
-  errno = ENOSYS;
-  return -1;
-}

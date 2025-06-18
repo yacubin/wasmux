@@ -7,6 +7,7 @@ export default (mk) => {
     "internal/dirent.h",
     "src/dirent.cpp",
     "src/dirfd.cpp",
+    "src/getdents.cpp",
   ];
 
   const includes = [
