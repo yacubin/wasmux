@@ -25,6 +25,10 @@
 #define O_NOFOLLOW  00400000
 #endif
 
+#ifndef O_PATH
+#define O_PATH      010000000
+#endif
+
 #ifndef __O_TMPFILE
 #define __O_TMPFILE 020000000
 #endif

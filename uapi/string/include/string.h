@@ -54,6 +54,8 @@ char* strsignal(int sig);
 
 char* __strchrnul(const char* str, int ch);
 
+int strverscmp(const char* s1, const char* s2);
+
 #ifdef __cplusplus
 }
 #endif

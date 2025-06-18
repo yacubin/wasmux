@@ -26,6 +26,7 @@ export default (mk) => {
     "src/strrchr.cpp",
     "src/strsep.cpp",
     "src/strtok_r.cpp",
+    "src/strverscmp.cpp",
   ];
 
   const includes = [
