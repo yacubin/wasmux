@@ -33,6 +33,7 @@ module.exports.errors = {
     EROFS:          E(30,  "Read-only filesystem"),
     EMLINK:         E(31,  "Too many links"),
     EPIPE:          E(32,  "Broken pipe"),
+    EDOM:           E(33,  "Mathematics argument out of domain of function"),
     ERANGE:         E(34,  "Math result not representable"),
     ENAMETOOLONG:   E(36,  "Filename too long"),
     ENOLCK:         E(37,  "No locks available"),
