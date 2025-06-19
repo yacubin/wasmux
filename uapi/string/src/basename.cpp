@@ -9,7 +9,7 @@
 #include <bits/string_basename.h>
 #include <assert.h>
 
-char* basename(char* path)
+char* basename(const char* path)
 {
   assert(0);
   return nullptr;
