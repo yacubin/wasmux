@@ -189,6 +189,14 @@ export default (mk) => {
     SCRIPT_INCLUDES: [],
   });
 
+  const wctype_h = mk.BINARY_DIR.join("include/wctype.h");
+  mk.addCustomScript("configure_file", {
+    SCRIPT_NAME: "<wctype.h>",
+    SCRIPT_INPUT: mk.SOURCE_DIR.join("include/wctype.h.in"),
+    SCRIPT_OUTPUT: wctype_h,
+    SCRIPT_INCLUDES: [],
+  });
+
   const gnu_versions_h = mk.BINARY_DIR.join("include/gnu-versions.h");
   mk.addCustomScript("configure_file", {
     SCRIPT_NAME: "<gnu-versions.h>",
@@ -246,7 +254,7 @@ export default (mk) => {
   });
 
   const libc = mk.addStaticLibrary("libc", headers, sources);
-  libc.addSources(syscall_h, ctype_h, gnu_versions_h, stdlib_h, unistd_h, time_h, wchar_h, features_h);
+  libc.addSources(syscall_h, ctype_h, wctype_h, gnu_versions_h, stdlib_h, unistd_h, time_h, wchar_h, features_h);
   libc.addPublicIncludes(includes);
   libc.addPublicLibraries(libraries);
   libc.setPrefix("");
@@ -255,7 +263,7 @@ export default (mk) => {
     destination: mk.INSTALL_INCLUDEDIR,
     baseDir: "include",
   });
-  mk.install([ syscall_h, ctype_h, gnu_versions_h, stdlib_h, unistd_h, time_h, wchar_h, features_h ], {
+  mk.install([ syscall_h, ctype_h, wctype_h, gnu_versions_h, stdlib_h, unistd_h, time_h, wchar_h, features_h ], {
     destination: mk.INSTALL_INCLUDEDIR,
     baseDir: mk.BINARY_DIR.join("include"),
   });

@@ -1,0 +1,12 @@
+/*
+ *
+ *  Copyright (C) 2025  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *
+ */
+
+#ifndef _WCTYPE_H
+#define _WCTYPE_H
+
+@SCRIPT_INCLUDES@
+
+#endif /* _WCTYPE_H */

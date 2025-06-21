@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WCTYPE_H
-#define _WCTYPE_H
+#ifndef _BITS_WCTYPE_H
+#define _BITS_WCTYPE_H
 
 #include <wasmux/widechar.h>
 
@@ -36,4 +36,4 @@ wint_t towupper(wint_t wc);
 }
 #endif
 
-#endif /* _WCTYPE_H */
+#endif /* _BITS_WCTYPE_H */

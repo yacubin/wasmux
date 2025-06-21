@@ -36,6 +36,7 @@ export default (mk) => {
     if (mk.WASMUX_LOCALE_WITH_LIBC) {
       mk.addSubdirectory("locale");
       mk.addSubdirectory("ctype_l");
+      mk.addSubdirectory("wctype_l");
     }
 
     mk.addSubdirectory("getopt");

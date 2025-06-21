@@ -1,6 +1,6 @@
 export default (mk) => {
   const headers = [
-    "include/wctype.h",
+    "include/bits/wctype.h",
   ];
 
   const sources = [
@@ -32,5 +32,9 @@ export default (mk) => {
   mk.install(headers, {
     destination: mk.INSTALL_INCLUDEDIR,
     baseDir: "include",
+  });
+
+  mk.script("<wctype.h>").mergeVariables({
+    SCRIPT_INCLUDES: [ "#include <bits/wctype.h>" ],
   });
 }
