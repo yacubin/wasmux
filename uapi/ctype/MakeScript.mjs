@@ -4,7 +4,21 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/ctype.cpp",
+    "src/isalnum.cpp",
+    "src/isalpha.cpp",
+    "src/isascii.cpp",
+    "src/isblank.cpp",
+    "src/iscntrl.cpp",
+    "src/isdigit.cpp",
+    "src/isgraph.cpp",
+    "src/islower.cpp",
+    "src/isprint.cpp",
+    "src/ispunct.cpp",
+    "src/isspace.cpp",
+    "src/isupper.cpp",
+    "src/isxdigit.cpp",
+    "src/tolower.cpp",
+    "src/toupper.cpp",
   ];
 
   const includes = [

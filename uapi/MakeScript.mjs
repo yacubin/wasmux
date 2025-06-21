@@ -32,7 +32,12 @@ export default (mk) => {
     mk.addSubdirectory("netdb");
     mk.addSubdirectory("obstack");
     mk.addSubdirectory("libintl");
-    mk.addSubdirectory("locale");
+
+    if (mk.WASMUX_LOCALE_WITH_LIBC) {
+      mk.addSubdirectory("locale");
+      mk.addSubdirectory("ctype_l");
+    }
+
     mk.addSubdirectory("getopt");
     mk.addSubdirectory("regex");
     mk.addSubdirectory("glob");

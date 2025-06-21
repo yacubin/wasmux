@@ -16,7 +16,6 @@ int tolower(int ch);
 
 int isalpha(int ch);
 int isalnum(int ch);
-int isalpha(int ch);
 int iscntrl(int ch);
 int isdigit(int ch);
 int isgraph(int ch);
@@ -27,8 +26,8 @@ int isspace(int ch);
 int isupper(int ch);
 int isxdigit(int ch);
 
-int isascii(int ch);
 int isblank(int ch);
+int isascii(int ch);
 
 #ifdef __cplusplus
 }

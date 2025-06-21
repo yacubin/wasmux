@@ -53,6 +53,10 @@ module.exports = {
     description: "Stub implementations for env",
     value: false,
   },
+  WASMUX_LOCALE_WITH_LIBC: {
+    description: "Built-in locale in libc",
+    value: true,
+  },
   WASMUX_CRT: {
     description: "Enable C Runtime Library",
     value: false,
