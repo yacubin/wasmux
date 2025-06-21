@@ -10,6 +10,7 @@
 #define MAP_TYPE      0x000f
 #define MAP_FIXED     0x0010
 #define MAP_ANONYMOUS 0x0020
+#define MAP_ANON      MAP_ANONYMOUS
 
 /* mmap() prot */
 #define PROT_NONE   0x00000000
@@ -24,7 +25,9 @@
 
 #define MREMAP_MAYMOVE 1
 #define MREMAP_FIXED   2
+
 #define MADV_DONTNEED  4
+#define MADV_FREE      8
 
 #define MAP_HUGETLB    0x040000
 #define MAP_HUGE_SHIFT 26

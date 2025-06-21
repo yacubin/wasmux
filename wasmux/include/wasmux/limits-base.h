@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_KERNEL_LIMITS_BASE_H
-#define _WA_KERNEL_LIMITS_BASE_H
+#ifndef _WASMUX_LIMITS_BASE_H
+#define _WASMUX_LIMITS_BASE_H
 
 #include <wasmux/sizeof.h>
 
@@ -38,4 +38,4 @@
 
 #define LONG_MIN   (-LONG_MAX -1L)
 
-#endif /* _WA_KERNEL_LIMITS_BASE_H */
+#endif /* _WASMUX_LIMITS_BASE_H */
