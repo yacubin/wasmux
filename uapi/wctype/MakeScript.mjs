@@ -37,4 +37,8 @@ export default (mk) => {
   mk.script("<wctype.h>").mergeVariables({
     SCRIPT_INCLUDES: [ "#include <bits/wctype.h>" ],
   });
+
+  mk.script("<wchar.h>").mergeVariables({
+    SCRIPT_INCLUDES: [ "#include <bits/wctype.h>" ],
+  });
 }

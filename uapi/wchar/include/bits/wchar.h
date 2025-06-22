@@ -7,8 +7,8 @@
 #ifndef _BITS_WCHAR_H
 #define _BITS_WCHAR_H
 
-#include <stddef.h>
-#include <wctype.h>
+#include <wasmux/types.h>
+#include <wasmux/widechar.h>
 
 #ifdef __cplusplus
 extern "C" {

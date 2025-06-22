@@ -5,12 +5,13 @@
  */
 
 #include <wasmux-config.h>
+#include <wasmux/export.h>
 #include <wasmux/init.h>
 #include <wasmux/log.h>
 #include <wasmux/main_thread.h>
 #include <wasmux/memory_alloc.h>
 
-extern "C" void __start_kernel()
+__EXPORT void __start_kernel()
 {
   WEI::mainThreadInit();
   WebMemoryAllocInit();

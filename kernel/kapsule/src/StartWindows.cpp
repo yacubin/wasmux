@@ -7,6 +7,7 @@
 #define __SSIZE_T__ int // For windows.h
 
 #include <wasmux-config.h>
+#include <wasmux/export.h>
 #include <wasmux/memory_alloc.h>
 #include <wasmux/wasm_page.h>
 #include <wasmux/sprintf.h>
@@ -17,8 +18,8 @@
 
 #include <windows.h>
 
-extern "C" void __start_kernel();
-extern "C" void WebWorkerInstanceInit(void* stack);
+__EXPORT void __start_kernel();
+__EXPORT void WebWorkerInstanceInit(void* stack);
 
 #define WM_USER_DISPATCH (WM_USER + 1)
 
@@ -64,7 +65,7 @@ static void entryPoint(void* ptr)
   ResumeThread(hThread);
 }
 
-extern "C" void _start()
+__EXPORT void _start()
 {
   __start_kernel();
 

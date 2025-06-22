@@ -1,13 +1,19 @@
+/*
+ *
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *
+ */
+
 #include <wasmux-config.h>
 #include <wasmux/types.h>
 
 .globaltype __stack_pointer, PTR
 
 /*
-  * The stack cannot point to the top because of receiving
-  * a worker instance at the bottom of the stack
-  * __stack_pointer & WASM_MEMORY_PAGE_MASK
-  */
+ * The stack cannot point to the top because of receiving
+ * a worker instance at the bottom of the stack
+ * __stack_pointer & WASM_MEMORY_PAGE_MASK
+ */
 
 .section .text,"",@
 .globl _start_kernel
