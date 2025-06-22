@@ -8,13 +8,7 @@
 #define _WASMUX_WAINST_NAMES_H
 
 #define WASMUX_KERNEL_MODULE "kernel"
-#define WASMUX_KERNEL_SYSCALL0 "_syscall0"
-#define WASMUX_KERNEL_SYSCALL1 "_syscall1"
-#define WASMUX_KERNEL_SYSCALL2 "_syscall2"
-#define WASMUX_KERNEL_SYSCALL3 "_syscall3"
-#define WASMUX_KERNEL_SYSCALL4 "_syscall4"
-#define WASMUX_KERNEL_SYSCALL5 "_syscall5"
-#define WASMUX_KERNEL_SYSCALL6 "_syscall6"
+#define WASMUX_KERNEL_SYSCALL "_syscall"
 
 #define WASMUX_BROWSER_MODULE "env"
 #define WASMUX_BROWSER_WEBCALL0 "webcall0"

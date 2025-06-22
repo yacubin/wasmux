@@ -7,7 +7,6 @@ export default (mk) => {
     "src/InstancePerform.cpp",
     "src/StartKernel.cpp",
     "src/KernelVersion.cpp",
-    "src/syscall-stub.cpp",
     "src/syscall.cpp",
   ];
 
