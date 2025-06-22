@@ -21,8 +21,6 @@ long __waml_sys_ni_syscall(long arg1, long arg2, long arg3, long arg4, long arg5
 #define __SYSCALL(nr, argc, sym) __EXPORT long __waml_##sym(long, long, long, long, long, long);
 #include <wasmux/syscall-list.h>
 
-
-#if !WASMUX_DISABLE_SYSCALL_STUBS
 #define SYSCALL_STUB_DECL(sym) __EXPORT __ATTR_ALIAS(__waml_sys_ni_syscall, __waml_##sym) __ATTR_WEAK;
 #define SYSCALL_STUB_DECL_0(sym) SYSCALL_STUB_DECL(sym)
 #define SYSCALL_STUB_DECL_1(sym) SYSCALL_STUB_DECL(sym)
@@ -36,7 +34,6 @@ long __waml_sys_ni_syscall(long arg1, long arg2, long arg3, long arg4, long arg5
 #undef __SYSCALL
 #define __SYSCALL(nr, argc, sym) SYSCALL_STUB_DECL_##argc(sym)
 #include <wasmux/syscall-list.h>
-#endif
 
 #undef __SYSCALL
 #define __SYSCALL(nr, argc, sym) __waml_##sym,

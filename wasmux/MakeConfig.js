@@ -117,8 +117,4 @@ module.exports = {
     description: "Enable Web Enviromet Interface",
     value: false,
   },
-  WASMUX_DISABLE_SYSCALL_STUBS: {
-    description: "Disable syscall stubs",
-    value: false,
-  },
 };
