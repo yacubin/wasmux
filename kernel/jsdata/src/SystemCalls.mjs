@@ -133,7 +133,7 @@ export function sys_WorkerInstance(workerId)
 {
   const worker = this._objects[workerId];
   worker.onmessage = (event) => {
-    this.perform(...event.data, 0);
+    this.perform(...event.data);
   };
   worker.onerror = (event) => {
     console.log("<<<", event);
@@ -158,12 +158,12 @@ export function sys_ClearTimeout(timeoutId)
 
 export function sys_SetInterval(callback, userdata, delayMs)
 {
-  return setInterval(this._kernel.perform, delayMs, callback, userdata, 0, 0, 0, 0, 0);
+  return setInterval(this._kernel.perform, delayMs, 2, callback, userdata);
 }
 
 export function sys_SetTimeout(callback, userdata, delayMs)
 {
-  return setTimeout(this._kernel.perform, delayMs, callback, userdata, 0, 0, 0, 0, 0);
+  return setTimeout(this._kernel.perform, delayMs, 2, callback, userdata);
 }
 
 export function sys_ObjectRetain(objectId)
@@ -315,7 +315,7 @@ export function sys_AddEventListener(objectId, typeId, callback, userdata)
   const type = this._objects[typeId];
   const listener = (event) => {
     const eventId = this.createObjectId(event);
-    this._kernel.perform(callback, userdata, eventId, 0, 0, 0, 0);
+    this._kernel.perform(3, callback, userdata, eventId);
     this.deleteObjectId(eventId);
   };
 
@@ -341,12 +341,12 @@ export function sys_PromiseThen(objectId, resultCallback, errorCallback, userdat
   object.then(
     (value) => {
       const resultId = this.createObjectId(value);
-      this._kernel.perform(resultCallback, userdata, resultId, 0, 0, 0, 0);
+      this._kernel.perform(3, resultCallback, userdata, resultId);
       this.deleteObjectId(resultId);
     },
     (reason) => {
       const reasonId = this.createObjectId(reason);
-      this._kernel.perform(errorCallback, userdata, reasonId, 0, 0, 0, 0);
+      this._kernel.perform(3, errorCallback, userdata, reasonId);
       this.deleteObjectId(reasonId);
     },
   );
@@ -354,7 +354,46 @@ export function sys_PromiseThen(objectId, resultCallback, errorCallback, userdat
   return 0;
 }
 
-export function sys_WorkerPerform(workerId, callback, userdata, arg1, arg2, arg3)
+export function sys_WorkerPerform2(workerId, callback, userdata)
+{
+  const worker = this._objects[workerId];
+  worker.postMessage({
+    type: 'perform',
+    args: [
+      callback,
+      userdata,
+    ]
+  });
+}
+
+export function sys_WorkerPerform3(workerId, callback, userdata, arg1)
+{
+  const worker = this._objects[workerId];
+  worker.postMessage({
+    type: 'perform',
+    args: [
+      callback,
+      userdata,
+      arg1 ? this._objects[arg1] : undefined,
+    ]
+  });
+}
+
+export function sys_WorkerPerform4(workerId, callback, userdata, arg1, arg2)
+{
+  const worker = this._objects[workerId];
+  worker.postMessage({
+    type: 'perform',
+    args: [
+      callback,
+      userdata,
+      arg1 ? this._objects[arg1] : undefined,
+      arg2 ? this._objects[arg2] : undefined,
+    ]
+  });
+}
+
+export function sys_WorkerPerform5(workerId, callback, userdata, arg1, arg2, arg3)
 {
   const worker = this._objects[workerId];
   worker.postMessage({
@@ -369,7 +408,45 @@ export function sys_WorkerPerform(workerId, callback, userdata, arg1, arg2, arg3
   });
 }
 
-export function sys_PostMessage(callback, userdata, arg1, arg2, arg3, arg4)
+export function sys_PostMessage2(callback, userdata)
+{
+  self.postMessage([
+    callback,
+    userdata,
+  ]);
+}
+
+export function sys_PostMessage3(callback, userdata, arg1)
+{
+  self.postMessage([
+    callback,
+    userdata,
+    arg1 ? this._objects[arg1] : undefined,
+  ]);
+}
+
+export function sys_PostMessage4(callback, userdata, arg1, arg2)
+{
+  self.postMessage([
+    callback,
+    userdata,
+    arg1 ? this._objects[arg1] : undefined,
+    arg2 ? this._objects[arg2] : undefined,
+  ]);
+}
+
+export function sys_PostMessage5(callback, userdata, arg1, arg2, arg3)
+{
+  self.postMessage([
+    callback,
+    userdata,
+    arg1 ? this._objects[arg1] : undefined,
+    arg2 ? this._objects[arg2] : undefined,
+    arg3 ? this._objects[arg3] : undefined,
+  ]);
+}
+
+export function sys_PostMessage6(callback, userdata, arg1, arg2, arg3, arg4)
 {
   self.postMessage([
     callback,

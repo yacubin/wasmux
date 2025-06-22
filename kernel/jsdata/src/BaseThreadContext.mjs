@@ -72,8 +72,8 @@ export class BaseThreadContext {
 
   perform(callback, userdata, ...args)
   {
-    const argsIds = args.map((o) => o !== undefined && this.createObjectId(o));
-    this._kernel.perform(callback, userdata, ...argsIds);
+    const argsIds = args.map((o) => o !== undefined ? this.createObjectId(o) : 0);
+    this._kernel.perform(2 + argsIds.length, callback, userdata, ...argsIds);
     argsIds.forEach(i => i && this.deleteObjectId(i));
   }
 };

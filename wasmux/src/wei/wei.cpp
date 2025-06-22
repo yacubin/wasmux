@@ -150,27 +150,27 @@ int WEI_promiseThen(WEI_Object thisObject, WEI_PerformCallback1* resolveCallback
 
 int WEI_postMessage(WEI_PerformCallback* callback, void* userdata)
 {
-  return kernel_webcall2(__WEB_NR_PostMessage, object_idx_cast(callback), object_idx_cast(userdata));
+  return kernel_webcall2(__WEB_NR_PostMessage2, object_idx_cast(callback), object_idx_cast(userdata));
 }
 
 int WEI_postMessage1(WEI_PerformCallback1* callback, void* userdata, WEI_Object arg1)
 {
-  return kernel_webcall3(__WEB_NR_PostMessage, object_idx_cast(callback), object_idx_cast(userdata), static_cast<unsigned>(arg1));
+  return kernel_webcall3(__WEB_NR_PostMessage3, object_idx_cast(callback), object_idx_cast(userdata), static_cast<unsigned>(arg1));
 }
 
 int WEI_postMessage2(WEI_PerformCallback2* callback, void* userdata, WEI_Object arg1, WEI_Object arg2)
 {
-  return kernel_webcall4(__WEB_NR_PostMessage, object_idx_cast(callback), object_idx_cast(userdata), static_cast<unsigned>(arg1), static_cast<unsigned>(arg2));
+  return kernel_webcall4(__WEB_NR_PostMessage4, object_idx_cast(callback), object_idx_cast(userdata), static_cast<unsigned>(arg1), static_cast<unsigned>(arg2));
 }
 
 int WEI_postMessage3(WEI_PerformCallback3* callback, void* userdata, WEI_Object arg1, WEI_Object arg2, WEI_Object arg3)
 {
-  return kernel_webcall5(__WEB_NR_PostMessage, object_idx_cast(callback), object_idx_cast(userdata), static_cast<unsigned>(arg1), static_cast<unsigned>(arg2), static_cast<unsigned>(arg3));
+  return kernel_webcall5(__WEB_NR_PostMessage5, object_idx_cast(callback), object_idx_cast(userdata), static_cast<unsigned>(arg1), static_cast<unsigned>(arg2), static_cast<unsigned>(arg3));
 }
 
 int WEI_postMessage4(WEI_PerformCallback4* callback, void* userdata, WEI_Object arg1, WEI_Object arg2, WEI_Object arg3, WEI_Object arg4)
 {
-  return kernel_webcall6(__WEB_NR_PostMessage, object_idx_cast(callback), object_idx_cast(userdata), static_cast<unsigned>(arg1), static_cast<unsigned>(arg2), static_cast<unsigned>(arg3), static_cast<unsigned>(arg4));
+  return kernel_webcall6(__WEB_NR_PostMessage6, object_idx_cast(callback), object_idx_cast(userdata), static_cast<unsigned>(arg1), static_cast<unsigned>(arg2), static_cast<unsigned>(arg3), static_cast<unsigned>(arg4));
 }
 
 unsigned WEI_setTimeout(WEI_PerformCallback* callback, void* userdata, int delayMs)
@@ -195,22 +195,22 @@ void WEI_clearInterval(unsigned intervalID)
 
 int WEI_workerPerform(WEI_Object thisObject, WEI_PerformCallback* callback, void* userdata)
 {
-  return kernel_webcall3(__WEB_NR_WorkerPerform, static_cast<unsigned>(thisObject), object_idx_cast(callback), object_idx_cast(userdata));
+  return kernel_webcall3(__WEB_NR_WorkerPerform2, static_cast<unsigned>(thisObject), object_idx_cast(callback), object_idx_cast(userdata));
 }
 
 int WEI_workerPerform1(WEI_Object thisObject, WEI_PerformCallback1* callback, void* userdata, WEI_Object arg1)
 {
-  return kernel_webcall4(__WEB_NR_WorkerPerform, static_cast<unsigned>(thisObject), object_idx_cast(callback), object_idx_cast(userdata), static_cast<unsigned>(arg1));
+  return kernel_webcall4(__WEB_NR_WorkerPerform3, static_cast<unsigned>(thisObject), object_idx_cast(callback), object_idx_cast(userdata), static_cast<unsigned>(arg1));
 }
 
 int WEI_workerPerform2(WEI_Object thisObject, WEI_PerformCallback2* callback, void* userdata, WEI_Object arg1, WEI_Object arg2)
 {
-  return kernel_webcall5(__WEB_NR_WorkerPerform, static_cast<unsigned>(thisObject), object_idx_cast(callback), object_idx_cast(userdata), static_cast<unsigned>(arg1), static_cast<unsigned>(arg2));
+  return kernel_webcall5(__WEB_NR_WorkerPerform4, static_cast<unsigned>(thisObject), object_idx_cast(callback), object_idx_cast(userdata), static_cast<unsigned>(arg1), static_cast<unsigned>(arg2));
 }
 
 int WEI_workerPerform3(WEI_Object thisObject, WEI_PerformCallback3* callback, void* userdata, WEI_Object arg1, WEI_Object arg2, WEI_Object arg3)
 {
-  return kernel_webcall6(__WEB_NR_WorkerPerform, static_cast<unsigned>(thisObject), object_idx_cast(callback), object_idx_cast(userdata), static_cast<unsigned>(arg1), static_cast<unsigned>(arg2), static_cast<unsigned>(arg3));
+  return kernel_webcall6(__WEB_NR_WorkerPerform5, static_cast<unsigned>(thisObject), object_idx_cast(callback), object_idx_cast(userdata), static_cast<unsigned>(arg1), static_cast<unsigned>(arg2), static_cast<unsigned>(arg3));
 }
 
 int WEI_workerInstance(WEI_Object thisObject)
