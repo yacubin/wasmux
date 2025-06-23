@@ -107,7 +107,6 @@ export default (mk) => {
     "stub/setjmp.cpp",
     "stub/stdlib.cpp",
     "stub/strtol.cpp",
-    "stub/syscall.cpp",
     "stub/syslog.cpp",
     "stub/time.cpp",
     "stub/ucontext.cpp",
@@ -143,6 +142,7 @@ export default (mk) => {
     "syscalls/sethostname.cpp",
     "syscalls/statx.cpp",
     "syscalls/sync.cpp",
+    "syscalls/syscall.cpp",
     "syscalls/umount.cpp",
     "syscalls/umount2.cpp",
     "syscalls/uname.cpp",
@@ -162,16 +162,11 @@ export default (mk) => {
     "src/sbrk.cpp",
     "src/thread_data.cpp",
     "src/usleep.cpp",
-    mk.target("wasmux").objects,
   ];
 
   const includes = [
     mk.BINARY_DIR.join("include"),
     mk.SOURCE_DIR.join("include"),
-  ];
-
-  const libraries = [
-    mk.target("wasmux"),
   ];
 
   const syscall_h = mk.BINARY_DIR.join("include/sys/syscall.h");
@@ -255,8 +250,9 @@ export default (mk) => {
 
   const libc = mk.addStaticLibrary("libc", headers, sources);
   libc.addSources(syscall_h, ctype_h, wctype_h, gnu_versions_h, stdlib_h, unistd_h, time_h, wchar_h, features_h);
+  libc.addSources(mk.target("wasmux").objects);
+  libc.addPublicLibraries(mk.target("wasmux"));
   libc.addPublicIncludes(includes);
-  libc.addPublicLibraries(libraries);
   libc.setPrefix("");
 
   mk.install(headers, {
