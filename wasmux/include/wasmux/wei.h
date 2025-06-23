@@ -14,35 +14,17 @@
 extern "C" {
 #endif
 
-__ATTR_IMPORT_NAME(WASMUX_BROWSER_MODULE, "math_random")
+__ATTR_IMPORT_NAME(WASMUX_BROWSER_MODULE, WASMUX_BROWSER_MATH_RANDOM)
 double WEI_mathRandom();
 
-__ATTR_IMPORT_NAME(WASMUX_BROWSER_MODULE, "date_now")
+__ATTR_IMPORT_NAME(WASMUX_BROWSER_MODULE, WASMUX_BROWSER_DATE_NOW)
 double WEI_dateNow();
 
-__ATTR_IMPORT_NAME(WASMUX_BROWSER_MODULE, "performance_now")
+__ATTR_IMPORT_NAME(WASMUX_BROWSER_MODULE, WASMUX_BROWSER_PERFORMANCE_NOW)
 double WEI_performanceNow();
 
-__ATTR_IMPORT_NAME(WASMUX_BROWSER_MODULE, WASMUX_BROWSER_WEBCALL0)
-int kernel_webcall0(unsigned number);
-
-__ATTR_IMPORT_NAME(WASMUX_BROWSER_MODULE, WASMUX_BROWSER_WEBCALL1)
-int kernel_webcall1(unsigned number, unsigned arg1);
-
-__ATTR_IMPORT_NAME(WASMUX_BROWSER_MODULE, WASMUX_BROWSER_WEBCALL2)
-int kernel_webcall2(unsigned number, unsigned arg1, unsigned arg2);
-
-__ATTR_IMPORT_NAME(WASMUX_BROWSER_MODULE, WASMUX_BROWSER_WEBCALL3)
-int kernel_webcall3(unsigned number, unsigned arg1, unsigned arg2, unsigned arg3);
-
-__ATTR_IMPORT_NAME(WASMUX_BROWSER_MODULE, WASMUX_BROWSER_WEBCALL4)
-int kernel_webcall4(unsigned number, unsigned arg1, unsigned arg2, unsigned arg3, unsigned arg4);
-
-__ATTR_IMPORT_NAME(WASMUX_BROWSER_MODULE, WASMUX_BROWSER_WEBCALL5)
-int kernel_webcall5(unsigned number, unsigned arg1, unsigned arg2, unsigned arg3, unsigned arg4, unsigned arg5);
-
-__ATTR_IMPORT_NAME(WASMUX_BROWSER_MODULE, WASMUX_BROWSER_WEBCALL6)
-int kernel_webcall6(unsigned number, unsigned arg1, unsigned arg2, unsigned arg3, unsigned arg4, unsigned arg5, unsigned arg6);
+__ATTR_IMPORT_NAME(WASMUX_BROWSER_MODULE, WASMUX_BROWSER_WEBCALL)
+int WEI_webcall(unsigned number, unsigned arg1, unsigned arg2, unsigned arg3, unsigned arg4, unsigned arg5, unsigned arg6);
 
 typedef unsigned WEI_Object;
 

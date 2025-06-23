@@ -37,16 +37,10 @@ export class BaseThreadContext {
     return {
       env: {
         memory: this._kernelMemory,
-        math_random: Math.random,
-        date_now: Date.now,
-        performance_now: performance.now.bind(performance),
-        webcall0: (number) => this._webcalls[number].call(this),
-        webcall1: (number, arg1) => this._webcalls[number].call(this, arg1),
-        webcall2: (number, arg1, arg2) => this._webcalls[number].call(this, arg1, arg2),
-        webcall3: (number, arg1, arg2, arg3) => this._webcalls[number].call(this, arg1, arg2, arg3),
-        webcall4: (number, arg1, arg2, arg3, arg4) => this._webcalls[number].call(this, arg1, arg2, arg3, arg4),
-        webcall5: (number, arg1, arg2, arg3, arg4, arg5) => this._webcalls[number].call(this, arg1, arg2, arg3, arg4, arg5),
-        webcall6: (number, arg1, arg2, arg3, arg4, arg5, arg6) => this._webcalls[number].call(this, arg1, arg2, arg3, arg4, arg5, arg6),
+        _math_random: Math.random,
+        _date_now: Date.now,
+        _performance_now: performance.now.bind(performance),
+        _webcall: (number, arg1, arg2, arg3, arg4, arg5, arg6) => this._webcalls[number].call(this, arg1, arg2, arg3, arg4, arg5, arg6),
       },
     };
   }
