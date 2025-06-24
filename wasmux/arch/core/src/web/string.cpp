@@ -7,7 +7,6 @@
 #include <wasmux-config.h>
 #include <wasmux/wei.h>
 #include <wasmux/web/string.h>
-#include <wasmux/cxx/ObjectCast.h>
 #include <wasmux/cxx/Characters.h>
 
 WebString* WebString_create(const char* str)
@@ -44,12 +43,12 @@ WebString* WebString_create2(const char* str, unsigned len)
 
 void WebString_destroy(WebString* thiz)
 {
-  WEI_objectRelease(object_idx_cast(thiz));
+  WEI_objectRelease(wobject_idx(thiz));
 }
 
 WebString* WebString_clone(WebString* thiz)
 {
   WEI_Object strObj;
-  strObj = WEI_objectRetain(object_idx_cast(thiz));
+  strObj = WEI_objectRetain(wobject_idx(thiz));
   return reinterpret_cast<WebString*>(strObj);
 }

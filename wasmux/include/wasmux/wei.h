@@ -7,7 +7,9 @@
 #ifndef _WASMUX_WEI_H
 #define _WASMUX_WEI_H
 
+#include <wasmux/assert.h>
 #include <wasmux/compiler.h>
+#include <wasmux/limits-base.h>
 #include <wasmux/wainst_names.h>
 
 #ifdef __cplusplus
@@ -27,6 +29,14 @@ __ATTR_IMPORT_NAME(WASMUX_BROWSER_MODULE, WASMUX_BROWSER_WEBCALL)
 int WEI_webcall(unsigned number, unsigned arg1, unsigned arg2, unsigned arg3, unsigned arg4, unsigned arg5, unsigned arg6);
 
 typedef unsigned WEI_Object;
+
+#define wobject_idx(ptr) \
+  ({ \
+    WA_ASSERT((unsigned long)(ptr) <= UINT_MAX); \
+    (WEI_Object)(unsigned long)(ptr); \
+  })
+
+#define wobject_ptr(type, obj) ((type*)(obj))
 
 #define WEI_UNDEFINED_OBJECT ((WEI_Object)0)
 #define WEI_KERNEL_MEMORY_ID ((WEI_Object)1)

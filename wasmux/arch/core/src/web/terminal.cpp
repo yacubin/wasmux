@@ -10,7 +10,6 @@
 #include <wasmux/notify_waiter.h>
 #include <wasmux/web/string.h>
 #include <wasmux/web/arraybuffer.h>
-#include <wasmux/cxx/ObjectCast.h>
 
 struct BaseSyncData {
   notify_waiter_t signal;
@@ -49,9 +48,9 @@ static void onOpenHandler(void* userdata)
 	auto data = reinterpret_cast<OpenSyncData*>(userdata);
 
 	WebString* clsStr = WebString_create("IODrv");
-  WEI_Object cls = WEI_getObjectProperty(WEI_GLOBAL_THIS, object_idx_cast(clsStr));
+  WEI_Object cls = WEI_getObjectProperty(WEI_GLOBAL_THIS, wobject_idx(clsStr));
 
-  data->terminal = object_ptr_cast<WebTerminal>(WEI_objectCreate(cls));
+  data->terminal = wobject_ptr(WebTerminal, WEI_objectCreate(cls));
 	data->ec = 0;
 
   WEI_objectRelease(cls);
@@ -94,7 +93,7 @@ static void onWriteHandler(void* userdata, WEI_Object memoryObj)
   WebString* stdoutStr = WebString_create("stdout");
   WEI_Object textObj = WEI_stringCreate(memoryObj, data->buf, data->len);
 
-  int len = WEI_callIntegerMethod1(object_idx_cast(data->terminal), object_idx_cast(stdoutStr), textObj);
+  int len = WEI_callIntegerMethod1(wobject_idx(data->terminal), wobject_idx(stdoutStr), textObj);
 
   WEI_objectRelease(textObj);
   WebString_destroy(stdoutStr);
@@ -128,7 +127,7 @@ static void onWriteStrHandler(void* userdata, WEI_Object textObj)
 	auto data = reinterpret_cast<WriteStrSyncData*>(userdata);
   
   WebString* stdoutStr = WebString_create("stdout");
-  int len = WEI_callIntegerMethod1(object_idx_cast(data->terminal), object_idx_cast(stdoutStr), textObj);
+  int len = WEI_callIntegerMethod1(wobject_idx(data->terminal), wobject_idx(stdoutStr), textObj);
   WebString_destroy(stdoutStr);
 
   data->ec = len;
@@ -141,7 +140,7 @@ int WebTerminalManager_writeStrSync(WebTerminalManager* thiz, WebTerminal* termi
 
 	data.terminal = terminal;
 
-  int ec = WEI_postMessage1(&onWriteStrHandler, &data, object_idx_cast(str));
+  int ec = WEI_postMessage1(&onWriteStrHandler, &data, wobject_idx(str));
 	if (ec < 0)
     return ec;
 
@@ -157,7 +156,7 @@ static void onCloseHandler(void* userdata)
 {
 	auto data = reinterpret_cast<CloseSyncData*>(userdata);
 
-	WEI_objectRelease(object_idx_cast(data->terminal));
+	WEI_objectRelease(wobject_idx(data->terminal));
 	data->ec = 0;
 
   data->notify();

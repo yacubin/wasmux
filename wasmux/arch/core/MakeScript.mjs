@@ -1,7 +1,6 @@
 export default (mk) => {
   const headers = [
     "include/wasmux/cxx/HostHeap.h",
-    "include/wasmux/cxx/ObjectCast.h",
     "include/wasmux/cxx/WasmHeap.h",
     "include/wasmux/arch/syscalls.h",
     "include/wasmux/arch/unistd.h",

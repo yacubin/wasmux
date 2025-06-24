@@ -9,8 +9,8 @@
 #include <wasmux/errno.h>
 #include <wasmux/notify_waiter.h>
 #include <wasmux/log.h>
+#include <wasmux/wei.h>
 #include <wasmux/web/string.h>
-#include <wasmux/cxx/ObjectCast.h>
 #include <wasmux/memory_alloc.h>
 #include <wasmux/web/object.h>
 #include <wasmux/main_loop.h>
@@ -25,13 +25,13 @@ void WebMainFileSystem_init(WebMainFileSystem* thiz)
 static void onFinalizeHandler(void* userdata)
 {
 	auto root = reinterpret_cast<WebObject*>(userdata);
-  WEI_objectRelease(object_idx_cast(root));
+  WEI_objectRelease(wobject_idx(root));
 }
 
 void WebMainFileSystem_finalize(WebMainFileSystem* thiz)
 {
 	if (thiz->rootObj)
-	  WEI_postMessage(&onFinalizeHandler, object_ptr_cast<WebObject>(thiz->rootObj));
+	  WEI_postMessage(&onFinalizeHandler, wobject_ptr(WebObject, thiz->rootObj));
 }
 
 struct StatSyncData {
@@ -58,8 +58,8 @@ static void onStatLoadRequest(void* userdata, WEI_Object event)
 	if (!bytes)
 	  data->ec = -ENOENT;
 	else {
-		WEI_setObjectProperty(data->impl->rootObj, object_idx_cast(data->path), bytes);
-	  data->stat->size = WebArrayBuffer_byteLength(object_ptr_cast<WebArrayBuffer>(bytes));
+		WEI_setObjectProperty(data->impl->rootObj, wobject_idx(data->path), bytes);
+	  data->stat->size = WebArrayBuffer_byteLength(wobject_ptr(WebArrayBuffer, bytes));
 	  data->ec = 0;
 		WEI_objectRelease(bytes);
 	}
@@ -92,7 +92,7 @@ static void onStatHandler(void* userdata, WEI_Object pathObj)
 	if (!data->impl->rootObj)
 		data->impl->rootObj = WebObject_create();
 	else {
-    auto bytes = object_ptr_cast<WebArrayBuffer>(WEI_getObjectProperty(data->impl->rootObj, pathObj));
+    auto bytes = wobject_ptr(WebArrayBuffer, WEI_getObjectProperty(data->impl->rootObj, pathObj));
 		if (bytes) {
 	    data->stat->size = WebArrayBuffer_byteLength(bytes);
 			data->ec = 0;
@@ -101,7 +101,7 @@ static void onStatHandler(void* userdata, WEI_Object pathObj)
 		}
 	}
 
-  data->path = object_ptr_cast<WebString>(WEI_objectRetain(pathObj));
+  data->path = wobject_ptr(WebString, WEI_objectRetain(pathObj));
   data->xhrObj = WebXMLHttpRequest_create();
   data->loadFn = WebXMLHttpRequest_addOnLoad(data->xhrObj, &onStatLoadRequest, data);
   data->errorFn = WebXMLHttpRequest_addOnError(data->xhrObj, &onStatErrorRequest, data);
@@ -119,7 +119,7 @@ int WebMainFileSystem_statSync(WebMainFileSystem* thiz, const WebString* path, W
 	data.impl = thiz;
 	data.stat = stat;
 
-  int ec = WEI_postMessage1(&onStatHandler, &data, object_idx_cast(path));
+  int ec = WEI_postMessage1(&onStatHandler, &data, wobject_idx(path));
 	if (ec < 0)
 		return ec;
 
@@ -150,7 +150,7 @@ static void onOpenLoadRequest(void* userdata, WEI_Object event)
 	if (!bytes)
 	  data->ec = -ENOENT;
 	else {
-		WEI_setObjectProperty(data->impl->rootObj, object_idx_cast(data->path), bytes);
+		WEI_setObjectProperty(data->impl->rootObj, wobject_idx(data->path), bytes);
     data->ec = static_cast<int>(WEI_objectRetain(bytes));
 		WEI_objectRelease(bytes);
 	}
@@ -192,7 +192,7 @@ static void onOpenHandler(void* userdata, WEI_Object pathObj)
 		}
 	}
 
-  data->path = object_ptr_cast<WebString>(WEI_objectRetain(pathObj));
+  data->path = wobject_ptr(WebString, WEI_objectRetain(pathObj));
   data->xhrObj = WebXMLHttpRequest_create();
   data->loadFn = WebXMLHttpRequest_addOnLoad(data->xhrObj, &onOpenLoadRequest, data);
   data->errorFn = WebXMLHttpRequest_addOnError(data->xhrObj, &onOpenErrorRequest, data);
@@ -209,7 +209,7 @@ int WebMainFileSystem_openSync(WebMainFileSystem* thiz, const WebString* path)
 	data.ec = -EIO;
 	data.impl = thiz;
 
-  int ec = WEI_postMessage1(&onOpenHandler, &data, object_idx_cast(path));
+  int ec = WEI_postMessage1(&onOpenHandler, &data, wobject_idx(path));
 	if (ec < 0)
 		return ec;
 
@@ -233,13 +233,13 @@ static void onReadHandler(void* userdata)
 	if (!data->impl->rootObj)
     data->ec = -ENOENT;
 	else {
-		auto buffer = object_ptr_cast<WebArrayBuffer>(data->fd);
+		auto buffer = wobject_ptr(WebArrayBuffer, data->fd);
 		unsigned size = WebArrayBuffer_byteLength(buffer);
 		if (data->offset < size) {
 			size -= data->offset;
 			if (data->size < size)
 			  size = data->size;
-			WEI_memoryCopy(WEI_KERNEL_MEMORY_ID, data->buf, object_idx_cast(buffer), reinterpret_cast<void*>(data->offset), size);
+			WEI_memoryCopy(WEI_KERNEL_MEMORY_ID, data->buf, wobject_idx(buffer), reinterpret_cast<void*>(data->offset), size);
       data->ec = size;
 		}
 		else {
@@ -296,8 +296,8 @@ static void onAccessLoadRequest(void* userdata, WEI_Object event)
 	if (!bytes)
 	  data->ec = -ENOENT;
 	else {
-		WEI_setObjectProperty(data->impl->rootObj, object_idx_cast(data->path), bytes);
-	  data->stat->size = WebArrayBuffer_byteLength(object_ptr_cast<WebArrayBuffer>(bytes));
+		WEI_setObjectProperty(data->impl->rootObj, wobject_idx(data->path), bytes);
+	  data->stat->size = WebArrayBuffer_byteLength(wobject_ptr(WebArrayBuffer, bytes));
 	  data->ec = 0;
 		WEI_objectRelease(bytes);
 	}
@@ -330,7 +330,7 @@ static void onAccessHandler(void* userdata, WEI_Object pathObj)
 	if (!data->impl->rootObj)
 		data->impl->rootObj = WebObject_create();
 	else {
-    auto bytes = object_ptr_cast<WebArrayBuffer>(WEI_getObjectProperty(data->impl->rootObj, pathObj));
+    auto bytes = wobject_ptr(WebArrayBuffer, WEI_getObjectProperty(data->impl->rootObj, pathObj));
 		if (bytes) {
 			data->ec = 0;
       notify_waiter_notify(&data->signal);
@@ -338,7 +338,7 @@ static void onAccessHandler(void* userdata, WEI_Object pathObj)
 		}
 	}
 
-  data->path = object_ptr_cast<WebString>(WEI_objectRetain(pathObj));
+  data->path = wobject_ptr(WebString, WEI_objectRetain(pathObj));
   data->xhrObj = WebXMLHttpRequest_create();
   data->loadFn = WebXMLHttpRequest_addOnLoad(data->xhrObj, &onAccessLoadRequest, data);
   data->errorFn = WebXMLHttpRequest_addOnError(data->xhrObj, &onAccessErrorRequest, data);
@@ -356,7 +356,7 @@ int WebMainFileSystem_accessSync(WebMainFileSystem* thiz, const WebString* path,
 	data.impl = thiz;
 	data.mode = mode;
 
-  int ec = WEI_postMessage1(&onAccessHandler, &data, object_idx_cast(path));
+  int ec = WEI_postMessage1(&onAccessHandler, &data, wobject_idx(path));
 	if (ec < 0)
 		return ec;
 

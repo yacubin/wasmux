@@ -7,7 +7,6 @@
 #include <wasmux-config.h>
 #include <wasmux/web/webassembly.h>
 #include <wasmux/web/object.h>
-#include <wasmux/cxx/ObjectCast.h>
 
 WEI_Object WebAssembly_compile(WEI_Object buffer)
 {
@@ -33,10 +32,10 @@ WebAssemblyMemory* WebAssemblyMemory_create(unsigned initial, unsigned maximum, 
   WEI_objectRelease(memoryConstructor);
   WEI_objectRelease(assembly);
 
-  return object_ptr_cast<WebAssemblyMemory>(result);
+  return wobject_ptr(WebAssemblyMemory, result);
 }
 
 void WebAssemblyMemory_finalize(WebAssemblyMemory* thiz)
 {
-  WEI_objectRelease(object_idx_cast(thiz));
+  WEI_objectRelease(wobject_idx(thiz));
 }

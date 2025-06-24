@@ -14,7 +14,6 @@
 #include <wasmux/log.h>
 #include <wasmux/web/string.h>
 #include <wasmux/cxx/Characters.h>
-#include <wasmux/cxx/ObjectCast.h>
 
 #include <wasmux/memory_alloc.h>
 #include <wasmux/web/worker.h>
@@ -32,7 +31,7 @@ static void workerInstanceRun(void* userdata)
   auto instance = reinterpret_cast<WebWorkerInstance*>(userdata);
 
   WebString* name = WebString_create(instance->name);
-  instance->worker =  WebWorker_create(WEI_SCRIPT_URL_ID, object_idx_cast(name));
+  instance->worker =  WebWorker_create(WEI_SCRIPT_URL_ID, wobject_idx(name));
   WebString_destroy(name);
 
   WEI_workerInstance(instance->worker);
@@ -90,7 +89,7 @@ static void startModuleHandler(void* userdata, WEI_Object module)
   instance->userModule = module;
   instance->userMemory = memory;
 
-  WEI_userInstanceStart(module, object_idx_cast(memory));
+  WEI_userInstanceStart(module, wobject_idx(memory));
 }
 
 int WebWorkerInstance_startModule(struct WebWorkerInstance* instance, WEI_Object module, struct wasm_memory_info* meminfo)
@@ -101,7 +100,7 @@ int WebWorkerInstance_startModule(struct WebWorkerInstance* instance, WEI_Object
   }
 
   WebString* name = WebString_create(instance->name);
-  instance->worker =  WebWorker_create(WEI_SCRIPT_URL_ID, object_idx_cast(name));
+  instance->worker =  WebWorker_create(WEI_SCRIPT_URL_ID, wobject_idx(name));
   WebString_destroy(name);
 
   instance->meminfo = *meminfo;
@@ -116,7 +115,7 @@ int WebWorkerInstance_startModule(struct WebWorkerInstance* instance, WEI_Object
 void startThreadImpl(struct WebWorkerInstance* instance, WEI_PerformCallback* callback, void* userdata)
 {
   WebString* name = WebString_create(instance->name);
-  instance->worker =  WebWorker_create(WEI_SCRIPT_URL_ID, object_idx_cast(name));
+  instance->worker =  WebWorker_create(WEI_SCRIPT_URL_ID, wobject_idx(name));
   WebString_destroy(name);
 
   WEI_workerInstance(instance->worker);
@@ -167,8 +166,8 @@ static void onErrorCompile(void* userdata, WEI_Object reason)
 
 static void onStartBinaryHandler(void* userdata, WEI_Object buffer)
 {
-  Uint8ClampedArray* bytes = WebArrayBuffer_toUint8ClampedArray(object_ptr_cast<WebArrayBuffer>(buffer));
-  WEI_Object promise = WebAssembly_compile(object_idx_cast(bytes));
+  Uint8ClampedArray* bytes = WebArrayBuffer_toUint8ClampedArray(wobject_ptr(WebArrayBuffer, buffer));
+  WEI_Object promise = WebAssembly_compile(wobject_idx(bytes));
   Uint8ClampedArray_destroy(bytes);
   WEI_promiseThen(promise, &onResultCompile, &onErrorCompile, userdata);
   WEI_objectRelease(promise);
@@ -184,7 +183,7 @@ int WebWorkerInstance_startBinarySync(struct WebWorkerInstance* instance, WebArr
   data.meminfo = meminfo;
   data.ec = EIO;
 
-  int ec = WEI_postMessage1(&onStartBinaryHandler, &data, object_idx_cast(buffer));
+  int ec = WEI_postMessage1(&onStartBinaryHandler, &data, wobject_idx(buffer));
 	if (ec < 0)
 		return ec;
 

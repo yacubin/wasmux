@@ -8,7 +8,6 @@
 #include <wasmux/web/xmlhttprequest.h>
 #include <wasmux/assert.h>
 #include <wasmux/web/string.h>
-#include <wasmux/cxx/ObjectCast.h>
 
 const char* WebXMLHttpRequest_ReadyState_toCString(WebXMLHttpRequest_ReadyState readyState)
 {
@@ -42,7 +41,7 @@ int WebXMLHttpRequest_open(WEI_Object xhr, const char* method, const char* url)
   WebString* methodStr = WebString_create(method);
   WebString* urlStr = WebString_create(url);
 
-  int result = WEI_callIntegerMethod2(xhr, object_idx_cast(openStr), object_idx_cast(methodStr), object_idx_cast(urlStr));
+  int result = WEI_callIntegerMethod2(xhr, wobject_idx(openStr), wobject_idx(methodStr), wobject_idx(urlStr));
 
   WebString_destroy(urlStr);
   WebString_destroy(methodStr);
@@ -56,7 +55,7 @@ int WebXMLHttpRequest_openGET(WEI_Object xhr, const WebString* url)
   WebString* openStr = WebString_create("open");
   WebString* methodStr = WebString_create("GET");
 
-  int result = WEI_callIntegerMethod2(xhr, object_idx_cast(openStr), object_idx_cast(methodStr), object_idx_cast(url));
+  int result = WEI_callIntegerMethod2(xhr, wobject_idx(openStr), wobject_idx(methodStr), wobject_idx(url));
 
   WebString_destroy(methodStr);
   WebString_destroy(openStr);
@@ -67,7 +66,7 @@ int WebXMLHttpRequest_openGET(WEI_Object xhr, const WebString* url)
 int WebXMLHttpRequest_send(WEI_Object xhr, WEI_Object body)
 {
   WebString* sendStr = WebString_create("send");
-  int result = WEI_callIntegerMethod1(xhr, object_idx_cast(sendStr), body);
+  int result = WEI_callIntegerMethod1(xhr, wobject_idx(sendStr), body);
   WebString_destroy(sendStr);
 
   return result;
@@ -76,7 +75,7 @@ int WebXMLHttpRequest_send(WEI_Object xhr, WEI_Object body)
 WEI_Object WebXMLHttpRequest_response(WEI_Object xhr)
 {
   WebString* responseStr = WebString_create("response");
-  WEI_Object result =  WEI_getObjectProperty(xhr, object_idx_cast(responseStr));
+  WEI_Object result =  WEI_getObjectProperty(xhr, wobject_idx(responseStr));
   WebString_destroy(responseStr);
 
   return result;
@@ -87,7 +86,7 @@ int WebXMLHttpRequest_setResponseType(WEI_Object xhr, const char* type)
   WebString* responseTypeStr = WebString_create("responseType");
   WebString* arraybufferStr = WebString_create(type);
 
-  int result = WEI_setObjectProperty(xhr, object_idx_cast(responseTypeStr), object_idx_cast(arraybufferStr));
+  int result = WEI_setObjectProperty(xhr, wobject_idx(responseTypeStr), wobject_idx(arraybufferStr));
 
   WebString_destroy(arraybufferStr);
   WebString_destroy(responseTypeStr);
@@ -98,7 +97,7 @@ int WebXMLHttpRequest_setResponseType(WEI_Object xhr, const char* type)
 int WebXMLHttpRequest_readyState(WEI_Object xhr)
 {
   WebString* readyStateStr = WebString_create("readyState");
-  int result = WEI_getIntegerProperty(xhr, object_idx_cast(readyStateStr));
+  int result = WEI_getIntegerProperty(xhr, wobject_idx(readyStateStr));
   WebString_destroy(readyStateStr);
 
   return result;
@@ -112,23 +111,23 @@ int WebXMLHttpRequest_addOnReadyStateChange(WEI_Object xhr, WEI_PerformCallback1
 WebFunction* WebXMLHttpRequest_addOnLoad(WEI_Object xhr, WEI_PerformCallback1* callback, void* userdata)
 {
   WebString* type = WebString_create("load");
-  WEI_Object listenerObj = WEI_addEventListener(xhr, object_idx_cast(type), callback, userdata);
+  WEI_Object listenerObj = WEI_addEventListener(xhr, wobject_idx(type), callback, userdata);
   WebString_destroy(type);
-  return object_ptr_cast<WebFunction>(listenerObj);
+  return wobject_ptr(WebFunction, listenerObj);
 }
 
 WebFunction* WebXMLHttpRequest_addOnError(WEI_Object xhr, WEI_PerformCallback1* callback, void* userdata)
 {
   WebString* type = WebString_create("error");
-  WEI_Object listenerObj = WEI_addEventListener(xhr, object_idx_cast(type), callback, userdata);
+  WEI_Object listenerObj = WEI_addEventListener(xhr, wobject_idx(type), callback, userdata);
   WebString_destroy(type);
-  return object_ptr_cast<WebFunction>(listenerObj);
+  return wobject_ptr(WebFunction, listenerObj);
 }
 
 int WebXMLHttpRequest_removeOnLoad(WEI_Object xhr, WebFunction* listener)
 {
   WebString* type = WebString_create("load");
-  int res = WEI_removeEventListener(xhr, object_idx_cast(type), object_idx_cast(listener));
+  int res = WEI_removeEventListener(xhr, wobject_idx(type), wobject_idx(listener));
   WebString_destroy(type);
   return res;
 }
@@ -136,7 +135,7 @@ int WebXMLHttpRequest_removeOnLoad(WEI_Object xhr, WebFunction* listener)
 int WebXMLHttpRequest_removeOnError(WEI_Object xhr, WebFunction* listener)
 {
   WebString* type = WebString_create("error");
-  int res = WEI_removeEventListener(xhr, object_idx_cast(type), object_idx_cast(listener));
+  int res = WEI_removeEventListener(xhr, wobject_idx(type), wobject_idx(listener));
   WebString_destroy(type);
   return res;
 }

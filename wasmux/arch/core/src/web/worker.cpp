@@ -7,7 +7,6 @@
 #include <wasmux-config.h>
 #include <wasmux/web/worker.h>
 #include <wasmux/web/string.h>
-#include <wasmux/cxx/ObjectCast.h>
 
 WEI_Object WebWorker_create(WEI_Object url, WEI_Object name)
 {
@@ -24,7 +23,7 @@ WEI_Object WebWorker_create2(const char* url, const char* name)
 {
   WebString* urlObj = WebString_create(url);
   WebString* nameObj = WebString_create(name);
-  WEI_Object result = WebWorker_create(object_idx_cast(urlObj), object_idx_cast(nameObj));
+  WEI_Object result = WebWorker_create(wobject_idx(urlObj), wobject_idx(nameObj));
   WebString_destroy(nameObj);
   WebString_destroy(urlObj);
   return result;
@@ -33,7 +32,7 @@ WEI_Object WebWorker_create2(const char* url, const char* name)
 int WebWorker_terminate(WEI_Object worker)
 {
   WebString* terminate = WebString_create("terminate");
-  int result = WEI_callIntegerMethod(worker, object_idx_cast(terminate));
+  int result = WEI_callIntegerMethod(worker, wobject_idx(terminate));
   WebString_destroy(terminate);
   return result;
 }
