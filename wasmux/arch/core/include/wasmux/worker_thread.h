@@ -12,6 +12,7 @@
 #include <wasmux/wasm_page.h>
 #include <wasmux/wasm_header.h>
 #include <wasmux/wei.h>
+#include <wasmux/web/worker.h>
 #include <wasmux/web/webassembly.h>
 
 #ifdef __cplusplus
@@ -22,7 +23,7 @@ typedef struct WebWorkerInstance {
   char name[32];
 
   void* stack;
-  WEI_Object worker;
+  WebWorker* worker;
   void* context;
 
   // TODO: This data is here for start up use only,

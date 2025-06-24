@@ -31,11 +31,11 @@ static void workerInstanceRun(void* userdata)
   auto instance = reinterpret_cast<WebWorkerInstance*>(userdata);
 
   WebString* name = WebString_create(instance->name);
-  instance->worker =  WebWorker_create(WEI_SCRIPT_URL_ID, wobject_idx(name));
+  instance->worker =  WebWorker_create(wobject_ptr(WebString, WEI_SCRIPT_URL_ID), name);
   WebString_destroy(name);
 
-  WEI_workerInstance(instance->worker);
-  WEI_workerPerform(instance->worker, &WebWorkerInstanceInit, instance->stack);
+  WEI_workerInstance(wobject_idx(instance->worker));
+  WEI_workerPerform(wobject_idx(instance->worker), &WebWorkerInstanceInit, instance->stack);
 }
 
 void WebWorkerInstance_init(WebWorkerInstance* instance, const char* name)
@@ -48,7 +48,7 @@ void WebWorkerInstance_init(WebWorkerInstance* instance, const char* name)
    * __stack_pointer & WASM_MEMORY_PAGE_MASK
    */
   instance->stack = reinterpret_cast<char*>(instance) + WA_STACK_SIZE - sizeof(void*);
-  instance->worker = WEI_UNDEFINED_OBJECT;
+  instance->worker = nullptr;
   instance->userModule = WEI_UNDEFINED_OBJECT;
   instance->userMemory = nullptr;
   instance->meminfo.min_value = 0;
@@ -100,14 +100,14 @@ int WebWorkerInstance_startModule(struct WebWorkerInstance* instance, WEI_Object
   }
 
   WebString* name = WebString_create(instance->name);
-  instance->worker =  WebWorker_create(WEI_SCRIPT_URL_ID, wobject_idx(name));
+  instance->worker =  WebWorker_create(wobject_ptr(WebString, WEI_SCRIPT_URL_ID), name);
   WebString_destroy(name);
 
   instance->meminfo = *meminfo;
 
-  WEI_workerInstance(instance->worker);
-  WEI_workerPerform(instance->worker, &WebWorkerInstanceInit, instance->stack);
-  WEI_workerPerform1(instance->worker, &startModuleHandler, nullptr, module);
+  WEI_workerInstance(wobject_idx(instance->worker));
+  WEI_workerPerform(wobject_idx(instance->worker), &WebWorkerInstanceInit, instance->stack);
+  WEI_workerPerform1(wobject_idx(instance->worker), &startModuleHandler, nullptr, module);
 
   return 0;
 }
@@ -115,14 +115,14 @@ int WebWorkerInstance_startModule(struct WebWorkerInstance* instance, WEI_Object
 void startThreadImpl(struct WebWorkerInstance* instance, WEI_PerformCallback* callback, void* userdata)
 {
   WebString* name = WebString_create(instance->name);
-  instance->worker =  WebWorker_create(WEI_SCRIPT_URL_ID, wobject_idx(name));
+  instance->worker =  WebWorker_create(wobject_ptr(WebString, WEI_SCRIPT_URL_ID), name);
   WebString_destroy(name);
 
-  WEI_workerInstance(instance->worker);
-  WEI_workerPerform(instance->worker, &WebWorkerInstanceInit, instance->stack);
+  WEI_workerInstance(wobject_idx(instance->worker));
+  WEI_workerPerform(wobject_idx(instance->worker), &WebWorkerInstanceInit, instance->stack);
 
   if (callback) {
-    WEI_workerPerform(instance->worker, callback, userdata);
+    WEI_workerPerform(wobject_idx(instance->worker), callback, userdata);
   }
 }
 
