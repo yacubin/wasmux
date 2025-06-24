@@ -92,7 +92,6 @@ WEI_Object WEI_stringCreate(WEI_Object memory, const char* str, unsigned len);
 WEI_Object WEI_stringCreateByArgs(unsigned arg1, unsigned arg2, unsigned arg3, unsigned arg4, unsigned arg5, unsigned arg6);
 WEI_Object WEI_numberCreate(int value);
 int WEI_consoleWrite(int level, WEI_Object message);
-WEI_Object WEI_memoryCreate(unsigned initial, unsigned maximum, bool shared);
 unsigned WEI_memoryCopy(WEI_Object dstMemory, void* dstData, WEI_Object srcMemory, const void* srcData, unsigned size);
 unsigned WEI_memorySize(WEI_Object memory);
 unsigned WEI_memoryGrow(WEI_Object memory, unsigned delta);

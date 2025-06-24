@@ -238,11 +238,6 @@ int WEI_consoleWrite(int level, WEI_Object message)
   return WEI_webcall(__WEB_NR_ConsoleWrite, level, static_cast<int>(message), 0, 0, 0, 0);
 }
 
-WEI_Object WEI_memoryCreate(unsigned initial, unsigned maximum, bool shared)
-{
-  return WEI_webcall(__WEB_NR_MemoryCreate, initial, maximum, static_cast<unsigned>(shared), 0, 0, 0);
-}
-
 unsigned WEI_memoryCopy(WEI_Object dstMemory, void* dstData, WEI_Object srcMemory, const void* srcData, unsigned size)
 {
   return WEI_webcall(__WEB_NR_MemoryCopy, static_cast<unsigned>(dstMemory), object_idx_cast(dstData), static_cast<unsigned>(srcMemory), object_idx_cast(srcData), size, 0);

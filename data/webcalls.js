@@ -2,7 +2,6 @@
 module.exports = [
   { name: 'ConsoleWrite',        side: 'both'   },
   { name: 'ObjectRelease',       side: 'both'   },
-  { name: 'MemoryCreate',        side: 'both'   },
   { name: 'NumberCreate',        side: 'both'   },
   { name: 'UserInstanceStart',   side: 'worker' },
   { name: 'PostMessage2',        side: 'worker' },

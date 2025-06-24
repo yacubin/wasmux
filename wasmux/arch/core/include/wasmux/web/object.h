@@ -20,6 +20,7 @@ WEI_Object WebObject_create();
 
 WEI_Object WebObject_getProperty(WEI_Object object, const char* name);
 int WebObject_setProperty(WEI_Object object, const char* name, WEI_Object value);
+int WebObject_setIntegerProperty(WEI_Object object, const char* name, int value);
 WEI_Object WebObject_callObjMethod(WEI_Object object, const char* method, WEI_Object arg1, WEI_Object arg2, WEI_Object arg3, WEI_Object arg4);
 
 int WebObject_addEventListener(WEI_Object object, const char* type, WEI_PerformCallback1* callback, void* userdata);

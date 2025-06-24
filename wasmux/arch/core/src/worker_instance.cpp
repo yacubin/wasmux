@@ -51,7 +51,7 @@ void WebWorkerInstance_init(WebWorkerInstance* instance, const char* name)
   instance->stack = reinterpret_cast<char*>(instance) + WA_STACK_SIZE - sizeof(void*);
   instance->worker = WEI_UNDEFINED_OBJECT;
   instance->userModule = WEI_UNDEFINED_OBJECT;
-  instance->userMemory = WEI_UNDEFINED_OBJECT;
+  instance->userMemory = nullptr;
   instance->meminfo.min_value = 0;
   instance->meminfo.max_value = 0;
   instance->meminfo.has_max_value = false;
@@ -85,12 +85,12 @@ static void startModuleHandler(void* userdata, WEI_Object module)
   (void)userdata;
   auto instance = WebGetCurrentWorkerInstance();
   uint32_t max_value = instance->meminfo.has_max_value ? instance->meminfo.max_value : 100; // FIXME
-  WEI_Object memory = WEI_memoryCreate(instance->meminfo.min_value, max_value, instance->meminfo.is_shared);
+  WebAssemblyMemory* memory = WebAssemblyMemory_create(instance->meminfo.min_value, max_value, instance->meminfo.is_shared);
 
   instance->userModule = module;
   instance->userMemory = memory;
 
-  WEI_userInstanceStart(module, memory);
+  WEI_userInstanceStart(module, object_idx_cast(memory));
 }
 
 int WebWorkerInstance_startModule(struct WebWorkerInstance* instance, WEI_Object module, struct wasm_memory_info* meminfo)

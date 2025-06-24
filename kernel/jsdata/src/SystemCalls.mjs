@@ -29,18 +29,6 @@ export function sys_ConsoleWrite(level, msg_id)
   return message.length;
 }
 
-export function sys_MemoryCreate(initial, maximum, shared)
-{
-  // TODO: Move to C++ code
-  const memory = new WebAssembly.Memory({
-    initial,
-    maximum,
-    shared: !!shared,
-  });
-
-  return this.createObjectId(memory);
-}
-
 export function sys_MemoryCopy(dst_mid, dst_offset, src_mid, src_offset, size)
 {
   const dstObj = this._objects[dst_mid];

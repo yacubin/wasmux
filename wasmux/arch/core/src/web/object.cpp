@@ -33,6 +33,14 @@ int WebObject_setProperty(WEI_Object object, const char* name, WEI_Object value)
   return result;
 }
 
+int WebObject_setIntegerProperty(WEI_Object object, const char* name, int value)
+{
+  WebString* nameObj = WebString_create(name);
+  int result = WEI_setIntegerProperty(object, object_idx_cast(nameObj), value);
+  WebString_destroy(nameObj);
+  return result;
+}
+
 WEI_Object WebObject_callObjMethod(WEI_Object object, const char* method, WEI_Object arg1, WEI_Object arg2, WEI_Object arg3, WEI_Object arg4)
 {
   WebString* methodObj = WebString_create(method);
