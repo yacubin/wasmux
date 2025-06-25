@@ -165,10 +165,12 @@ template<size_t pageShift, size_t initOrder, size_t maxOrder, typename Heap>
 MemoryManager<pageShift, initOrder, maxOrder, Heap>::MemoryManager(Heap& heap)
   : m_heap(heap)
 {
-  char* heapEnd = reinterpret_cast<char*>(m_heap.heapEnd());
-
   WA_ASSERT(isPagePointer(m_heap.data()));
-  WA_ASSERT(heapEnd == reinterpret_cast<char*>(m_heap.data()) + pageSize * m_heap.size());
+  char* heapEnd =  reinterpret_cast<char*>(m_heap.data()) + pageSize * m_heap.size();
+
+  if (reinterpret_cast<char*>(m_heap.heapEnd()) != heapEnd) {
+    LOG_WARN("End of heap does not match current memory size");
+  }
 
   char* firstPage = startOfPage<char*>(m_heap.heapBase());
 
