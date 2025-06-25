@@ -3,7 +3,9 @@ declare function createInstance(moduleUrl: string): Promise<WrapperInstance>;
 export interface WrapperInstance {
 	set baseFsUrl(value: string);
 	set onmessage(callback: () => void);
-	get drivers(): any;
+	registerDriver(name: string, driverClass: any): void;
+	start(): void;
+	stop(): void;
 }
 
 export {

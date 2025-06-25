@@ -1,7 +1,7 @@
 import { BaseThreadContext } from './BaseThreadContext.mjs';
 import webcalls from 'generated/MainCalls.mjs';
 
-class MainThreadContext extends BaseThreadContext {
+export class MainContext extends BaseThreadContext {
   constructor({kernelModule, kernelMemory, scriptUrl}) {
     super(kernelModule, kernelMemory, window, scriptUrl);
     this._webcalls = webcalls;
@@ -14,13 +14,8 @@ class MainThreadContext extends BaseThreadContext {
     this._kernel = kinst.exports;
     this._kernel._start_kernel();
   }
-};
 
-export class Kernel {
-  _system;
-  _workerUrl;
-
-  constructor(kernelModule) {
+  static create(kernelModule, workerUrl) {
     if (!crossOriginIsolated) {
       throw 'Only crossOriginIsolated'
     }
@@ -31,16 +26,6 @@ export class Kernel {
       shared: true,
     });
 
-    const workerList = WebAssembly.Module.customSections(kernelModule, process.env.WASMUX_WORKER_SECTION);
-    const workerBlob = new Blob(workerList, { type: 'application/javascript' });
-    this._workerUrl = URL.createObjectURL(workerBlob);
-
-    this._system = new MainThreadContext({kernelModule, kernelMemory, scriptUrl: this._workerUrl});
-
-    setTimeout(async () => await this._system.init(), 0);
+    return new MainContext({kernelModule, kernelMemory, scriptUrl: workerUrl});
   }
-
-  terminate() {
-    URL.revokeObjectURL(this._workerUrl);
-  }
-}
+};
