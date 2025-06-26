@@ -1,8 +1,11 @@
-const path = require("node:path");
-const webpack = require("webpack");
+import path from "node:path";
+import url from "node:url";
+import webpack from 'webpack';
 
-module.exports = async function(mk)
-{
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export default async function(mk) {
   const isDebug = (mk.BUILD_TYPE === "Debug");
 
   const defineParams = {};
