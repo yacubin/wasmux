@@ -18,8 +18,8 @@ export default function(mk) {
   mk.ASM_FLAGS.push("-D__ASSEMBLY__");
 
   mk.executeScript("wasmux-config.h.js", {
-    input: mk.getCacheVariables(),
-    output: mk.BINARY_DIR.join("wasmux-config.h"),
+    SCRIPT_INPUT: mk.getCacheVariables(),
+    SCRIPT_OUTPUT: mk.BINARY_DIR.join("wasmux-config.h"),
   });
 
   mk.addIncludeDirectories(mk.BINARY_DIR);

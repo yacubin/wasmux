@@ -1,15 +1,13 @@
 const fs = require("node:fs");
-const path = require("node:path");
-
 const { cxx } = require("bitmake");
 
-module.exports = ({input, output}) => {
+module.exports = (mk) => {
   const lines = [];
 
   lines.push(cxx.generatedScriptNameComment(__filename));
   lines.push("");
 
-  for (const [name, entry] of Object.entries(input)) {
+  for (const [name, entry] of Object.entries(mk.SCRIPT_INPUT)) {
     if (entry.description) {
       lines.push(`/* ${entry.description} */`);
     }
@@ -31,6 +29,6 @@ module.exports = ({input, output}) => {
     lines.push("");
   }
 
-  fs.mkdirSync(path.dirname(output), { recursive: true });
-  fs.writeFileSync(output, lines.join('\n'), "utf8");
+  fs.mkdirSync(mk.SCRIPT_OUTPUT.dirname().toString(), { recursive: true });
+  fs.writeFileSync(mk.SCRIPT_OUTPUT.toString(), lines.join('\n'), "utf8");
 }
