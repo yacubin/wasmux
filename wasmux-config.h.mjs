@@ -1,10 +1,10 @@
-const fs = require("node:fs");
-const { cxx } = require("bitmake");
+import fs from "node:fs";
+import bitmake from "bitmake";
 
-module.exports = (mk) => {
+export default async function(mk) {
   const lines = [];
 
-  lines.push(cxx.generatedScriptNameComment(__filename));
+  lines.push(bitmake.cxx.generatedScriptNameComment(import.meta.filename));
   lines.push("");
 
   for (const [name, entry] of Object.entries(mk.SCRIPT_INPUT)) {
@@ -29,6 +29,6 @@ module.exports = (mk) => {
     lines.push("");
   }
 
-  fs.mkdirSync(mk.SCRIPT_OUTPUT.dirname().toString(), { recursive: true });
-  fs.writeFileSync(mk.SCRIPT_OUTPUT.toString(), lines.join('\n'), "utf8");
+  await fs.promises.mkdir(mk.SCRIPT_OUTPUT.dirname().toPath(), { recursive: true });
+  await fs.promises.writeFile(mk.SCRIPT_OUTPUT.toPath(), lines.join('\n'), "utf8");
 }

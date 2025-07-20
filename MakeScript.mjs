@@ -17,7 +17,7 @@ export default function(mk) {
 
   mk.ASM_FLAGS.push("-D__ASSEMBLY__");
 
-  mk.executeScript("wasmux-config.h.js", {
+  mk.executeScript("wasmux-config.h.mjs", {
     SCRIPT_INPUT: mk.getCacheVariables(),
     SCRIPT_OUTPUT: mk.BINARY_DIR.join("wasmux-config.h"),
   });
