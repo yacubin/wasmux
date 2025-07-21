@@ -105,6 +105,7 @@ export default (mk) => {
     "stub/sched_setscheduler.cpp",
     "stub/sched_yield.cpp",
     "stub/setjmp.cpp",
+    "stub/stack_chk_fail.cpp",
     "stub/stdlib.cpp",
     "stub/strtol.cpp",
     "stub/syslog.cpp",

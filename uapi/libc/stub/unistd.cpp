@@ -239,6 +239,13 @@ int execlp(const char* path, const char* arg, ...)
   return -1;
 }
 
+int execle(const char* path, const char* arg, ...)
+{
+  abort();
+  errno = ENOSYS;
+  return -1;
+}
+
 int execv(const char* path, char* const argv[])
 {
   abort();
