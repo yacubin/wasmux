@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   WASMUX_ARCH: {
     description: "Target architecture for libc",
     type: [ "user", "core", "seal" ],

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   WASMUX_LIBC: true,
   WASMUX_ENV_WITH_LIBC: true,
   WASMUX_LIBC_FEATURES: "glibc",

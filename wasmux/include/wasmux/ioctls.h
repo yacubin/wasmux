@@ -19,6 +19,8 @@
 #define FIONREAD   0x541B     /* Command to get the number of bytes available to read */
 #define FIONBIO    0x5421     /* Command to enable or disable non-blocking mode */
 #define TIOCGSID   0x5429     /* Command to get the session ID of the terminal */
-#define TIOCGPTN   0x80045430 /* Command to get the PTY number of a pseudoterminal */
+#define FIONCLEX   0x5450     /* Command to clear the close-on-exec (FD_CLOEXEC) flag on a file descriptor */
+#define FIOCLEX    0x5451     /* Command to set the close-on-exec (FD_CLOEXEC) flag on a file descriptor */
+#define TIOCGPTN   0x80045430 /* Command to get the PTY number of a pseudo terminal */
 
 #endif /* _WASMUX_IOCTLS_H */

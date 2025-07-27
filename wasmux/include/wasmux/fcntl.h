@@ -35,6 +35,10 @@
 
 #define O_TMPFILE (__O_TMPFILE | O_DIRECTORY)
 
+#ifndef O_NDELAY
+#define O_NDELAY O_NONBLOCK
+#endif
+
 #define FD_CLOEXEC 1
 
 #endif /* _WASMUX_FCNTL_H */

@@ -16,6 +16,8 @@ extern "C" {
 #define isnan(x) __builtin_isnan(x)
 #define isinf(x) __builtin_isinf(x)
 
+#define NAN      __builtin_nanf("")
+#define INFINITY __builtin_inff()
 #define HUGE_VAL __builtin_huge_val()
 
 #ifndef M_PI
@@ -38,7 +40,11 @@ double ldexp(double x, int exp);
 double frexp(double x, int* exp);
 
 double ceil(double x);
+float ceilf(float x);
+
 double floor(double x);
+float floorf(float x);
+
 double log(double x);
 
 double sqrt(double x);
@@ -48,6 +54,7 @@ double cos(double x);
 double sin(double x);
 
 double fabs(double x);
+float fabsf(float x);
 long double fabsl(long double x);
 
 double log2(double x);
@@ -68,7 +75,10 @@ double modf(double x, double* iptr);
 
 double pow(double x, double y);
 double atan2(double y, double x);
+
 double rint(double x);
+float rintf(float x);
+
 long lrint(double x);
 
 #ifdef __cplusplus

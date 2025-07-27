@@ -1,8 +1,8 @@
 import fs from "node:fs";
 
 export default function(mk) {
-  mk.addCacheVariables("wasmux/MakeConfig.js");
-  mk.addCacheVariables(`wasmux/arch/${mk.WASMUX_ARCH}/MakeConfig.js`);
+  mk.addCacheVariables("wasmux/MakeConfig.mjs");
+  mk.addCacheVariables(`wasmux/arch/${mk.WASMUX_ARCH}/MakeConfig.mjs`);
 
   mk.WASMUX_VERSION = mk.PROJECT_VERSION;
   mk.WASMUX_DESCRIPTION = mk.PROJECT_DESCRIPTION;
@@ -46,9 +46,9 @@ export default function(mk) {
       "set(CONFIG_EXPORT_DYNAMIC ON)",
       "set(CONFIG_STACK_FIRST ON)",
       "set(CONFIG_STACK_SIZE 131072)",
-      "set(CONFIG_MAX_MEMORY 2147483648)",
       "",
       `set(WASMUX_TARGET_TRIPLET ${mk.WASMUX_TARGET_TRIPLET})`,
+      `set(WASMUX_MAX_MEMORY ${mk.WASMUX_MAX_MEMORY})`,
       "",
       "set(WASMUX_GLOBAL_BASE 0)",
       "set(WASMUX_NO_GC_SECTIONS OFF)",
