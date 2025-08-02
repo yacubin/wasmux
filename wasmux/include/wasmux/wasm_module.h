@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_KERNEL_WASM_MODULE_H
-#define _WA_KERNEL_WASM_MODULE_H
+#ifndef _WASMUX_WASM_MODULE_H
+#define _WASMUX_WASM_MODULE_H
 
 #include <wasmux/types.h>
 #include <wasmux/limits.h>
@@ -40,4 +40,4 @@ int wa_module_reader_read_name(struct wa_module_reader* reader, char* buf, size_
 }
 #endif
 
-#endif /* _WA_KERNEL_WASM_MODULE_H */
+#endif /* _WASMUX_WASM_MODULE_H */
