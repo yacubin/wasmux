@@ -28,6 +28,16 @@ extern "C" {
 #define W_OK 2
 #define R_OK 4
 
+// Retry expression if it fails with EINTR
+#define TEMP_FAILURE_RETRY(exp)           \
+  ({                                      \
+    __typeof__(exp) ret;                  \
+    do {                                  \
+      ret = (exp);                        \
+    } while(ret == -1 && errno == EINTR); \
+    ret;                                  \
+  })
+
 int access(const char* path, int mode);
 int link(const char* oldpath, const char* newpath);
 int unlink(const char* path);
@@ -64,10 +74,6 @@ ssize_t pwrite(int fd, const void* data, size_t size, off_t offset);
 
 long fpathconf(int fd, int name);
 long pathconf(const char* path, int name);
-
-int isatty(int fd);
-char* ttyname(int fd);
-int ttyname_r(int fd, char* buf, size_t len);
 
 unsigned sleep(unsigned seconds);
 int usleep(useconds_t usec);
@@ -110,8 +116,6 @@ int setresuid(uid_t ruid, uid_t euid, uid_t suid);
 int setresgid(gid_t rgid, gid_t egid, gid_t sgid);
 pid_t setsid(void);
 pid_t getpgrp(void);
-pid_t tcgetpgrp(int fd);
-int tcsetpgrp(int fd, pid_t pidgrp);
 
 char* getlogin(void);
 int getpagesize(void);
@@ -131,6 +135,7 @@ pid_t fork(void);
 pid_t vfork(void);
 
 int execl(const char* path, const char* arg, ...);
+int execle(const char* path, const char* arg, ...);
 int execlp(const char* path, const char* arg, ...);
 int execv(const char* path, char* const argv[]);
 int execvp(const char* path, char* const argv[]);

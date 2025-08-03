@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_KERNEL_SIZEOF_H
-#define _WA_KERNEL_SIZEOF_H
+#ifndef _WASMUX_SIZEOF_H
+#define _WASMUX_SIZEOF_H
 
 #ifndef __SIZEOF_LONG__
 # if defined(__wasm64__) || defined(__LP64__)
@@ -19,4 +19,4 @@
 # define __SIZEOF_VOIDP__ __SIZEOF_LONG__
 #endif
 
-#endif /* _WA_KERNEL_SIZEOF_H */
+#endif /* _WASMUX_SIZEOF_H */

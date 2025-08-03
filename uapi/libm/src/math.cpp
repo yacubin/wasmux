@@ -92,7 +92,19 @@ double ceil(double x)
   return 0.0;
 }
 
+float ceilf(float x)
+{
+  assert(0);
+  return 0.0f;
+}
+
 double floor(double x)
+{
+  assert(0);
+  return 0.0;
+}
+
+float floorf(float x)
 {
   assert(0);
   return 0.0;
@@ -126,6 +138,12 @@ double fabs(double x)
 {
   assert(0);
   return 0.0;
+}
+
+float fabsf(float x)
+{
+  assert(0);
+  return 0.0f;
 }
 
 long double fabsl(long double x)
@@ -219,6 +237,12 @@ double atan2(double y, double x)
 }
 
 double rint(double x)
+{
+  assert(0);
+  return 0.0;
+}
+
+float rintf(float x)
 {
   assert(0);
   return 0.0;

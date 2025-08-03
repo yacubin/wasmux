@@ -15,7 +15,7 @@ export default async (mk) => {
       lines.push(`__SYSCALL(${number}, x, sys_ni_syscall)`);
     else
       lines.push(`__SYSCALL(${number}, ${argc}, ${func})`);
-      nextNumber = number + 1;
+    nextNumber = number + 1;
   }
 
   await fs.promises.mkdir(path.dirname(mk.SCRIPT_OUTPUT.toString()), { recursive: true });

@@ -14,7 +14,6 @@
 #include <wasmux/log.h>
 #include <wasmux/web/string.h>
 #include <wasmux/cxx/Characters.h>
-#include <wasmux/cxx/ObjectCast.h>
 
 #include <wasmux/memory_alloc.h>
 #include <wasmux/web/worker.h>
@@ -32,11 +31,11 @@ static void workerInstanceRun(void* userdata)
   auto instance = reinterpret_cast<WebWorkerInstance*>(userdata);
 
   WebString* name = WebString_create(instance->name);
-  instance->worker =  WebWorker_create(WEI_SCRIPT_URL_ID, object_idx_cast(name));
+  instance->worker =  WebWorker_create(wobject_ptr(WebString, WEI_SCRIPT_URL_ID), name);
   WebString_destroy(name);
 
-  WEI_workerInstance(instance->worker);
-  WEI_workerPerform(instance->worker, &WebWorkerInstanceInit, instance->stack);
+  WEI_workerInstance(wobject_idx(instance->worker));
+  WEI_workerPerform(wobject_idx(instance->worker), &WebWorkerInstanceInit, instance->stack);
 }
 
 void WebWorkerInstance_init(WebWorkerInstance* instance, const char* name)
@@ -49,9 +48,9 @@ void WebWorkerInstance_init(WebWorkerInstance* instance, const char* name)
    * __stack_pointer & WASM_MEMORY_PAGE_MASK
    */
   instance->stack = reinterpret_cast<char*>(instance) + WA_STACK_SIZE - sizeof(void*);
-  instance->worker = WEI_UNDEFINED_OBJECT;
+  instance->worker = nullptr;
   instance->userModule = WEI_UNDEFINED_OBJECT;
-  instance->userMemory = WEI_UNDEFINED_OBJECT;
+  instance->userMemory = nullptr;
   instance->meminfo.min_value = 0;
   instance->meminfo.max_value = 0;
   instance->meminfo.has_max_value = false;
@@ -85,12 +84,12 @@ static void startModuleHandler(void* userdata, WEI_Object module)
   (void)userdata;
   auto instance = WebGetCurrentWorkerInstance();
   uint32_t max_value = instance->meminfo.has_max_value ? instance->meminfo.max_value : 100; // FIXME
-  WEI_Object memory = WEI_memoryCreate(instance->meminfo.min_value, max_value, instance->meminfo.is_shared);
+  WebAssemblyMemory* memory = WebAssemblyMemory_create(instance->meminfo.min_value, max_value, instance->meminfo.is_shared);
 
   instance->userModule = module;
   instance->userMemory = memory;
 
-  WEI_userInstanceStart(module, memory);
+  WEI_userInstanceStart(module, wobject_idx(memory));
 }
 
 int WebWorkerInstance_startModule(struct WebWorkerInstance* instance, WEI_Object module, struct wasm_memory_info* meminfo)
@@ -101,14 +100,14 @@ int WebWorkerInstance_startModule(struct WebWorkerInstance* instance, WEI_Object
   }
 
   WebString* name = WebString_create(instance->name);
-  instance->worker =  WebWorker_create(WEI_SCRIPT_URL_ID, object_idx_cast(name));
+  instance->worker =  WebWorker_create(wobject_ptr(WebString, WEI_SCRIPT_URL_ID), name);
   WebString_destroy(name);
 
   instance->meminfo = *meminfo;
 
-  WEI_workerInstance(instance->worker);
-  WEI_workerPerform(instance->worker, &WebWorkerInstanceInit, instance->stack);
-  WEI_workerPerform1(instance->worker, &startModuleHandler, nullptr, module);
+  WEI_workerInstance(wobject_idx(instance->worker));
+  WEI_workerPerform(wobject_idx(instance->worker), &WebWorkerInstanceInit, instance->stack);
+  WEI_workerPerform1(wobject_idx(instance->worker), &startModuleHandler, nullptr, module);
 
   return 0;
 }
@@ -116,14 +115,14 @@ int WebWorkerInstance_startModule(struct WebWorkerInstance* instance, WEI_Object
 void startThreadImpl(struct WebWorkerInstance* instance, WEI_PerformCallback* callback, void* userdata)
 {
   WebString* name = WebString_create(instance->name);
-  instance->worker =  WebWorker_create(WEI_SCRIPT_URL_ID, object_idx_cast(name));
+  instance->worker =  WebWorker_create(wobject_ptr(WebString, WEI_SCRIPT_URL_ID), name);
   WebString_destroy(name);
 
-  WEI_workerInstance(instance->worker);
-  WEI_workerPerform(instance->worker, &WebWorkerInstanceInit, instance->stack);
+  WEI_workerInstance(wobject_idx(instance->worker));
+  WEI_workerPerform(wobject_idx(instance->worker), &WebWorkerInstanceInit, instance->stack);
 
   if (callback) {
-    WEI_workerPerform(instance->worker, callback, userdata);
+    WEI_workerPerform(wobject_idx(instance->worker), callback, userdata);
   }
 }
 
@@ -167,8 +166,8 @@ static void onErrorCompile(void* userdata, WEI_Object reason)
 
 static void onStartBinaryHandler(void* userdata, WEI_Object buffer)
 {
-  Uint8ClampedArray* bytes = WebArrayBuffer_toUint8ClampedArray(object_ptr_cast<WebArrayBuffer>(buffer));
-  WEI_Object promise = WebAssembly_compile(object_idx_cast(bytes));
+  Uint8ClampedArray* bytes = WebArrayBuffer_toUint8ClampedArray(wobject_ptr(WebArrayBuffer, buffer));
+  WEI_Object promise = WebAssembly_compile(wobject_idx(bytes));
   Uint8ClampedArray_destroy(bytes);
   WEI_promiseThen(promise, &onResultCompile, &onErrorCompile, userdata);
   WEI_objectRelease(promise);
@@ -184,7 +183,7 @@ int WebWorkerInstance_startBinarySync(struct WebWorkerInstance* instance, WebArr
   data.meminfo = meminfo;
   data.ec = EIO;
 
-  int ec = WEI_postMessage1(&onStartBinaryHandler, &data, object_idx_cast(buffer));
+  int ec = WEI_postMessage1(&onStartBinaryHandler, &data, wobject_idx(buffer));
 	if (ec < 0)
 		return ec;
 

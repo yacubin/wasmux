@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_KERNEL_WASM_HEADER_H
-#define _WA_KERNEL_WASM_HEADER_H
+#ifndef _WASMUX_WASM_HEADER_H
+#define _WASMUX_WASM_HEADER_H
 
 #include <wasmux/int-types.h>
 
@@ -57,4 +57,4 @@ struct wasm_memory_info {
   bool is_shared;
 };
 
-#endif /* _WA_KERNEL_WASM_HEADER_H */
+#endif /* _WASMUX_WASM_HEADER_H */

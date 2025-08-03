@@ -5,10 +5,11 @@
  */
 
 #include <wasmux-config.h>
+#include <wasmux/compiler.h>
+
 #include <unistd.h>
 #include <errno.h>
 #include <stdlib.h>
-#include <wasmux/compiler.h>
 
 int fsync(int fd)
 {
@@ -175,13 +176,6 @@ pid_t setsid(void)
   return -1;
 }
 
-int tcsetpgrp(int fd, pid_t pidgrp)
-{
-  abort();
-  errno = ENOSYS;
-  return -1;
-}
-
 char* getlogin(void)
 {
   abort();
@@ -239,6 +233,13 @@ int execl(const char* path, const char* arg, ...)
 }
 
 int execlp(const char* path, const char* arg, ...)
+{
+  abort();
+  errno = ENOSYS;
+  return -1;
+}
+
+int execle(const char* path, const char* arg, ...)
 {
   abort();
   errno = ENOSYS;

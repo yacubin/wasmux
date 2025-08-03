@@ -25,26 +25,8 @@ __EXPORT_BEGIN
 
 #ifdef WASMUX_KERNEL_EXPORT
 
-WASMUX_KERNEL_EXPORT(WASMUX_KERNEL_MODULE, WASMUX_KERNEL_SYSCALL0)
-long __kernel_syscall0(long number);
-
-WASMUX_KERNEL_EXPORT(WASMUX_KERNEL_MODULE, WASMUX_KERNEL_SYSCALL1)
-long __kernel_syscall1(long number, long arg1);
-
-WASMUX_KERNEL_EXPORT(WASMUX_KERNEL_MODULE, WASMUX_KERNEL_SYSCALL2)
-long __kernel_syscall2(long number, long arg1, long arg2);
-
-WASMUX_KERNEL_EXPORT(WASMUX_KERNEL_MODULE, WASMUX_KERNEL_SYSCALL3)
-long __kernel_syscall3(long number, long arg1, long arg2, long arg3);
-
-WASMUX_KERNEL_EXPORT(WASMUX_KERNEL_MODULE, WASMUX_KERNEL_SYSCALL4)
-long __kernel_syscall4(long number, long arg1, long arg2, long arg3, long arg4);
-
-WASMUX_KERNEL_EXPORT(WASMUX_KERNEL_MODULE, WASMUX_KERNEL_SYSCALL5)
-long __kernel_syscall5(long number, long arg1, long arg2, long arg3, long arg4, long arg5);
-
-WASMUX_KERNEL_EXPORT(WASMUX_KERNEL_MODULE, WASMUX_KERNEL_SYSCALL6)
-long __kernel_syscall6(long number, long arg1, long arg2, long arg3, long arg4, long arg5, long arg6);
+WASMUX_KERNEL_EXPORT(WASMUX_KERNEL_MODULE, WASMUX_KERNEL_SYSCALL)
+long __kernel_syscall(long number, long arg1, long arg2, long arg3, long arg4, long arg5, long arg6);
 
 #endif /* WASMUX_KERNEL_EXPORT */
 

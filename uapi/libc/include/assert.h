@@ -11,12 +11,8 @@
 #ifdef	NDEBUG
 #define assert(...) ((void)0)
 #else
-#define assert(expr) do { \
-    if (__UNLIKELY(expr)) { \
-      __assert_fail(#expr, __FILE__, __LINE__, __PRETTY_FUNCTION__); \
-    } \
-  } while (0)
-
+#define assert(expr) ((expr) ? ((void)0) : \
+  __assert_fail(#expr, __FILE__, __LINE__, __PRETTY_FUNCTION__))
 #endif
 
 #ifdef __cplusplus

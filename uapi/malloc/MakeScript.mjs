@@ -15,12 +15,12 @@ export default (mk) => {
   mk.target("libc").addSources(headers, sources);
   mk.target("libc").addPublicIncludes(includes);
 
-  mk.script("<stdlib.h>").mergeVariables({
-    SCRIPT_INCLUDES: [ "#include <alloca.h>", "#include <malloc.h>" ],
-  });
-
   mk.install(headers, {
     destination: mk.INSTALL_INCLUDEDIR,
     baseDir: "include",
+  });
+
+  mk.script("<stdlib.h>").mergeVariables({
+    SCRIPT_INCLUDES: [ "#include <alloca.h>", "#include <malloc.h>" ],
   });
 }

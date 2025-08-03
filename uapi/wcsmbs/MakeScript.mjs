@@ -1,8 +1,7 @@
 export default (mk) => {
   const headers = [
-    "include/bits/wcsmbs_base.h",
-    "include/wcsmbs.h",
-    "include/wctype.h",
+    "include/bits/stdlib_wcsmbs.h",
+    "include/bits/wchar_wcsmbs.h",
   ];
 
   const sources = [
@@ -27,7 +26,6 @@ export default (mk) => {
     "src/wcstombs.cpp",
     "src/wctob.cpp",
     "src/wctomb.cpp",
-    "src/wctype.cpp",
     "src/wmemchr.cpp",
     "src/wmemcpy.cpp",
   ];
@@ -36,15 +34,18 @@ export default (mk) => {
     mk.SOURCE_DIR.join("include"),
   ];
 
-  mk.script("<stdlib.h>").mergeVariables({
-    SCRIPT_INCLUDES: [ "#include <bits/wcsmbs_base.h>" ],
-  });
-
   mk.target("libc").addSources(headers, sources);
   mk.target("libc").addPublicIncludes(includes);
 
   mk.install(headers, {
     destination: mk.INSTALL_INCLUDEDIR,
     baseDir: "include",
+  });
+
+  mk.script("<stdlib.h>").mergeVariables({
+    SCRIPT_INCLUDES: [ "#include <bits/stdlib_wcsmbs.h>" ],
+  });
+  mk.script("<wchar.h>").mergeVariables({
+    SCRIPT_INCLUDES: [ "#include <bits/wchar_wcsmbs.h>" ],
   });
 }

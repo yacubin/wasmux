@@ -86,6 +86,18 @@ ssize_t sendmsg(int sock, const struct msghdr* message, int flags)
   return -1;
 }
 
+int sendmmsg(int fd, struct mmsghdr* msgvec, unsigned vlen, unsigned flags)
+{
+  assert(0);
+  return -1;
+}
+
+int recvmmsg(int fd, struct mmsghdr* msgvec, unsigned vlen, unsigned flags, struct timespec* timeout)
+{
+  assert(0);
+  return -1;
+}
+
 int getpeername(int sock, struct sockaddr* addr, socklen_t* addrlen)
 {
   assert(0);

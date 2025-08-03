@@ -1,7 +1,7 @@
 export default (mk) => {
   const headers = [
     "include/bits/file_struct.h",
-    "include/libio_wchar.h",
+    "include/bits/wchar_libio.h",
     "include/stdio.h",
     "include/stdio_ext.h",
   ];
@@ -15,7 +15,7 @@ export default (mk) => {
     "src/getc_unlocked.cpp",
     "src/getdelim.cpp",
     "src/getline.cpp",
-    "src/libio_wchar.cpp",
+    "src/putwc.cpp",
     "src/putc.cpp",
     "src/setvbuf.cpp",
     "src/sprintf.cpp",
@@ -33,5 +33,9 @@ export default (mk) => {
   mk.install(headers, {
     destination: mk.INSTALL_INCLUDEDIR,
     baseDir: "include",
+  });
+
+  mk.script("<wchar.h>").mergeVariables({
+    SCRIPT_INCLUDES: [ "#include <bits/wchar_libio.h>" ],
   });
 }

@@ -6,11 +6,12 @@
 
 #include <wasmux-config.h>
 #include <wasmux/worker_thread.h>
+#include <wasmux/wei.h>
 
 unsigned WebGetCurrentWorkerId()
 {
   WebWorkerInstance* instance = WebGetCurrentWorkerInstance();
   if (instance == WebGetMainInstance())
     return WEI_UNDEFINED_OBJECT;
-  return instance->worker;
+  return wobject_idx(instance->worker);
 }

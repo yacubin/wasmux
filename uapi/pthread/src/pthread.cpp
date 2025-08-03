@@ -5,8 +5,8 @@
  */
 
 #include <wasmux-config.h>
-#include <pthread.h>
 #include <wasmux/assert.h>
+#include <pthread.h>
 
 int pthread_mutexattr_init(pthread_mutexattr_t *attr)
 {
@@ -57,6 +57,24 @@ int pthread_mutex_lock(pthread_mutex_t* mutex)
 }
 
 int pthread_mutex_unlock(pthread_mutex_t* mutex)
+{
+  WA_UNREACHABLE();
+  return -1;
+}
+
+int pthread_condattr_init(pthread_condattr_t* condattr)
+{
+  WA_UNREACHABLE();
+  return -1;
+}
+
+int pthread_condattr_destroy(pthread_condattr_t* condattr)
+{
+  WA_UNREACHABLE();
+  return -1;
+}
+
+int pthread_condattr_setclock(pthread_condattr_t* condattr, clockid_t clock_id)
 {
   WA_UNREACHABLE();
   return -1;
@@ -294,6 +312,30 @@ int pthread_getschedparam(pthread_t thread, int* policy, struct sched_param* par
 }
 
 int pthread_setcancelstate(int state, int* oldstate)
+{
+  WA_UNREACHABLE();
+  return -1;
+}
+
+int pthread_getname_np(pthread_t thread, char* buf, size_t len)
+{
+  WA_UNREACHABLE();
+  return -1;
+}
+
+int pthread_setname_np(pthread_t thread, const char* name)
+{
+  WA_UNREACHABLE();
+  return -1;
+}
+
+int pthread_getaffinity_np(pthread_t thread, size_t cpuset_size, cpu_set_t* cpuset)
+{
+  WA_UNREACHABLE();
+  return -1;
+}
+
+int pthread_setaffinity_np(pthread_t thread, size_t cpuset_size, const cpu_set_t* cpuset)
 {
   WA_UNREACHABLE();
   return -1;

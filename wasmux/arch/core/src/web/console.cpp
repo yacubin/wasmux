@@ -5,16 +5,16 @@
  */
 
 #include <wasmux-config.h>
+#include <wasmux/wei.h>
 #include <wasmux/bulk-memory.h>
 #include <wasmux/web/console.h>
 #include <wasmux/web/string.h>
 #include <wasmux/cxx/PrintTo.h>
-#include <wasmux/cxx/ObjectCast.h>
 
 int WebConsoleWrite(int level, const char* message, unsigned length)
 {
   WebString* msg = WebString_create2(message, length);
-  int result = WEI_consoleWrite(level, object_idx_cast(msg));
+  int result = WEI_consoleWrite(level, wobject_idx(msg));
   WebString_destroy(msg);
   return result;
 }

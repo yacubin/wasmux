@@ -1,11 +1,11 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_INTPROPS_H
-#define _WA_LIBC_INTPROPS_H
+#ifndef _GL_INTPROPS_H
+#define _GL_INTPROPS_H
 
 #include <stdint.h>
 
@@ -14,4 +14,4 @@
 #define TYPE_MINIMUM(t) (TYPE_SIGNED(type) ? (type)((type)1 << (TYPE_WIDTH(type) - 1)) : (type)0)
 #define TYPE_MAXIMUM(type) ((type)(~TYPE_MINIMUM(type)))
 
-#endif /* _WA_LIBC_INTPROPS_H */
+#endif /* _GL_INTPROPS_H */

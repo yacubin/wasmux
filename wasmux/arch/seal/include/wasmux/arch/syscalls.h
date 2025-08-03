@@ -24,8 +24,7 @@
 #define __SC_NR_CAST(name) __SEAL_##name
 #define __SR_NO_CAST(name) name
 
-#define ___DO_SYSCALL(...) __SYSCALL_CALL(__VA_ARGS__, 6, 5, 4, 3, 2, 1, 0)
-#define __DO_SYSCALL(...) ___DO_SYSCALL(__SC_NR_CAST, __VA_ARGS__)
-#define __SYSCALL(...) ___DO_SYSCALL(__SR_NO_CAST, __VA_ARGS__)
+#define __DO_SYSCALL(...) __SYSCALL_CALL(__SC_NR_CAST, __VA_ARGS__, 6, 5, 4, 3, 2, 1, 0)
+#define __SYSCALL(...) __SYSCALL_CALL(__SR_NO_CAST, __VA_ARGS__, 6, 5, 4, 3, 2, 1, 0)
 
 #endif /* _WASMUX_ARCH_SYSCALLS_H */

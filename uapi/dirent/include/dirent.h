@@ -28,12 +28,20 @@ extern "C" {
 
 typedef struct __dir_struct DIR;
 
-struct dirent {
+/*struct dirent {
   ino_t d_ino;
-  unsigned short int d_reclen;
+  unsigned short d_reclen;
   unsigned char d_type;
   unsigned char d_namlen;
   char d_name[1];
+};*/
+
+struct dirent {
+  unsigned long d_ino;
+  unsigned long d_off;
+  unsigned short d_reclen;
+  unsigned char d_type;
+  char d_name[MAXNAMLEN + 1];
 };
 
 struct dirent* readdir(DIR* dirp);
@@ -51,7 +59,7 @@ int scandir(const char* dirname, struct dirent*** namelist,
 
 int alphasort(const struct dirent** a, const struct dirent** b);
 int versionsort(const struct dirent** a, const struct dirent** b);
-ssize_t getdents(int fd, void* dir_list, size_t count);
+int getdents(int fd, struct dirent* dir_list, size_t count);
 
 #ifdef __cplusplus
 }

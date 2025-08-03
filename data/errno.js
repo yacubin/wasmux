@@ -33,6 +33,7 @@ module.exports.errors = {
     EROFS:          E(30,  "Read-only filesystem"),
     EMLINK:         E(31,  "Too many links"),
     EPIPE:          E(32,  "Broken pipe"),
+    EDOM:           E(33,  "Mathematics argument out of domain of function"),
     ERANGE:         E(34,  "Math result not representable"),
     ENAMETOOLONG:   E(36,  "Filename too long"),
     ENOLCK:         E(37,  "No locks available"),
@@ -47,6 +48,7 @@ module.exports.errors = {
     EMSGSIZE:       E(90,  "Message too long"),
     EOPNOTSUPP:     E(95,  "Operation not supported on socket"),
     EAFNOSUPPORT:   E(97,  "Address family not supported"),
+    EADDRINUSE:     E(98,  "Address already in use"),
     EADDRNOTAVAIL:  E(99,  "Address not available"),
     ECONNABORTED:   E(103, "Connection aborted"),
     ECONNRESET:     E(104, "Connection reset"),
@@ -59,6 +61,7 @@ module.exports.errors = {
     ESTALE:         E(116, "Stale file handle"),
     EDQUOT:         E(122, "Disk quota exceeded"),
     ECANCELED:      E(125, "Operation canceled"),
+    EOWNERDEAD:     E(130, "Owner died"),
 };
 module.exports.aliases = {
   ENOTSUP:     "EOPNOTSUPP",

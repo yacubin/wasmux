@@ -7,7 +7,7 @@ export default async (mk) => {
   });
 
   const loader_js = mk.BINARY_DIR.join("dist/loader.js");
-  mk.addCustomScript("loader.build.js", {
+  mk.addCustomScript("loader.build.mjs", {
     SCRIPT_INPUT: MainCalls_mjs,
     SCRIPT_OUTPUT: loader_js,
   });
@@ -27,7 +27,7 @@ export default async (mk) => {
   });
 
   const worker_js = mk.BINARY_DIR.join("dist/worker.js");
-  mk.addCustomScript("worker.build.js", {
+  mk.addCustomScript("worker.build.mjs", {
     SCRIPT_INPUT: WorkerCalls_mjs,
     SCRIPT_OUTPUT: worker_js,
   });
@@ -39,5 +39,5 @@ export default async (mk) => {
     SCRIPT_SECTION: mk.WASMUX_WORKER_SECTION,
   });
 
-  mk.target("walinuz").addSources(loader_S, worker_S);
+  mk.target("kapsule").addSources(loader_S, worker_S);
 }

@@ -1,11 +1,11 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_KERNEL_SCHED_H
-#define _WA_KERNEL_SCHED_H
+#ifndef _WASMUX_SCHED_H
+#define _WASMUX_SCHED_H
 
 #define SCHED_NORMAL 0
 #define SCHED_FIFO   1
@@ -18,4 +18,4 @@ struct sched_param {
   int sched_priority;
 };
 
-#endif /* _WA_KERNEL_SCHED_H */
+#endif /* _WASMUX_SCHED_H */

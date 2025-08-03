@@ -1,7 +1,7 @@
 export default (mk) => {
   const headers = [
-    "include/bits/env_stdlib.h",
-    "include/bits/env_unistd.h",
+    "include/bits/stdlib_env.h",
+    "include/bits/unistd_env.h",
   ];
 
   const sources = [
@@ -16,19 +16,18 @@ export default (mk) => {
     mk.SOURCE_DIR.join("include"),
   ];
 
-  mk.script("<stdlib.h>").mergeVariables({
-    SCRIPT_INCLUDES: [ "#include <bits/env_stdlib.h>" ],
-  });
-
-  mk.script("<unistd.h>").mergeVariables({
-    SCRIPT_INCLUDES: [ "#include <bits/env_unistd.h>" ],
-  });
-
   mk.target("libc").addSources(headers, sources);
   mk.target("libc").addPublicIncludes(includes);
 
   mk.install(headers, {
     destination: mk.INSTALL_INCLUDEDIR,
     baseDir: "include",
+  });
+
+  mk.script("<stdlib.h>").mergeVariables({
+    SCRIPT_INCLUDES: [ "#include <bits/stdlib_env.h>" ],
+  });
+  mk.script("<unistd.h>").mergeVariables({
+    SCRIPT_INCLUDES: [ "#include <bits/unistd_env.h>" ],
   });
 }

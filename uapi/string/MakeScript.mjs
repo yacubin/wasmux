@@ -11,6 +11,7 @@ export default (mk) => {
     "src/dirname.cpp",
     "src/memchr.cpp",
     "src/memcpy.cpp",
+    "src/memmem.cpp",
     "src/memrchr.cpp",
     "src/memset.cpp",
     "src/rindex.cpp",
@@ -25,6 +26,7 @@ export default (mk) => {
     "src/strrchr.cpp",
     "src/strsep.cpp",
     "src/strtok_r.cpp",
+    "src/strverscmp.cpp",
   ];
 
   const includes = [

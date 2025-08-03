@@ -9,9 +9,17 @@
 
 #include <wasmux/if.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define IF_NAMESIZE IFNAMSIZ
 
 unsigned if_nametoindex(const char* name);
 char* if_indextoname(unsigned index, char* buf);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _NET_IF_H */

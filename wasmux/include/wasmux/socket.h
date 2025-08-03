@@ -12,12 +12,20 @@
 #define AF_LOCAL  1
 #define AF_INET   2
 #define AF_INET6  10
+#define AF_PACKET 17
 
 #define PF_UNSPEC AF_UNSPEC
 #define PF_UNIX   AF_UNIX
 #define PF_LOCAL  AF_LOCAL
 #define PF_INET   AF_INET
 #define PF_INET6  AF_INET6
+#define PF_PACKET AF_PACKET
+
+#define SOMAXCONN 128
+
+#define MSG_PEEK     0x00000002
+#define MSG_TRUNC    0x00000020
+#define MSG_NOSIGNAL 0x00004000
 
 #define __SS_MAXSIZE 128
 

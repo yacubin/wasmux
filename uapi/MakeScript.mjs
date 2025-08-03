@@ -3,12 +3,15 @@ export default (mk) => {
     mk.addSubdirectory("malloc");
     mk.addSubdirectory("fcntl");
     mk.addSubdirectory("string");
+    mk.addSubdirectory("wchar");
     mk.addSubdirectory("ctype");
+    mk.addSubdirectory("wctype");
     mk.addSubdirectory("stdlib");
     mk.addSubdirectory("signal");
     mk.addSubdirectory("semaphore");
     mk.addSubdirectory("wcsmbs");
     mk.addSubdirectory("libio");
+    mk.addSubdirectory("time");
     mk.addSubdirectory("backtrace");
     mk.addSubdirectory("dirent");
 
@@ -19,6 +22,7 @@ export default (mk) => {
     mk.addSubdirectory("pwd");
     mk.addSubdirectory("ftw");
     mk.addSubdirectory("wordexp");
+    mk.addSubdirectory("search");
     mk.addSubdirectory("login");
     mk.addSubdirectory("mntent");
     mk.addSubdirectory("shadow");
@@ -28,7 +32,13 @@ export default (mk) => {
     mk.addSubdirectory("netdb");
     mk.addSubdirectory("obstack");
     mk.addSubdirectory("libintl");
-    mk.addSubdirectory("locale");
+
+    if (mk.WASMUX_LOCALE_WITH_LIBC) {
+      mk.addSubdirectory("locale");
+      mk.addSubdirectory("ctype_l");
+      mk.addSubdirectory("wctype_l");
+    }
+
     mk.addSubdirectory("getopt");
     mk.addSubdirectory("regex");
     mk.addSubdirectory("glob");
@@ -39,6 +49,9 @@ export default (mk) => {
 
   if (mk.WASMUX_CRT)
     mk.addSubdirectory("crt");
+
+  if (mk.WASMUX_RT)
+    mk.addSubdirectory("rt");
 
   if (mk.WASMUX_LIBGCC)
     mk.addSubdirectory("libgcc");

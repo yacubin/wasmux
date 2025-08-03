@@ -1,11 +1,11 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_INTTYPES_H
-#define _WA_LIBC_INTTYPES_H
+#ifndef _INTTYPES_H
+#define _INTTYPES_H
 
 #include <stdint.h>
 
@@ -46,20 +46,27 @@ extern "C" {
 #define PRIX64 __PRI64_PREFIX "X"
 
 /* PRI of intmax_t and uintmax_t */
-# define PRIdMAX __PRI64_PREFIX "d"
-# define PRIiMAX __PRI64_PREFIX "i"
-# define PRIoMAX __PRI64_PREFIX "o"
-# define PRIuMAX __PRI64_PREFIX "u"
-# define PRIxMAX __PRI64_PREFIX "x"
-# define PRIXMAX __PRI64_PREFIX "X"
+#define PRIdMAX __PRI64_PREFIX "d"
+#define PRIiMAX __PRI64_PREFIX "i"
+#define PRIoMAX __PRI64_PREFIX "o"
+#define PRIuMAX __PRI64_PREFIX "u"
+#define PRIxMAX __PRI64_PREFIX "x"
+#define PRIXMAX __PRI64_PREFIX "X"
 
 /* PRI of intptr_t and uintptr_t */
-# define PRIdPTR __PRIPTR_PREFIX "d"
-# define PRIiPTR __PRIPTR_PREFIX "i"
-# define PRIoPTR __PRIPTR_PREFIX "o"
-# define PRIuPTR __PRIPTR_PREFIX "u"
-# define PRIxPTR __PRIPTR_PREFIX "x"
-# define PRIXPTR __PRIPTR_PREFIX "X"
+#define PRIdPTR __PRIPTR_PREFIX "d"
+#define PRIiPTR __PRIPTR_PREFIX "i"
+#define PRIoPTR __PRIPTR_PREFIX "o"
+#define PRIuPTR __PRIPTR_PREFIX "u"
+#define PRIxPTR __PRIPTR_PREFIX "x"
+#define PRIXPTR __PRIPTR_PREFIX "X"
+
+/* SCN of int64_t and uint64_t */
+#define SCNd64 __PRI64_PREFIX "d"
+#define SCNi64 __PRI64_PREFIX "i"
+#define SCNo64 __PRI64_PREFIX "o"
+#define SCNu64 __PRI64_PREFIX "u"
+#define SCNx64 __PRI64_PREFIX "x"
 
 intmax_t strtoimax(const char* str, char** end, int base);
 uintmax_t strtoumax(const char* str, char** end, int base);
@@ -68,4 +75,4 @@ uintmax_t strtoumax(const char* str, char** end, int base);
 }
 #endif
 
-#endif /* _WA_LIBC_INTTYPES_H */
+#endif /* _INTTYPES_H */

@@ -7,16 +7,18 @@
 #ifndef _WASMUX_WEB_WORKER_H
 #define _WASMUX_WEB_WORKER_H
 
-#include <wasmux/types.h>
-#include <wasmux/web/object.h>
+#include <wasmux/web/string.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-WEI_Object WebWorker_create(WEI_Object url, WEI_Object name);
-WEI_Object WebWorker_create2(const char* url, const char* name);
-int WebWorker_terminate(WEI_Object worker);
+typedef struct WebWorker WebWorker;
+
+WebWorker* WebWorker_create(const WebString* url, const WebString* name);
+WebWorker* WebWorker_create2(const char* url, const char* name);
+void WebWorker_finalize(WebWorker*);
+int WebWorker_terminate(WebWorker*);
 
 #ifdef __cplusplus
 }

@@ -22,6 +22,7 @@ int memcmp(const void* p1, const void* p2, size_t n);
 void* memmove(void* dst, const void* src, size_t n);
 void* memchr(const void* mem, int ch, size_t n);
 void* memrchr(const void* mem, int ch, size_t n);
+void* memmem(const void* haystack, size_t haystack_len, const void* needle, size_t needle_len);
 
 char* strchr(const char* str, int ch);
 char* strchrnul(const char* str, int ch);
@@ -52,6 +53,8 @@ char* strerror(int errnum);
 char* strsignal(int sig);
 
 char* __strchrnul(const char* str, int ch);
+
+int strverscmp(const char* s1, const char* s2);
 
 #ifdef __cplusplus
 }

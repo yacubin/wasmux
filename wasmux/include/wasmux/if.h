@@ -13,6 +13,12 @@ enum {
   IFF_UP = 1 << 0,
 #define IFF_UP IFF_UP
 
+  IFF_LOOPBACK = 1 << 3,
+#define IFF_LOOPBACK IFF_LOOPBACK
+
+  IFF_RUNNING = 1 << 6,
+#define IFF_RUNNING IFF_RUNNING
+
 };
 
 #define IFHWADDRLEN 6

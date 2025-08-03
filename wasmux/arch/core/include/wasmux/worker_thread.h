@@ -12,6 +12,8 @@
 #include <wasmux/wasm_page.h>
 #include <wasmux/wasm_header.h>
 #include <wasmux/wei.h>
+#include <wasmux/web/worker.h>
+#include <wasmux/web/webassembly.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -21,13 +23,13 @@ typedef struct WebWorkerInstance {
   char name[32];
 
   void* stack;
-  WEI_Object worker;
+  WebWorker* worker;
   void* context;
 
   // TODO: This data is here for start up use only,
   //       it will need to be transferred to those who really need it
   WEI_Object userModule;
-  WEI_Object userMemory;
+  WebAssemblyMemory* userMemory;
   struct wasm_memory_info meminfo;
 
 } WebWorkerInstance;

@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_KERNEL_LIMITS_H
-#define _WA_KERNEL_LIMITS_H
+#ifndef _WASMUX_LIMITS_H
+#define _WASMUX_LIMITS_H
 
 #include <wasmux/limits-base.h>
 
@@ -62,4 +62,8 @@
 #define CHAR_BIT 8
 #define UCHAR_MAX 255
 
-#endif /* _WA_KERNEL_LIMITS_H */
+#define PAGE_SHIFT 16
+#define PAGE_SIZE (1UL << PAGE_SHIFT)
+#define PAGE_MASK (~(PAGE_SIZE - 1))
+
+#endif /* _WASMUX_LIMITS_H */

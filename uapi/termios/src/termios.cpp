@@ -82,3 +82,8 @@ int cfsetospeed(struct termios* termios, speed_t speed)
   errno = ENOSYS;
   return -1;
 }
+
+void cfmakeraw(struct termios* termios)
+{
+  assert(0);
+}

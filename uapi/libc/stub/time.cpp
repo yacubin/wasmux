@@ -104,20 +104,6 @@ int nanosleep(const struct timespec* duration, struct timespec* remain)
   return -1;
 }
 
-int clock_gettime(clockid_t clock_id, struct timespec* ts)
-{
-  assert(0);
-  errno = ENOSYS;
-  return -1;
-}
-
-int clock_nanosleep(clockid_t clock_id, int flags, const struct timespec* req, struct timespec* rem)
-{
-  assert(0);
-  errno = ENOSYS;
-  return -1;
-}
-
 double difftime(time_t time1, time_t time0)
 {
   assert(0);

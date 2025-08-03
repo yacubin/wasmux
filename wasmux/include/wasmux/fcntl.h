@@ -21,12 +21,23 @@
 #ifndef O_CLOEXEC
 #define O_CLOEXEC   02000000
 #endif
+#ifndef O_NOFOLLOW
+#define O_NOFOLLOW  00400000
+#endif
+
+#ifndef O_PATH
+#define O_PATH      010000000
+#endif
 
 #ifndef __O_TMPFILE
 #define __O_TMPFILE 020000000
 #endif
 
 #define O_TMPFILE (__O_TMPFILE | O_DIRECTORY)
+
+#ifndef O_NDELAY
+#define O_NDELAY O_NONBLOCK
+#endif
 
 #define FD_CLOEXEC 1
 

@@ -4,17 +4,17 @@
  *
  */
 
-#ifndef _BITS___STRING_BASENAME_H
-#define _BITS___STRING_BASENAME_H
+#ifndef _BITS_STRING_BASENAME_H
+#define _BITS_STRING_BASENAME_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-char* basename(char* path);
+char* basename(const char* path);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _BITS___STRING_BASENAME_H */
+#endif /* _BITS_STRING_BASENAME_H */

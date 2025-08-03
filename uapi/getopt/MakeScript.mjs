@@ -1,6 +1,6 @@
 export default (mk) => {
   const headers = [
-    "include/bits/getopt_base.h",
+    "include/bits/getopt.h",
     "include/getopt.h",
   ];
 
@@ -12,18 +12,18 @@ export default (mk) => {
     mk.SOURCE_DIR.join("include"),
   ];
 
-  mk.script("<gnu-versions.h>").mergeVariables({
-    SCRIPT_DEFINES: [ "#define _GNU_GETOPT_INTERFACE_VERSION 2" ],
-  });
-  mk.script("<unistd.h>").mergeVariables({
-    SCRIPT_INCLUDES: [ "#include <bits/getopt_base.h>" ],
-  });
-
   mk.target("libc").addSources(headers, sources);
   mk.target("libc").addPublicIncludes(includes);
 
   mk.install(headers, {
     destination: mk.INSTALL_INCLUDEDIR,
     baseDir: "include",
+  });
+
+  mk.script("<gnu-versions.h>").mergeVariables({
+    SCRIPT_DEFINES: [ "#define _GNU_GETOPT_INTERFACE_VERSION 2" ],
+  });
+  mk.script("<unistd.h>").mergeVariables({
+    SCRIPT_INCLUDES: [ "#include <bits/getopt.h>" ],
   });
 }

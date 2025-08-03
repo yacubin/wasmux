@@ -3,9 +3,11 @@ export default (mk) => {
     "include/arpa/inet.h",
     "include/bits/thread_data.h",
     "include/bits/waitstatus.h",
+    "include/net/ethernet.h",
     "include/net/if.h",
     "include/netinet/in.h",
     "include/netinet/tcp.h",
+    "include/netpacket/packet.h",
     "include/sys/epoll.h",
     "include/sys/eventfd.h",
     "include/sys/file.h",
@@ -47,24 +49,23 @@ export default (mk) => {
     "include/err.h",
     "include/errno.h",
     "include/float.h",
+    "include/ifaddrs.h",
     "include/inttypes.h",
     "include/limits.h",
     "include/memory.h",
     "include/paths.h",
     "include/poll.h",
     "include/sched.h",
-    "include/search.h",
     "include/setjmp.h",
     "include/spawn.h",
     "include/stdarg.h",
     "include/stddef.h",
     "include/stdint.h",
+    "include/syscall.h",
     "include/sysexits.h",
     "include/syslog.h",
-    "include/time.h",
     "include/ucontext.h",
     "include/utime.h",
-    "include/wchar.h",
   ];
 
   const sources = [
@@ -93,25 +94,25 @@ export default (mk) => {
     "stub/assert.cpp",
     "stub/atexit.cpp",
     "stub/err.cpp",
+    "stub/getifaddrs.cpp",
     "stub/pipe.cpp",
     "stub/poll.cpp",
     "stub/progname.cpp",
     "stub/qsort.cpp",
     "stub/read.cpp",
     "stub/sched_getaffinity.cpp",
+    "stub/sched_getcpu.cpp",
     "stub/sched_setscheduler.cpp",
     "stub/sched_yield.cpp",
-    "stub/search.cpp",
     "stub/setjmp.cpp",
+    "stub/stack_chk_fail.cpp",
     "stub/stdlib.cpp",
     "stub/strtol.cpp",
-    "stub/syscall.cpp",
     "stub/syslog.cpp",
     "stub/time.cpp",
     "stub/ucontext.cpp",
     "stub/unistd.cpp",
     "stub/utime.cpp",
-    "stub/wchar.cpp",
     "syscalls/_exit.cpp",
     "syscalls/brk.cpp",
     "syscalls/chdir.cpp",
@@ -142,6 +143,7 @@ export default (mk) => {
     "syscalls/sethostname.cpp",
     "syscalls/statx.cpp",
     "syscalls/sync.cpp",
+    "syscalls/syscall.cpp",
     "syscalls/umount.cpp",
     "syscalls/umount2.cpp",
     "syscalls/uname.cpp",
@@ -149,6 +151,8 @@ export default (mk) => {
     "syscalls/waitpid.cpp",
     "syscalls/write.cpp",
     "syscalls/writev.cpp",
+    "src/netinet/in6addr_any.cpp",
+    "src/netinet/in6addr_loopback.cpp",
     "src/sys/futimens.cpp",
     "src/sys/stat.cpp",
     "src/sys/unistd/getpgrp.cpp",
@@ -159,16 +163,11 @@ export default (mk) => {
     "src/sbrk.cpp",
     "src/thread_data.cpp",
     "src/usleep.cpp",
-    mk.target("wasmux").objects,
   ];
 
   const includes = [
     mk.BINARY_DIR.join("include"),
     mk.SOURCE_DIR.join("include"),
-  ];
-
-  const libraries = [
-    mk.target("wasmux"),
   ];
 
   const syscall_h = mk.BINARY_DIR.join("include/sys/syscall.h");
@@ -183,6 +182,14 @@ export default (mk) => {
     SCRIPT_NAME: "<ctype.h>",
     SCRIPT_INPUT: mk.SOURCE_DIR.join("include/ctype.h.in"),
     SCRIPT_OUTPUT: ctype_h,
+    SCRIPT_INCLUDES: [],
+  });
+
+  const wctype_h = mk.BINARY_DIR.join("include/wctype.h");
+  mk.addCustomScript("configure_file", {
+    SCRIPT_NAME: "<wctype.h>",
+    SCRIPT_INPUT: mk.SOURCE_DIR.join("include/wctype.h.in"),
+    SCRIPT_OUTPUT: wctype_h,
     SCRIPT_INCLUDES: [],
   });
 
@@ -210,6 +217,22 @@ export default (mk) => {
     SCRIPT_INCLUDES: [],
   });
 
+  const time_h = mk.BINARY_DIR.join("include/time.h");
+  mk.addCustomScript("configure_file", {
+    SCRIPT_NAME: "<time.h>",
+    SCRIPT_INPUT: mk.SOURCE_DIR.join("include/time.h.in"),
+    SCRIPT_OUTPUT: time_h,
+    SCRIPT_INCLUDES: [],
+  });
+
+  const wchar_h = mk.BINARY_DIR.join("include/wchar.h");
+  mk.addCustomScript("configure_file", {
+    SCRIPT_NAME: "<wchar.h>",
+    SCRIPT_INPUT: mk.SOURCE_DIR.join("include/wchar.h.in"),
+    SCRIPT_OUTPUT: wchar_h,
+    SCRIPT_INCLUDES: [],
+  });
+
   const features_h = mk.BINARY_DIR.join("include/features.h");
   mk.addCustomScript("configure_file", {
     SCRIPT_NAME: "<features.h>",
@@ -217,17 +240,27 @@ export default (mk) => {
     SCRIPT_OUTPUT: features_h,
   });
 
+  if (mk.WASMUX_LIBC_FEATURES === "glibc") {
+    headers.push("include/gnu/libc-version.h");
+    sources.push("src/gnu/libc-version.cpp");
+  }
+
+  mk.script("<wasmux/thread_data.h>").mergeVariables({
+    SCRIPT_ENTITIES: [ "int errcode;", "char buffer[256];" ],
+  });
+
   const libc = mk.addStaticLibrary("libc", headers, sources);
-  libc.addSources(syscall_h, ctype_h, gnu_versions_h, stdlib_h, unistd_h, features_h);
+  libc.addSources(syscall_h, ctype_h, wctype_h, gnu_versions_h, stdlib_h, unistd_h, time_h, wchar_h, features_h);
+  libc.addSources(mk.target("wasmux").objects);
+  libc.addPublicLibraries(mk.target("wasmux"));
   libc.addPublicIncludes(includes);
-  libc.addPublicLibraries(libraries);
   libc.setPrefix("");
 
   mk.install(headers, {
     destination: mk.INSTALL_INCLUDEDIR,
     baseDir: "include",
   });
-  mk.install([ syscall_h, ctype_h, gnu_versions_h, stdlib_h, unistd_h, features_h ], {
+  mk.install([ syscall_h, ctype_h, wctype_h, gnu_versions_h, stdlib_h, unistd_h, time_h, wchar_h, features_h ], {
     destination: mk.INSTALL_INCLUDEDIR,
     baseDir: mk.BINARY_DIR.join("include"),
   });
