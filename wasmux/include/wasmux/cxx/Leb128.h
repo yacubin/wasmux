@@ -240,7 +240,7 @@ template<typename T> struct Leb128Writer<T,10> {
     out[6] = static_cast<uint8_t>((value >> 42) | 0x80);
     out[7] = static_cast<uint8_t>((value >> 49) | 0x80);
     out[8] = static_cast<uint8_t>((value >> 56) | 0x80);
-    out[9] = static_cast<uint8_t>(value >> 64);
+    out[9] = static_cast<uint8_t>(value >> 63);
   }
 };
 

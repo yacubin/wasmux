@@ -13,6 +13,8 @@
 extern "C" {
 #endif
 
+typedef int clockid_t;
+
 int clock_gettime(clockid_t clock_id, struct timespec* ts);
 int clock_getres(clockid_t clock_id, struct timespec* ts);
 int clock_nanosleep(clockid_t clock_id, int flags, const struct timespec* req, struct timespec* rem);

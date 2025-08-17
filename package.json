@@ -34,7 +34,7 @@
     "libc"
   ],
   "dependencies": {
-    "bitmake": "^0.0.1-develop.12",
+    "bitmake": "github:ykbin/bitmake#20250804_dev13",
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4"
   },

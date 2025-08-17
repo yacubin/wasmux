@@ -35,6 +35,7 @@ module.exports.errors = {
     EPIPE:          E(32,  "Broken pipe"),
     EDOM:           E(33,  "Mathematics argument out of domain of function"),
     ERANGE:         E(34,  "Math result not representable"),
+    EDEADLK:        E(35,  "Resource deadlock avoided"),
     ENAMETOOLONG:   E(36,  "Filename too long"),
     ENOLCK:         E(37,  "No locks available"),
     ENOSYS:         E(38,  "Function not implemented"),
