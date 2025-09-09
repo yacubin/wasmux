@@ -33,6 +33,7 @@ enum {
 #define IPPROTO_RAW IPPROTO_RAW
 };
 
+#define IP_TOS                    1
 #define IP_TTL                    2
 #define IP_RECVERR                11
 #define IP_MULTICAST_IF           32

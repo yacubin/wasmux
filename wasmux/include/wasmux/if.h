@@ -55,8 +55,9 @@ struct ifreq {
   } ifr_ifru;
 };
 
-#define ifr_name  ifr_ifrn.ifrn_name
-#define ifr_addr  ifr_ifru.ifru_addr
-#define ifr_flags ifr_ifru.ifru_flags
+#define ifr_name   ifr_ifrn.ifrn_name
+#define ifr_addr   ifr_ifru.ifru_addr
+#define ifr_flags  ifr_ifru.ifru_flags
+#define ifr_hwaddr ifr_ifru.ifru_hwaddr
 
 #endif /* _WASMUX_IF_H */

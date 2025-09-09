@@ -1,12 +1,14 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_NETINET_TCP_H
-#define _WA_LIBC_NETINET_TCP_H
+#ifndef _NETINET_TCP_H
+#define _NETINET_TCP_H
 
-#define TCP_NODELAY 1
+#include <wasmux/tcp.h>
 
-#endif /* _WA_LIBC_NETINET_TCP_H */
+#define SOL_TCP 6
+
+#endif /* _NETINET_TCP_H */

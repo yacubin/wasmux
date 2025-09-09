@@ -4,9 +4,9 @@
  *
  */
 
-#ifndef _NETPACKET_PACKET_H
-#define _NETPACKET_PACKET_H
+#ifndef _LINUX_IF_PACKET_H
+#define _LINUX_IF_PACKET_H
 
 #include <wasmux/if_packet.h>
 
-#endif /* _NETPACKET_PACKET_H */
+#endif /* _LINUX_IF_PACKET_H */

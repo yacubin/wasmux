@@ -58,6 +58,7 @@ module.exports.errors = {
     ENOTCONN:       E(107, "The socket is not connected"),
     ETIMEDOUT:      E(110, "Connection timed out"),
     ECONNREFUSED:   E(111, "Connection refused"),
+    EALREADY:       E(114, "Connection already in progress"),
     EINPROGRESS:    E(115, "Operation in progress"),
     ESTALE:         E(116, "Stale file handle"),
     EDQUOT:         E(122, "Disk quota exceeded"),

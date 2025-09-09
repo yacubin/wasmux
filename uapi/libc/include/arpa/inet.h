@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_LIBC_APRA_INET_H
-#define _WA_LIBC_APRA_INET_H
+#ifndef _ARPA_INET_H
+#define _ARPA_INET_H
 
 #include <netinet/in.h>
 
@@ -14,10 +14,13 @@ extern "C" {
 #endif
 
 char* inet_ntoa(struct in_addr in);
+const char* inet_ntop(int af, const void* addr, char* buf, socklen_t len);
 int inet_pton(int af, const char* src, void* dst);
+
+in_addr_t inet_addr(const char* addr);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _WA_LIBC_APRA_INET_H */
+#endif /* _ARPA_INET_H */

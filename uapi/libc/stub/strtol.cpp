@@ -26,13 +26,13 @@ extern "C" __ATTR_ALIAS(strtoll, strtoimax) __ATTR_WEAK;
 unsigned long strtoul(const char* str, char** end, int base)
 {
   WA_UNREACHABLE();
-  return 0UL;
+  return 0ul;
 }
 
 unsigned long long strtoull(const char* str, char** end, int base)
 {
   WA_UNREACHABLE();
-  return 0ULL;
+  return 0ull;
 }
 
 extern "C" __ATTR_ALIAS(strtoull, strtoumax) __ATTR_WEAK;
@@ -46,7 +46,7 @@ float strtof(const char* str, char** end)
 double strtod(const char* str, char** endstr)
 {
   WA_UNREACHABLE();
-  return 0;
+  return 0.0;
 }
 
 int atoi(const char* str)
@@ -58,7 +58,12 @@ int atoi(const char* str)
 long atol(const char* str)
 {
   WA_UNREACHABLE();
-  return 0;
+  return 0l;
+}
+
+long long atoll(const char* str)
+{
+  return 0ll;
 }
 
 double atof(const char* str)
