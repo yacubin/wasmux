@@ -1,14 +1,6 @@
 export default async (mk) => {
-  const MainCalls_mjs = mk.BINARY_DIR.join("generated/MainCalls.mjs");
-  mk.addCustomScript("webcallesx.mjs", {
-    SCRIPT_INPUT: mk.PROJECT_SOURCE_DIR.join("data/webcalls.js"),
-    SCRIPT_OUTPUT: MainCalls_mjs,
-    SCRIPT_SIDE: "main",
-  });
-
   const loader_js = mk.BINARY_DIR.join("dist/loader.js");
   mk.addCustomScript("loader.build.mjs", {
-    SCRIPT_INPUT: MainCalls_mjs,
     SCRIPT_OUTPUT: loader_js,
   });
 
@@ -19,16 +11,8 @@ export default async (mk) => {
     SCRIPT_SECTION: mk.WASMUX_LOADER_SECTION,
   });
 
-  const WorkerCalls_mjs = mk.BINARY_DIR.join("generated/WorkerCalls.mjs");
-  mk.addCustomScript("webcallesx.mjs", {
-    SCRIPT_INPUT: mk.PROJECT_SOURCE_DIR.join("data/webcalls.js"),
-    SCRIPT_OUTPUT: WorkerCalls_mjs,
-    SCRIPT_SIDE: "worker",
-  });
-
   const worker_js = mk.BINARY_DIR.join("dist/worker.js");
   mk.addCustomScript("worker.build.mjs", {
-    SCRIPT_INPUT: WorkerCalls_mjs,
     SCRIPT_OUTPUT: worker_js,
   });
 

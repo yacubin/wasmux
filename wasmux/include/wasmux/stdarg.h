@@ -1,11 +1,11 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_KERNEL_STDARG_H
-#define _WA_KERNEL_STDARG_H
+#ifndef _WASMUX_STDARG_H
+#define _WASMUX_STDARG_H
 
 typedef __builtin_va_list va_list;
 
@@ -14,4 +14,4 @@ typedef __builtin_va_list va_list;
 #define va_arg(ap, type)    __builtin_va_arg(ap, type)
 #define va_copy(dst, src)   __builtin_va_copy(dst, src)
 
-#endif /* _WA_KERNEL_STDARG_H */
+#endif /* _WASMUX_STDARG_H */

@@ -9,7 +9,7 @@ module.exports = function(mk)
 
   let lines = [];
   for (let i = 0; i < webcalls.length; i++)
-    lines.push(`__WEBCALL(${i}, ${webcalls[i]})`);
+    lines.push(`__WEBCALL(${11+i}, ${webcalls[i]})`);
 
   fs.mkdirSync(path.dirname(mk.SCRIPT_OUTPUT.toString()), { recursive: true });
   fs.writeFileSync(mk.SCRIPT_OUTPUT.toString(), lines.join('\n'), "utf8");

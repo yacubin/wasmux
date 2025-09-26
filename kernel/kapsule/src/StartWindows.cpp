@@ -19,7 +19,6 @@
 #include <windows.h>
 
 __EXPORT void __start_kernel();
-__EXPORT void WebWorkerInstanceInit(void* stack);
 
 #define WM_USER_DISPATCH (WM_USER + 1)
 
@@ -76,8 +75,4 @@ __EXPORT void _start()
 
   MessageBox(NULL, "Hello, World 2!", "Greetings", MB_OK);
   ExitProcess(0);
-}
-
-void WebWorkerInstanceInit(void* stack)
-{
 }

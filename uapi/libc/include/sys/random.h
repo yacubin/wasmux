@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_LIBC_SYS_RANDOM_H
-#define _WA_LIBC_SYS_RANDOM_H
+#ifndef _SYS_RANDOM_H
+#define _SYS_RANDOM_H
 
 #include <wasmux/types.h>
 
@@ -23,4 +23,4 @@ ssize_t getrandom(void* data, size_t size, unsigned int flags);
 }
 #endif
 
-#endif /* _WA_LIBC_SYS_RANDOM_H */
+#endif /* _SYS_RANDOM_H */

@@ -1,11 +1,11 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_SYS_UTSNAME_H
-#define _WA_LIBC_SYS_UTSNAME_H
+#ifndef _SYS_UTSNAME_H
+#define _SYS_UTSNAME_H
 
 #include <sys/types.h>
 
@@ -30,4 +30,4 @@ int uname(struct utsname* buf);
 }
 #endif
 
-#endif /* _WA_LIBC_SYS_UTSNAME_H */
+#endif /* _SYS_UTSNAME_H */

@@ -190,3 +190,9 @@ int WebWorkerInstance_startBinarySync(struct WebWorkerInstance* instance, WebArr
 	notify_waiter_wait(&data.signal, NOTIFY_WAITER_INFINITE);
 	return data.ec;
 }
+
+#ifndef __wasm__
+void WebWorkerInstanceInit(void* stack)
+{
+}
+#endif

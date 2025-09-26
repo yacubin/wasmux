@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_LIBC_SYS_PARAM_H
-#define _WA_LIBC_SYS_PARAM_H
+#ifndef _SYS_PARAM_H
+#define _SYS_PARAM_H
 
 #include <wasmux/limits.h>
 
@@ -23,4 +23,4 @@ extern "C" {
 }
 #endif
 
-#endif /* _WA_LIBC_SYS_PARAM_H */
+#endif /* _SYS_PARAM_H */
