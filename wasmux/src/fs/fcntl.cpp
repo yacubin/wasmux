@@ -11,7 +11,7 @@
 
 #ifdef __ARCH_WANT_SYSCALL_DEFINES
 
-SYSCALL_DEFINE3(fcntl64, long, a1, long, a2, long, a3) __ATTR_WEAK
+WEAK_SYSCALL_DEFINE3(fcntl64, long, a1, long, a2, long, a3)
 {
   WA_UNREACHABLE();
   return -ENOSYS;

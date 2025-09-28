@@ -13,7 +13,7 @@
 
 #ifdef __ARCH_WANT_SYSCALL_DEFINES
 
-SYSCALL_DEFINE1(brk, unsigned long, brk) __ATTR_WEAK
+WEAK_SYSCALL_DEFINE1(brk, unsigned long, brk)
 {
 #ifdef ARCH_HAS_WAMM
   constexpr unsigned kMemoryIndex = 0;
