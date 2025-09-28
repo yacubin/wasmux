@@ -101,10 +101,6 @@ export default {
     description: "Enable env argument for main function",
     value: false,
   },
-  WASMUX_WAEDITOR: {
-    description: "Enable waeditor tool",
-    value: false,
-  },
   WASMUX_CORE_INIT_PAGES: {
     description: "Initial size of core pages",
     value: 16,
