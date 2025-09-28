@@ -7,6 +7,7 @@
 #ifndef _WASMUX_TYPES_H
 #define _WASMUX_TYPES_H
 
+#include <wasmux/platform.h>
 #include <wasmux/sizeof.h>
 
 #if defined(__ASSEMBLY__)
@@ -30,9 +31,21 @@
 # define __PRI64_PREFIX "ll"
 #endif
 
-# ifndef __SSIZE_T__
-#  define __SSIZE_T__ long
+#if !defined(__SSIZE_T__) && defined(WA_OS_WINDOWS)
+# if __SIZEOF_POINTER__ == __SIZEOF_INT__
+#  define __SSIZE_T__ int
 # endif
+#endif
+
+#ifndef __SSIZE_T__
+# if __SIZEOF_POINTER__ == __SIZEOF_LONG__
+#  define __SSIZE_T__ long
+# elif __SIZEOF_POINTER__ == __SIZEOF_LONG_LONG__
+#  define __SSIZE_T__ long long
+# else
+#  error Unknown pointer size
+# endif
+#endif
 
 typedef __SSIZE_T__ ssize_t;
 typedef unsigned __SSIZE_T__ size_t;
