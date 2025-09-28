@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_KERNEL_BYTEORDER_H
-#define _WA_KERNEL_BYTEORDER_H
+#ifndef _WASMUX_BYTEORDER_H
+#define _WASMUX_BYTEORDER_H
 
 #include <wasmux/types.h>
 
@@ -22,4 +22,4 @@ uint16_t ntohs(uint16_t net);
 }
 #endif
 
-#endif /* _WA_KERNEL_BYTEORDER_H */
+#endif /* _WASMUX_BYTEORDER_H */

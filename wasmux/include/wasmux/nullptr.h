@@ -1,11 +1,11 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_KERNEL_NULLPTR_H
-#define _WA_KERNEL_NULLPTR_H
+#ifndef _WASMUX_NULLPTR_H
+#define _WASMUX_NULLPTR_H
 
 #ifdef __cplusplus
 using nullptr_t = decltype(nullptr);
@@ -21,4 +21,4 @@ typedef void* nullptr_t;
 # endif
 #endif
 
-#endif /* _WA_KERNEL_NULLPTR_H */
+#endif /* _WASMUX_NULLPTR_H */

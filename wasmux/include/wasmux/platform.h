@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _KERNEL_PLATFORM_H
-#define _KERNEL_PLATFORM_H
+#ifndef _WASMUX_PLATFORM_H
+#define _WASMUX_PLATFORM_H
 
 #if defined(__wasm__) || defined(__wasm32__) || defined(__wasm64__)
 #define WA_CPU_WASM 1
@@ -23,4 +23,4 @@
 # define WA_OS_UNKNOWN 1
 #endif
 
-#endif /* _KERNEL_PLATFORM_H */
+#endif /* _WASMUX_PLATFORM_H */

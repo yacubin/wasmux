@@ -1,5 +1,5 @@
-#ifndef _WA_KERNEL_STACK_POINTER_H
-#define _WA_KERNEL_STACK_POINTER_H
+#ifndef _WASMUX_STACK_POINTER_H
+#define _WASMUX_STACK_POINTER_H
 
 #include <wasmux/platform.h>
 
@@ -26,4 +26,4 @@ static inline void __set_stack_pointer(void* stack)
 #endif
 }
 
-#endif /* _WA_KERNEL_STACK_POINTER_H */
+#endif /* _WASMUX_STACK_POINTER_H */

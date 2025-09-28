@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_KERNEL_SPRINTF_H
-#define _WA_KERNEL_SPRINTF_H
+#ifndef _WASMUX_SPRINTF_H
+#define _WASMUX_SPRINTF_H
 
 #include <wasmux/types.h>
 #include <wasmux/compiler.h>
@@ -24,4 +24,4 @@ int __kernel_vsnprintf(char* buf, size_t size, const char* fmt, va_list args) __
 }
 #endif
 
-#endif /* _WA_KERNEL_SPRINTF_H */
+#endif /* _WASMUX_SPRINTF_H */
