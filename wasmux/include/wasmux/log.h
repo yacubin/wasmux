@@ -19,10 +19,10 @@ typedef enum {
   WX_LOG_INFO = 'I',
   WX_LOG_WARN = 'W',
   WX_LOG_ERROR = 'E',
-} __kernel_log_level;
+} wasmux_log_level;
 
-int __kernel_log_print(const char* file, int line, const char* func, __kernel_log_level level, const char* fmt, ...) __ATTR_PRINTF(5, 6);
-int __kernel_log_vprint(const char* file, int line, const char* func, __kernel_log_level level, const char* fmt, va_list args) __ATTR_PRINTF(5, 0);
+int wasmux_log_print(const char* file, int line, const char* func, wasmux_log_level level, const char* fmt, ...) __ATTR_PRINTF(5, 6);
+int wasmux_log_vprint(const char* file, int line, const char* func, wasmux_log_level level, const char* fmt, va_list args) __ATTR_PRINTF(5, 0);
 
 #ifndef LOG_TAG
 #define LOG_TAG "WASMUX"
@@ -30,13 +30,13 @@ int __kernel_log_vprint(const char* file, int line, const char* func, __kernel_l
 
 #if !defined(NDEBUG) && LOG_ENABLED
 #define LOG_INFO(...) \
-  __kernel_log_print(__FILE__, __LINE__, __FUNCTION__, WX_LOG_INFO, __VA_ARGS__)
+  wasmux_log_print(__FILE__, __LINE__, __FUNCTION__, WX_LOG_INFO, __VA_ARGS__)
 
 #define LOG_WARN(...) \
-  __kernel_log_print(__FILE__, __LINE__, __FUNCTION__, WX_LOG_WARN, __VA_ARGS__)
+  wasmux_log_print(__FILE__, __LINE__, __FUNCTION__, WX_LOG_WARN, __VA_ARGS__)
 
 #define LOG_ERROR(...) \
-  __kernel_log_print(__FILE__, __LINE__, __FUNCTION__, WX_LOG_ERROR, __VA_ARGS__)
+  wasmux_log_print(__FILE__, __LINE__, __FUNCTION__, WX_LOG_ERROR, __VA_ARGS__)
 
 #else
 #define LOG_INFO(...)

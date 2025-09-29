@@ -12,6 +12,9 @@ export default (mk) => {
     "include/wasmux/cxx/RefPtr.h",
     "include/wasmux/cxx/StaticStorage.h",
     "include/wasmux/cxx/TypeTraits.h",
+
+    "include/wasmux/arch-generic/log.h",
+
     "include/wasmux/align.h",
     "include/wasmux/assert.h",
     "include/wasmux/bulk-memory.h",

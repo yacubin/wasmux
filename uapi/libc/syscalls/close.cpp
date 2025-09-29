@@ -6,11 +6,12 @@
 
 #include <wasmux-config.h>
 #include <wasmux/syscalls.h>
+#include <wasmux/export.h>
 
 #include <errno.h>
 
-__ATTR_HIDDEN
-extern "C" int __close(int fd)
+__EXPORT
+__ATTR_HIDDEN int __close(int fd)
 {
   int ret = static_cast<int>(__DO_SYSCALL(close, fd));
   if (ret < 0) {
@@ -21,4 +22,5 @@ extern "C" int __close(int fd)
   return ret;
 }
 
-extern "C" __ATTR_ALIAS(__close, close) __ATTR_WEAK;
+__EXPORT
+__ATTR_ALIAS(__close, close) __ATTR_WEAK;
