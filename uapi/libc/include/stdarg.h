@@ -4,9 +4,9 @@
  *
  */
 
-#ifndef _WA_LIBC_STDARG_H
-#define _WA_LIBC_STDARG_H
+#ifndef _STDARG_H
+#define _STDARG_H
 
 #include <wasmux/stdarg.h>
 
-#endif /* _WA_LIBC_STDARG_H */
+#endif /* _STDARG_H */

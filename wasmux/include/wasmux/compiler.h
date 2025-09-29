@@ -7,8 +7,14 @@
 #ifndef _WASMUX_COMPILER_H
 #define _WASMUX_COMPILER_H
 
+#include <wasmux/platform.h>
+
 #ifndef __has_builtin
 # define __has_builtin(x) 0
+#endif
+
+#ifndef __has_attribute
+# define __has_attribute(x) 0
 #endif
 
 #ifndef __STRINGIFY
@@ -21,7 +27,13 @@
 
 #define __ATTR_ALIAS(from, to) __typeof(from) to __attribute__((__alias__(#from)))
 #define __ATTR_WEAK __attribute__((__weak__))
+
+#if defined(WA_OS_WINDOWS)
+#define __ATTR_HIDDEN
+#else
 #define __ATTR_HIDDEN __attribute__((__visibility__("hidden")))
+#endif
+
 #define __ATTR_PRINTF(fmt, args) __attribute__((__format__(printf, fmt, args)))
 #define __ATTR_NORETURN __attribute__((__noreturn__))
 #define __ATTR_USED __attribute__((used))

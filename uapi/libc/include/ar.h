@@ -1,11 +1,11 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_AR_H
-#define _WA_LIBC_AR_H
+#ifndef _AR_H
+#define _AR_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -29,4 +29,4 @@ struct ar_hdr {
 }
 #endif
 
-#endif /* _WA_LIBC_AR_H */
+#endif /* _AR_H */

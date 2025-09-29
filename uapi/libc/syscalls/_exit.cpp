@@ -6,6 +6,7 @@
 
 #include <wasmux-config.h>
 #include <wasmux/syscalls.h>
+#include <wasmux/export.h>
 #include <wasmux/assert.h>
 
 #include <stdlib.h>
@@ -20,4 +21,4 @@ void _exit(int status)
   }
 }
 
-extern "C" __ATTR_ALIAS(_exit, _Exit) __ATTR_WEAK;
+__EXPORT __ATTR_ALIAS(_exit, _Exit) __ATTR_WEAK;

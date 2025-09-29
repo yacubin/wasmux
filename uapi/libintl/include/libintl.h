@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_LIBC_LIBINTL_H
-#define _WA_LIBC_LIBINTL_H
+#ifndef _LIBINTL_H
+#define _LIBINTL_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -22,4 +22,4 @@ char* bindtextdomain (const char* domainname, const char* dirname);
 }
 #endif
 
-#endif /* _WA_LIBC_LIBINTL_H */
+#endif /* _LIBINTL_H */

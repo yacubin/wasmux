@@ -6,14 +6,17 @@
 
 #include <wasmux-config.h>
 #include <wasmux/syscalls.h>
+#include <wasmux/export.h>
 
 #include <unistd.h>
 #include <errno.h>
 
-extern "C" void* __curbrk = nullptr;
+__EXPORT void* __curbrk;
 
-__ATTR_HIDDEN
-extern "C" int __brk(void* addr)
+void* __curbrk = nullptr;
+
+__EXPORT __ATTR_HIDDEN
+int __brk(void* addr)
 {
   __curbrk = reinterpret_cast<void*>(__DO_SYSCALL(brk, addr));
   if (__curbrk < addr) {
@@ -24,4 +27,4 @@ extern "C" int __brk(void* addr)
   return 0;
 }
 
-extern "C" __ATTR_ALIAS(__brk, brk) __ATTR_WEAK;
+__EXPORT __ATTR_ALIAS(__brk, brk) __ATTR_WEAK;

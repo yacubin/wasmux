@@ -31,7 +31,7 @@
 # define __PRI64_PREFIX "ll"
 #endif
 
-#if !defined(__SSIZE_T__) && defined(WA_OS_WINDOWS)
+#if !defined(__SSIZE_T__) && defined(WA_OS_WINDOWS) && !defined(__KERNEL__)
 # if __SIZEOF_POINTER__ == __SIZEOF_INT__
 #  define __SSIZE_T__ int
 # endif

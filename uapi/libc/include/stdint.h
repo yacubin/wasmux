@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_LIBC_STDINT_H
-#define _WA_LIBC_STDINT_H
+#ifndef _STDINT_H
+#define _STDINT_H
 
 #include <wasmux/types.h>
 #include <wasmux/limits.h>
@@ -43,4 +43,4 @@ typedef uint16_t uint_least16_t;
 typedef uint32_t uint_least32_t;
 typedef uint64_t uint_least64_t;
 
-#endif /* _WA_LIBC_STDINT_H */
+#endif /* _STDINT_H */

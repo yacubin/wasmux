@@ -4,11 +4,9 @@
  *
  */
 
-#ifndef _WA_LIBC_MEMORY_H
-#define _WA_LIBC_MEMORY_H
+#ifndef _MEMORY_H
+#define _MEMORY_H
 
-#include <wasmux/types.h>
+#include <string.h>
 
-/* Not Implemented */
-
-#endif /* _WA_LIBC_MEMORY_H */
+#endif /* _MEMORY_H */

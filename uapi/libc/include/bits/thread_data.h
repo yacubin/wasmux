@@ -13,7 +13,7 @@
 extern "C" {
 #endif
 
-struct wax_thread_data* __get_thread_data();
+struct wasmux_thread_data* __get_thread_data();
 
 #define __get_local_errno() __get_thread_data()->errcode
 #define __set_local_errno(code) __get_thread_data()->errcode = code
