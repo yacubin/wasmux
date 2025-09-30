@@ -10,8 +10,8 @@
 
 #include <errno.h>
 
-__EXPORT
-__ATTR_HIDDEN int __close(int fd)
+__EXPORT __ATTR_HIDDEN
+int __close(int fd)
 {
   int ret = static_cast<int>(__DO_SYSCALL(close, fd));
   if (ret < 0) {
@@ -22,5 +22,4 @@ __ATTR_HIDDEN int __close(int fd)
   return ret;
 }
 
-__EXPORT
-__ATTR_ALIAS(__close, close) __ATTR_WEAK;
+__EXPORT __ATTR_WEAK_ALIAS(__close, close);

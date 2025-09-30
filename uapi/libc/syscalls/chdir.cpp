@@ -6,11 +6,12 @@
 
 #include <wasmux-config.h>
 #include <wasmux/syscalls.h>
+#include <wasmux/export.h>
 
 #include <errno.h>
 
-__ATTR_HIDDEN
-extern "C" int __chdir(const char* path)
+__EXPORT __ATTR_HIDDEN
+int __chdir(const char* path)
 {
   auto ret = __DO_SYSCALL(chdir, path);
   if (ret < 0) {
@@ -21,4 +22,4 @@ extern "C" int __chdir(const char* path)
   return 0;
 }
 
-extern "C" __ATTR_ALIAS(__chdir, chdir) __ATTR_WEAK;
+__EXPORT __ATTR_WEAK_ALIAS(__chdir, chdir);

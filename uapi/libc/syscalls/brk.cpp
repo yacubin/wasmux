@@ -27,4 +27,4 @@ int __brk(void* addr)
   return 0;
 }
 
-__EXPORT __ATTR_ALIAS(__brk, brk) __ATTR_WEAK;
+__EXPORT __ATTR_WEAK_ALIAS(__brk, brk);

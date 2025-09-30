@@ -6,12 +6,13 @@
 
 #include <wasmux-config.h>
 #include <wasmux/syscalls.h>
+#include <wasmux/export.h>
 
 #include <unistd.h>
 #include <errno.h>
- 
-__ATTR_HIDDEN
-extern "C" int __fdatasync(int fd)
+
+__EXPORT __ATTR_HIDDEN
+int __fdatasync(int fd)
 {
   auto ret = __DO_SYSCALL(fdatasync, fd);
   if (ret < 0) {
@@ -22,4 +23,4 @@ extern "C" int __fdatasync(int fd)
   return 0;
 }
 
-extern "C" __ATTR_ALIAS(__fdatasync, fdatasync) __ATTR_WEAK;
+__EXPORT __ATTR_WEAK_ALIAS(__fdatasync, fdatasync);

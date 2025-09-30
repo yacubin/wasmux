@@ -21,4 +21,4 @@ void _exit(int status)
   }
 }
 
-__EXPORT __ATTR_ALIAS(_exit, _Exit) __ATTR_WEAK;
+__EXPORT __ATTR_WEAK_ALIAS(_exit, _Exit);

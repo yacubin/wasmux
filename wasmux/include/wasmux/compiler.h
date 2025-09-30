@@ -26,12 +26,19 @@
 #define __TOKEN_CONCAT(a,b) ___TOKEN_CONCAT(a,b)
 
 #define __ATTR_ALIAS(from, to) __typeof(from) to __attribute__((__alias__(#from)))
-#define __ATTR_WEAK __attribute__((__weak__))
 
-#if defined(WA_OS_WINDOWS)
-#define __ATTR_HIDDEN
+#ifndef WA_OS_WINDOWS
+#define __ATTR_WEAK __attribute__((__weak__))
+#define __ATTR_WEAK_ALIAS(from, to) __typeof(from) to __attribute__((__weak__, __alias__(#from)))
 #else
-#define __ATTR_HIDDEN __attribute__((__visibility__("hidden")))
+#define __ATTR_WEAK
+#define __ATTR_WEAK_ALIAS(from, to) __ATTR_ALIAS(from, to)
+#endif
+
+#ifndef WA_OS_WINDOWS
+# define __ATTR_HIDDEN __attribute__((__visibility__("hidden")))
+#else
+# define __ATTR_HIDDEN
 #endif
 
 #define __ATTR_PRINTF(fmt, args) __attribute__((__format__(printf, fmt, args)))

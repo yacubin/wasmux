@@ -6,12 +6,13 @@
 
 #include <wasmux-config.h>
 #include <wasmux/syscalls.h>
+#include <wasmux/export.h>
 
 #include <unistd.h>
 #include <errno.h>
 
-__ATTR_HIDDEN
-extern "C" int __dup2(int oldfd, int newfd)
+__EXPORT __ATTR_HIDDEN
+int __dup2(int oldfd, int newfd)
 {
   int ret = static_cast<int>(__DO_SYSCALL(dup2, oldfd, newfd));
   if (ret < 0) {
@@ -22,4 +23,4 @@ extern "C" int __dup2(int oldfd, int newfd)
   return ret;
 }
 
-extern "C" __ATTR_ALIAS(__dup2, dup2) __ATTR_WEAK;
+__EXPORT __ATTR_WEAK_ALIAS(__dup2, dup2);

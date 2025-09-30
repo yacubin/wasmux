@@ -11,7 +11,7 @@
 #define WA_CPU_WASM 1
 #endif
 
-#if defined(_WIN32) || defined(WIN32)
+#if defined(_WIN32) || defined(WIN32) || defined(__MINGW32__)
 # define WA_OS_WINDOWS 1
 #endif
 
