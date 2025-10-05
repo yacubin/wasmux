@@ -3,6 +3,7 @@ export default (mk) => {
     "include/wasmux/cxx/HostHeap.h",
     "include/wasmux/cxx/WasmHeap.h",
     "include/wasmux/arch/log.h",
+    "include/wasmux/arch/string.h",
     "include/wasmux/arch/syscalls.h",
     "include/wasmux/arch/unistd.h",
     "include/wasmux/web/arraybuffer.h",

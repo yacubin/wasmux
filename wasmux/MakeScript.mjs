@@ -8,12 +8,12 @@ export default (mk) => {
     "include/wasmux/cxx/MemoryManager.h",
     "include/wasmux/cxx/MemoryUtils.h",
     "include/wasmux/cxx/New.h",
-    "include/wasmux/cxx/PrintTo.h",
     "include/wasmux/cxx/RefPtr.h",
     "include/wasmux/cxx/StaticStorage.h",
     "include/wasmux/cxx/TypeTraits.h",
 
     "include/wasmux/arch-generic/log.h",
+    "include/wasmux/arch-generic/string.h",
 
     "include/wasmux/align.h",
     "include/wasmux/assert.h",
@@ -91,9 +91,9 @@ export default (mk) => {
     "src/log.cpp",
     "src/mutex.S",
     "src/notify_waiter.cpp",
-    "src/PrintTo.cpp",
     "src/sleep_ms.cpp",
-    "src/sprintf.cpp",
+    "src/sprintf.c",
+    "src/string.c",
     "src/TypesCheck.cpp",
     "src/wasm_module.cpp",
   ];

@@ -5,10 +5,9 @@
  */
 
 #include <wasmux-config.h>
-#include <wasmux/cxx/PrintTo.h>
-#include <wasmux/cxx/Characters.h>
-
-namespace wasmux {
+#include <wasmux/sprintf.h>
+#include <wasmux/bulk-memory.h>
+#include <wasmux/string.h>
 
 enum {
   PRINT_FORMAT_NONE,
@@ -28,7 +27,7 @@ static inline char to_hex_lower(char num)
   return (num < 10 ? '0' : 'a' - 10) + num;
 }
 
-int printTo(PrintCallback* callback, void* ptr, const char* fmt, va_list args)
+int wasmux_printcb(void (*printfn) (void* ptr, const char* str, unsigned len), void* ptr, const char* fmt, va_list args)
 {
   int type;
   char buffer[32];
@@ -125,7 +124,7 @@ int printTo(PrintCallback* callback, void* ptr, const char* fmt, va_list args)
 
     len = (unsigned)(position - start);
     if (len) {
-      callback(ptr, start, len);
+      printfn(ptr, start, len);
       start = position;
       count += len;
     }
@@ -155,7 +154,7 @@ int printTo(PrintCallback* callback, void* ptr, const char* fmt, va_list args)
         len++;
       }
       
-      callback(ptr, curr, len);
+      printfn(ptr, curr, len);
       break;
     }
 
@@ -169,12 +168,12 @@ int printTo(PrintCallback* callback, void* ptr, const char* fmt, va_list args)
         len++;
       } while (value != 0);
       
-      callback(ptr, curr, len);
+      printfn(ptr, curr, len);
       break;
     }
 
     case PRINT_FORMAT_VOIDP: {
-      uintptr_t value = reinterpret_cast<uintptr_t>(va_arg(args, void*));
+      uintptr_t value = (uintptr_t)(va_arg(args, void*));
       char* curr = buffer + sizeof(buffer);
 
       do {
@@ -187,7 +186,7 @@ int printTo(PrintCallback* callback, void* ptr, const char* fmt, va_list args)
       *--curr = '0';
       len += 2;
       
-      callback(ptr, curr, len);
+      printfn(ptr, curr, len);
       break;
     }
 
@@ -210,7 +209,7 @@ int printTo(PrintCallback* callback, void* ptr, const char* fmt, va_list args)
         len++;
       }
 
-      callback(ptr, curr, len);
+      printfn(ptr, curr, len);
       break;
     }
 
@@ -233,7 +232,7 @@ int printTo(PrintCallback* callback, void* ptr, const char* fmt, va_list args)
         len++;
       }
 
-      callback(ptr, curr, len);
+      printfn(ptr, curr, len);
       break;
     }
 
@@ -247,7 +246,7 @@ int printTo(PrintCallback* callback, void* ptr, const char* fmt, va_list args)
         len++;
       } while (value != 0);
 
-      callback(ptr, curr, len);
+      printfn(ptr, curr, len);
       break;
     }
 
@@ -261,20 +260,20 @@ int printTo(PrintCallback* callback, void* ptr, const char* fmt, va_list args)
         len++;
       } while (value != 0);
 
-      callback(ptr, curr, len);
+      printfn(ptr, curr, len);
       break;
     }
 
     case PRINT_FORMAT_STR: {
       const char* value = va_arg(args, const char*);
       if (value != NULL) {
-        len = (unsigned)wasmux::charactersLength(value); // TODO: UINT_MAX
+        len = (unsigned)wasmux_strlen(value); // TODO: UINT_MAX
       }
       else {
         value = "(null)";
         len = 6;
       }
-      callback(ptr, value, len);
+      printfn(ptr, value, len);
       break;
     }
 
@@ -290,4 +289,88 @@ int printTo(PrintCallback* callback, void* ptr, const char* fmt, va_list args)
   return (int)count;
 }
 
-}  // namespace wasmux
+struct sprintf_data_s {
+  char* start;
+  char* curr;
+};
+
+struct snprintf_data_s {
+  char* start;
+  char* curr;
+  char* end;
+};
+
+static void sprintf_null_write(void* ptr, const char* str, unsigned len)
+{
+  struct sprintf_data_s* data = (struct sprintf_data_s*)ptr;
+
+  data->curr += len;
+}
+
+static void sprintf_write(void* ptr, const char* str, unsigned len)
+{
+  struct sprintf_data_s* data = (struct sprintf_data_s*)ptr;
+
+  kernel_memory_copy(data->curr, str, len);
+  data->curr += len;
+}
+
+static void snprintf_write(void* ptr, const char* str, unsigned len)
+{
+  struct snprintf_data_s* data = (struct snprintf_data_s*)ptr;
+
+  size_t rem_length = data->end - data->curr;
+  if (rem_length < len) {
+    len = rem_length;
+  }
+
+  kernel_memory_copy(data->curr, str, len);
+  data->curr += len;
+}
+
+int __kernel_sprintf(char* buf, const char* fmt, ...)
+{
+  va_list args;
+  va_start(args, fmt);
+  int n = __kernel_vsprintf(buf, fmt, args);
+  va_end(args);
+  return n;
+}
+
+int __kernel_vsprintf(char* buf, const char* fmt, va_list args)
+{
+  struct sprintf_data_s data = {
+    .start = buf,
+    .curr = buf,
+  };
+
+  int ret = wasmux_printcb(buf ? &sprintf_write : &sprintf_null_write, &data, fmt, args);
+  *data.curr = '\0';
+
+  return ret;
+}
+
+int __kernel_snprintf(char* buf, size_t size, const char* fmt, ...)
+{
+  va_list args;
+  va_start(args, fmt);
+  int n = __kernel_vsnprintf(buf, size, fmt, args);
+  va_end(args);
+  return n;
+}
+
+int __kernel_vsnprintf(char* buf, size_t size, const char* fmt, va_list args)
+{
+  struct snprintf_data_s data = {
+    .start = buf,
+    .curr = buf,
+    .end = buf + size,
+  };
+
+  int ret = wasmux_printcb(buf ? &snprintf_write : &sprintf_null_write, &data, fmt, args);
+  if (data.curr < data.end) {
+    *data.curr = '\0';
+  }
+  
+  return ret;
+}

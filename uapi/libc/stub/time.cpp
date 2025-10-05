@@ -11,14 +11,17 @@
 #include <assert.h>
 #include <wasmux/compiler.h>
 
-extern "C" int __daylight = 0;
+extern "C" int __daylight;
+int __daylight = 0;
 extern "C" __ATTR_ALIAS(__daylight, daylight) __ATTR_WEAK;
 
-extern "C" long __timezone = 0L;
+extern "C" long __timezone;
+long __timezone = 0L;
 extern "C" __ATTR_ALIAS(__timezone, timezone) __ATTR_WEAK;
 
 static char __tzname_GMT[] = "GMT";
-extern "C" char* __tzname[2] =
+extern "C" char* __tzname[];
+char* __tzname[2] =
 {
   __tzname_GMT,
   __tzname_GMT,

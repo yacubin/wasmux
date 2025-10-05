@@ -9,7 +9,7 @@
 #include <wasmux/bulk-memory.h>
 #include <wasmux/web/console.h>
 #include <wasmux/web/string.h>
-#include <wasmux/cxx/PrintTo.h>
+#include <wasmux/sprintf.h>
 
 int WebConsoleWrite(int level, const char* message, unsigned length)
 {
@@ -78,7 +78,7 @@ int WebConsoleVPrint(const char* fmt, va_list args)
     }
 	}
 
-  int ret = wasmux::printTo(&console_buffer_write, &buffer, fmt, args);
+  int ret = wasmux_printcb(&console_buffer_write, &buffer, fmt, args);
   console_buffer_flush(&buffer);
 
   return ret;

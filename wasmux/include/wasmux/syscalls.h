@@ -13,7 +13,9 @@
 #include <wasmux/arch/unistd.h>
 #include <wasmux/arch/syscalls.h>
 
-__EXPORT_BEGIN
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #ifdef __ARCH_WANT_EXPORT_SYSCALLS
 #define WASMUX_KERNEL_EXPORT(module, name) __ATTR_EXPORT_NAME(name)
@@ -30,6 +32,8 @@ long __kernel_syscall(long number, long arg1, long arg2, long arg3, long arg4, l
 
 #endif /* WASMUX_KERNEL_EXPORT */
 
-__EXPORT_END
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _WASMUX_SYSCALLS_H */
