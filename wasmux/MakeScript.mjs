@@ -61,6 +61,7 @@ export default (mk) => {
     "include/wasmux/statfs.h",
     "include/wasmux/statvfs.h",
     "include/wasmux/stdarg.h",
+    "include/wasmux/string.h",
     "include/wasmux/swab.h",
     "include/wasmux/sys_ni.h",
     "include/wasmux/syscalls.h",
@@ -104,8 +105,14 @@ export default (mk) => {
   ];
 
   if (mk.WASMUX_WEI) {
-    headers.push("include/wasmux/wei.h");
-    sources.push("src/wei/wei.cpp");
+    headers.push(
+      "include/wasmux/user_access.h",
+      "include/wasmux/wei.h",
+    );
+    sources.push(
+      "src/wei/user_access.cpp",
+      "src/wei/wei.cpp",
+    );
 
     const webcall_nums_h = mk.BINARY_DIR.join("include/wasmux/webcall-nums.h");
     mk.addCustomScript("src/wei/webcall-nums.h.js", {

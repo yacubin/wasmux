@@ -8,7 +8,6 @@
 #define _WASMUX_USERACCESS_H
 
 #include <wasmux/types.h>
-#include <wasmux/web/object.h>
 
 #ifdef __cplusplus
 extern "C" {
