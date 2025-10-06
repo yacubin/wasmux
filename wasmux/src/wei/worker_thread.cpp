@@ -5,7 +5,7 @@
  */
 
 #include <wasmux-config.h>
-#include <wasmux/worker_thread.h>
+#include <wasmux/wei/worker_thread.h>
 #include <wasmux/wei.h>
 
 unsigned WebGetCurrentWorkerId()

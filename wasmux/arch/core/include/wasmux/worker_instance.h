@@ -10,7 +10,7 @@
 #include <wasmux/types.h>
 #include <wasmux/wei.h>
 #include <wasmux/web/arraybuffer.h>
-#include <wasmux/worker_thread.h>
+#include <wasmux/wei/worker_thread.h>
 
 #ifdef __cplusplus
 extern "C" {

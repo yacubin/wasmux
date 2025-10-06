@@ -6,7 +6,7 @@
 
 #include <wasmux-config.h>
 #include <wasmux/main_thread.h>
-#include <wasmux/worker_thread.h>
+#include <wasmux/wei/worker_thread.h>
 
 #ifdef WA_OS_WINDOWS
 #include <wasmux/win32/MainThreadContext.h>

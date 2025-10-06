@@ -10,7 +10,7 @@
 
 #include <wasmux/win32/NJSObjectList.h>
 
-#include <wasmux/worker_thread.h>
+#include <wasmux/wei/worker_thread.h>
 #include <wasmux/cxx/New.h>
 
 #include <wasmux/win32/OSMalloc.h>

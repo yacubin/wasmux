@@ -119,6 +119,7 @@ export default (mk) => {
 
       "include/wasmux/wei/alert.h",
       "include/wasmux/wei/user_access.h",
+      "include/wasmux/wei/worker_thread.h",
       "include/wasmux/wei.h",
     );
     sources.push(
@@ -136,6 +137,7 @@ export default (mk) => {
       "src/wei/alert.cpp",
       "src/wei/user_access.cpp",
       "src/wei/wei.cpp",
+      "src/wei/worker_thread.cpp",
     );
 
     const webcall_nums_h = mk.BINARY_DIR.join("include/wasmux/webcall-nums.h");
