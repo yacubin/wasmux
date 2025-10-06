@@ -5,7 +5,7 @@
  */
 
 #include <wasmux-config.h>
-#include <wasmux/alert.h>
+#include <wasmux/wei/alert.h>
 #include <wasmux/cxx/Characters.h>
 #include <wasmux/web/object.h>
 #include <wasmux/web/string.h>

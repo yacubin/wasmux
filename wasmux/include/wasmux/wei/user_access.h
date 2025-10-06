@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WASMUX_USERACCESS_H
-#define _WASMUX_USERACCESS_H
+#ifndef _WASMUX_WEI_USERACCESS_H
+#define _WASMUX_WEI_USERACCESS_H
 
 #include <wasmux/types.h>
 
@@ -23,4 +23,4 @@ unsigned long WebClearUserMemory(void* mem, unsigned long len);
 }
 #endif
 
-#endif /* _WASMUX_USERACCESS_H */
+#endif /* _WASMUX_WEI_USERACCESS_H */

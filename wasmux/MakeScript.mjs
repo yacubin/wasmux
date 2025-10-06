@@ -117,7 +117,8 @@ export default (mk) => {
       "include/wasmux/web/worker.h",
       "include/wasmux/web/xmlhttprequest.h",
 
-      "include/wasmux/user_access.h",
+      "include/wasmux/wei/alert.h",
+      "include/wasmux/wei/user_access.h",
       "include/wasmux/wei.h",
     );
     sources.push(
@@ -131,7 +132,8 @@ export default (mk) => {
       "src/web/webassembly.cpp",
       "src/web/worker.cpp",
       "src/web/xmlhttprequest.cpp",
-      
+
+      "src/wei/alert.cpp",
       "src/wei/user_access.cpp",
       "src/wei/wei.cpp",
     );
