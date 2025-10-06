@@ -1,5 +1,8 @@
 export default (mk) => {
   const headers = [
+    "include/wasmux/arch-generic/log.h",
+    "include/wasmux/arch-generic/string.h",
+
     "include/wasmux/cxx/Atomic.h",
     "include/wasmux/cxx/BitVector.h",
     "include/wasmux/cxx/Characters.h",
@@ -11,9 +14,6 @@ export default (mk) => {
     "include/wasmux/cxx/RefPtr.h",
     "include/wasmux/cxx/StaticStorage.h",
     "include/wasmux/cxx/TypeTraits.h",
-
-    "include/wasmux/arch-generic/log.h",
-    "include/wasmux/arch-generic/string.h",
 
     "include/wasmux/align.h",
     "include/wasmux/assert.h",
@@ -106,10 +106,32 @@ export default (mk) => {
 
   if (mk.WASMUX_WEI) {
     headers.push(
+      "include/wasmux/web/arraybuffer.h",
+      "include/wasmux/web/console.h",
+      "include/wasmux/web/getcurrenttimer.h",
+      "include/wasmux/web/getrandombytes.h",
+      "include/wasmux/web/object.h",
+      "include/wasmux/web/string.h",
+      "include/wasmux/web/terminal.h",
+      "include/wasmux/web/webassembly.h",
+      "include/wasmux/web/worker.h",
+      "include/wasmux/web/xmlhttprequest.h",
+
       "include/wasmux/user_access.h",
       "include/wasmux/wei.h",
     );
     sources.push(
+      "src/web/arraybuffer.cpp",
+      "src/web/console.cpp",
+      "src/web/getcurrenttimer.cpp",
+      "src/web/getrandombytes.cpp",
+      "src/web/object.cpp",
+      "src/web/string.cpp",
+      "src/web/terminal.cpp",
+      "src/web/webassembly.cpp",
+      "src/web/worker.cpp",
+      "src/web/xmlhttprequest.cpp",
+      
       "src/wei/user_access.cpp",
       "src/wei/wei.cpp",
     );
