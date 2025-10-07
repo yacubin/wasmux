@@ -7,7 +7,7 @@
 #include <wasmux-config.h>
 #include <wasmux/wei/user_access.h>
 #include <wasmux/web/object.h>
-#include <wasmux/worker_instance.h>
+#include <wasmux/wei/worker_instance.h>
 
 unsigned long WebCopyFromUserMemory(void* to, const void* from, unsigned long n)
 {

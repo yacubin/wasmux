@@ -7,7 +7,7 @@
 #include <wasmux-config.h>
 #include <wasmux/main_loop.h>
 #include <wasmux/notify_waiter.h>
-#include <wasmux/worker_instance.h>
+#include <wasmux/wei/worker_instance.h>
 
 struct DispatchSyncData {
   WEI_PerformCallback* dispatchCallback;

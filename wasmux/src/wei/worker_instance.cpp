@@ -6,7 +6,7 @@
 
 #include <wasmux-config.h>
 
-#include <wasmux/worker_instance.h>
+#include <wasmux/wei/worker_instance.h>
 #include <wasmux/assert.h>
 #include <wasmux/errno.h>
 #include <wasmux/notify_waiter.h>

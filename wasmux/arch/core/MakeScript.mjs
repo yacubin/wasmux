@@ -11,7 +11,6 @@ export default (mk) => {
     "include/wasmux/main_loop.h",
     "include/wasmux/main_thread.h",
     "include/wasmux/memory_alloc.h",
-    "include/wasmux/worker_instance.h",
   ];
 
   const sources = [
@@ -21,8 +20,6 @@ export default (mk) => {
     "src/main_thread.cpp",
     "src/memory_alloc.cpp",
     "src/start_worker.cpp",
-    "src/worker_instance.cpp",
-    "src/worker_instanceInit.S",
   ];
 
   const includes = [
