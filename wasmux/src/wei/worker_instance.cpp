@@ -18,7 +18,7 @@
 #include <wasmux/memory_alloc.h>
 #include <wasmux/web/worker.h>
 #include <wasmux/web/webassembly.h>
-#include <wasmux/main_loop.h>
+#include <wasmux/wei/main_loop.h>
 
 #ifdef WA_OS_WINDOWS
 #include <wasmux/win32/WorkerThreadContext.h>

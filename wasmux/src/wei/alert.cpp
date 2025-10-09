@@ -9,7 +9,7 @@
 #include <wasmux/cxx/Characters.h>
 #include <wasmux/web/object.h>
 #include <wasmux/web/string.h>
-#include <wasmux/main_loop.h>
+#include <wasmux/wei/main_loop.h>
 
 struct alert_params_s {
   const char* msg;

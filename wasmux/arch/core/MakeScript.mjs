@@ -8,7 +8,6 @@ export default (mk) => {
     "include/wasmux/arch/unistd.h",
     "include/wasmux/file_system.h",
     "include/wasmux/init.h",
-    "include/wasmux/main_loop.h",
     "include/wasmux/main_thread.h",
     "include/wasmux/memory_alloc.h",
   ];
@@ -16,7 +15,6 @@ export default (mk) => {
   const sources = [
     "src/cxx/HostHeap.cpp",
     "src/file_system.cpp",
-    "src/main_loop.cpp",
     "src/main_thread.cpp",
     "src/memory_alloc.cpp",
     "src/start_worker.cpp",

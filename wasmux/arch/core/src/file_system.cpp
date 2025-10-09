@@ -13,7 +13,7 @@
 #include <wasmux/web/string.h>
 #include <wasmux/memory_alloc.h>
 #include <wasmux/web/object.h>
-#include <wasmux/main_loop.h>
+#include <wasmux/wei/main_loop.h>
 #include <wasmux/web/xmlhttprequest.h>
 #include <wasmux/web/console.h>
 
