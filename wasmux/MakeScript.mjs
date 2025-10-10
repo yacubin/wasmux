@@ -119,6 +119,7 @@ export default (mk) => {
 
       "include/wasmux/wei/alert.h",
       "include/wasmux/wei/main_loop.h",
+      "include/wasmux/wei/main_thread.h",
       "include/wasmux/wei/user_access.h",
       "include/wasmux/wei/worker_instance.h",
       "include/wasmux/wei/worker_thread.h",
@@ -138,6 +139,7 @@ export default (mk) => {
 
       "src/wei/alert.cpp",
       "src/wei/main_loop.cpp",
+      "src/wei/main_thread.cpp",
       "src/wei/user_access.cpp",
       "src/wei/wei.cpp",
       "src/wei/worker_instance.cpp",

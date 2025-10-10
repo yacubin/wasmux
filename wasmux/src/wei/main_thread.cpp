@@ -5,7 +5,7 @@
  */
 
 #include <wasmux-config.h>
-#include <wasmux/main_thread.h>
+#include <wasmux/wei/main_thread.h>
 #include <wasmux/wei/worker_thread.h>
 
 #ifdef WA_OS_WINDOWS

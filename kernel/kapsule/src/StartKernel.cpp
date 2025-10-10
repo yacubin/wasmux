@@ -8,7 +8,7 @@
 #include <wasmux/export.h>
 #include <wasmux/init.h>
 #include <wasmux/log.h>
-#include <wasmux/main_thread.h>
+#include <wasmux/wei/main_thread.h>
 #include <wasmux/memory_alloc.h>
 
 __EXPORT void __start_kernel()
