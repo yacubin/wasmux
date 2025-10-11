@@ -6,7 +6,7 @@
 
 #include <wasmux-config.h>
 #include <wasmux/platform.h>
-#include <wasmux/memory_alloc.h>
+#include <wasmux/wei/memory_alloc.h>
 #include <wasmux/wasm_page.h>
 #include <wasmux/bulk-memory.h>
 #include <wasmux/cxx/StaticStorage.h>

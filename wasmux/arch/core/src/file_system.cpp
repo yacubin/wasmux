@@ -11,7 +11,7 @@
 #include <wasmux/log.h>
 #include <wasmux/wei.h>
 #include <wasmux/web/string.h>
-#include <wasmux/memory_alloc.h>
+#include <wasmux/wei/memory_alloc.h>
 #include <wasmux/web/object.h>
 #include <wasmux/wei/main_loop.h>
 #include <wasmux/web/xmlhttprequest.h>

@@ -15,7 +15,7 @@
 #include <wasmux/web/string.h>
 #include <wasmux/cxx/Characters.h>
 
-#include <wasmux/memory_alloc.h>
+#include <wasmux/wei/memory_alloc.h>
 #include <wasmux/web/worker.h>
 #include <wasmux/web/webassembly.h>
 #include <wasmux/wei/main_loop.h>

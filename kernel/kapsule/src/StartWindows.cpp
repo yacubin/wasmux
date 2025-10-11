@@ -6,7 +6,7 @@
 
 #include <wasmux-config.h>
 #include <wasmux/export.h>
-#include <wasmux/memory_alloc.h>
+#include <wasmux/wei/memory_alloc.h>
 #include <wasmux/wasm_page.h>
 #include <wasmux/sprintf.h>
 #include <wasmux/log.h>
