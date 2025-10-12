@@ -119,6 +119,7 @@ export default (mk) => {
       "include/wasmux/web/xmlhttprequest.h",
 
       "include/wasmux/wei/alert.h",
+      "include/wasmux/wei/file_system.h",
       "include/wasmux/wei/main_loop.h",
       "include/wasmux/wei/main_thread.h",
       "include/wasmux/wei/memory_alloc.h",
@@ -140,6 +141,7 @@ export default (mk) => {
       "src/web/xmlhttprequest.cpp",
 
       "src/wei/alert.cpp",
+      "src/wei/file_system.cpp",
       "src/wei/main_loop.cpp",
       "src/wei/main_thread.cpp",
       "src/wei/memory_alloc.cpp",

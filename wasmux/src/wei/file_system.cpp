@@ -5,7 +5,7 @@
  */
 
 #include <wasmux-config.h>
-#include <wasmux/file_system.h>
+#include <wasmux/wei/file_system.h>
 #include <wasmux/errno.h>
 #include <wasmux/notify_waiter.h>
 #include <wasmux/log.h>

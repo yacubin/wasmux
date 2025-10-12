@@ -6,12 +6,10 @@ export default (mk) => {
     "include/wasmux/arch/string.h",
     "include/wasmux/arch/syscalls.h",
     "include/wasmux/arch/unistd.h",
-    "include/wasmux/file_system.h",
   ];
 
   const sources = [
     "src/cxx/HostHeap.cpp",
-    "src/file_system.cpp",
     "src/start_worker.cpp",
   ];
 
