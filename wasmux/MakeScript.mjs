@@ -177,12 +177,29 @@ export default (mk) => {
     sources.push(webcall_worker_h);
   }
 
+  const syscall_nums_h = mk.BINARY_DIR.join("include/wasmux/syscall-nums.h");
+  mk.addCustomScript("include/wasmux/syscall-nums.h.mjs", {
+    SCRIPT_NAME: "<wasmux/syscall-nums.h>",
+    SCRIPT_INPUT: mk.PROJECT_SOURCE_DIR.join("data/syscall.js"),
+    SCRIPT_OUTPUT: syscall_nums_h,
+  });
+  sources.push(syscall_nums_h);
+
+  const syscall_list_h = mk.BINARY_DIR.join("include/wasmux/syscall-list.h");
+  mk.addCustomScript("include/wasmux/syscall-list.h.mjs", {
+    SCRIPT_NAME: "<wasmux/syscall-list.h>",
+    SCRIPT_INPUT: mk.PROJECT_SOURCE_DIR.join("data/syscall.js"),
+    SCRIPT_OUTPUT: syscall_list_h,
+  });
+  sources.push(syscall_list_h);
+
   const errno_h = mk.BINARY_DIR.join("include/wasmux/errno.h");
   mk.addCustomScript("src/errno.h.js", {
     SCRIPT_NAME: "<wasmux/errno.h>",
     SCRIPT_INPUT:  mk.PROJECT_SOURCE_DIR.join("data/errno.js"),
     SCRIPT_OUTPUT: errno_h,
   });
+  sources.push(errno_h);
 
   const thread_data_h = mk.BINARY_DIR.join("include/wasmux/thread_data.h");
   mk.addCustomScript("configure_file", {
@@ -191,8 +208,9 @@ export default (mk) => {
     SCRIPT_OUTPUT: thread_data_h,
     SCRIPT_ENTITIES: [],
   });
+  sources.push(thread_data_h);
 
-  const wasmux = mk.addStaticLibrary("wasmux", headers, sources, errno_h, thread_data_h);
+  const wasmux = mk.addStaticLibrary("wasmux", headers, sources);
   wasmux.addPublicIncludes(includes);
 
   mk.install(headers, {

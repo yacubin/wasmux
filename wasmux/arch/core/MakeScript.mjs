@@ -64,21 +64,6 @@ export default (mk) => {
     );
   }
 
-  const syscall_nums_h = mk.BINARY_DIR.join("include/wasmux/syscall-nums.h");
-  mk.addCustomScript("src/syscall-nums.h.mjs", {
-    SCRIPT_NAME: "<wasmux/syscall-nums.h>",
-    SCRIPT_INPUT: mk.PROJECT_SOURCE_DIR.join("data/syscall.js"),
-    SCRIPT_OUTPUT: syscall_nums_h,
-  });
-
-  const syscall_list_h = mk.BINARY_DIR.join("include/wasmux/syscall-list.h");
-  mk.addCustomScript("src/syscall-list.h.mjs", {
-    SCRIPT_NAME: "<wasmux/syscall-list.h>",
-    SCRIPT_INPUT: mk.PROJECT_SOURCE_DIR.join("data/syscall.js"),
-    SCRIPT_OUTPUT: syscall_list_h,
-  });
-
   mk.target("wasmux").addSources(sources, headers);
-  mk.target("wasmux").addSources(syscall_nums_h, syscall_list_h);
   mk.target("wasmux").addPublicIncludes(includes);
 }
