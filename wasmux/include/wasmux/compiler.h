@@ -27,13 +27,8 @@
 
 #define __ATTR_ALIAS(from, to) __typeof(from) to __attribute__((__alias__(#from)))
 
-#ifndef WA_OS_WINDOWS
 #define __ATTR_WEAK __attribute__((__weak__))
 #define __ATTR_WEAK_ALIAS(from, to) __typeof(from) to __attribute__((__weak__, __alias__(#from)))
-#else
-#define __ATTR_WEAK
-#define __ATTR_WEAK_ALIAS(from, to) __ATTR_ALIAS(from, to)
-#endif
 
 #ifndef WA_OS_WINDOWS
 # define __ATTR_HIDDEN __attribute__((__visibility__("hidden")))
@@ -55,5 +50,7 @@
 
 #define __LIKELY(x)   __builtin_expect(!!(x), 1)
 #define __UNLIKELY(x) __builtin_expect(!!(x), 0)
+
+#define __ATTR_ALWAYS_INLINE inline __attribute__((__always_inline__))
 
 #endif /* _WASMUX_COMPILER_H */
