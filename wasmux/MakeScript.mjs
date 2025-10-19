@@ -3,7 +3,6 @@ export default (mk) => {
     "include/wasmux/arch-generic/log.h",
     "include/wasmux/arch-generic/string.h",
 
-    "include/wasmux/cxx/BitVector.h",
     "include/wasmux/cxx/Characters.h",
     "include/wasmux/cxx/Leb128.h",
     "include/wasmux/cxx/Math.h",
@@ -17,6 +16,8 @@ export default (mk) => {
     "include/wasmux/align.h",
     "include/wasmux/assert.h",
     "include/wasmux/atomic.h",
+    "include/wasmux/bits.h",
+    "include/wasmux/bitset.h",
     "include/wasmux/bulk-memory.h",
     "include/wasmux/byteorder.h",
     "include/wasmux/compiler.h",
