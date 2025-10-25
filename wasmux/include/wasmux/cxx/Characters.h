@@ -33,28 +33,6 @@ template<> struct IntHelper<8> {
 namespace wasmux {
 
 template<typename CHAR>
-size_t charactersLength(const CHAR* characters)
-{
-  const auto* ptr = characters;
-  while (*ptr) {
-    ptr++;
-  }
-
-  return ptr - characters;
-}
-
-template<typename CHAR>
-size_t charactersLength(const CHAR* characters, size_t length)
-{
-  size_t n = 0;
-  while (n < length && characters[n]) {
-    n++;
-  }
-
-  return n;
-}
-
-template<typename CHAR>
 int charactersCompare(const CHAR* characters1, const CHAR* characters2)
 {
   using UChar = typename IntHelper<sizeof(CHAR)>::UType;

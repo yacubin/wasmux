@@ -7,11 +7,11 @@
 #include <wasmux-config.h>
 #include <wasmux/wei.h>
 #include <wasmux/web/string.h>
-#include <wasmux/cxx/Characters.h>
+#include <wasmux/string.h>
 
 WebString* WebString_create(const char* str)
 {
-  return WebString_create2(str, static_cast<unsigned>(wasmux::charactersLength(str)));
+  return WebString_create2(str, static_cast<unsigned>(wasmux_strlen(str)));
 }
 
 WebString* WebString_create2(const char* str, unsigned len)

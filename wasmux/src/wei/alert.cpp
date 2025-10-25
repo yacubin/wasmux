@@ -6,7 +6,7 @@
 
 #include <wasmux-config.h>
 #include <wasmux/wei/alert.h>
-#include <wasmux/cxx/Characters.h>
+#include <wasmux/string.h>
 #include <wasmux/web/object.h>
 #include <wasmux/web/string.h>
 #include <wasmux/wei/main_loop.h>
@@ -28,7 +28,7 @@ void WebAlert(const char* message)
 {
   struct alert_params_s params = {
     .msg = message,
-    .len = wasmux::charactersLength(message),
+    .len = wasmux_strlen(message),
   };
   WebMainLoopDispatch(&WebAlertImpl, (void*)&params, LP_SYNC);
 }

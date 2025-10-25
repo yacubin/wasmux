@@ -29,12 +29,18 @@ char* strchr(const char* str, int ch)
 
 size_t strlen(const char* str)
 {
-  return wasmux::charactersLength(str);
+  const char* ptr = str;
+  while (*ptr)
+    ptr++;
+  return ptr - str;
 }
 
 size_t strnlen(const char* str, size_t len)
 {
-  return wasmux::charactersLength(str, len);
+  size_t n = 0;
+  while (n < len && str[n])
+    n++;
+  return n;
 }
 
 char* strtok(char* str, const char* delim)
