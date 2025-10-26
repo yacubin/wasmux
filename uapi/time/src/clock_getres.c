@@ -4,12 +4,11 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <time.h>
 #include <errno.h>
 #include <assert.h>
 
-int clock_nanosleep(clockid_t clock_id, int flags, const struct timespec* req, struct timespec* rem)
+int clock_getres(clockid_t clock_id, struct timespec* ts)
 {
   assert(0);
   errno = ENOSYS;

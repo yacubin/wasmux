@@ -4,9 +4,9 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/clock_getres.cpp",
-    "src/clock_gettime.cpp",
-    "src/clock_nanosleep.cpp",
+    "src/clock_getres.c",
+    "src/clock_gettime.c",
+    "src/clock_nanosleep.c",
   ];
 
   const libraries = [
