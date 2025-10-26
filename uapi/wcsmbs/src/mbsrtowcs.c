@@ -4,12 +4,11 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <wchar.h>
-#include <wasmux/assert.h>
+#include <assert.h>
 
 size_t mbsrtowcs(wchar_t* dst, const char** src, size_t dstlen, mbstate_t* state)
 {
-  WA_UNREACHABLE();
+  assert(0);
   return 0;
 }

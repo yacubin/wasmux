@@ -4,12 +4,11 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <wchar.h>
-#include <wasmux/assert.h>
+#include <assert.h>
 
 wint_t btowc(int wc)
 {
-  WA_UNREACHABLE();
+  assert(0);
   return 0;
 }

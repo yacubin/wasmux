@@ -4,12 +4,11 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <wchar.h>
-#include <wasmux/assert.h>
+#include <assert.h>
 
-int mbsinit(const mbstate_t* state)
+int wctob(wint_t c)
 {
-  WA_UNREACHABLE();
+  assert(0);
   return 0;
 }

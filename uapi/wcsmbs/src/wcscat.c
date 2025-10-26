@@ -4,12 +4,11 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <wchar.h>
-#include <wasmux/assert.h>
+#include <assert.h>
 
 wchar_t* wcscat(wchar_t* dst, const wchar_t* src)
 {
-  WA_UNREACHABLE();
-  return nullptr;
+  assert(0);
+  return NULL;
 }

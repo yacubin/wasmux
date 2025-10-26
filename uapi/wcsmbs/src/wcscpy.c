@@ -4,12 +4,18 @@
  *
  */
 
-#include <wasmux-config.h>
-#include <wasmux/cxx/Characters.h>
-
 #include <wchar.h>
 
 wchar_t* wcscpy(wchar_t* dst, const wchar_t* src)
 {
-  return wasmux::charactersCopy(dst, src);
+  wchar_t* ret = dst;
+  for (;;) {
+    wchar_t ch = *dst = *src;
+    if (ch == '\0')
+      break;
+    src++;
+    dst++;
+  }
+
+  return ret;
 }

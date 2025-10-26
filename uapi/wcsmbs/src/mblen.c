@@ -4,12 +4,11 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <stdlib.h>
-#include <wasmux/assert.h>
+#include <assert.h>
 
-int wctomb(char* str, wchar_t wch)
+int mblen(const char* str, size_t len)
 {
-  WA_UNREACHABLE();
+  assert(0);
   return -1;
 }
