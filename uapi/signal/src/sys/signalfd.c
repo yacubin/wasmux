@@ -4,7 +4,6 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <sys/signalfd.h>
 #include <assert.h>
 #include <errno.h>

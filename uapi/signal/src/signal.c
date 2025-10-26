@@ -4,7 +4,6 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <signal.h>
 #include <errno.h>
 #include <assert.h>
@@ -13,7 +12,7 @@ sighandler_t signal(int signum, sighandler_t handler)
 {
   assert(0);
   errno = ENOSYS;
-  return nullptr;
+  return NULL;
 }
 
 int sigprocmask(int how, const sigset_t* set, sigset_t* oldset)
