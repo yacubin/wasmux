@@ -4,11 +4,10 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <wctype.h>
 #include <stdlib.h>
 
-int iswalpha(wint_t wc)
+wctype_t wctype(const char* name)
 {
   abort();
   return 0;

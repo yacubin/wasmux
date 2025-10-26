@@ -4,11 +4,10 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <wctype.h>
 #include <stdlib.h>
 
-int iswdigit(wint_t wc)
+int iswpunct(wint_t wc)
 {
   abort();
   return 0;

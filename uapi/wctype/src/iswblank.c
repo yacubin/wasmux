@@ -4,11 +4,10 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <wctype.h>
 #include <stdlib.h>
 
-int iswpunct(wint_t wc)
+int iswblank(wint_t wc)
 {
   abort();
   return 0;

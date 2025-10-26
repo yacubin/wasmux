@@ -4,12 +4,11 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <wctype.h>
 #include <stdlib.h>
 
-int iswalnum(wint_t wc)
+int iswspace(wint_t wc)
 {
   abort();
-  return -1;
+  return 0;
 }

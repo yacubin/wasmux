@@ -4,7 +4,6 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <wctype.h>
 #include <stdlib.h>
 

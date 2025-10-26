@@ -4,11 +4,10 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <wctype.h>
 #include <stdlib.h>
 
-int iswgraph(wint_t wc)
+wint_t towupper(wint_t wc)
 {
   abort();
   return 0;

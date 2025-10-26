@@ -4,11 +4,10 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <wctype.h>
 #include <stdlib.h>
 
-int iswcntrl(wint_t wc)
+int iswupper(wint_t wc)
 {
   abort();
   return 0;

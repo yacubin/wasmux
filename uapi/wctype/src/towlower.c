@@ -4,11 +4,10 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <wctype.h>
 #include <stdlib.h>
 
-int iswspace(wint_t wc)
+wint_t towlower(wint_t wc)
 {
   abort();
   return 0;

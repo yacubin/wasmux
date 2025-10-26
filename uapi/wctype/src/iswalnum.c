@@ -4,12 +4,11 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <wctype.h>
 #include <stdlib.h>
 
-wint_t towlower(wint_t wc)
+int iswalnum(wint_t wc)
 {
   abort();
-  return 0;
+  return -1;
 }

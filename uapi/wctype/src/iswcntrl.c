@@ -4,11 +4,10 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <wctype.h>
 #include <stdlib.h>
 
-wctype_t wctype(const char* name)
+int iswcntrl(wint_t wc)
 {
   abort();
   return 0;
