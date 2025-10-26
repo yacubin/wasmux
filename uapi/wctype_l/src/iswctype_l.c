@@ -4,7 +4,6 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <wctype.h>
 
 int iswctype_l(wint_t wc, wctype_t charclass, locale_t locale)

@@ -4,10 +4,9 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <wctype.h>
 
-int iswprint_l(wint_t wc, locale_t locale)
+int iswxdigit_l(wint_t wc, locale_t locale)
 {
-  return iswprint(wc);
+  return iswxdigit(wc);
 }

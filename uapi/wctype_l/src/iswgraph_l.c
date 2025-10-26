@@ -4,10 +4,9 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <wctype.h>
 
-int iswupper_l(wint_t wc, locale_t locale)
+int iswgraph_l(wint_t wc, locale_t locale)
 {
-  return iswupper(wc);
+  return iswgraph(wc);
 }

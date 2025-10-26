@@ -4,10 +4,9 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <wctype.h>
 
-int iswlower_l(wint_t wc, locale_t locale)
+wint_t towlower_l(wint_t wc, locale_t locale)
 {
-  return iswlower(wc);
+  return towlower(wc);
 }

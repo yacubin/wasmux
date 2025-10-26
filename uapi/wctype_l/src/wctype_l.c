@@ -4,10 +4,9 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <wctype.h>
 
-int iswspace_l(wint_t wc, locale_t locale)
+wctype_t wctype_l(const char* name, locale_t locale)
 {
-  return iswspace(wc);
+  return wctype(name);
 }

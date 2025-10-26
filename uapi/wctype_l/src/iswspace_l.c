@@ -4,10 +4,9 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <wctype.h>
 
-int iswalnum_l(wint_t wc, locale_t locale)
+int iswspace_l(wint_t wc, locale_t locale)
 {
-  return iswalnum(wc);
+  return iswspace(wc);
 }
