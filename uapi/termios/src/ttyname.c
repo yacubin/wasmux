@@ -4,7 +4,6 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <termios.h>
 #include <sys/stat.h>
 #include <paths.h>
@@ -19,7 +18,7 @@ char* ttyname(int fd)
   int ret = ttyname_r(fd, buf, __get_local_buffer_size());
   if (ret != 0) {
     __set_local_errno(ret);
-    return nullptr;
+    return NULL;
   }
 
   return buf;
@@ -40,7 +39,7 @@ int ttyname_r(int fd, char* buf, size_t len)
   }
 
   DIR* dir = opendir(_PATH_DEV);
-  if (dir == nullptr) {
+  if (dir == NULL) {
     __set_local_errno(EBADF);
     return -1;
   }

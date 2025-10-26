@@ -4,7 +4,6 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <termios.h>
 #include <sys/ioctl.h> // for tcgetattr
 #include <errno.h>
@@ -33,7 +32,7 @@ int tcflow(int fd, int action)
 
 int tcgetattr(int fd, struct termios* termios)
 {
-  if (nullptr == termios) {
+  if (NULL == termios) {
     __set_local_errno(EINVAL);
     return -1;
   }

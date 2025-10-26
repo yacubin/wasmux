@@ -4,15 +4,16 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <termios.h>
+
+#include <wasmux/export.h>
 #include <wasmux/compiler.h>
 
-__ATTR_HIDDEN
-extern "C" int __isatty(int fd)
+__ATTR_HIDDEN __EXPORT
+int __isatty(int fd)
 {
   struct termios termios;
   return tcgetattr(fd, &termios) == 0;
 }
 
-extern "C" __ATTR_ALIAS(__isatty, isatty) __ATTR_WEAK;
+__EXPORT __ATTR_ALIAS(__isatty, isatty) __ATTR_WEAK;
