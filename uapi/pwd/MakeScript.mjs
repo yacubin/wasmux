@@ -4,7 +4,7 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/pwd.cpp",
+    "src/pwd.c",
   ];
 
   const includes = [

@@ -4,21 +4,20 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <stdlib.h>
-#include <wasmux/cxx/Math.h>
+#include <wasmux/math.h>
 
 int abs(int i)
 {
-  return wasmux::abs(i);
+  return wasmux_abs(i);
 }
 
 long labs(long i)
 {
-  return wasmux::abs(i);
+  return wasmux_abs(i);
 }
 
 long long llabs(long long i)
 {
-  return wasmux::abs(i);
+  return wasmux_abs(i);
 }

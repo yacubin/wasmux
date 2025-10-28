@@ -4,12 +4,11 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <stdlib.h>
 #include <assert.h>
 
 char* realpath(const char* filename, char* resolved)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }

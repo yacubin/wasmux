@@ -4,7 +4,7 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/semaphore.cpp",
+    "src/semaphore.c",
   ];
 
   const includes = [
