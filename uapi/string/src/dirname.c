@@ -4,12 +4,12 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <libgen.h>
+#include <string.h>
 #include <assert.h>
 
 char* dirname(char* path)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }

@@ -4,29 +4,29 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <search.h>
-#include <wasmux/assert.h>
+#include <stddef.h>
+#include <assert.h>
 
 void* tsearch(const void* key, void** root, int (*compare)(const void*, const void*))
 {
-  WA_UNREACHABLE();
-  return nullptr;
+  assert(0);
+  return NULL;
 }
 
 void* tfind(const void* key, void* const* root, int (*compare)(const void*, const void*))
 {
-  WA_UNREACHABLE();
-  return nullptr;
+  assert(0);
+  return NULL;
 }
 
 void* tdelete(const void* key, void ** root, int (*compare)(const void*, const void*))
 {
-  WA_UNREACHABLE();
-  return nullptr;
+  assert(0);
+  return NULL;
 }
 
 void twalk(const void* root, void (*action)(const void* node, VISIT which, int depth))
 {
-  WA_UNREACHABLE();
+  assert(0);
 }

@@ -4,15 +4,14 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <string.h>
 #include <assert.h>
 #include <wasmux/compiler.h>
 
-extern "C" char* __stpcpy(char* dst, const char* src)
+char* __strsep(char** strp, const char* delim)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }
 
-extern "C" __ATTR_ALIAS(__stpcpy, stpcpy) __ATTR_WEAK;
+__ATTR_WEAK_ALIAS(__strsep, strsep);

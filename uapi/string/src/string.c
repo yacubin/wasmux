@@ -7,32 +7,22 @@
 #include <string.h>
 #include <strings.h>
 #include <assert.h>
-#include <wasmux/cxx/Characters.h>
-
-int memcmp(const void* p1, const void* p2, size_t n)
-{
-  while (n != 0) {
-    int a = *(const uint8_t*)(p1);
-    int b = *(const uint8_t*)(p2);
-    int diff = a - b;
-    if (diff)
-      return diff;
-    p1 = (const uint8_t*)(p1) + 1;
-    p2 = (const uint8_t*)(p2) + 1;
-    n--;
-  }
-  return 0;
-}
 
 void* memmove(void* dst, const void* src, size_t n)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }
 
 char* strchr(const char* str, int ch)
 {
-  return const_cast<char*>(wasmux::charactersFind<char,true>(str, ch));
+  for (;;) {
+    char c = *str;
+    if (c == '\0' || c == ch)
+      return str;
+    str++;
+  }
+  return NULL;
 }
 
 size_t strlen(const char* str)
@@ -54,37 +44,37 @@ size_t strnlen(const char* str, size_t len)
 char* strtok(char* str, const char* delim)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }
 
 char* strcat(char* dst, const char* src)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }
 
 char* strncat(char* dst, const char* src, size_t len)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }
 
 char* strstr(const char* haystack, const char* needle)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }
 
 char* strpbrk(const char* str, const char* accept)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }
 
 char* strndup(const char* str, size_t len)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }
 
 size_t strspn(const char* str, const char* accept)
@@ -114,7 +104,7 @@ int strcoll(const char* s1, const char* s2)
 char* strsignal(int sig)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }
 
 int ffs(int i)

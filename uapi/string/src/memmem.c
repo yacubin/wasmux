@@ -4,12 +4,11 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <string.h>
 #include <assert.h>
 
 void* memmem(const void* haystack, size_t haystack_len, const void* needle, size_t needle_len)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }

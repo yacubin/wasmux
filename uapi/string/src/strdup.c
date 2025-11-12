@@ -4,13 +4,11 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <string.h>
 #include <stdlib.h>
 #include <wasmux/compiler.h>
-#include <wasmux/cxx/Characters.h>
 
-extern "C" char* __strdup(const char* str)
+char* __strdup(const char* str)
 {
   size_t lenz = strlen(str) + 1;
 
@@ -19,7 +17,7 @@ extern "C" char* __strdup(const char* str)
     memcpy(ptr, str, lenz);
   }
 
-  return reinterpret_cast<char*>(ptr);
+  return (char*)ptr;
 }
 
-extern "C" __ATTR_ALIAS(__strdup, strdup) __ATTR_WEAK;
+__ATTR_WEAK_ALIAS(__strdup, strdup);

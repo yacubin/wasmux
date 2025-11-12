@@ -7,34 +7,35 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/basename.cpp",
-    "src/dirname.cpp",
-    "src/memchr.cpp",
-    "src/memcpy.cpp",
-    "src/memmem.cpp",
-    "src/memrchr.cpp",
-    "src/memset.cpp",
-    "src/rindex.cpp",
-    "src/stpcpy.cpp",
-    "src/strchrnul.cpp",
-    "src/strcmp.cpp",
-    "src/strcpy.cpp",
-    "src/strdup.cpp",
-    "src/string.cpp",
-    "src/strncmp.cpp",
-    "src/strncpy.cpp",
-    "src/strrchr.cpp",
-    "src/strsep.cpp",
-    "src/strtok_r.cpp",
-    "src/strverscmp.cpp",
+    "src/basename.c",
+    "src/dirname.c",
+    "src/memchr.c",
+    "src/memcmp.c",
+    "src/memcpy.c",
+    "src/memmem.c",
+    "src/memrchr.c",
+    "src/memset.c",
+    "src/rindex.c",
+    "src/stpcpy.c",
+    "src/strchrnul.c",
+    "src/strcmp.c",
+    "src/strcpy.c",
+    "src/strdup.c",
+    "src/string.c",
+    "src/strncmp.c",
+    "src/strncpy.c",
+    "src/strrchr.c",
+    "src/strsep.c",
+    "src/strtok_r.c",
+    "src/strverscmp.c",
   ];
 
   const includes = [
     mk.SOURCE_DIR.join("include"),
   ];
 
-  const strerror_cpp = mk.BINARY_DIR.join("src/strerror.cpp");
-  mk.addCustomScript("src/strerror.cpp.js", {
+  const strerror_cpp = mk.BINARY_DIR.join("src/strerror.c");
+  mk.addCustomScript("src/strerror.c.mjs", {
     SCRIPT_INPUT: mk.PROJECT_SOURCE_DIR.join("data/errno.js"),
     SCRIPT_OUTPUT: strerror_cpp,
   });

@@ -4,13 +4,12 @@
  *
  */
 
-#include <wasmux-config.h>
-
 #include <bits/string_basename.h>
+#include <string.h>
 #include <assert.h>
 
 char* basename(const char* path)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }

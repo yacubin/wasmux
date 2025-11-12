@@ -4,12 +4,11 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <string.h>
 #include <stdlib.h>
 #include <wasmux/compiler.h>
 
-extern "C" void* __memrchr(const void* mem, int ch, size_t n)
+void* __memrchr(const void* mem, int ch, size_t n)
 {
   unsigned char* p = (unsigned char*)mem + n;
   while (n != 0) {
@@ -21,4 +20,4 @@ extern "C" void* __memrchr(const void* mem, int ch, size_t n)
   return NULL;
 }
 
-extern "C" __ATTR_ALIAS(__memrchr, memrchr) __ATTR_WEAK;
+__ATTR_WEAK_ALIAS(__memrchr, memrchr);

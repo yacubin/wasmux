@@ -1,10 +1,9 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#include <wasmux-config.h>
 #include <string.h>
 
 void* memset(void* mem, int ch, size_t n)

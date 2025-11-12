@@ -1,11 +1,13 @@
-const fs = require("node:fs");
-const path = require("node:path");
+import fs from "node:fs";
+import path from "node:path";
+import url from "node:url";
 
-const { cxx } = require("bitmake");
+import { cxx } from "bitmake";
 
-module.exports = function(mk)
+export default async function(mk)
 {
-  const config = require(mk.SCRIPT_INPUT.toString());
+  const configUrl = url.pathToFileURL(mk.SCRIPT_INPUT.toString());
+  const config = (await import(configUrl)).default;
 
   const unkErrorStr = "Unknown error";
 
@@ -17,9 +19,8 @@ module.exports = function(mk)
 
   const lines = [];
 
-  lines.push(cxx.generatedScriptNameComment(__filename));
+  lines.push(cxx.generatedScriptNameComment(import.meta.url));
   lines.push("");
-  lines.push("#include <wasmux-config.h>");
   lines.push("#include <string.h>");
   lines.push("#include <errno.h>");
   lines.push("#include <wasmux/compiler.h>");
@@ -28,24 +29,23 @@ module.exports = function(mk)
   lines.push("{");
 
   for (let code = 0; code < errors.length; ++code) {
-    const desc = errors[code] ? `"${errors[code]}"` : "nullptr";
+    const desc = errors[code] ? `"${errors[code]}"` : "NULL";
     lines.push(`  ${desc},`);
   }
 
   lines.push("};");
   lines.push("");
-  lines.push('extern "C" char* __strerror(int errnum)');
+  lines.push('char*__ATTR_WEAK strerror(int errnum)');
   lines.push("{");
   lines.push(`  if (errnum < ${errors.length} && s_errors[errnum]) {`);
-  lines.push("    return const_cast<char*>(s_errors[errnum]);");
+  lines.push("    return (char*)s_errors[errnum];");
   lines.push("  }");
   lines.push(`  memcpy(__get_local_buffer_data(), "${unkErrorStr}", ${unkErrorStr.length + 1});`);
   /* TODO: Unknown error + atoi(errnum) */
   lines.push("  return __get_local_buffer_data();");
   lines.push("}");
-  lines.push('extern "C" __ATTR_ALIAS(__strerror, strerror) __ATTR_WEAK;');
   lines.push("");
 
-  fs.mkdirSync(path.dirname(mk.SCRIPT_OUTPUT.toString()), { recursive: true });
-  fs.writeFileSync(mk.SCRIPT_OUTPUT.toString(), lines.join('\n'), "utf8");
+  await fs.promises.mkdir(path.dirname(mk.SCRIPT_OUTPUT.toString()), { recursive: true });
+  await fs.promises.writeFile(mk.SCRIPT_OUTPUT.toString(), lines.join('\n'), "utf8");
 }

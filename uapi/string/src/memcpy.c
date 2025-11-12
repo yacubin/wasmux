@@ -4,7 +4,6 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <string.h>
 
 void* memcpy(void* dst, const void* src, size_t n)
@@ -15,5 +14,5 @@ void* memcpy(void* dst, const void* src, size_t n)
 void* mempcpy(void* dst, const void* src, size_t n)
 {
   __builtin_memcpy(dst, src, n);
-  return reinterpret_cast<char*>(dst) + n;
+  return ((char*)dst) + n;
 }

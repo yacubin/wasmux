@@ -9,5 +9,5 @@
 
 char* rindex(const char* str, int ch)
 {
-  return reinterpret_cast<char*>(memrchr(str, ch, strlen(str) + 1));
+  return (char*)memrchr(str, ch, strlen(str) + 1);
 }

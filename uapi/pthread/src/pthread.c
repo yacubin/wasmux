@@ -4,9 +4,8 @@
  *
  */
 
-#include <wasmux-config.h>
-#include <wasmux/assert.h>
 #include <pthread.h>
+#include <wasmux/assert.h>
 
 int pthread_mutexattr_init(pthread_mutexattr_t *attr)
 {
@@ -137,7 +136,7 @@ int pthread_key_delete(pthread_key_t key)
 void* pthread_getspecific(pthread_key_t key)
 {
   WA_UNREACHABLE();
-  return nullptr;
+  return NULL;
 }
 
 int pthread_setspecific(pthread_key_t key, const void* val)
@@ -281,7 +280,7 @@ int pthread_atfork(void (*prepare)(void), void (*parent)(void), void (*child)(vo
 pthread_t pthread_self(void)
 {
   WA_UNREACHABLE();
-  return nullptr;
+  return NULL;
 }
 
 void pthread_exit(void* retval)
