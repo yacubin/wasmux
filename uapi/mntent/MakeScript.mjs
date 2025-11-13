@@ -4,11 +4,11 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/endmntent.cpp",
-    "src/getmntent_r.cpp",
-    "src/getmntent.cpp",
-    "src/hasmntopt.cpp",
-    "src/setmntent.cpp",
+    "src/endmntent.c",
+    "src/getmntent_r.c",
+    "src/getmntent.c",
+    "src/hasmntopt.c",
+    "src/setmntent.c",
   ];
 
   const includes = [

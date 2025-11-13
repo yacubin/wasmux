@@ -4,12 +4,12 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <mntent.h>
+#include <stddef.h>
 #include <assert.h>
 
-int endmntent(FILE* file)
+FILE* setmntent(const char* filename, const char* mode)
 {
   assert(0);
-  return -1;
+  return NULL;
 }

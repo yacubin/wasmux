@@ -4,12 +4,10 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <obstack.h>
-#include <wasmux/compiler.h>
-#include <wasmux/assert.h>
+#include <assert.h>
 
 void _obstack_free(struct obstack* obstack, void* obj)
 {
-  WA_UNREACHABLE();
+  assert(0);
 }

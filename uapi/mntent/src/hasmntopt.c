@@ -4,12 +4,12 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <mntent.h>
+#include <stddef.h>
 #include <assert.h>
 
-struct mntent* getmntent_r(FILE* f, struct mntent* mntbuf, char* buf, int buflen)
+char* hasmntopt(const struct mntent* mnt, const char* opt)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }

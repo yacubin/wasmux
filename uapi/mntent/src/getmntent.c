@@ -4,12 +4,12 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <mntent.h>
+#include <stddef.h>
 #include <assert.h>
 
 struct mntent* getmntent(FILE* f)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }

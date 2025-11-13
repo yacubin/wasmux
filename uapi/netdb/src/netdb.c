@@ -4,7 +4,6 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <netdb.h>
 #include <assert.h>
 
@@ -13,13 +12,13 @@ int h_errno = 0;
 struct servent* getservbyname(const char* name, const char* proto)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }
 
 struct hostent* gethostbyname(const char* name)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }
 
 int getaddrinfo(const char* node, const char* service,
@@ -37,7 +36,7 @@ void freeaddrinfo(struct addrinfo* buf)
 const char* gai_strerror(int error_code)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }
 
 int getnameinfo(const struct sockaddr* addr, socklen_t addrlen, char* host,
@@ -50,5 +49,5 @@ int getnameinfo(const struct sockaddr* addr, socklen_t addrlen, char* host,
 struct servent* getservbyport(int port, const char* proto)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }

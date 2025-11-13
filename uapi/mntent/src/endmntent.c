@@ -4,12 +4,11 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <mntent.h>
 #include <assert.h>
 
-char* hasmntopt(const struct mntent* mnt, const char* opt)
+int endmntent(FILE* file)
 {
   assert(0);
-  return nullptr;
+  return -1;
 }
