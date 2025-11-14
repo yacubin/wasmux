@@ -4,7 +4,6 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <stdlib.h>
 #include <errno.h>
 #include <assert.h>
@@ -12,19 +11,19 @@
 void* malloc(size_t size)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }
 
 void* calloc(size_t num, size_t size)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }
 
 void* realloc(void* ptr, size_t size)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }
 
 void free(void* ptr)
@@ -35,7 +34,7 @@ void free(void* ptr)
 void* aligned_alloc(size_t alignment, size_t size)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }
 
 int posix_memalign(void** mem, size_t alignment, size_t size)

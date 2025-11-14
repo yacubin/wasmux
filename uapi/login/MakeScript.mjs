@@ -5,8 +5,8 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/utmp.cpp",
-    "src/utmpx.cpp",
+    "src/utmp.c",
+    "src/utmpx.c",
   ];
 
   const includes = [

@@ -4,7 +4,6 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <utmp.h>
 #include <assert.h>
 
@@ -16,7 +15,7 @@ void updwtmp(const char* file, const struct utmp* utmp)
 struct utmp* pututline(const struct utmp* utmp)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }
 
 void setutent(void)

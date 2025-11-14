@@ -4,20 +4,20 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <locale.h>
+#include <stddef.h> // for NULL
 #include <assert.h>
 
 char* setlocale(int category, const char* locale)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }
 
 locale_t newlocale(int category_mask, const char* locale, locale_t base)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }
 
 void freelocale(locale_t locale)
@@ -28,5 +28,5 @@ void freelocale(locale_t locale)
 struct lconv* localeconv(void)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }

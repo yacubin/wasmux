@@ -8,9 +8,9 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/isalnum_l.cpp",
-    "src/langinfo.cpp",
-    "src/locale.cpp",
+    "src/isalnum_l.c",
+    "src/langinfo.c",
+    "src/locale.c",
   ];
 
   const includes = [

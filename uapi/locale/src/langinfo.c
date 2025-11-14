@@ -4,12 +4,12 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <langinfo.h>
-#include <wasmux/assert.h>
+#include <stddef.h> // for NULL
+#include <assert.h>
 
 char* nl_langinfo(nl_item item)
 {
-  WA_UNREACHABLE();
-  return nullptr;
+  assert(0);
+  return NULL;
 }

@@ -4,22 +4,21 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <utmpx.h>
-#include <wasmux/assert.h>
+#include <assert.h>
 
 struct utmpx* getutxent(void)
 {
-  WA_UNREACHABLE();
-  return nullptr;
+  assert(0);
+  return NULL;
 }
 
 void setutxent(void)
 {
-  WA_UNREACHABLE();
+  assert(0);
 }
 
 void endutxent(void)
 {
-  WA_UNREACHABLE();
+  assert(0);
 }

@@ -5,7 +5,7 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/malloc.cpp",
+    "src/malloc.c",
   ];
 
   const includes = [
