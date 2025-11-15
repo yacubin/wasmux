@@ -4,11 +4,10 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <stdio.h>
 #include <assert.h>
 
-void funlockfile(FILE* file)
+void flockfile(FILE* file)
 {
   assert(0);
 }

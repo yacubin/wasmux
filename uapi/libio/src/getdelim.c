@@ -4,11 +4,11 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <stdio.h>
+#include <errno.h>
 #include <assert.h>
 
-void flockfile(FILE* file)
+ssize_t getline(char** line, size_t* n, FILE* file)
 {
-  assert(0);
+  return getdelim(line, n, '\n', file);
 }

@@ -4,12 +4,10 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <stdio.h>
 #include <assert.h>
 
-ssize_t getdelim(char** line, size_t* n, int delim, FILE* file)
+void funlockfile(FILE* file)
 {
   assert(0);
-  return -1;
 }

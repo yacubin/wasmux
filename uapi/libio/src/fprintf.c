@@ -4,14 +4,20 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <stdio.h>
-#include <errno.h>
 #include <assert.h>
+#include <errno.h>
 
-int putc(int ch, FILE* file)
+int fprintf(FILE* file, const char* fmt, ...)
 {
-  errno = ENOSYS;
   assert(0);
+  errno = ENOSYS;
+  return -1;
+}
+
+int vfprintf(FILE* file, const char* fmt, va_list ap)
+{
+  assert(0);
+  errno = ENOSYS;
   return -1;
 }

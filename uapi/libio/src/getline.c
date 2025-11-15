@@ -4,14 +4,11 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <stdio.h>
 #include <assert.h>
-#include <errno.h>
 
-int getc_unlocked(FILE* file)
+ssize_t getdelim(char** line, size_t* n, int delim, FILE* file)
 {
   assert(0);
-  errno = ENOSYS;
   return -1;
 }

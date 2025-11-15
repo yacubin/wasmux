@@ -4,14 +4,13 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <stdio.h>
-#include <wasmux/assert.h>
+#include <assert.h>
 #include <errno.h>
 
-int setvbuf(FILE* file, char* buf, int mode, size_t size)
+int getc_unlocked(FILE* file)
 {
-  WA_UNREACHABLE();
+  assert(0);
   errno = ENOSYS;
   return -1;
 }

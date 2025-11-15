@@ -4,7 +4,7 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/math.cpp",
+    "src/math.c",
   ];
 
   const includes = [

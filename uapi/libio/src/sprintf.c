@@ -4,10 +4,9 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <stdio.h>
-#include <wasmux/assert.h>
-#include <wasmux/errno.h>
+#include <assert.h>
+#include <errno.h>
 
 int sprintf(char* str, const char* fmt, ...)
 {
@@ -23,7 +22,7 @@ int sprintf(char* str, const char* fmt, ...)
 
 int vsprintf(char* str, const char* fmt, va_list ap)
 {
-  WA_UNREACHABLE();
+  assert(0);
   return -1;
 }
 
@@ -41,7 +40,7 @@ int snprintf(char* str, size_t len, const char* fmt, ...)
 
 int vsnprintf(char* buf, size_t len, const char* fmt, va_list ap)
 {
-  WA_UNREACHABLE();
+  assert(0);
   return -1;
 }
 
@@ -59,6 +58,6 @@ int asprintf(char** str, const char* fmt, ...)
 
 int vasprintf(char** str, const char* fmt, va_list ap)
 {
-  WA_UNREACHABLE();
+  assert(0);
   return -1;
 }
