@@ -27,6 +27,7 @@ export default (mk) => {
       "include/wasmux/win32/NJSObjectList.h",
       "include/wasmux/win32/NJSString.h",
       "include/wasmux/win32/OSMalloc.h",
+      "include/wasmux/win32/RefPtr.h",
       "include/wasmux/win32/WorkerThreadContext.h",
     );
     sources.push(

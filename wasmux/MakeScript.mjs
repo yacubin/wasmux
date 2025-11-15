@@ -7,7 +7,6 @@ export default (mk) => {
     "include/wasmux/cxx/Leb128.h",
     "include/wasmux/cxx/MemoryManager.h",
     "include/wasmux/cxx/New.h",
-    "include/wasmux/cxx/RefPtr.h",
     "include/wasmux/cxx/StaticStorage.h",
     "include/wasmux/cxx/TypeTraits.h",
 

@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include <wasmux/cxx/RefPtr.h>
+#include "RefPtr.h"
 #include "NJSObject.h"
 
 namespace WEI {
