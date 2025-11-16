@@ -4,6 +4,10 @@ export default {
     type: [ "user", "core", "seal" ],
     value: "user",
   },
+  WASMUX_ARCH_DIR: {
+    description: "Architecture directory",
+    type: "DirPath",
+  },
   WASMUX_VERSION: {
     description: "WASMUX Version",
     type: "string",

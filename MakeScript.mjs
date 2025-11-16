@@ -2,7 +2,9 @@ import fs from "node:fs";
 
 export default function(mk) {
   mk.addCacheVariables("wasmux/MakeConfig.mjs");
-  mk.addCacheVariables(`wasmux/arch/${mk.WASMUX_ARCH}/MakeConfig.mjs`);
+
+  const archDir = mk.WASMUX_ARCH_DIR ?? `wasmux/arch/${mk.WASMUX_ARCH}`;
+  mk.addCacheVariables(`${archDir}/MakeConfig.mjs`);
 
   mk.WASMUX_VERSION = mk.PROJECT_VERSION;
   mk.WASMUX_DESCRIPTION = mk.PROJECT_DESCRIPTION;
@@ -25,6 +27,7 @@ export default function(mk) {
   mk.addIncludeDirectories(mk.BINARY_DIR);
 
   mk.addSubdirectory("wasmux");
+  mk.addSubdirectory(archDir);
   mk.addSubdirectory("uapi");
   mk.addSubdirectory("kernel");
 

@@ -20,11 +20,14 @@ export default async function(mk) {
     else if (typeof entry.value === "string") {
       lines.push(`#define ${name} "${entry.value}"`);
     }
+    else if (bitmake.Locator.isLocator(entry.value)) {
+      lines.push(`#define ${name} "${entry.value.toPath()}"`);
+    }
     else if (Array.isArray(entry.value)) {
       lines.push(`#define ${name} "${entry.value.join(";")}"`);
     }
     else {
-      throw new Error(`"${name}" has ${entry.value} value`);
+      throw new Error(`"${name}" has ${JSON.stringify(entry.value)} value`);
     }
     lines.push("");
   }

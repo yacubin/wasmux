@@ -219,6 +219,4 @@ export default (mk) => {
     destination: mk.INSTALL_INCLUDEDIR,
     baseDir: mk.BINARY_DIR.join("include"),
   });
-
-  mk.addSubdirectory(`arch/${mk.WASMUX_ARCH}`);
 }
