@@ -4,24 +4,24 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <libintl.h>
-#include <wasmux/assert.h>
+#include <stddef.h> // for NULL
+#include <assert.h>
 
 char* gettext(const char* msgid)
 {
-  WA_UNREACHABLE();
-  return nullptr;
+  assert(0);
+  return NULL;
 }
 
 char* dgettext(const char* domainname, const char* msgid)
 {
-  WA_UNREACHABLE();
-  return nullptr;
+  assert(0);
+  return NULL;
 }
 
 char* dngettext(const char* domainname, const char* msgid, const char* msgid_plural, unsigned long n)
 {
-  WA_UNREACHABLE();
-  return nullptr;
+  assert(0);
+  return NULL;
 }
