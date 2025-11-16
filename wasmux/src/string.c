@@ -7,11 +7,25 @@
 #include <wasmux-config.h>
 #include <wasmux/string.h>
 
-size_t wasmux_strlen(const char* s)
+size_t wasmux_strlen(const char* str)
 {
-  const char* ptr = s;
+  const char* ptr = str;
   while (*ptr) {
     ptr++;
   }
-  return ptr - s;
+  return ptr - str;
+}
+
+char* wasmux_strcpy(char* dst, const char* src)
+{
+  char* ret = dst;
+  for (;;) {
+    char ch = *dst = *src;
+    if (ch == '\0')
+      break;
+    src++;
+    dst++;
+  }
+
+  return ret;
 }

@@ -25,14 +25,6 @@ char* strchr(const char* str, int ch)
   return NULL;
 }
 
-size_t strlen(const char* str)
-{
-  const char* ptr = str;
-  while (*ptr)
-    ptr++;
-  return ptr - str;
-}
-
 size_t strnlen(const char* str, size_t len)
 {
   size_t n = 0;

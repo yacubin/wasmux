@@ -13,7 +13,7 @@
 #include <wasmux/wasm_page.h>
 #include <wasmux/log.h>
 #include <wasmux/web/string.h>
-#include <wasmux/cxx/Characters.h>
+#include <wasmux/string.h>
 
 #include <wasmux/wei/memory_alloc.h>
 #include <wasmux/web/worker.h>
@@ -40,7 +40,7 @@ static void workerInstanceRun(void* userdata)
 
 void WebWorkerInstance_init(WebWorkerInstance* instance, const char* name)
 {
-  wasmux::charactersCopy(instance->name, name);
+  wasmux_strcpy(instance->name, name);
 
   /*
    * The stack cannot point to the top because of receiving

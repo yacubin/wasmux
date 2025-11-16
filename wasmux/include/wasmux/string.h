@@ -12,5 +12,6 @@
 #include <wasmux/arch/string.h>
 
 __EXPORT size_t wasmux_strlen(const char* s);
+__EXPORT char* wasmux_strcpy(char* dst, const char* src);
 
 #endif /* _WASMUX_STRING_H */

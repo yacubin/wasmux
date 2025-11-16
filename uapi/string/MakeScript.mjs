@@ -22,6 +22,7 @@ export default (mk) => {
     "src/strcpy.c",
     "src/strdup.c",
     "src/string.c",
+    "src/strlen.c",
     "src/strncmp.c",
     "src/strncpy.c",
     "src/strrchr.c",

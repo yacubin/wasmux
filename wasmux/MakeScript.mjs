@@ -3,7 +3,6 @@ export default (mk) => {
     "include/wasmux/arch-generic/log.h",
     "include/wasmux/arch-generic/string.h",
 
-    "include/wasmux/cxx/Characters.h",
     "include/wasmux/cxx/Leb128.h",
     "include/wasmux/cxx/MemoryManager.h",
     "include/wasmux/cxx/New.h",
