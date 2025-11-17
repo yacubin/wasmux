@@ -4,7 +4,7 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/fp_lib.cpp",
+    "src/fp_lib.c",
   ];
 
   const includes = [

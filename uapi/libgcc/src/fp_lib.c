@@ -4,7 +4,6 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <fp_lib.h>
 #include <wasmux/compiler.h>
 #include <wasmux/assert.h>
@@ -15,9 +14,9 @@ int __letf2(fp_t a, fp_t b)
   return 0;
 }
 
-extern "C" __ATTR_ALIAS(__letf2, __eqtf2);
-extern "C" __ATTR_ALIAS(__letf2, __lttf2);
-extern "C" __ATTR_ALIAS(__letf2, __netf2);
+__ATTR_ALIAS(__letf2, __eqtf2);
+__ATTR_ALIAS(__letf2, __lttf2);
+__ATTR_ALIAS(__letf2, __netf2);
 
 int __getf2(fp_t a, fp_t b)
 {
@@ -25,7 +24,7 @@ int __getf2(fp_t a, fp_t b)
   return 0;
 }
 
-extern "C" __ATTR_ALIAS(__getf2, __gttf2);
+__ATTR_ALIAS(__getf2, __gttf2);
 
 void __multi3(ti_int* r, ti_int a, ti_int b)
 {
