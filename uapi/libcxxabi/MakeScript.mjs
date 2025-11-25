@@ -3,7 +3,7 @@ export default (mk) => {
   ];
 
   const sources = [
-    "stub/__cxa_demangle.cpp",
+    "stub/__cxa_demangle.c",
   ];
 
   const includes = [

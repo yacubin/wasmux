@@ -4,14 +4,12 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <wasmux/types.h>
 #include <wasmux/compiler.h>
 #include <wasmux/assert.h>
 
 __ATTR_HIDDEN
-extern "C" char* __cxa_demangle(const char* name, char* buf, size_t* len, int* status)
+void __cxa_pure_virtual()
 {
   WA_UNREACHABLE();
-  return nullptr;
 }
