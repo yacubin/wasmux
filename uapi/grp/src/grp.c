@@ -4,20 +4,20 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <grp.h>
+#include <stddef.h> // for NULL
 #include <assert.h>
 
 struct group* getgrgid(gid_t gid)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }
 
 struct group* getgrnam(const char* name)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }
 
 int getgrgid_r(gid_t gid, struct group* grp, char* buf, size_t len, struct group** result)
@@ -35,7 +35,7 @@ int getgrnam_r(const char* name, struct group* grp, char* buf, size_t len, struc
 struct group* getgrent(void)
 {
   assert(0);
-  return nullptr;
+  return NULL;
 }
 
 void setgrent(void)

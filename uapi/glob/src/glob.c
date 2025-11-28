@@ -4,17 +4,16 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <glob.h>
-#include <wasmux/assert.h>
+#include <assert.h>
 
 int glob(const char* pattern, int flags, int (*errcb)(const char* epath, int eerrno), glob_t* glob)
 {
-  WA_UNREACHABLE();
+  assert(0);
   return -1;
 }
 
 void globfree(glob_t* glob)
 {
-  WA_UNREACHABLE();
+  assert(0);
 }

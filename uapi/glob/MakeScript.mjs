@@ -4,7 +4,7 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/glob.cpp",
+    "src/glob.c",
   ];
 
   const includes = [
