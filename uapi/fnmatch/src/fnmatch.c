@@ -4,7 +4,6 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <fnmatch.h>
 #include <assert.h>
 

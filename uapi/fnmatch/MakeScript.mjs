@@ -4,7 +4,7 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/fnmatch.cpp",
+    "src/fnmatch.c",
   ];
 
   const includes = [

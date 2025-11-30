@@ -4,7 +4,7 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/fts.cpp",
+    "src/fts.c",
   ];
 
   const includes = [

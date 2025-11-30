@@ -4,7 +4,6 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <ftw.h>
 #include <assert.h>
 
