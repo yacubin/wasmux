@@ -4,7 +4,6 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <wasmux/syscalls.h>
 
 #include <fcntl.h>
@@ -13,6 +12,7 @@
 
 int __openat(int dirfd, const char* path, int flags, ...)
 {
+  int ret;
   mode_t mode;
 
   if ((flags & O_CREAT) || (flags & O_TMPFILE) == O_TMPFILE) {
@@ -25,7 +25,7 @@ int __openat(int dirfd, const char* path, int flags, ...)
     mode = 0;
   }
 
-  auto ret = static_cast<int>(__DO_SYSCALL(openat, dirfd, path, flags, mode));
+  ret = (int)__DO_SYSCALL(openat, dirfd, path, flags, mode);
   if (ret < 0) {
     __set_local_errno(-ret);
     return -1;

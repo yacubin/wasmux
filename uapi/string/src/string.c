@@ -19,7 +19,7 @@ char* strchr(const char* str, int ch)
   for (;;) {
     char c = *str;
     if (c == '\0' || c == ch)
-      return str;
+      return (char*)str;
     str++;
   }
   return NULL;

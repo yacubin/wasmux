@@ -4,7 +4,6 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <wasmux/syscalls.h>
 
 #include <fcntl.h>
@@ -12,7 +11,7 @@
 
 int __creat(const char* path, mode_t mode)
 {
-  int ret = static_cast<int>(__DO_SYSCALL(creat, path, mode));
+  int ret = (int)__DO_SYSCALL(creat, path, mode);
   if (ret < 0) {
     __set_local_errno(-ret);
     return -1;

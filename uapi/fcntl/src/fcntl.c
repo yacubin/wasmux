@@ -4,7 +4,6 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <wasmux/syscalls.h>
 
 #include <fcntl.h>
@@ -27,7 +26,7 @@ int fcntl(int fd, int cmd, ...)
     break;
   }
 
-  ret = static_cast<int>(__DO_SYSCALL(fcntl64, fd, cmd, arg));
+  ret = (int)__DO_SYSCALL(fcntl64, fd, cmd, arg);
   if (ret < 0) {
     __set_local_errno(-ret);
     return -1;

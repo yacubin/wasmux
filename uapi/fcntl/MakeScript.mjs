@@ -5,10 +5,10 @@ export default (mk) => {
 
   const sources = [
     "internal/fcntl.h",
-    "src/creat.cpp",
-    "src/fcntl.cpp",
-    "src/open.cpp",
-    "src/openat.cpp",
+    "src/creat.c",
+    "src/fcntl.c",
+    "src/open.c",
+    "src/openat.c",
   ];
 
   const includes = [

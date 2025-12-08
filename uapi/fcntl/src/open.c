@@ -4,7 +4,6 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <wasmux/syscalls.h>
 
 #include <fcntl.h>
@@ -21,7 +20,7 @@ int __open(const char* path, int flags, ...)
   mode = va_arg(args, mode_t);
   va_end(args);
 
-  ret = static_cast<int>(__DO_SYSCALL(open, path, flags, mode));
+  ret = (int)__DO_SYSCALL(open, path, flags, mode);
   if (ret < 0) {
     __set_local_errno(-ret);
     return -1;
