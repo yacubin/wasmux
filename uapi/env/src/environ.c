@@ -4,7 +4,7 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <unistd.h>
+#include <stddef.h> // for NULL
 
-char** environ = nullptr;
+char** environ = NULL;

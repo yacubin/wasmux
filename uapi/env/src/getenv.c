@@ -14,5 +14,5 @@ char* getenv(const char* name)
   abort();
 #endif
 
-  return nullptr;
+  return NULL;
 }
