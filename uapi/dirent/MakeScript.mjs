@@ -5,9 +5,9 @@ export default (mk) => {
 
   const sources = [
     "internal/dirent.h",
-    "src/dirent.cpp",
-    "src/dirfd.cpp",
-    "src/getdents.cpp",
+    "src/dirent.c",
+    "src/dirfd.c",
+    "src/getdents.c",
   ];
 
   const includes = [

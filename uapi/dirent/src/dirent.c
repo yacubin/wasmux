@@ -4,9 +4,8 @@
  *
  */
 
-#include <wasmux-config.h>
-
 #include <dirent.h>
+#include <stddef.h> // for NULL
 #include <errno.h>
 #include <assert.h>
 
@@ -14,14 +13,14 @@ struct dirent* readdir(DIR* dir)
 {
   assert(0);
   errno = ENOSYS;
-  return nullptr;
+  return NULL;
 }
 
 DIR* opendir(const char* path)
 {
   assert(0);
   errno = ENOSYS;
-  return nullptr;
+  return NULL;
 }
 
 int closedir(DIR* dir)
@@ -52,7 +51,7 @@ DIR* fdopendir(int fd)
 {
   assert(0);
   errno = ENOSYS;
-  return nullptr;
+  return NULL;
 }
 
 int scandir(const char* dirname, struct dirent*** namelist,

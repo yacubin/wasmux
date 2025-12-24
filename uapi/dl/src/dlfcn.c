@@ -4,36 +4,36 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <dlfcn.h>
-#include <wasmux/assert.h>
+#include <stddef.h> // for NULL
+#include <assert.h>
 
 void* dlopen(const char* filename, int flag)
 {
-  WA_UNREACHABLE();
-  return nullptr;
+  assert(0);
+  return NULL;
 }
 
 char* dlerror(void)
 {
-  WA_UNREACHABLE();
-  return nullptr;
+  assert(0);
+  return NULL;
 }
 
 void* dlsym(void* handle, const char* symbol)
 {
-  WA_UNREACHABLE();
-  return nullptr;
+  assert(0);
+  return NULL;
 }
 
 int dlclose(void* handle)
 {
-  WA_UNREACHABLE();
+  assert(0);
   return -1;
 }
 
 int dladdr(const void* addr, Dl_info* info)
 {
-  WA_UNREACHABLE();
+  assert(0);
   return -1;
 }
