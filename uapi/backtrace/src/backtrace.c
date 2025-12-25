@@ -4,23 +4,23 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <execinfo.h>
 #include <stdlib.h>
+#include <assert.h>
 
 int backtrace(void** arr, int size)
 {
-  abort();
+  assert(0);
   return -1;
 }
 
 char** backtrace_symbols(void* const* arr, int size)
 {
-  abort();
-  return nullptr;
+  assert(0);
+  return NULL;
 }
 
 void backtrace_symbols_fd(void* const* arr, int size, int fd)
 {
-  abort();
+  assert(0);
 }

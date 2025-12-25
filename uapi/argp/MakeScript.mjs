@@ -4,7 +4,7 @@ export default function(mk) {
   ];
 
   const sources = [
-    "src/argp.cpp",
+    "src/argp.c",
   ];
 
   const includes = [

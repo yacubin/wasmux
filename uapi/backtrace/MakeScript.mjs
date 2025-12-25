@@ -4,7 +4,7 @@ export default function(mk) {
   ];
 
   const sources = [
-    "src/backtrace.cpp",
+    "src/backtrace.c",
   ];
 
   const includes = [

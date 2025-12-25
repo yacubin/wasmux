@@ -4,16 +4,15 @@
  *
  */
 
-#include <wasmux-config.h>
 #include <argp.h>
+#include <assert.h>
 #include <wasmux/compiler.h>
-#include <wasmux/assert.h>
 
-__ATTR_HIDDEN extern "C"
+__ATTR_HIDDEN
 int __argp_parse(struct argp* argp, int argc, char** argv, unsigned flags, int* index, void* input)
 {
-  WA_UNREACHABLE();
+  assert(0);
   return -1;
 }
 
-extern "C" __ATTR_ALIAS(__argp_parse, argp_parse) __ATTR_WEAK;
+__ATTR_ALIAS(__argp_parse, argp_parse) __ATTR_WEAK;
