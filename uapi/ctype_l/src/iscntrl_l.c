@@ -4,11 +4,9 @@
  *
  */
 
-#include <wasmux-config.h>
-
 #include <ctype.h>
 
-int isxdigit_l(int ch, locale_t locale)
+int iscntrl_l(int ch, locale_t locale)
 {
-  return isxdigit(ch);
+  return iscntrl(ch);
 }

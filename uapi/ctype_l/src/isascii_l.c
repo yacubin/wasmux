@@ -4,11 +4,9 @@
  *
  */
 
-#include <wasmux-config.h>
-
 #include <ctype.h>
 
-int isupper_l(int ch, locale_t locale)
+int isascii_l(int ch, locale_t locale)
 {
-  return isupper(ch);
+  return isascii(ch);
 }

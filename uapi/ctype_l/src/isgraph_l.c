@@ -4,11 +4,9 @@
  *
  */
 
-#include <wasmux-config.h>
-
 #include <ctype.h>
 
-int toupper_l(int ch, locale_t locale)
+int isgraph_l(int ch, locale_t locale)
 {
-  return toupper(ch);
+  return isgraph(ch);
 }

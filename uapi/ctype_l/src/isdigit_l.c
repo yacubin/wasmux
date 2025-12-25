@@ -4,11 +4,9 @@
  *
  */
 
-#include <wasmux-config.h>
-
 #include <ctype.h>
 
-int ispunct_l(int ch, locale_t locale)
+int isdigit_l(int ch, locale_t locale)
 {
-  return ispunct(ch);
+  return isdigit(ch);
 }

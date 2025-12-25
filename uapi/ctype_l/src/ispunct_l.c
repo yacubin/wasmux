@@ -4,11 +4,9 @@
  *
  */
 
-#include <wasmux-config.h>
-
 #include <ctype.h>
 
-int isblank_l(int ch, locale_t locale)
+int ispunct_l(int ch, locale_t locale)
 {
-  return isblank(ch);
+  return ispunct(ch);
 }

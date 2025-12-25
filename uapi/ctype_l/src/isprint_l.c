@@ -4,8 +4,6 @@
  *
  */
 
-#include <wasmux-config.h>
-
 #include <ctype.h>
 
 int isprint_l(int ch, locale_t locale)
