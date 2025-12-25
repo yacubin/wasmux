@@ -4,13 +4,11 @@
  *
  */
 
-#include <wasmux-config.h>
-
 #include <ctype.h>
-#include <stdlib.h>
+#include <assert.h>
 
-int isblank(int ch)
+int isascii(int ch)
 {
-  abort();
+  assert(0);
   return ch;
 }

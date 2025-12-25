@@ -4,21 +4,21 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/isalnum.cpp",
-    "src/isalpha.cpp",
-    "src/isascii.cpp",
-    "src/isblank.cpp",
-    "src/iscntrl.cpp",
-    "src/isdigit.cpp",
-    "src/isgraph.cpp",
-    "src/islower.cpp",
-    "src/isprint.cpp",
-    "src/ispunct.cpp",
-    "src/isspace.cpp",
-    "src/isupper.cpp",
-    "src/isxdigit.cpp",
-    "src/tolower.cpp",
-    "src/toupper.cpp",
+    "src/isalnum.c",
+    "src/isalpha.c",
+    "src/isascii.c",
+    "src/isblank.c",
+    "src/iscntrl.c",
+    "src/isdigit.c",
+    "src/isgraph.c",
+    "src/islower.c",
+    "src/isprint.c",
+    "src/ispunct.c",
+    "src/isspace.c",
+    "src/isupper.c",
+    "src/isxdigit.c",
+    "src/tolower.c",
+    "src/toupper.c",
   ];
 
   const includes = [

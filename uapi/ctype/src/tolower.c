@@ -7,10 +7,10 @@
 #include <wasmux-config.h>
 
 #include <ctype.h>
-#include <stdlib.h>
+#include <assert.h>
 
-int isalnum(int ch)
+int tolower(int ch)
 {
-  abort();
-  return 0;
+  assert(0);
+  return ch;
 }

@@ -4,13 +4,11 @@
  *
  */
 
-#include <wasmux-config.h>
-
 #include <ctype.h>
-#include <stdlib.h>
+#include <assert.h>
 
-int islower(int ch)
+int isalnum(int ch)
 {
-  abort();
-  return ch;
+  assert(0);
+  return 0;
 }
