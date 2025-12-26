@@ -66,6 +66,7 @@ export default (mk) => {
     "include/wasmux/sysinfo.h",
     "include/wasmux/tcp.h",
     "include/wasmux/termios.h",
+    "include/wasmux/thread_local.h",
     "include/wasmux/time.h",
     "include/wasmux/time64.h",
     "include/wasmux/timerfd.h",

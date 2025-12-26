@@ -5,6 +5,7 @@
  */
 
 #include <string.h>
+#include <wasmux/export.h>
 #include <wasmux/compiler.h>
 
 char* __strchrnul(const char* str, int ch)
@@ -18,4 +19,4 @@ char* __strchrnul(const char* str, int ch)
   return (char*)str;
 }
 
-__ATTR_WEAK_ALIAS(__strchrnul, strchrnul);
+__EXPORT __ATTR_WEAK_ALIAS(__strchrnul, strchrnul);

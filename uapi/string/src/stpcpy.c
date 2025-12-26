@@ -6,6 +6,7 @@
 
 #include <string.h>
 #include <assert.h>
+#include <wasmux/export.h>
 #include <wasmux/compiler.h>
 
 char* __stpcpy(char* dst, const char* src)
@@ -14,4 +15,4 @@ char* __stpcpy(char* dst, const char* src)
   return NULL;
 }
 
-__ATTR_WEAK_ALIAS(__stpcpy, stpcpy);
+__EXPORT __ATTR_WEAK_ALIAS(__stpcpy, stpcpy);

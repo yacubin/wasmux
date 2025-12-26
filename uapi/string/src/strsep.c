@@ -6,6 +6,7 @@
 
 #include <string.h>
 #include <assert.h>
+#include <wasmux/export.h>
 #include <wasmux/compiler.h>
 
 char* __strsep(char** strp, const char* delim)
@@ -14,4 +15,4 @@ char* __strsep(char** strp, const char* delim)
   return NULL;
 }
 
-__ATTR_WEAK_ALIAS(__strsep, strsep);
+__EXPORT __ATTR_WEAK_ALIAS(__strsep, strsep);

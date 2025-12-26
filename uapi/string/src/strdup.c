@@ -6,6 +6,7 @@
 
 #include <string.h>
 #include <stdlib.h>
+#include <wasmux/export.h>
 #include <wasmux/compiler.h>
 
 char* __strdup(const char* str)
@@ -20,4 +21,4 @@ char* __strdup(const char* str)
   return (char*)ptr;
 }
 
-__ATTR_WEAK_ALIAS(__strdup, strdup);
+__EXPORT __ATTR_WEAK_ALIAS(__strdup, strdup);
