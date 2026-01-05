@@ -1,7 +1,5 @@
 export default (mk) => {
   const headers = [
-    "include/wasmux/cxx/HostHeap.h",
-    "include/wasmux/cxx/WasmHeap.h",
     "include/wasmux/arch/log.h",
     "include/wasmux/arch/string.h",
     "include/wasmux/arch/syscalls.h",
@@ -9,7 +7,6 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/cxx/HostHeap.cpp",
     "src/start_worker.cpp",
   ];
 

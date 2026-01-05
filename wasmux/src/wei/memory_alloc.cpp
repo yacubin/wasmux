@@ -5,20 +5,13 @@
  */
 
 #include <wasmux-config.h>
-#include <wasmux/platform.h>
 #include <wasmux/wei/memory_alloc.h>
 #include <wasmux/wasm_page.h>
 #include <wasmux/bulk-memory.h>
 #include <wasmux/cxx/StaticStorage.h>
 #include <wasmux/cxx/MemoryManager.h>
 
-#ifdef WA_CPU_WASM
-#include <wasmux/cxx/WasmHeap.h>
-using MemoryManagerHeap = WEI::WasmCurrentHeap;
-#else
-#include <wasmux/cxx/HostHeap.h>
-using MemoryManagerHeap = WEI::HostHeap;
-#endif
+#include "memory_heap.h"
 
 using WasmMemoryManager = wasmux::MemoryManager<WA_MEMORY_PAGE_SHIFT, WASMUX_CORE_INIT_PAGES, WASMUX_CORE_MAX_PAGES, MemoryManagerHeap>;
 
@@ -27,11 +20,7 @@ static StaticStorage<WasmMemoryManager> s_memoryManager;
 
 void WebMemoryAllocInit()
 {
-#ifdef WA_CPU_WASM
-  s_heap.initialize();
-#else
   s_heap.initialize(WASMUX_CORE_INIT_PAGES, WASMUX_CORE_MAX_PAGES);
-#endif
   s_memoryManager.initialize(*s_heap);
 }
 

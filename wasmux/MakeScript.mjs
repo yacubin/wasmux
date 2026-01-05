@@ -143,6 +143,8 @@ export default (mk) => {
       "src/wei/main_loop.cpp",
       "src/wei/main_thread.cpp",
       "src/wei/memory_alloc.cpp",
+      "src/wei/memory_heap.cpp",
+      "src/wei/memory_heap.h",
       "src/wei/user_access.cpp",
       "src/wei/wei.cpp",
       "src/wei/worker_instance.cpp",

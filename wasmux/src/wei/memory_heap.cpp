@@ -1,14 +1,13 @@
 /*
  *
- *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2026  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
 #define __SSIZE_T__ int // For windows.h
 
 #include <wasmux-config.h>
-#include <wasmux/cxx/HostHeap.h>
-#include <wasmux/platform.h>
+#include "memory_heap.h"
 
 #if defined(WA_OS_WINDOWS)
 
@@ -58,27 +57,6 @@ ssize_t HostHeap::grow(uint32_t delta)
     m_size = newSize;
   }
   return result;
-}
-
-}  // namespace WEI
-
-#else
-
-namespace WEI {
-
-HostHeap::HostHeap(size_t initial, size_t maximum)
-  : m_data(nullptr)
-  , m_heapBase(nullptr)
-  , m_heapEnd(nullptr)
-  , m_initial(initial)
-  , m_maximum(maximum)
-  , m_size(0)
-{
-}
-
-ssize_t HostHeap::grow(uint32_t delta)
-{
-  return -1;
 }
 
 }  // namespace WEI
