@@ -7,8 +7,9 @@
 #include <wasmux-config.h>
 #include <wasmux/init.h>
 #include <wasmux/log.h>
+#include <wasmux/export.h>
 
-extern "C" void __start_worker()
+__EXPORT void __start_worker()
 {
   if (__start_initcall_worker) {
     const kernel_initcall_t* fn = (const kernel_initcall_t*)&__start_initcall_worker;

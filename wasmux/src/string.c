@@ -6,8 +6,9 @@
 
 #include <wasmux-config.h>
 #include <wasmux/string.h>
+#include <wasmux/compiler.h>
 
-size_t wasmux_strlen(const char* str)
+__optnone size_t wasmux_strlen(const char* str)
 {
   const char* ptr = str;
   while (*ptr) {
