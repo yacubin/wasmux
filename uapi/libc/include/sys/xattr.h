@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_LIBC_SYS_XATTR_H
-#define _WA_LIBC_SYS_XATTR_H
+#ifndef _SYS_XATTR_H
+#define _SYS_XATTR_H
 
 #include <wasmux/types.h>
 
@@ -35,4 +35,4 @@ int lremovexattr(const char* path, const char* name);
 }
 #endif
 
-#endif /* _WA_LIBC_SYS_XATTR_H */
+#endif /* _SYS_XATTR_H */

@@ -3,7 +3,7 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/dummy.cpp",
+    "src/dummy.c",
   ];
 
   const libraries = [

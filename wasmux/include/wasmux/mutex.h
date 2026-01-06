@@ -1,11 +1,11 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_KERNEL_MUTEX_H
-#define _WA_KERNEL_MUTEX_H
+#ifndef _WASMUX_MUTEX_H
+#define _WASMUX_MUTEX_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -64,4 +64,4 @@ static inline void wa_mutex_unlock(wa_mutex_t* mutex)
 }
 #endif
 
-#endif /* _WA_KERNEL_MUTEX_H */
+#endif /* _WASMUX_MUTEX_H */

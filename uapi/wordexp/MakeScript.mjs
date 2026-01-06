@@ -4,7 +4,7 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/wordexp.cpp",
+    "src/wordexp.c",
   ];
 
   const includes = [

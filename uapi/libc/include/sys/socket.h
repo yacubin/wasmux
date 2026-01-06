@@ -27,6 +27,7 @@ extern "C" {
 #define SO_SNDBUF     7
 #define SO_RCVBUF     8
 #define SO_KEEPALIVE  9
+#define SO_PRIORITY   12
 #define SO_LINGER     13
 
 #define SCM_RIGHTS 0x01

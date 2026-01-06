@@ -7,6 +7,8 @@
 #ifndef _WASMUX_SOCKET_H
 #define _WASMUX_SOCKET_H
 
+#define SO_BINDTODEVICE 25
+
 #define AF_UNSPEC 0
 #define AF_UNIX   1
 #define AF_LOCAL  1

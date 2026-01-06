@@ -24,7 +24,7 @@ module.exports = function(mk)
   let i = 0;
   for (const name of webcalls) {
     const suffix = name.padEnd(maxLenght, ' ');
-    lines.push(`#define __WEB_NR_${suffix} ${i++}`);
+    lines.push(`#define __WEB_NR_${suffix} ${11+i++}`);
   }
 
   lines.push('');

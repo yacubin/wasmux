@@ -12,7 +12,7 @@ typedef unsigned long __cpu_mask;
 #define __CPU_SETSIZE 1024
 #define __NCPUBITS (sizeof(__cpu_mask) * 8)
 
-typedef struct __cpu_set_struct {
+struct __cpu_set_struct {
   __cpu_mask __bits[__CPU_SETSIZE/__NCPUBITS];
 };
 

@@ -4,10 +4,10 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/abs.cpp",
-    "src/mkostemp.cpp",
-    "src/qsort.cpp",
-    "src/realpath.cpp",
+    "src/abs.c",
+    "src/mkostemp.c",
+    "src/qsort.c",
+    "src/realpath.c",
   ];
 
   const includes = [

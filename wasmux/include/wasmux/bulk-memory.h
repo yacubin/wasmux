@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_KERNEL_BULKMEMORY_H
-#define _WA_KERNEL_BULKMEMORY_H
+#ifndef _WASMUX_BULK_MEMORY_H
+#define _WASMUX_BULK_MEMORY_H
 
 #include <wasmux/types.h>
 
@@ -29,4 +29,4 @@ void* kernel_memory_fill(void* dst, int ch, size_t n);
 }
 #endif
 
-#endif /* _WA_KERNEL_BULKMEMORY_H */
+#endif /* _WASMUX_BULK_MEMORY_H */

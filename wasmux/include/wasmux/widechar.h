@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_KERNEL_WIDECHAR_H
-#define _WA_KERNEL_WIDECHAR_H
+#ifndef _WASMUX_WIDECHAR_H
+#define _WASMUX_WIDECHAR_H
 
 #define WEOF (0xffffffffU)
 
@@ -22,4 +22,4 @@ typedef unsigned wchar_t;
 #  endif
 # endif
 
-#endif /* _WA_KERNEL_WIDECHAR_H */
+#endif /* _WASMUX_WIDECHAR_H */

@@ -7,20 +7,20 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/_stdio.cpp",
-    "src/flockfile.cpp",
-    "src/fprintf.cpp",
-    "src/ftrylockfile.cpp",
-    "src/funlockfile.cpp",
-    "src/getc_unlocked.cpp",
-    "src/getdelim.cpp",
-    "src/getline.cpp",
-    "src/putwc.cpp",
-    "src/putc.cpp",
-    "src/setvbuf.cpp",
-    "src/sprintf.cpp",
-    "src/stdio_ext.cpp",
-    "src/stdio.cpp",
+    "src/_stdio.c",
+    "src/flockfile.c",
+    "src/fprintf.c",
+    "src/ftrylockfile.c",
+    "src/funlockfile.c",
+    "src/getc_unlocked.c",
+    "src/getdelim.c",
+    "src/getline.c",
+    "src/putwc.c",
+    "src/putc.c",
+    "src/setvbuf.c",
+    "src/sprintf.c",
+    "src/stdio_ext.c",
+    "src/stdio.c",
   ];
 
   const includes = [

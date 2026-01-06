@@ -3,8 +3,8 @@ export default (mk) => {
   ];
 
   const sources = [
-    "stub/__cxa_atexit.cpp",
-    "stub/__cxa_pure_virtual.cpp",
+    "stub/__cxa_atexit.c",
+    "stub/__cxa_pure_virtual.c",
     "stub/new.cpp",
   ];
 

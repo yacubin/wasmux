@@ -4,7 +4,7 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/shadow.cpp",
+    "src/shadow.c",
   ];
 
   const includes = [

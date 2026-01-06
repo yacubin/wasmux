@@ -4,7 +4,7 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/netdb.cpp",
+    "src/netdb.c",
   ];
 
   const includes = [

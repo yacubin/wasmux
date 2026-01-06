@@ -5,9 +5,9 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/sys/signalfd.cpp",
-    "src/sigemptyset.cpp",
-    "src/signal.cpp",
+    "src/sys/signalfd.c",
+    "src/sigemptyset.c",
+    "src/signal.c",
   ];
 
   const includes = [

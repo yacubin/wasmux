@@ -4,22 +4,19 @@
  *
  */
 
-#define __SSIZE_T__ int // For windows.h
-
 #include <wasmux-config.h>
 #include <wasmux/export.h>
-#include <wasmux/memory_alloc.h>
+#include <wasmux/wei/memory_alloc.h>
 #include <wasmux/wasm_page.h>
 #include <wasmux/sprintf.h>
 #include <wasmux/log.h>
-#include <wasmux/main_loop.h>
+#include <wasmux/wei/main_loop.h>
 #include <wasmux/web/console.h>
 #include <wasmux/win32/BaseThreadContext.h>
 
 #include <windows.h>
 
 __EXPORT void __start_kernel();
-__EXPORT void WebWorkerInstanceInit(void* stack);
 
 #define WM_USER_DISPATCH (WM_USER + 1)
 
@@ -76,8 +73,4 @@ __EXPORT void _start()
 
   MessageBox(NULL, "Hello, World 2!", "Greetings", MB_OK);
   ExitProcess(0);
-}
-
-void WebWorkerInstanceInit(void* stack)
-{
 }

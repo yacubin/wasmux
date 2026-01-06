@@ -4,7 +4,7 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/pthread.cpp",
+    "src/pthread.c",
   ];
 
   const includes = [

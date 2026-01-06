@@ -4,22 +4,22 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/iswalnum.cpp",
-    "src/iswalpha.cpp",
-    "src/iswblank.cpp",
-    "src/iswcntrl.cpp",
-    "src/iswctype.cpp",
-    "src/iswdigit.cpp",
-    "src/iswgraph.cpp",
-    "src/iswlower.cpp",
-    "src/iswprint.cpp",
-    "src/iswpunct.cpp",
-    "src/iswspace.cpp",
-    "src/iswupper.cpp",
-    "src/iswxdigit.cpp",
-    "src/towlower.cpp",
-    "src/towupper.cpp",
-    "src/wctype.cpp",
+    "src/iswalnum.c",
+    "src/iswalpha.c",
+    "src/iswblank.c",
+    "src/iswcntrl.c",
+    "src/iswctype.c",
+    "src/iswdigit.c",
+    "src/iswgraph.c",
+    "src/iswlower.c",
+    "src/iswprint.c",
+    "src/iswpunct.c",
+    "src/iswspace.c",
+    "src/iswupper.c",
+    "src/iswxdigit.c",
+    "src/towlower.c",
+    "src/towupper.c",
+    "src/wctype.c",
   ];
 
   const includes = [

@@ -9,7 +9,7 @@
 
 #include <wasmux/types.h>
 
-struct wax_thread_data {
+struct wasmux_thread_data {
 @SCRIPT_ENTITIES@
 };
 

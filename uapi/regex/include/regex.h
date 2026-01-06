@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_LIBC_REGEX_H
-#define _WA_LIBC_REGEX_H
+#ifndef _REGEX_H
+#define _REGEX_H
 
 #include <wasmux/types.h>
 
@@ -38,4 +38,4 @@ void regfree(regex_t* regex);
 }
 #endif
 
-#endif /* _WA_LIBC_REGEX_H */
+#endif /* _REGEX_H */

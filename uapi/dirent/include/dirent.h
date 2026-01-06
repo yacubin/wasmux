@@ -8,7 +8,7 @@
 #define _DIRENT_H
 
 #include <sys/types.h>
-#include <wasmux/limits.h>
+#include <limits.h>
 
 #ifdef __cplusplus
 extern "C" {

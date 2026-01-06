@@ -11,7 +11,7 @@
 #include <wasmux/win32/BaseThreadContext.h>
 
 #include <wasmux/types.h>
-#include <wasmux/worker_thread.h>
+#include <wasmux/wei/worker_thread.h>
 
 #include <wasmux/win32/OSMalloc.h>
 #include <wasmux/win32/MainThreadContext.h>

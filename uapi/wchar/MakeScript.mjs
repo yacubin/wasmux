@@ -4,9 +4,9 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/wcscoll.cpp",
-    "src/wcswidth.cpp",
-    "src/wcwidth.cpp",
+    "src/wcscoll.c",
+    "src/wcswidth.c",
+    "src/wcwidth.c",
   ];
 
   const includes = [

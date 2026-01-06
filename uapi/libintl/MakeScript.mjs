@@ -4,7 +4,7 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/libintl.cpp",
+    "src/libintl.c",
   ];
 
   const includes = [

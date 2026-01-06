@@ -12,7 +12,7 @@
 #include <wasmux/bulk-memory.h>
 #include <wasmux/log.h>
 #include <wasmux/cxx/New.h>
-#include <wasmux/cxx/BitVector.h>
+#include <wasmux/bitset.h>
 
 namespace wasmux {
 
@@ -39,7 +39,6 @@ public:
 
   static constexpr uintptr_t sblockShift = 12;
   static constexpr uintptr_t sblockSize = (1 << sblockShift) - sizeof(void*);
-  // static constexpr uintptr_t blockMask = ~(blockSize - 1);
 
   static constexpr size_t sblocksInPage = 1 << (pageShift - sblockShift);
 
@@ -150,8 +149,8 @@ private:
 
   Heap& m_heap;
   wa_mutex_t m_mutex;
-  BitSet<maxOrder> m_bblockPages;
-  BitSet<maxOrder> m_sblockPages;
+  WASMUX_BITSET_DEFINE(m_bblockPages, maxOrder);
+  WASMUX_BITSET_DEFINE(m_sblockPages, maxOrder);
 
   unsigned m_indexBase;
   unsigned m_indexStart;
@@ -175,8 +174,8 @@ MemoryManager<pageShift, initOrder, maxOrder, Heap>::MemoryManager(Heap& heap)
   char* firstPage = startOfPage<char*>(m_heap.heapBase());
 
   wa_mutex_init(&m_mutex);
-  m_bblockPages.clearAll();
-  m_sblockPages.clearAll();
+  wasmux_bitset_clear_all(m_bblockPages, maxOrder);
+  wasmux_bitset_clear_all(m_sblockPages, maxOrder);
 
   m_indexBase = pageToIndex(m_heap.data());
   m_indexStart = pageToIndex(firstPage);
@@ -196,14 +195,14 @@ MemoryManager<pageShift, initOrder, maxOrder, Heap>::MemoryManager(Heap& heap)
     else {
       new (wasmux::CtorOnly, &firstBSet) SBlockSet(m_heap.heapBase());
       auto num = m_indexStart - m_indexBase;
-      m_sblockPages.set(num);
+      wasmux_bitset_set(m_sblockPages, num);
       m_freeBlocks += firstBSet.freeCount;
     }
   }
 
   for (unsigned index = firstFreeIndex; index < m_indexStop; index++) {
     auto num = index - m_indexBase;
-    m_bblockPages.set(num);
+    wasmux_bitset_set(m_bblockPages, num);
     m_freePages++;
   }
 }
@@ -256,7 +255,7 @@ int MemoryManager<pageShift, initOrder, maxOrder, Heap>::findFreePageIndex(unsig
     unsigned temp = 0;
     for (unsigned index = m_indexStart; index < m_indexStop; index++) {
       auto num = index - m_indexBase;
-      if (!m_bblockPages.get(num)) {
+      if (!wasmux_bitset_get(m_bblockPages, num)) {
         temp = 0;
       }
       else if (++temp == order) {
@@ -280,7 +279,7 @@ void* MemoryManager<pageShift, initOrder, maxOrder, Heap>::allocPagesInternal(un
   if (index != -1) {
     for (unsigned i = 0; i < order; i++) {
       auto num = index - m_indexBase + i;
-      m_bblockPages.clear(num);
+      wasmux_bitset_clear(m_bblockPages, num);
       m_freePages--;
     }
     return pageOfIndex<void*>(index);
@@ -304,8 +303,8 @@ void MemoryManager<pageShift, initOrder, maxOrder, Heap>::freePagesInternal(unsi
 
   for (unsigned i = 0; i < order; i++) {
     auto num = index - m_indexBase + i;
-    WA_ASSERT(!m_bblockPages.get(num));
-    m_bblockPages.set(num);
+    WA_ASSERT(!wasmux_bitset_get(m_bblockPages, num));
+    wasmux_bitset_set(m_bblockPages, num);
     m_freePages++;
   }
 }
@@ -374,7 +373,7 @@ void* MemoryManager<pageShift, initOrder, maxOrder, Heap>::allocBlockInternal(un
     if (nblocks <= m_freeBlocks) {
       for (unsigned index = m_indexStart; index < m_indexStop; index++) {
         auto num = index - m_indexBase;
-        if (m_sblockPages.get(num)) {
+        if (wasmux_bitset_get(m_sblockPages, num)) {
           auto& bset = sblockSet(pageOfIndex<void*>(index));
           void* ptr = bset.allocBlock(nblocks);
           if (ptr != nullptr) {
@@ -393,7 +392,7 @@ void* MemoryManager<pageShift, initOrder, maxOrder, Heap>::allocBlockInternal(un
 
     unsigned index = pageToIndex(page);
     auto num = index - m_indexBase;
-    m_sblockPages.set(num);
+    wasmux_bitset_set(m_sblockPages, num);
     auto& bset = sblockSet(page);
     new (wasmux::CtorOnly, &bset) SBlockSet(page);
     void* ptr = bset.allocBlock(nblocks);
@@ -448,7 +447,7 @@ void MemoryManager<pageShift, initOrder, maxOrder, Heap>::free(void* ptr)
     if (bset.freeCount == sblocksInPage) {
       auto i = pageToIndex(sblockBegin<void*>(ptr));
       auto num = i - m_indexBase;
-      m_sblockPages.clear(num);
+      wasmux_bitset_clear(m_sblockPages, num);
       m_freeBlocks -= sblocksInPage;
       freePagesInternal(i, 1);
     }

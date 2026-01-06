@@ -28,7 +28,7 @@ static WEI_CallFunction* s_workerCalls[] = {
 
 int WEI_webcall(unsigned number, unsigned arg1, unsigned arg2, unsigned arg3, unsigned arg4, unsigned arg5, unsigned arg6)
 {
-  return s_mainCalls[number](arg1, arg2, arg3, arg4, arg5, arg6);
+  return s_mainCalls[number-11](arg1, arg2, arg3, arg4, arg5, arg6);
 }
 
 #endif

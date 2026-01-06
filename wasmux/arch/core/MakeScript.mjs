@@ -1,52 +1,13 @@
 export default (mk) => {
   const headers = [
-    "include/wasmux/cxx/HostHeap.h",
-    "include/wasmux/cxx/WasmHeap.h",
+    "include/wasmux/arch/log.h",
+    "include/wasmux/arch/string.h",
     "include/wasmux/arch/syscalls.h",
     "include/wasmux/arch/unistd.h",
-    "include/wasmux/web/arraybuffer.h",
-    "include/wasmux/web/console.h",
-    "include/wasmux/web/getcurrenttimer.h",
-    "include/wasmux/web/getrandombytes.h",
-    "include/wasmux/web/object.h",
-    "include/wasmux/web/string.h",
-    "include/wasmux/web/terminal.h",
-    "include/wasmux/web/webassembly.h",
-    "include/wasmux/web/worker.h",
-    "include/wasmux/web/xmlhttprequest.h",
-    "include/wasmux/alert.h",
-    "include/wasmux/file_system.h",
-    "include/wasmux/init.h",
-    "include/wasmux/main_loop.h",
-    "include/wasmux/main_thread.h",
-    "include/wasmux/memory_alloc.h",
-    "include/wasmux/user_access.h",
-    "include/wasmux/worker_instance.h",
-    "include/wasmux/worker_thread.h",
   ];
 
   const sources = [
-    "src/cxx/HostHeap.cpp",
-    "src/web/arraybuffer.cpp",
-    "src/web/console.cpp",
-    "src/web/getcurrenttimer.cpp",
-    "src/web/getrandombytes.cpp",
-    "src/web/object.cpp",
-    "src/web/string.cpp",
-    "src/web/terminal.cpp",
-    "src/web/webassembly.cpp",
-    "src/web/worker.cpp",
-    "src/web/xmlhttprequest.cpp",
-    "src/alert.cpp",
-    "src/file_system.cpp",
-    "src/main_loop.cpp",
-    "src/main_thread.cpp",
-    "src/memory_alloc.cpp",
     "src/start_worker.cpp",
-    "src/user_access.cpp",
-    "src/worker_instance.cpp",
-    "src/worker_instanceInit.S",
-    "src/worker_thread.cpp",
   ];
 
   const includes = [
@@ -63,6 +24,7 @@ export default (mk) => {
       "include/wasmux/win32/NJSObjectList.h",
       "include/wasmux/win32/NJSString.h",
       "include/wasmux/win32/OSMalloc.h",
+      "include/wasmux/win32/RefPtr.h",
       "include/wasmux/win32/WorkerThreadContext.h",
     );
     sources.push(
@@ -100,21 +62,6 @@ export default (mk) => {
     );
   }
 
-  const syscall_nums_h = mk.BINARY_DIR.join("include/wasmux/syscall-nums.h");
-  mk.addCustomScript("src/syscall-nums.h.mjs", {
-    SCRIPT_NAME: "<wasmux/syscall-nums.h>",
-    SCRIPT_INPUT: mk.PROJECT_SOURCE_DIR.join("data/syscall.js"),
-    SCRIPT_OUTPUT: syscall_nums_h,
-  });
-
-  const syscall_list_h = mk.BINARY_DIR.join("include/wasmux/syscall-list.h");
-  mk.addCustomScript("src/syscall-list.h.mjs", {
-    SCRIPT_NAME: "<wasmux/syscall-list.h>",
-    SCRIPT_INPUT: mk.PROJECT_SOURCE_DIR.join("data/syscall.js"),
-    SCRIPT_OUTPUT: syscall_list_h,
-  });
-
   mk.target("wasmux").addSources(sources, headers);
-  mk.target("wasmux").addSources(syscall_nums_h, syscall_list_h);
   mk.target("wasmux").addPublicIncludes(includes);
 }

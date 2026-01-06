@@ -4,7 +4,7 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/search.cpp",
+    "src/search.c",
   ];
 
   const includes = [

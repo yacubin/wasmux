@@ -4,7 +4,7 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/obstack.cpp",
+    "src/obstack.c",
   ];
 
   const includes = [

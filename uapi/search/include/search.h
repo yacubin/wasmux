@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_LIBC_SEARCH_H
-#define _WA_LIBC_SEARCH_H
+#ifndef _SEARCH_H
+#define _SEARCH_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -27,4 +27,4 @@ void twalk(const void* root, void (*action)(const void* node, VISIT which, int d
 }
 #endif
 
-#endif /* _WA_LIBC_SEARCH_H */
+#endif /* _SEARCH_H */

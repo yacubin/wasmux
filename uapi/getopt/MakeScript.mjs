@@ -5,7 +5,7 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/getopt.cpp",
+    "src/getopt.c",
   ];
 
   const includes = [

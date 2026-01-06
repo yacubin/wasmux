@@ -4,7 +4,7 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/regex.cpp",
+    "src/regex.c",
   ];
 
   const includes = [

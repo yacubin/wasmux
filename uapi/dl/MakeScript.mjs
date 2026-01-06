@@ -4,7 +4,7 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/dlfcn.cpp",
+    "src/dlfcn.c",
   ];
 
   const includes = [
@@ -13,6 +13,7 @@ export default (mk) => {
 
   const libraries = [
     mk.target("wasmux"),
+    mk.target("libc"),
   ];
 
   const dl = mk.addStaticLibrary("dl", headers, sources);

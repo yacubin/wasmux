@@ -8,6 +8,10 @@
 #ifndef _WASMUX_ASSERT_H
 #define _WASMUX_ASSERT_H
 
+#ifndef __has_builtin
+# define __has_builtin(x) 0
+#endif
+
 #if __has_builtin(__builtin_trap) || defined(__GNUC__)
 # define WA_UNREACHABLE __builtin_trap
 #elif __has_builtin(__builtin_unreachable)

@@ -1,11 +1,11 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _WA_LIBC_POLL_H
-#define _WA_LIBC_POLL_H
+#ifndef _POLL_H
+#define _POLL_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -19,12 +19,17 @@ struct pollfd {
   short revents;
 };
 
-#define POLLIN    0x00000001  // Data to read
-#define POLLPRI   0x00000002  // Urgent data
-#define POLLOUT   0x00000004  // Ready for writing
-#define POLLERR   0x00000008  // Error occurred
-#define POLLHUP   0x00000010  // Hang-up detected
-#define POLLNVAL  0x00000020  // Invalid file descriptor
+#define POLLIN     0x0001  /* Data to read */
+#define POLLPRI    0x0002  /* Urgent data */
+#define POLLOUT    0x0004  /* Ready for writing */
+#define POLLERR    0x0008  /* Error occurred */
+#define POLLHUP    0x0010  /* Hang-up detected */
+#define POLLNVAL   0x0020  /* Invalid file descriptor */
+
+#define POLLRDNORM 0x0040  /* Normal data to read */
+#define POLLRDBAND 0x0080  /* Priority band data to read */
+#define POLLWRNORM 0x0100  /* Writing now will not block */
+#define POLLWRBAND 0x0200  /* Priority band data can be written */
 
 int poll(struct pollfd* fds, nfds_t nfds, int timeout);
 
@@ -32,4 +37,4 @@ int poll(struct pollfd* fds, nfds_t nfds, int timeout);
 }
 #endif
 
-#endif /* _WA_LIBC_POLL_H */
+#endif /* _POLL_H */

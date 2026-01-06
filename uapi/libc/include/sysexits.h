@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_LIBC_SYSEXITS_H
-#define _WA_LIBC_SYSEXITS_H
+#ifndef _SYSEXITS_H
+#define _SYSEXITS_H
 
 #define EX_OK          0   /* Successful termination */
 
@@ -25,4 +25,4 @@
 #define EX_NOPERM      77  /* Permission denied */
 #define EX_CONFIG      78  /* Configuration error */
 
-#endif /* _WA_LIBC_SYSEXITS_H */
+#endif /* _SYSEXITS_H */

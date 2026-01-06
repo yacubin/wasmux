@@ -5,11 +5,11 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/isatty.cpp",
-    "src/tcgetpgrp.cpp",
-    "src/tcsetpgrp.cpp",
-    "src/termios.cpp",
-    "src/ttyname.cpp",
+    "src/isatty.c",
+    "src/tcgetpgrp.c",
+    "src/tcsetpgrp.c",
+    "src/termios.c",
+    "src/ttyname.c",
   ];
 
   const includes = [

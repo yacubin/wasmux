@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_KERNEL_SLEEP_MS_H
-#define _WA_KERNEL_SLEEP_MS_H
+#ifndef _WASMUX_SLEEP_MS_H
+#define _WASMUX_SLEEP_MS_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -17,4 +17,4 @@ void kernel_sleep_ms(int ms);
 }
 #endif
 
-#endif /* _WA_KERNEL_SLEEP_MS_H */
+#endif /* _WASMUX_SLEEP_MS_H */

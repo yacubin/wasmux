@@ -4,7 +4,7 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/grp.cpp",
+    "src/grp.c",
   ];
 
   const includes = [

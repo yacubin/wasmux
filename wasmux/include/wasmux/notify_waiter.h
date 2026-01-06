@@ -1,11 +1,11 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#ifndef _KERNEL_NOTIFY_WAITER_H
-#define _KERNEL_NOTIFY_WAITER_H
+#ifndef _WASMUX_NOTIFY_WAITER_H
+#define _WASMUX_NOTIFY_WAITER_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -26,4 +26,4 @@ int notify_waiter_notify(notify_waiter_t*);
 }
 #endif
 
-#endif /* _KERNEL_NOTIFY_WAITER_H */
+#endif /* _WASMUX_NOTIFY_WAITER_H */

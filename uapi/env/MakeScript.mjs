@@ -5,11 +5,11 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/environ.cpp",
-    "src/getenv.cpp",
-    "src/putenv.cpp",
-    "src/setenv.cpp",
-    "src/unsetenv.cpp",
+    "src/environ.c",
+    "src/getenv.c",
+    "src/putenv.c",
+    "src/setenv.c",
+    "src/unsetenv.c",
   ];
 
   const includes = [

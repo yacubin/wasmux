@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_KERNEL_INT_TYPES_H
-#define _WA_KERNEL_INT_TYPES_H
+#ifndef _WASMUX_INT_TYPES_H
+#define _WASMUX_INT_TYPES_H
 
 #include <wasmux/sizeof.h>
 
@@ -26,4 +26,4 @@ typedef long long int64_t;
 typedef unsigned long long uint64_t;
 #endif
 
-#endif /* _WA_KERNEL_INT_TYPES_H */
+#endif /* _WASMUX_INT_TYPES_H */

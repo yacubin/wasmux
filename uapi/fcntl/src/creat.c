@@ -1,0 +1,23 @@
+/*
+ *
+ *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *
+ */
+
+#include <wasmux/syscalls.h>
+
+#include <fcntl.h>
+#include <errno.h>
+
+int __creat(const char* path, mode_t mode)
+{
+  int ret = (int)__DO_SYSCALL(creat, path, mode);
+  if (ret < 0) {
+    __set_local_errno(-ret);
+    return -1;
+  }
+
+  return ret;
+}
+
+__ATTR_ALIAS(__creat, creat) __ATTR_WEAK;

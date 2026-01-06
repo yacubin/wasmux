@@ -4,8 +4,8 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/ftw.cpp",
-    "src/nftw.cpp",
+    "src/ftw.c",
+    "src/nftw.c",
   ];
 
   const includes = [

@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_LIBC_UTIME_H
-#define _WA_LIBC_UTIME_H
+#ifndef _UTIME_H
+#define _UTIME_H
 
 #include <sys/types.h>
 
@@ -24,4 +24,4 @@ int utime(const char* filename, const struct utimbuf* times);
 }
 #endif
 
-#endif /* _WA_LIBC_UTIME_H */
+#endif /* _UTIME_H */

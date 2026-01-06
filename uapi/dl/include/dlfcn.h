@@ -4,8 +4,8 @@
  *
  */
 
-#ifndef _WA_DL_DLFCN_H
-#define _WA_DL_DLFCN_H
+#ifndef _DLFCN_H
+#define _DLFCN_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -35,4 +35,4 @@ int dladdr(const void* addr, Dl_info* info);
 }
 #endif
 
-#endif /* _WA_DL_DLFCN_H */
+#endif /* _DLFCN_H */

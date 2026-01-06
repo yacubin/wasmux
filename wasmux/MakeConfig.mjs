@@ -4,6 +4,10 @@ export default {
     type: [ "user", "core", "seal" ],
     value: "user",
   },
+  WASMUX_ARCH_DIR: {
+    description: "Architecture directory",
+    type: "DirPath",
+  },
   WASMUX_VERSION: {
     description: "WASMUX Version",
     type: "string",
@@ -99,10 +103,6 @@ export default {
   },
   WASMUX_MAIN_ENV_ARG: {
     description: "Enable env argument for main function",
-    value: false,
-  },
-  WASMUX_WAEDITOR: {
-    description: "Enable waeditor tool",
     value: false,
   },
   WASMUX_CORE_INIT_PAGES: {

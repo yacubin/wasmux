@@ -12,7 +12,7 @@
 # define __EXPORT_BEGIN extern "C" {
 # define __EXPORT_END }
 #else
-# define __EXPORT
+# define __EXPORT extern
 # define __EXPORT_BEGIN
 # define __EXPORT_END
 #endif

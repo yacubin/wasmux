@@ -6,7 +6,7 @@
 
 #include <wasmux-config.h>
 #include <wasmux/wei.h>
-#include <wasmux/memory_alloc.h>
+#include <wasmux/wei/memory_alloc.h>
 #include <wasmux/assert.h>
 
 __ATTR_EXPORT_NAME("perform") __ATTR_USED
