@@ -210,7 +210,7 @@ export default (mk) => {
   });
   sources.push(thread_data_h);
 
-  const wasmux = mk.addStaticLibrary("wasmux", headers, sources);
+  const wasmux = mk.addObjectLibrary("wasmux", headers, sources);
   wasmux.addPublicIncludes(includes);
 
   mk.install(headers, {
