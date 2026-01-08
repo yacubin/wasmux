@@ -7,6 +7,7 @@
 #pragma once
 
 #include <wasmux/types.h>
+#include <wasmux/export.h>
 #include <wasmux/platform.h>
 
 #if defined(WA_CPU_WASM)
@@ -62,8 +63,8 @@ struct memory_heap {
   size_t size;
 };
 
-void memory_heap_init(struct memory_heap*, size_t initial, size_t maximum);
-void memory_heap_release(struct memory_heap*);
+__EXPORT void memory_heap_init(struct memory_heap*, size_t initial, size_t maximum);
+__EXPORT void memory_heap_release(struct memory_heap*);
 
 static inline void* memory_heap_data(const struct memory_heap* thiz)
 {
@@ -85,7 +86,7 @@ static inline size_t memory_heap_size(const struct memory_heap* thiz)
   return thiz->size;
 }
 
-ssize_t memory_heap_grow(struct memory_heap* thiz, uint32_t delta);
+__EXPORT ssize_t memory_heap_grow(struct memory_heap* thiz, uint32_t delta);
 
 #else
 
