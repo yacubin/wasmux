@@ -13,59 +13,116 @@
 
 #include <wasmux/wasm_symbols.h>
 
-namespace WEI {
+#define MEMORY_HEAP_INDEX (0)
 
-typedef uint32_t WasmMemoryIndex;
-typedef uint32_t WasmTableIndex;
-
-static constexpr WasmMemoryIndex kWasmCurrentMemory = 0;
-
-template<WasmMemoryIndex memoryIndex>
-class WasmHeap {
-public:
-  WasmHeap(size_t initial, size_t maximum) {}
-
-  void* data() const { return &__memory_base; }
-  void* heapBase() const { return &__heap_base; }
-  void* heapEnd() const { return &__heap_end; }
-
-  size_t size() const { return __builtin_wasm_memory_size(memoryIndex); }
-  ssize_t grow(uint32_t delta) { return __builtin_wasm_memory_grow(memoryIndex, delta); }
+struct memory_heap {
 };
 
-using WasmCurrentHeap = WasmHeap<kWasmCurrentMemory>;
+static inline void memory_heap_init(struct memory_heap* thiz, size_t initial, size_t maximum)
+{
+}
 
-}  // namespace WEI
+static inline void memory_heap_release(struct memory_heap* thiz)
+{
+}
 
-using MemoryManagerHeap = WEI::WasmCurrentHeap;
+static inline void* memory_heap_data(const struct memory_heap* thiz)
+{
+  return &__memory_base;
+}
+
+static inline void* memory_heap_base(const struct memory_heap* thiz)
+{
+  return &__heap_base;
+}
+
+static inline void* memory_heap_end(const struct memory_heap* thiz)
+{
+  return &__heap_end;
+}
+
+static inline size_t memory_heap_size(const struct memory_heap* thiz)
+{
+  return __builtin_wasm_memory_size(MEMORY_HEAP_INDEX);
+}
+
+static inline ssize_t memory_heap_grow(struct memory_heap* thiz, uint32_t delta)
+{
+  return __builtin_wasm_memory_grow(MEMORY_HEAP_INDEX, delta);
+}
 
 #elif defined(WA_OS_WINDOWS)
 
-namespace WEI {
-
-class HostHeap {
-public:
-  HostHeap(size_t initial, size_t maximum);
-  ~HostHeap();
-
-  void* data() const { return m_data; }
-  void* heapBase() const { return m_heapBase; }
-  void* heapEnd() const { return m_heapEnd; }
-
-  size_t size() const { return m_size; }
-  ssize_t grow(uint32_t delta);
-
-private:
-  void* m_data;
-  void* m_heapBase;
-  void* m_heapEnd;
-  size_t m_initial;
-  size_t m_maximum;
-  size_t m_size;
+struct memory_heap {
+  void* data;
+  void* base;
+  void* end;
+  size_t initial;
+  size_t maximum;
+  size_t size;
 };
 
-} // namespace WEI
+void memory_heap_init(struct memory_heap*, size_t initial, size_t maximum);
+void memory_heap_release(struct memory_heap*);
 
-using MemoryManagerHeap = WEI::HostHeap;
+static inline void* memory_heap_data(const struct memory_heap* thiz)
+{
+  return thiz->data;
+}
+
+static inline void* memory_heap_base(const struct memory_heap* thiz)
+{
+  return thiz->base;
+}
+
+static inline void* memory_heap_end(const struct memory_heap* thiz)
+{
+  return thiz->end;
+}
+
+static inline size_t memory_heap_size(const struct memory_heap* thiz)
+{
+  return thiz->size;
+}
+
+ssize_t memory_heap_grow(struct memory_heap* thiz, uint32_t delta);
+
+#else
+
+struct memory_heap {
+};
+
+static inline void memory_heap_init(struct memory_heap* thiz, size_t initial, size_t maximum)
+{
+}
+
+static inline void memory_heap_release(struct memory_heap* thiz)
+{
+}
+
+static inline void* memory_heap_data(const struct memory_heap* thiz)
+{
+  return NULL;
+}
+
+static inline void* memory_heap_base(const struct memory_heap* thiz)
+{
+  return NULL;
+}
+
+static inline void* memory_heap_end(const struct memory_heap* thiz)
+{
+  return NULL;
+}
+
+static inline size_t memory_heap_size(const struct memory_heap* thiz)
+{
+  return 0;
+}
+
+static inline ssize_t memory_heap_grow(struct memory_heap* thiz, uint32_t delta)
+{
+  return -1;
+}
 
 #endif

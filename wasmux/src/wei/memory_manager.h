@@ -11,15 +11,17 @@
 #include <wasmux/mutex.h>
 #include <wasmux/bulk-memory.h>
 #include <wasmux/log.h>
-#include <wasmux/cxx/New.h>
 #include <wasmux/bitset.h>
+
+#include "memory_heap.h"
 
 namespace wasmux {
 
-template<size_t pageShift, size_t initOrder, size_t maxOrder, typename Heap>
+template<size_t pageShift, size_t initOrder, size_t maxOrder>
 class MemoryManager {
 public:
-  explicit MemoryManager(Heap& heap);
+  void init(size_t initial, size_t maximum);
+  void release();
 
   void* allocPages(unsigned int order);
   void freePages(void* page, unsigned int order);
@@ -57,7 +59,7 @@ private:
 
     static constexpr uint8_t kUsedBlock = 0xff;
 
-    SBlockSet(void* ptr)
+    void init(void* ptr)
     {
       this->freeCount = sblocksInPage;
       if (isPagePointer(ptr)) {
@@ -147,7 +149,7 @@ private:
 
   inline int findFreePageIndex(unsigned order) const;
 
-  Heap& m_heap;
+  struct memory_heap m_heap;
   wa_mutex_t m_mutex;
   WASMUX_BITSET_DEFINE(m_bblockPages, maxOrder);
   WASMUX_BITSET_DEFINE(m_sblockPages, maxOrder);
@@ -160,24 +162,25 @@ private:
   unsigned m_freeBlocks;
 };
 
-template<size_t pageShift, size_t initOrder, size_t maxOrder, typename Heap>
-MemoryManager<pageShift, initOrder, maxOrder, Heap>::MemoryManager(Heap& heap)
-  : m_heap(heap)
+template<size_t pageShift, size_t initOrder, size_t maxOrder>
+void MemoryManager<pageShift, initOrder, maxOrder>::init(size_t initial, size_t maximum)
 {
-  WA_ASSERT(isPagePointer(m_heap.data()));
-  char* heapEnd =  reinterpret_cast<char*>(m_heap.data()) + pageSize * m_heap.size();
+  memory_heap_init(&m_heap, initial, maximum);
 
-  if (reinterpret_cast<char*>(m_heap.heapEnd()) != heapEnd) {
+  WA_ASSERT(isPagePointer(memory_heap_data(&m_heap)));
+  char* heapEnd =  reinterpret_cast<char*>(memory_heap_data(&m_heap)) + pageSize * memory_heap_size(&m_heap);
+
+  if (reinterpret_cast<char*>(memory_heap_end(&m_heap)) != heapEnd) {
     LOG_WARN("End of heap does not match current memory size");
   }
 
-  char* firstPage = startOfPage<char*>(m_heap.heapBase());
+  char* firstPage = startOfPage<char*>(memory_heap_base(&m_heap));
 
   wa_mutex_init(&m_mutex);
   wasmux_bitset_clear_all(m_bblockPages, maxOrder);
   wasmux_bitset_clear_all(m_sblockPages, maxOrder);
 
-  m_indexBase = pageToIndex(m_heap.data());
+  m_indexBase = pageToIndex(memory_heap_data(&m_heap));
   m_indexStart = pageToIndex(firstPage);
   m_indexStop = pageToIndex(heapEnd);
 
@@ -185,15 +188,15 @@ MemoryManager<pageShift, initOrder, maxOrder, Heap>::MemoryManager(Heap& heap)
   m_freeBlocks = 0;
 
   unsigned firstFreeIndex;
-  if (isPagePointer(m_heap.heapBase()))
+  if (isPagePointer(memory_heap_base(&m_heap)))
     firstFreeIndex = m_indexStart;
   else {
     firstFreeIndex = m_indexStart + 1;
     auto& firstBSet = sblockSet(firstPage);
-    if ((reinterpret_cast<char*>(&firstBSet) + sblockSetSize) < m_heap.heapBase())
+    if ((reinterpret_cast<char*>(&firstBSet) + sblockSetSize) < memory_heap_base(&m_heap))
       m_indexStart++;
     else {
-      new (wasmux::CtorOnly, &firstBSet) SBlockSet(m_heap.heapBase());
+      firstBSet.init(memory_heap_base(&m_heap));
       auto num = m_indexStart - m_indexBase;
       wasmux_bitset_set(m_sblockPages, num);
       m_freeBlocks += firstBSet.freeCount;
@@ -207,8 +210,14 @@ MemoryManager<pageShift, initOrder, maxOrder, Heap>::MemoryManager(Heap& heap)
   }
 }
 
-template<size_t pageShift, size_t initOrder, size_t maxOrder, typename Heap>
-void* MemoryManager<pageShift, initOrder, maxOrder, Heap>::allocPages(unsigned int order)
+template<size_t pageShift, size_t initOrder, size_t maxOrder>
+void MemoryManager<pageShift, initOrder, maxOrder>::release()
+{
+  memory_heap_release(&m_heap);
+}
+
+template<size_t pageShift, size_t initOrder, size_t maxOrder>
+void* MemoryManager<pageShift, initOrder, maxOrder>::allocPages(unsigned int order)
 {
   void* page;
 
@@ -224,8 +233,8 @@ void* MemoryManager<pageShift, initOrder, maxOrder, Heap>::allocPages(unsigned i
   return page;
 }
 
-template<size_t pageShift, size_t initOrder, size_t maxOrder, typename Heap>
-void MemoryManager<pageShift, initOrder, maxOrder, Heap>::freePages(void* page, unsigned int order)
+template<size_t pageShift, size_t initOrder, size_t maxOrder>
+void MemoryManager<pageShift, initOrder, maxOrder>::freePages(void* page, unsigned int order)
 {
   if (page == nullptr) {
     LOG_WARN("Cannot free memory for null pointer");
@@ -248,8 +257,8 @@ void MemoryManager<pageShift, initOrder, maxOrder, Heap>::freePages(void* page, 
   wa_mutex_unlock(&m_mutex);
 }
 
-template<size_t pageShift, size_t initOrder, size_t maxOrder, typename Heap>
-int MemoryManager<pageShift, initOrder, maxOrder, Heap>::findFreePageIndex(unsigned order) const
+template<size_t pageShift, size_t initOrder, size_t maxOrder>
+int MemoryManager<pageShift, initOrder, maxOrder>::findFreePageIndex(unsigned order) const
 {
   if (order <= m_freePages) {
     unsigned temp = 0;
@@ -270,8 +279,8 @@ int MemoryManager<pageShift, initOrder, maxOrder, Heap>::findFreePageIndex(unsig
   return -1;
 }
 
-template<size_t pageShift, size_t initOrder, size_t maxOrder, typename Heap>
-void* MemoryManager<pageShift, initOrder, maxOrder, Heap>::allocPagesInternal(unsigned int order)
+template<size_t pageShift, size_t initOrder, size_t maxOrder>
+void* MemoryManager<pageShift, initOrder, maxOrder>::allocPagesInternal(unsigned int order)
 {
   WA_ASSERT(order);
   
@@ -285,7 +294,7 @@ void* MemoryManager<pageShift, initOrder, maxOrder, Heap>::allocPagesInternal(un
     return pageOfIndex<void*>(index);
   }
 
-  ssize_t res = m_heap.grow(order);
+  ssize_t res = memory_heap_grow(&m_heap, order);
   if (res > 0) {
     void* page = pageOfIndex<void*>(m_indexStop);
     m_indexStop += order;
@@ -295,8 +304,8 @@ void* MemoryManager<pageShift, initOrder, maxOrder, Heap>::allocPagesInternal(un
   return nullptr;
 }
 
-template<size_t pageShift, size_t initOrder, size_t maxOrder, typename Heap>
-void MemoryManager<pageShift, initOrder, maxOrder, Heap>::freePagesInternal(unsigned index, unsigned int order)
+template<size_t pageShift, size_t initOrder, size_t maxOrder>
+void MemoryManager<pageShift, initOrder, maxOrder>::freePagesInternal(unsigned index, unsigned int order)
 {
   WA_ASSERT(order);
   WA_ASSERT(m_indexStart <= index && index <= m_indexStop);
@@ -309,8 +318,8 @@ void MemoryManager<pageShift, initOrder, maxOrder, Heap>::freePagesInternal(unsi
   }
 }
 
-template<size_t pageShift, size_t initOrder, size_t maxOrder, typename Heap>
-void* MemoryManager<pageShift, initOrder, maxOrder, Heap>::SBlockSet::allocBlock(unsigned nblocks)
+template<size_t pageShift, size_t initOrder, size_t maxOrder>
+void* MemoryManager<pageShift, initOrder, maxOrder>::SBlockSet::allocBlock(unsigned nblocks)
 {
   if (nblocks <= this->freeCount) {
     unsigned temp = 0;
@@ -335,8 +344,8 @@ void* MemoryManager<pageShift, initOrder, maxOrder, Heap>::SBlockSet::allocBlock
   return nullptr;
 }
 
-template<size_t pageShift, size_t initOrder, size_t maxOrder, typename Heap>
-int MemoryManager<pageShift, initOrder, maxOrder, Heap>::SBlockSet::freeBlock(unsigned index)
+template<size_t pageShift, size_t initOrder, size_t maxOrder>
+int MemoryManager<pageShift, initOrder, maxOrder>::SBlockSet::freeBlock(unsigned index)
 {
   uint8_t nblocks = this->state[index];
   if (nblocks == 0) {
@@ -364,8 +373,8 @@ int MemoryManager<pageShift, initOrder, maxOrder, Heap>::SBlockSet::freeBlock(un
   return nblocks;
 }
 
-template<size_t pageShift, size_t initOrder, size_t maxOrder, typename Heap>
-void* MemoryManager<pageShift, initOrder, maxOrder, Heap>::allocBlockInternal(unsigned nblocks)
+template<size_t pageShift, size_t initOrder, size_t maxOrder>
+void* MemoryManager<pageShift, initOrder, maxOrder>::allocBlockInternal(unsigned nblocks)
 {
   WA_ASSERT(nblocks);
 
@@ -394,7 +403,7 @@ void* MemoryManager<pageShift, initOrder, maxOrder, Heap>::allocBlockInternal(un
     auto num = index - m_indexBase;
     wasmux_bitset_set(m_sblockPages, num);
     auto& bset = sblockSet(page);
-    new (wasmux::CtorOnly, &bset) SBlockSet(page);
+    bset.init(page);
     void* ptr = bset.allocBlock(nblocks);
     m_freeBlocks += bset.freeCount;
     return ptr;
@@ -415,8 +424,8 @@ void* MemoryManager<pageShift, initOrder, maxOrder, Heap>::allocBlockInternal(un
   }
 }
 
-template<size_t pageShift, size_t initOrder, size_t maxOrder, typename Heap>
-void* MemoryManager<pageShift, initOrder, maxOrder, Heap>::malloc(size_t size)
+template<size_t pageShift, size_t initOrder, size_t maxOrder>
+void* MemoryManager<pageShift, initOrder, maxOrder>::malloc(size_t size)
 {
   void* ptr;
 
@@ -433,8 +442,8 @@ void* MemoryManager<pageShift, initOrder, maxOrder, Heap>::malloc(size_t size)
   return ptr;
 }
 
-template<size_t pageShift, size_t initOrder, size_t maxOrder, typename Heap>
-void MemoryManager<pageShift, initOrder, maxOrder, Heap>::free(void* ptr)
+template<size_t pageShift, size_t initOrder, size_t maxOrder>
+void MemoryManager<pageShift, initOrder, maxOrder>::free(void* ptr)
 {
   if (ptr == nullptr) {
     LOG_WARN("Cannot free memory for null pointer");
@@ -466,8 +475,8 @@ void MemoryManager<pageShift, initOrder, maxOrder, Heap>::free(void* ptr)
   }
 }
 
-template<size_t pageShift, size_t initOrder, size_t maxOrder, typename Heap>
-void MemoryManager<pageShift, initOrder, maxOrder, Heap>::fetchMetrics(Metrics& metrics)
+template<size_t pageShift, size_t initOrder, size_t maxOrder>
+void MemoryManager<pageShift, initOrder, maxOrder>::fetchMetrics(Metrics& metrics)
 {
   wa_mutex_lock(&m_mutex);
   metrics.freePages = m_freePages;

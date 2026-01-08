@@ -3,11 +3,6 @@ export default (mk) => {
     "include/wasmux/arch-generic/log.h",
     "include/wasmux/arch-generic/string.h",
 
-    "include/wasmux/cxx/MemoryManager.h",
-    "include/wasmux/cxx/New.h",
-    "include/wasmux/cxx/StaticStorage.h",
-    "include/wasmux/cxx/TypeTraits.h",
-
     "include/wasmux/align.h",
     "include/wasmux/assert.h",
     "include/wasmux/atomic.h",
@@ -143,8 +138,9 @@ export default (mk) => {
       "src/wei/main_loop.cpp",
       "src/wei/main_thread.cpp",
       "src/wei/memory_alloc.cpp",
-      "src/wei/memory_heap.cpp",
+      "src/wei/memory_heap.c",
       "src/wei/memory_heap.h",
+      "src/wei/memory_manager.h",
       "src/wei/user_access.cpp",
       "src/wei/wei.cpp",
       "src/wei/worker_instance.cpp",
