@@ -44,6 +44,18 @@ const {
   WEB_ClearInterval,
   WEB_ObjectRetain,
   WEB_RemoveEventListener,
+
+  WEB_UserInstanceStart,
+  WEB_PostMessage2,
+  WEB_PostMessage3,
+  WEB_PostMessage4,
+  WEB_PostMessage5,
+  WEB_PostMessage6,
+  WEB_WorkerInstance,
+  WEB_WorkerPerform2,
+  WEB_WorkerPerform3,
+  WEB_WorkerPerform4,
+  WEB_WorkerPerform5,
 } = require("./webcalls-num");
 
 const {
@@ -73,6 +85,19 @@ const {
   sys_ClearInterval,
   sys_ObjectRetain,
   sys_RemoveEventListener,
+  // Main
+  sys_WorkerInstance,
+  sys_WorkerPerform2,
+  sys_WorkerPerform3,
+  sys_WorkerPerform4,
+  sys_WorkerPerform5,
+  // Worker
+  sys_UserInstanceStart,
+  sys_PostMessage2,
+  sys_PostMessage3,
+  sys_PostMessage4,
+  sys_PostMessage5,
+  sys_PostMessage6,
 } = require("./webcall-funcs");
 
 function BaseThreadContext(kernelModule, kernelMemory, globalThis, scriptUrl) {
@@ -120,6 +145,19 @@ function BaseThreadContext(kernelModule, kernelMemory, globalThis, scriptUrl) {
   this._objects[WEB_ClearInterval] = sys_ClearInterval;
   this._objects[WEB_ObjectRetain] = sys_ObjectRetain;
   this._objects[WEB_RemoveEventListener] = sys_RemoveEventListener;
+  // Main
+  this._objects[WEB_WorkerInstance] = sys_WorkerInstance;
+  this._objects[WEB_WorkerPerform2] = sys_WorkerPerform2;
+  this._objects[WEB_WorkerPerform3] = sys_WorkerPerform3;
+  this._objects[WEB_WorkerPerform4] = sys_WorkerPerform4;
+  this._objects[WEB_WorkerPerform5] = sys_WorkerPerform5;
+  // Worker
+  this._objects[WEB_UserInstanceStart] = sys_UserInstanceStart;
+  this._objects[WEB_PostMessage2] = sys_PostMessage2;
+  this._objects[WEB_PostMessage3] = sys_PostMessage3;
+  this._objects[WEB_PostMessage4] = sys_PostMessage4;
+  this._objects[WEB_PostMessage5] = sys_PostMessage5;
+  this._objects[WEB_PostMessage6] = sys_PostMessage6;
 }
 
 BaseThreadContext.prototype.makeImports = function() {

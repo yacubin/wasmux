@@ -12,12 +12,6 @@
 const BaseThreadContext = require("./browser-instance");
 
 const {
-  WEB_UserInstanceStart,
-  WEB_PostMessage2,
-  WEB_PostMessage3,
-  WEB_PostMessage4,
-  WEB_PostMessage5,
-  WEB_PostMessage6,
   WEB_WorkerInstance,
   WEB_WorkerPerform2,
   WEB_WorkerPerform3,
@@ -25,15 +19,7 @@ const {
   WEB_WorkerPerform5,
 } = require("./webcalls-num");
 
-const {
-  sys_NotImplemented,
-  sys_UserInstanceStart,
-  sys_PostMessage2,
-  sys_PostMessage3,
-  sys_PostMessage4,
-  sys_PostMessage5,
-  sys_PostMessage6,
-} = require("./webcall-funcs");
+const { sys_NotImplemented } = require("./webcall-funcs");
 
 function WorkerThreadContext({kernelModule, kernelMemory}) {
   if (!(typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope)) {
@@ -41,13 +27,6 @@ function WorkerThreadContext({kernelModule, kernelMemory}) {
   }
 
   BaseThreadContext.call(this, kernelModule, kernelMemory, self, null);
-
-  this._objects[WEB_UserInstanceStart] = sys_UserInstanceStart;
-  this._objects[WEB_PostMessage2] = sys_PostMessage2;
-  this._objects[WEB_PostMessage3] = sys_PostMessage3;
-  this._objects[WEB_PostMessage4] = sys_PostMessage4;
-  this._objects[WEB_PostMessage5] = sys_PostMessage5;
-  this._objects[WEB_PostMessage6] = sys_PostMessage6;
   this._objects[WEB_WorkerInstance] = sys_NotImplemented;
   this._objects[WEB_WorkerPerform2] = sys_NotImplemented;
   this._objects[WEB_WorkerPerform3] = sys_NotImplemented;

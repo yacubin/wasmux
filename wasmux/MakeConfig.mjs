@@ -32,6 +32,10 @@ export default {
     description: "Version section",
     value: ".jsdata.version",
   },
+  WASMUX_MANIFEST_SECTION: {
+    description: "Manifest section",
+    value: ".jsdata.manifest",
+  },
   WASMUX_THREADS: {
     description: "Enable threads",
     value: true,
