@@ -11,20 +11,18 @@
 
 const fs = require("node:fs");
 const url = require("node:url");
+const { Worker } = require("node:worker_threads");
 
 const { createUserInstance } = require("./main-instance");
 
-async function fetchBuffer(str) {
-  if (!(str.startsWith("http://") || str.startsWith("https://"))) {
-    const filepath = str.startsWith("file://") ? url.fileURLToPath(str) : str;
-    return await fs.promises.readFile(filepath);
-  }
-  const response = await fetch(str);
-  return Buffer.from(await response.arrayBuffer());
-}
-
-async function createInstance(moduleUrl) {
-  return createUserInstance(await fetchBuffer(moduleUrl));
+async function createInstance(options) {
+  return createUserInstance(options, {
+    Worker,
+    fetchBuffer: async (input) => {
+      const filepath = input.startsWith("file://") ? url.fileURLToPath(input) : input;
+      return await fs.promises.readFile(filepath);
+    },
+  });
 }
 
 module.exports = Object.assign(createInstance, {

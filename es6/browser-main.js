@@ -11,16 +11,13 @@
 
 const { createUserInstance } = require("./main-instance");
 
-async function fetchBuffer(moduleUrl) {
-  const response = await fetch(moduleUrl);
-  return await response.arrayBuffer();
-}
-
-async function createInstance(moduleUrl) {
+async function createInstance(options) {
   if (!crossOriginIsolated) {
     throw 'Only crossOriginIsolated'
   }
-  return createUserInstance(await fetchBuffer(moduleUrl));
+  return createUserInstance(options, {
+    fetchBuffer: null,
+  });
 }
 
 module.exports = Object.assign(createInstance, {

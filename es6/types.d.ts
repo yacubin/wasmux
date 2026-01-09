@@ -4,8 +4,13 @@ export interface WrapperInstance {
 	registerDriver(name: string, driverClass: any): void;
 	start(): void;
 	stop(): void;
-};
+}
+
+export interface WasmuxOptions {
+  moduleUrl?: string;
+	workerUrl?: string;
+}
 
 export default interface IWasmuxDefault {
-  (params?: string | Buffer): Promise<WrapperInstance>;
-};
+  (params?: string | WasmuxOptions): Promise<WrapperInstance>;
+}

@@ -9,54 +9,11 @@
 
 "use strict";
 
-const BaseThreadContext = require("./browser-instance");
+const BaseThreadContext = require("./worker-script");
 
-const {
-  WEB_UserInstanceStart,
-  WEB_PostMessage2,
-  WEB_PostMessage3,
-  WEB_PostMessage4,
-  WEB_PostMessage5,
-  WEB_PostMessage6,
-} = require("./webcalls-num");
-
-const { sys_NotImplemented } = require("./webcall-funcs");
-
-function MainContext({kernelModule, kernelMemory, scriptUrl }) {
-  BaseThreadContext.call(this, kernelModule, kernelMemory, globalThis, scriptUrl);
-
-  this._objects[WEB_UserInstanceStart] = sys_NotImplemented;
-  this._objects[WEB_PostMessage2] = sys_NotImplemented;
-  this._objects[WEB_PostMessage3] = sys_NotImplemented;
-  this._objects[WEB_PostMessage4] = sys_NotImplemented;
-  this._objects[WEB_PostMessage5] = sys_NotImplemented;
-  this._objects[WEB_PostMessage6] = sys_NotImplemented;
-}
-
-MainContext.prototype = Object.create(BaseThreadContext.prototype);
-MainContext.prototype.constructor = MainContext;
-
-MainContext.prototype.init = async function() {
-  // WebAssembly.Instance is disallowed on the main thread, if the buffer size is larger than 8MB
-  const kinst = await WebAssembly.instantiate(this._kernelModule, this.makeImports());
-  this._kernel = kinst.exports;
-  this._kernel._start_kernel();
-}
-
-MainContext.create = (kernelModule, workerUrl, manifest) => {
-  const kernelMemory = new WebAssembly.Memory({
-    initial: manifest.initPages,
-    maximum: manifest.maxPages,
-    shared: true,
-  });
-
-  return new MainContext({kernelModule, kernelMemory, scriptUrl: workerUrl});
-}
-
-function UserInstance(context, loaderUrl, workerUrl) {
+function UserInstance(context, objectUrls) {
   this._context = context;
-  this._loaderUrl = loaderUrl;
-  this._workerUrl = workerUrl;
+  this._objectUrls = objectUrls;
 }
 
 Object.defineProperty(UserInstance.prototype, "baseFsUrl", {
@@ -75,37 +32,71 @@ UserInstance.prototype.registerDriver = function(name, driverClass) {
 }
 
 UserInstance.prototype.start = function() {
-  setTimeout(() => this._context.init(), 0);
+  setTimeout(async () => {
+    await this._context.init();
+    this._context._kernel._start_kernel();
+  });
 }
 
 UserInstance.prototype.stop = function() {
-  URL.revokeObjectURL(this._loaderUrl);
-  URL.revokeObjectURL(this._workerUrl);
+  for (const iter of this._objectUrls)
+    URL.revokeObjectURL(iter);
 }
 
-module.exports.createUserInstance = async function(bytes) {
+async function fetchBuffer(context, path) {
+  if (path.startsWith("http://") || path.startsWith("https://") || !context.fetchBuffer) {
+    const response = await fetch(path);
+    return await response.arrayBuffer();
+  }
+  return await context.fetchBuffer(path);
+}
+
+function createModuleSectionURL(module, section, type) {
+  const sectionList = WebAssembly.Module.customSections(module, section);
+  const sectionBlob = new Blob(sectionList, { type });
+  const sectionUrl = URL.createObjectURL(sectionBlob);
+  return sectionUrl;
+}
+
+module.exports.createUserInstance = async function(options, context) {
+  let moduleUrl, workerUrl;
+  const objectUrls = [];
+
+  if (typeof options === "string")
+    moduleUrl = options;
+  else {
+    moduleUrl = options.moduleUrl;
+    workerUrl = options.workerUrl;
+  }
+
+  const bytes = await fetchBuffer(context, moduleUrl);
   const module = await WebAssembly.compile(bytes);
 
-  const manifestList = WebAssembly.Module.customSections(module, ".jsdata.manifest");
-
-  const loaderList = WebAssembly.Module.customSections(module, ".jsdata.loader");
-  const loaderBlob = new Blob(loaderList, { type: "application/javascript" });
-  const loaderUrl = URL.createObjectURL(loaderBlob);
-
-  const workerList = WebAssembly.Module.customSections(module, ".jsdata.worker");
-  const workerBlob = new Blob(workerList, { type: 'application/javascript' });
-  const workerUrl = URL.createObjectURL(workerBlob);
+  if (!workerUrl) {
+    workerUrl = createModuleSectionURL(module, ".jsdata.worker", "application/javascript");
+    objectUrls.push(workerUrl);
+  }
 
   let mainContext;
+
+  const manifestList = WebAssembly.Module.customSections(module, ".jsdata.manifest");
   if (manifestList.length) {
     const decoder = new TextDecoder();
     const manifestStr = decoder.decode(manifestList[0]);
-    mainContext = MainContext.create(module, workerUrl, JSON.parse(manifestStr));
+    const manifest = JSON.parse(manifestStr);
+    const memory = new WebAssembly.Memory({
+      initial: manifest.initPages,
+      maximum: manifest.maxPages,
+      shared: true,
+    });
+    mainContext = new BaseThreadContext(module, memory, false, workerUrl);
   }
   else {
+    const loaderUrl = createModuleSectionURL(module, ".jsdata.loader", "application/javascript");
+    objectUrls.push(loaderUrl);
     const { MainContext } = await import(/* webpackIgnore: true */ loaderUrl);
     mainContext = MainContext.create(module, workerUrl);
   }
 
-  return new UserInstance(mainContext, loaderUrl, workerUrl);
+  return new UserInstance(mainContext, objectUrls);
 }
