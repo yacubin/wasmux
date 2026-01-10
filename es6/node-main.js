@@ -13,10 +13,10 @@ const fs = require("node:fs");
 const url = require("node:url");
 const { Worker } = require("node:worker_threads");
 
-const { createUserInstance } = require("./main-instance");
+const UserInstance = require("./user-instance");
 
 async function createInstance(options) {
-  return createUserInstance(options, {
+  return UserInstance.createAsync(options, {
     WorkerCtor: Worker,
     fetchBuffer: async (input) => {
       const filepath = input.startsWith("file://") ? url.fileURLToPath(input) : input;

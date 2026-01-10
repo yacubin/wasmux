@@ -9,13 +9,13 @@
 
 "use strict";
 
-const { createUserInstance } = require("./main-instance");
+const UserInstance = require("./user-instance");
 
 async function createInstance(options) {
   if (!crossOriginIsolated) {
     throw 'Only crossOriginIsolated'
   }
-  return createUserInstance(options, {
+  return UserInstance.createAsync(options, {
     WorkerCtor: globalThis.Worker,
     fetchBuffer: null,
   });

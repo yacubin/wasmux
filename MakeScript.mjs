@@ -28,7 +28,6 @@ export default function(mk) {
   mk.addSubdirectory("wasmux");
   mk.addSubdirectory(archDir);
   mk.addSubdirectory("uapi");
-  mk.addSubdirectory("kernel");
 
   if (mk.WASMUX_TARGET_TRIPLET) {
     const toolchainLines = [

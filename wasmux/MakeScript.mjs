@@ -194,4 +194,8 @@ export default (mk) => {
     destination: mk.INSTALL_INCLUDEDIR,
     baseDir: mk.BINARY_DIR.join("include"),
   });
+
+  if (mk.WASMUX_KERNEL) {
+    mk.addSubdirectory("main");
+  }
 }

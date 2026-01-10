@@ -9,4 +9,4 @@
 
 "use strict";
 
-module.exports = require("./browser-main.js");
+module.exports = require("./browser-main");

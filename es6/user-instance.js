@@ -58,7 +58,7 @@ function createModuleSectionURL(module, section, type) {
   return sectionUrl;
 }
 
-module.exports.createUserInstance = async function(options, context) {
+UserInstance.createAsync = async function(options, context) {
   let moduleUrl, workerUrl;
   const objectUrls = [];
 
@@ -77,26 +77,18 @@ module.exports.createUserInstance = async function(options, context) {
     objectUrls.push(workerUrl);
   }
 
-  let mainContext;
-
   const manifestList = WebAssembly.Module.customSections(module, ".jsdata.manifest");
-  if (manifestList.length) {
-    const decoder = new TextDecoder();
-    const manifestStr = decoder.decode(manifestList[0]);
-    const manifest = JSON.parse(manifestStr);
-    const memory = new WebAssembly.Memory({
-      initial: manifest.initPages,
-      maximum: manifest.maxPages,
-      shared: true,
-    });
-    mainContext = new WasmuxRuntime(module, memory, false, workerUrl, context.WorkerCtor);
-  }
-  else {
-    const loaderUrl = createModuleSectionURL(module, ".jsdata.loader", "application/javascript");
-    objectUrls.push(loaderUrl);
-    const { MainContext } = await import(/* webpackIgnore: true */ loaderUrl);
-    mainContext = MainContext.create(module, workerUrl);
-  }
+  const decoder = new TextDecoder();
+  const manifestStr = decoder.decode(manifestList[0]);
+  const manifest = JSON.parse(manifestStr);
+  const memory = new WebAssembly.Memory({
+    initial: manifest.initPages,
+    maximum: manifest.maxPages,
+    shared: true,
+  });
+  const mainContext = new WasmuxRuntime(module, memory, false, workerUrl, context.WorkerCtor);
 
   return new UserInstance(mainContext, objectUrls);
 }
+
+module.exports = UserInstance;

@@ -3,11 +3,11 @@ export default (mk) => {
   ];
 
   const sources = [
-    "src/InstanceExit.cpp",
-    "src/InstancePerform.cpp",
-    "src/StartKernel.cpp",
-    "src/KernelVersion.cpp",
-    "src/syscall.cpp",
+    "InstanceExit.cpp",
+    "InstancePerform.cpp",
+    "StartKernel.cpp",
+    "KernelVersion.cpp",
+    "syscall.cpp",
   ];
 
   const includes = [
@@ -20,10 +20,10 @@ export default (mk) => {
   ];
 
   if (mk.SYSTEM_PROCESSOR.match(/wasm(32|64)/)) {
-    sources.push("src/StartKernel.S");
+    sources.push("StartKernel.S");
   }
 
-  const worker_S = mk.BINARY_DIR.join("src/worker.S");
+  const worker_S = mk.BINARY_DIR.join("worker.S");
   mk.addCustomScript("mkcustsec.mjs", {
     SCRIPT_INPUT: mk.PROJECT_SOURCE_DIR.join("es6/worker.js"),
     SCRIPT_OUTPUT: worker_S,
@@ -33,12 +33,12 @@ export default (mk) => {
 
   if (mk.SYSTEM_NAME === "Windows") {
     sources.push(
-      "src/StartWindows.cpp",
-      "src/kernel.lds",
+      "StartWindows.cpp",
+      "kernel.lds",
     );
     mk.EXE_LINKER_FLAGS.push(
       "-Wl,--stack,65536",
-      "-Wl,--script=" + mk.SOURCE_DIR.join("src/kapsule.lds"),
+      "-Wl,--script=" + mk.SOURCE_DIR.join("kapsule.lds"),
     );
   }
 
