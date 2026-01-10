@@ -16,6 +16,7 @@ async function createInstance(options) {
     throw 'Only crossOriginIsolated'
   }
   return createUserInstance(options, {
+    WorkerCtor: globalThis.Worker,
     fetchBuffer: null,
   });
 }

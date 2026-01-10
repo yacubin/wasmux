@@ -18,7 +18,7 @@ export default async (mk) => {
 
   const worker_S = mk.BINARY_DIR.join("src/worker.S");
   mk.addCustomScript("mkcustsec.mjs", {
-    SCRIPT_INPUT: worker_js,
+    SCRIPT_INPUT: mk.PROJECT_SOURCE_DIR.join("es6/worker.js"),
     SCRIPT_OUTPUT: worker_S,
     SCRIPT_SECTION: mk.WASMUX_WORKER_SECTION,
   });

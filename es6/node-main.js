@@ -17,7 +17,7 @@ const { createUserInstance } = require("./main-instance");
 
 async function createInstance(options) {
   return createUserInstance(options, {
-    Worker,
+    WorkerCtor: Worker,
     fetchBuffer: async (input) => {
       const filepath = input.startsWith("file://") ? url.fileURLToPath(input) : input;
       return await fs.promises.readFile(filepath);

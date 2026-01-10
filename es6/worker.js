@@ -11,6 +11,8 @@
 
 const WEB_KERNEL_MEMORY_ID = 1;
 const WEB_KERNEL_MODULE_ID = 2;
+
+const WEI_WORKER_CTOR_ID = 5;
 const WEI_FALSE_BOOLEAN_ID = 6;
 const WEI_TRUE_BOOLEAN_ID = 7;
 const WEB_NULL_OBJECT_ID = 8;
@@ -431,7 +433,7 @@ function sys_PostMessage6(callback, userdata, arg1, arg2, arg3, arg4) {
   ]);
 }
 
-function WasmuxRuntime(kernelModule, kernelMemory, isWorker, scriptUrl) {
+function WasmuxRuntime(kernelModule, kernelMemory, isWorker, scriptUrl, WorkerCtor) {
   this._objects = {};
   this._objectCount = 0;
   this._webcalls = {};
@@ -440,11 +442,15 @@ function WasmuxRuntime(kernelModule, kernelMemory, isWorker, scriptUrl) {
   this._kernelModule = kernelModule;
   this._kernelMemory = kernelMemory;
 
+  if (WorkerCtor === undefined && typeof globalThis.Worker === "function") {
+    WorkerCtor = globalThis.Worker;
+  }
+
   this._objects[WEB_KERNEL_MEMORY_ID] = kernelMemory;
   this._objects[WEB_KERNEL_MODULE_ID] = kernelModule;
   this._objects[3] = null;
   this._objects[4] = null;
-  this._objects[5] = null;
+  this._objects[WEI_WORKER_CTOR_ID] = WorkerCtor;
   this._objects[WEI_FALSE_BOOLEAN_ID] = false;
   this._objects[WEI_TRUE_BOOLEAN_ID] = true;
   this._objects[WEB_NULL_OBJECT_ID] = null;
@@ -475,8 +481,8 @@ function WasmuxRuntime(kernelModule, kernelMemory, isWorker, scriptUrl) {
   this._objects[WEB_ClearTimeout] = sys_ClearTimeout;
   this._objects[WEB_ClearInterval] = sys_ClearInterval;
   this._objects[WEB_ObjectRetain] = sys_ObjectRetain;
-
   this._objects[WEB_RemoveEventListener] = sys_RemoveEventListener;
+
   this._objects[WEB_WorkerInstance] = isWorker ? sys_NotImplemented : sys_WorkerInstance;
   this._objects[WEB_WorkerPerform2] = isWorker ? sys_NotImplemented : sys_WorkerPerform2;
   this._objects[WEB_WorkerPerform3] = isWorker ? sys_NotImplemented : sys_WorkerPerform3;

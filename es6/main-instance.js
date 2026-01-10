@@ -89,7 +89,7 @@ module.exports.createUserInstance = async function(options, context) {
       maximum: manifest.maxPages,
       shared: true,
     });
-    mainContext = new WasmuxRuntime(module, memory, false, workerUrl);
+    mainContext = new WasmuxRuntime(module, memory, false, workerUrl, context.WorkerCtor);
   }
   else {
     const loaderUrl = createModuleSectionURL(module, ".jsdata.loader", "application/javascript");
