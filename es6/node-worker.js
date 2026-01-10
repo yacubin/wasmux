@@ -11,4 +11,4 @@
 
 const { parentPort, workerData } = require("node:worker_threads");
 
-module.exports = require("./worker-script");
+module.exports = require("./worker");

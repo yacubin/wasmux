@@ -9,4 +9,4 @@
 
 "use strict";
 
-module.exports = require("./worker-script");
+module.exports = require("./worker");

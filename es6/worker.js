@@ -431,7 +431,7 @@ function sys_PostMessage6(callback, userdata, arg1, arg2, arg3, arg4) {
   ]);
 }
 
-function BaseThreadContext(kernelModule, kernelMemory, isWorker, scriptUrl) {
+function WasmuxRuntime(kernelModule, kernelMemory, isWorker, scriptUrl) {
   this._objects = {};
   this._objectCount = 0;
   this._webcalls = {};
@@ -491,7 +491,7 @@ function BaseThreadContext(kernelModule, kernelMemory, isWorker, scriptUrl) {
   this._objects[WEB_PostMessage6] = isWorker ? sys_PostMessage6 : sys_NotImplemented;
 }
 
-BaseThreadContext.prototype.makeImports = function() {
+WasmuxRuntime.prototype.makeImports = function() {
   return {
     env: {
       memory: this._kernelMemory,
@@ -503,29 +503,29 @@ BaseThreadContext.prototype.makeImports = function() {
   };
 }
 
-BaseThreadContext.prototype.init = async function() {
+WasmuxRuntime.prototype.init = async function() {
   // WebAssembly.Instance is disallowed on the main thread, if the buffer size is larger than 8MB
   const kinst = await WebAssembly.instantiate(this._kernelModule, this.makeImports());
   this._kernel = kinst.exports;
 }
 
-BaseThreadContext.prototype.getStringByMid = function(mid, offset, size) {
+WasmuxRuntime.prototype.getStringByMid = function(mid, offset, size) {
   const buffer = this._objects[mid].buffer;
   const bytes = new Uint8Array(buffer, offset, size);
   return String.fromCharCode.apply(String, bytes);
 }
 
-BaseThreadContext.prototype.createObjectId = function(object) {
+WasmuxRuntime.prototype.createObjectId = function(object) {
   const objectId = this._objectCount++;
   this._objects[objectId] = object;
   return objectId;
 }
 
-BaseThreadContext.prototype.deleteObjectId = function(objectId) {
+WasmuxRuntime.prototype.deleteObjectId = function(objectId) {
   delete this._objects[objectId];
 }
 
-BaseThreadContext.prototype.perform = function(callback, userdata, ...args) {
+WasmuxRuntime.prototype.perform = function(callback, userdata, ...args) {
   const argsIds = args.map((o) => o !== undefined ? this.createObjectId(o) : 0);
   this._kernel.perform(2 + argsIds.length, callback, userdata, ...argsIds);
   argsIds.forEach(i => i && this.deleteObjectId(i));
@@ -537,7 +537,7 @@ if (typeof WorkerGlobalScope !== 'undefined' && globalThis instanceof WorkerGlob
     const { data } = event;
     switch (data.type) {
     case 'instance':
-      system = new BaseThreadContext(data.kernelModule, data.kernelMemory, true, null);
+      system = new WasmuxRuntime(data.kernelModule, data.kernelMemory, true, null);
       system.init();
       break;
     case 'perform':
@@ -550,5 +550,5 @@ if (typeof WorkerGlobalScope !== 'undefined' && globalThis instanceof WorkerGlob
   }
 }
 else {
-  module.exports = BaseThreadContext;
+  module.exports = WasmuxRuntime;
 }

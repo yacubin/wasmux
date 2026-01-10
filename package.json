@@ -11,7 +11,7 @@
     "./node": "./es6/node-main.js",
     "./node-worker": "./es6/node-worker.js",
     "./browser": "./es6/browser-main.js",
-    "./browser-worker": "./es6/browser-worker.js",
+    "./browser-worker": "./es6/worker.js",
     "./build": "./MakeScript.mjs",
     "./preset/*": "./preset/*.mjs",
     "./toolchain/*": "./toolchain/*.mjs",

@@ -1,4 +1,4 @@
-export interface WrapperInstance {
+export interface WasmuxInstance {
 	set baseFsUrl(value: string);
 	set onmessage(callback: () => void);
 	registerDriver(name: string, driverClass: any): void;
@@ -12,5 +12,5 @@ export interface WasmuxOptions {
 }
 
 export default interface IWasmuxDefault {
-  (params?: string | WasmuxOptions): Promise<WrapperInstance>;
+  (params?: string | WasmuxOptions): Promise<WasmuxInstance>;
 }

@@ -9,7 +9,7 @@
 
 "use strict";
 
-const BaseThreadContext = require("./worker-script");
+const WasmuxRuntime = require("./worker");
 
 function UserInstance(context, objectUrls) {
   this._context = context;
@@ -89,7 +89,7 @@ module.exports.createUserInstance = async function(options, context) {
       maximum: manifest.maxPages,
       shared: true,
     });
-    mainContext = new BaseThreadContext(module, memory, false, workerUrl);
+    mainContext = new WasmuxRuntime(module, memory, false, workerUrl);
   }
   else {
     const loaderUrl = createModuleSectionURL(module, ".jsdata.loader", "application/javascript");
