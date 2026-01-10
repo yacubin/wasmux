@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2025  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2025-2026  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
@@ -21,7 +21,7 @@ long __waml_sys_ni_syscall(long arg1, long arg2, long arg3, long arg4, long arg5
 #define __SYSCALL(nr, argc, sym) __EXPORT long __waml_##sym(long, long, long, long, long, long);
 #include <wasmux/syscall-list.h>
 
-#define SYSCALL_STUB_DECL(sym) __EXPORT __ATTR_ALIAS(__waml_sys_ni_syscall, __waml_##sym) __ATTR_WEAK;
+#define SYSCALL_STUB_DECL(sym) __EXPORT __ATTR_WEAK_ALIAS(__waml_sys_ni_syscall, __waml_##sym);
 #define SYSCALL_STUB_DECL_0(sym) SYSCALL_STUB_DECL(sym)
 #define SYSCALL_STUB_DECL_1(sym) SYSCALL_STUB_DECL(sym)
 #define SYSCALL_STUB_DECL_2(sym) SYSCALL_STUB_DECL(sym)

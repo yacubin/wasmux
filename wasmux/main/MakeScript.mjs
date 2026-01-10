@@ -7,7 +7,7 @@ export default (mk) => {
     "InstancePerform.cpp",
     "StartKernel.cpp",
     "KernelVersion.cpp",
-    "syscall.cpp",
+    "syscall_stubs.c",
   ];
 
   const includes = [
