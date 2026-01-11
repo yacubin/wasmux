@@ -8,41 +8,34 @@
 #include <wasmux/wei/memory_alloc.h>
 #include <wasmux/wasm_page.h>
 #include <wasmux/bulk-memory.h>
-#include <wasmux/cxx/StaticStorage.h>
-#include <wasmux/cxx/MemoryManager.h>
 
-#include "memory_heap.h"
+#include "memory_manager.h"
 
-using WasmMemoryManager = wasmux::MemoryManager<WA_MEMORY_PAGE_SHIFT, WASMUX_CORE_INIT_PAGES, WASMUX_CORE_MAX_PAGES, MemoryManagerHeap>;
-
-static StaticStorage<MemoryManagerHeap> s_heap;
-static StaticStorage<WasmMemoryManager> s_memoryManager;
+static wasmux::MemoryManager<WA_MEMORY_PAGE_SHIFT, WASMUX_CORE_INIT_PAGES, WASMUX_CORE_MAX_PAGES> s_memoryManager;
 
 void WebMemoryAllocInit()
 {
-  s_heap.initialize(WASMUX_CORE_INIT_PAGES, WASMUX_CORE_MAX_PAGES);
-  s_memoryManager.initialize(*s_heap);
+  s_memoryManager.init(WASMUX_CORE_INIT_PAGES, WASMUX_CORE_MAX_PAGES);
 }
 
 void WebMemoryAllocExit()
 {
-  s_memoryManager.finalize();
-  s_heap.finalize();
+  s_memoryManager.release();
 }
 
 void* WebAllocPages(unsigned int order)
 {
-  return s_memoryManager->allocPages(order);
+  return s_memoryManager.allocPages(order);
 }
 
 void WebFreePages(void* page, unsigned int order)
 {
-  s_memoryManager->freePages(page, order);
+  s_memoryManager.freePages(page, order);
 }
 
 void* WebMalloc(size_t size)
 {
-  return s_memoryManager->malloc(size);
+  return s_memoryManager.malloc(size);
 }
 
 void* WebZeroMalloc(size_t size)
@@ -56,5 +49,5 @@ void* WebZeroMalloc(size_t size)
 
 void WebFree(void* ptr)
 {
-  s_memoryManager->free(ptr);
+  s_memoryManager.free(ptr);
 }

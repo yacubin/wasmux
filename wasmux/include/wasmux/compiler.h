@@ -53,4 +53,10 @@
 
 #define __ATTR_ALWAYS_INLINE inline __attribute__((__always_inline__))
 
+#if __has_attribute(optnone)
+# define __optnone __attribute__((optnone))
+#else
+# define __optnone
+#endif
+
 #endif /* _WASMUX_COMPILER_H */

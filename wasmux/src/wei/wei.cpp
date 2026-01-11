@@ -8,7 +8,7 @@
 #include <wasmux/wei.h>
 #include <wasmux/assert.h>
 #include <wasmux/limits-base.h>
-#include <wasmux/webcall-nums.h>
+#include <wasmux/wei/webcall-nums.h>
 
 WEI_Object WEI_objectCreate(WEI_Object cls)
 {

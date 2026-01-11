@@ -11,12 +11,12 @@
 
 WebWorker* WebWorker_create(const WebString* url, const WebString* name)
 {
-  WEI_Object clsObj = WebObject_getProperty(WEI_GLOBAL_THIS, "Worker");
+  // WEI_Object clsObj = WebObject_getProperty(WEI_GLOBAL_THIS, "Worker");
   WEI_Object optionsObj = WebObject_create();
   WebObject_setProperty(optionsObj, "name", wobject_idx(name));
-  WEI_Object result = WEI_objectCreate2(clsObj, wobject_idx(url), optionsObj);
+  WEI_Object result = WEI_objectCreate2(WEI_WORKER_CTOR_ID, wobject_idx(url), optionsObj);
   WEI_objectRelease(optionsObj);
-  WEI_objectRelease(clsObj);
+  // WEI_objectRelease(clsObj);
   return wobject_ptr(WebWorker, result);
 }
 

@@ -3,11 +3,6 @@ export default (mk) => {
     "include/wasmux/arch-generic/log.h",
     "include/wasmux/arch-generic/string.h",
 
-    "include/wasmux/cxx/MemoryManager.h",
-    "include/wasmux/cxx/New.h",
-    "include/wasmux/cxx/StaticStorage.h",
-    "include/wasmux/cxx/TypeTraits.h",
-
     "include/wasmux/align.h",
     "include/wasmux/assert.h",
     "include/wasmux/atomic.h",
@@ -122,6 +117,7 @@ export default (mk) => {
       "include/wasmux/wei/main_thread.h",
       "include/wasmux/wei/memory_alloc.h",
       "include/wasmux/wei/user_access.h",
+      "include/wasmux/wei/webcall-nums.h",
       "include/wasmux/wei/worker_instance.h",
       "include/wasmux/wei/worker_thread.h",
       "include/wasmux/wei.h",
@@ -143,38 +139,15 @@ export default (mk) => {
       "src/wei/main_loop.cpp",
       "src/wei/main_thread.cpp",
       "src/wei/memory_alloc.cpp",
-      "src/wei/memory_heap.cpp",
+      "src/wei/memory_heap.c",
       "src/wei/memory_heap.h",
+      "src/wei/memory_manager.h",
       "src/wei/user_access.cpp",
       "src/wei/wei.cpp",
       "src/wei/worker_instance.cpp",
       "src/wei/worker_instanceInit.S",
       "src/wei/worker_thread.cpp",
     );
-
-    const webcall_nums_h = mk.BINARY_DIR.join("include/wasmux/webcall-nums.h");
-    mk.addCustomScript("src/wei/webcall-nums.h.js", {
-      SCRIPT_NAME: "<wasmux/webcall-nums.h>",
-      SCRIPT_INPUT:  mk.PROJECT_SOURCE_DIR.join("data/webcalls.js"),
-      SCRIPT_OUTPUT: webcall_nums_h,
-    });
-    sources.push(webcall_nums_h);
-
-    const webcall_main_h = mk.BINARY_DIR.join("include/wasmux/webcall-main.h");
-    mk.addCustomScript("src/wei/webcall-main.h.js", {
-      SCRIPT_NAME: "<wasmux/webcall-main.h>",
-      SCRIPT_INPUT: mk.PROJECT_SOURCE_DIR.join("data/webcalls.js"),
-      SCRIPT_OUTPUT: webcall_main_h,
-    });
-    sources.push(webcall_main_h);
-
-    const webcall_worker_h = mk.BINARY_DIR.join("include/wasmux/webcall-worker.h");
-    mk.addCustomScript("src/wei/webcall-worker.h.js", {
-      SCRIPT_NAME: "<wasmux/webcall-worker.h>",
-      SCRIPT_INPUT: mk.PROJECT_SOURCE_DIR.join("data/webcalls.js"),
-      SCRIPT_OUTPUT: webcall_worker_h,
-    });
-    sources.push(webcall_worker_h);
   }
 
   const syscall_nums_h = mk.BINARY_DIR.join("include/wasmux/syscall-nums.h");
@@ -210,7 +183,7 @@ export default (mk) => {
   });
   sources.push(thread_data_h);
 
-  const wasmux = mk.addStaticLibrary("wasmux", headers, sources);
+  const wasmux = mk.addObjectLibrary("wasmux", headers, sources);
   wasmux.addPublicIncludes(includes);
 
   mk.install(headers, {
@@ -221,4 +194,8 @@ export default (mk) => {
     destination: mk.INSTALL_INCLUDEDIR,
     baseDir: mk.BINARY_DIR.join("include"),
   });
+
+  if (mk.WASMUX_KERNEL) {
+    mk.addSubdirectory("main");
+  }
 }

@@ -41,7 +41,7 @@ typedef unsigned WEI_Object;
 #define WEI_UNDEFINED_OBJECT ((WEI_Object)0)
 #define WEI_KERNEL_MEMORY_ID ((WEI_Object)1)
 #define WEI_KERNEL_MODULE_ID ((WEI_Object)2)
-#define WEI_USER_WORKER      ((WEI_Object)5)
+#define WEI_WORKER_CTOR_ID   ((WEI_Object)5)
 #define WEI_FALSE_BOOLEAN_ID ((WEI_Object)6)
 #define WEI_TRUE_BOOLEAN_ID  ((WEI_Object)7)
 #define WEI_NULL_OBJECT      ((WEI_Object)8)

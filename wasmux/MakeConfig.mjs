@@ -32,6 +32,10 @@ export default {
     description: "Version section",
     value: ".jsdata.version",
   },
+  WASMUX_MANIFEST_SECTION: {
+    description: "Manifest section",
+    value: ".jsdata.manifest",
+  },
   WASMUX_THREADS: {
     description: "Enable threads",
     value: true,
@@ -107,11 +111,11 @@ export default {
   },
   WASMUX_CORE_INIT_PAGES: {
     description: "Initial size of core pages",
-    value: 16,
+    value: 17,
   },
   WASMUX_CORE_MAX_PAGES: {
     description: "Maximum size of core pages",
-    value: 124,
+    value: 125,
   },
   WASMUX_WEI: {
     description: "Enable Web Enviromet Interface",
