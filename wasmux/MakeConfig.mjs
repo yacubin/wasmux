@@ -28,10 +28,6 @@ export default {
     description: "Worker section",
     value: ".jsdata.worker",
   },
-  WASMUX_VERSION_SECTION: {
-    description: "Version section",
-    value: ".jsdata.version",
-  },
   WASMUX_MANIFEST_SECTION: {
     description: "Manifest section",
     value: ".jsdata.manifest",

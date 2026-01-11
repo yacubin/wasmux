@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2026  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
@@ -14,5 +14,4 @@
     "\\\"maxPages\\\":"  __STRINGIFY(WASMUX_CORE_MAX_PAGES)      \
   "}"
 
-WA_CUSTOM_SECTION_STR(WASMUX_VERSION_SECTION, WASMUX_VERSION);
 WA_CUSTOM_SECTION_STR(WASMUX_MANIFEST_SECTION, MANIFEST_JSON);
