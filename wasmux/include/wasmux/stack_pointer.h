@@ -3,6 +3,10 @@
 
 #include <wasmux/platform.h>
 
+#ifdef WA_CPU_WASM
+__asm__(".globaltype __stack_pointer, i32\n");
+#endif
+
 static inline void* __get_stack_pointer()
 {
   void* stack;
