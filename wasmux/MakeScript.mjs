@@ -141,7 +141,6 @@ export default (mk) => {
       "src/wei/memory_alloc.cpp",
       "src/wei/memory_heap.c",
       "src/wei/memory_heap.h",
-      "src/wei/memory_manager.h",
       "src/wei/user_access.cpp",
       "src/wei/wei.cpp",
       "src/wei/worker_instance.cpp",
