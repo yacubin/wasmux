@@ -4,6 +4,7 @@
   "description": "WebAssembly toolchain for compiling libc and kernel into system-level WASM modules",
   "author": "Yurii Yakubin",
   "homepage": "https://github.com/yacubin/wasmux#readme",
+  "license": "MIT",
   "main": "./es6/main.js",
   "types": "./es6/types.d.ts",
   "exports": {

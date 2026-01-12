@@ -4,7 +4,8 @@
  *
  */
 
-#pragma once
+#ifndef _WASMUX_WEI_MEMORY_HEAP_H
+#define _WASMUX_WEI_MEMORY_HEAP_H
 
 #include <wasmux/types.h>
 #include <wasmux/export.h>
@@ -52,7 +53,7 @@ static inline ssize_t memory_heap_grow(struct memory_heap* thiz, uint32_t delta)
   return __builtin_wasm_memory_grow(MEMORY_HEAP_INDEX, delta);
 }
 
-#elif defined(WA_OS_WINDOWS)
+#elif defined(WA_OS_WINDOWS) || defined(WA_OS_LINUX)
 
 struct memory_heap {
   void* data;
@@ -127,3 +128,5 @@ static inline ssize_t memory_heap_grow(struct memory_heap* thiz, uint32_t delta)
 }
 
 #endif
+
+#endif /* _WASMUX_WEI_MEMORY_HEAP_H */

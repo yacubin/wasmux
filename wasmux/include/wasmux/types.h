@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2026  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
@@ -58,12 +58,21 @@ typedef uint64_t uintmax_t;
 
 typedef intptr_t ptrdiff_t;
 
-typedef int pid_t;
+#ifndef __PID_T__
+#define __PID_T__ int
+#endif
+
+typedef __PID_T__ pid_t;
+
 typedef unsigned uid_t;
 typedef unsigned gid_t;
 typedef int64_t off64_t;
 
-typedef intptr_t off_t;
+#ifndef __OFF_T__
+#define __OFF_T__ intptr_t
+#endif
+
+typedef __OFF_T__ off_t;
 
 #if __SIZEOF_LONG__ == 8
 // typedef long off_t;
@@ -74,7 +83,13 @@ typedef long long loff_t;
 #endif
 
 typedef int clockid_t;
-typedef unsigned int mode_t;
+
+#ifndef __MODE_T__
+#define __MODE_T__ unsigned int
+#endif
+
+typedef __MODE_T__ mode_t;
+
 typedef unsigned short umode_t;
 
 #endif
