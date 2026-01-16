@@ -58,7 +58,7 @@ export default (mk) => {
 
     const waeditor = mk.findProgram("waeditor");
     if (waeditor) {
-      kapsule.addPostBuild(waeditor, [ "--add-user-memory", kapsule.targetFile ]);
+      kapsule.addPostBuild(waeditor, [ "--add-import-memory=env,userspace,0,2147483648,shared,wasm64", kapsule.targetFile ]);
     }
   }
 }
