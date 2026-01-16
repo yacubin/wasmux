@@ -131,4 +131,10 @@ SYSCALL_DEFINE1(newuname, long, a1)
   return -ENOSYS;
 }
 
+SYSCALL_DEFINE0(getegid)
+{
+  WA_UNREACHABLE();
+  return -ENOSYS;
+}
+
 #endif /* __ARCH_WANT_SYSCALL_DEFINES */
