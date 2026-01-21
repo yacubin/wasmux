@@ -30,6 +30,7 @@ export default (mk) => {
     "include/wasmux/limits.h",
     "include/wasmux/log.h",
     "include/wasmux/math.h",
+    "include/wasmux/mm.h",
     "include/wasmux/mman.h",
     "include/wasmux/mount.h",
     "include/wasmux/mutex.h",

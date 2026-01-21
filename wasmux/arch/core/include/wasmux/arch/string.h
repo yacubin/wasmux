@@ -7,6 +7,5 @@
 #ifndef _WASMUX_ARCH_STRING_H
 #define _WASMUX_ARCH_STRING_H
 
-#include <wasmux/arch-generic/string.h>
 
 #endif /* _WASMUX_ARCH_STRING_H */

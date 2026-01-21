@@ -1,6 +1,7 @@
 export default (mk) => {
   const headers = [
     "include/wasmux/arch/log.h",
+    "include/wasmux/arch/mm.h",
     "include/wasmux/arch/string.h",
     "include/wasmux/arch/syscalls_define.h",
     "include/wasmux/arch/syscalls.h",
