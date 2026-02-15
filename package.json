@@ -32,6 +32,6 @@
     "libc"
   ],
   "dependencies": {
-    "bitmake": "github:yacubin/bitmake#20260111_dev15"
+    "bitmake": "^0.0.1-develop.15"
   }
 }
