@@ -28,58 +28,33 @@ struct BBlockHeader {
 
 static_assert(sizeof(BBlockHeader) <= bblockHeaderSize, "The block header exceeded fixed size");
 
-template<typename T>
-static bool isPagePointer(T addr)
+static bool isPagePointer(void* addr)
 {
-  return (reinterpret_cast<uintptr_t>(addr) & ~WA_MEMORY_MANAGER_PAGE_MASK) == 0;
+  return ((uintptr_t)addr & ~WA_MEMORY_MANAGER_PAGE_MASK) == 0;
 }
 
-template<typename TO, typename FROM>
-static TO startOfPage(FROM addr)
+static void* startOfPage(void* addr)
 {
-  return reinterpret_cast<TO>((reinterpret_cast<uintptr_t>(addr) & WA_MEMORY_MANAGER_PAGE_MASK));
+  return (void*)((uintptr_t)addr & WA_MEMORY_MANAGER_PAGE_MASK);
 }
 
 static constexpr size_t sblockSetSize = WA_MEMORY_MANAGER_SBLOCKINPAGE * sizeof(void*);
+#define kUsedBlock 0xff
 
 struct SBlockSet {
   uint8_t state[WA_MEMORY_MANAGER_SBLOCKINPAGE];
   uint8_t freeCount;
-
-  static constexpr uint8_t kUsedBlock = 0xff;
-
-  void init(void* ptr)
-  {
-    this->freeCount = WA_MEMORY_MANAGER_SBLOCKINPAGE;
-    if (isPagePointer(ptr)) {
-      kernel_memory_fill(this->state, 0, sizeof(this->state));
-    }
-    else {
-      auto page = startOfPage<char*>(ptr);
-      for (uint8_t i = 0; i < WA_MEMORY_MANAGER_SBLOCKINPAGE; i++) {
-        if ((page + WA_MEMORY_MANAGER_SBLOCK_SIZE * i) < ptr) {
-          this->state[i] = kUsedBlock;
-          this->freeCount--;
-        }
-        else {
-          this->state[i] = 0;
-        }
-      }
-    }
-  }
-
-  void* allocBlock(unsigned nblocks);
-  int freeBlock(unsigned index);
-
-  bool isEmpty() const { return freeCount == 0; }
 };
+
+static void SBlockSet_init(SBlockSet*, void* ptr);
+static void* SBlockSet_allocBlock(SBlockSet*, unsigned nblocks);
+static int SBlockSet_freeBlock(SBlockSet*, unsigned index);
 
 static_assert(sizeof(SBlockSet) <= sblockSetSize, "The BlockSet exceeded fixed size");
 
-template<typename T>
-static bool isBBlockPointer(T addr)
+static bool isBBlockPointer(void* addr)
 {
-  return isPagePointer(reinterpret_cast<uintptr_t>(addr) - sizeof(void*));
+  return isPagePointer((void*)((uintptr_t)addr - sizeof(void*)));
 }
 
 template<typename T>
@@ -99,7 +74,7 @@ template<typename TO, typename FROM>
 static TO sblockBegin(FROM addr)
 {
   WA_ASSERT(isSBlockPointer(addr));
-  return startOfPage<TO>(addr);
+  return (TO)startOfPage((void*)addr);
 }
 
 template<typename T>
@@ -131,7 +106,7 @@ void memory_manager_init(memory_manager* mm)
     LOG_WARN("End of heap does not match current memory size");
   }
 
-  char* firstPage = startOfPage<char*>(memory_heap_base(&mm->heap));
+  char* firstPage = (char*)startOfPage(memory_heap_base(&mm->heap));
 
   wa_mutex_init(&mm->mutex);
   wasmux_bitset_clear_all(mm->bblock_pages, WASMUX_CORE_MAX_PAGES);
@@ -153,7 +128,7 @@ void memory_manager_init(memory_manager* mm)
     if ((reinterpret_cast<char*>(&firstBSet) + sblockSetSize) < memory_heap_base(&mm->heap))
       mm->index_start++;
     else {
-      firstBSet.init(memory_heap_base(&mm->heap));
+      SBlockSet_init(&firstBSet, memory_heap_base(&mm->heap));
       auto num = mm->index_start - mm->index_base;
       wasmux_bitset_set(mm->sblock_pages, num);
       mm->free_blocks += firstBSet.freeCount;
@@ -269,21 +244,41 @@ void memory_manager_free_pages(memory_manager* mm, void* page, unsigned int orde
   wa_mutex_unlock(&mm->mutex);
 }
 
-void* SBlockSet::allocBlock(unsigned nblocks)
+static void SBlockSet_init(SBlockSet* thiz, void* ptr)
 {
-  if (nblocks <= this->freeCount) {
+  thiz->freeCount = WA_MEMORY_MANAGER_SBLOCKINPAGE;
+  if (isPagePointer(ptr)) {
+    kernel_memory_fill(thiz->state, 0, sizeof(thiz->state));
+  }
+  else {
+    auto page = (char*)startOfPage(ptr);
+    for (uint8_t i = 0; i < WA_MEMORY_MANAGER_SBLOCKINPAGE; i++) {
+      if ((page + WA_MEMORY_MANAGER_SBLOCK_SIZE * i) < ptr) {
+        thiz->state[i] = kUsedBlock;
+        thiz->freeCount--;
+      }
+      else {
+        thiz->state[i] = 0;
+      }
+    }
+  }
+}
+
+static void* SBlockSet_allocBlock(SBlockSet* thiz, unsigned nblocks)
+{
+  if (nblocks <= thiz->freeCount) {
     unsigned temp = 0;
     for (unsigned i = 0; i < WA_MEMORY_MANAGER_SBLOCKINPAGE; i++) {
-      if (this->state[i] != 0) {
+      if (thiz->state[i] != 0) {
         temp = 0;
       }
       else if (++temp == nblocks) {
         for (;;) {
-          this->state[i] = nblocks;
+          thiz->state[i] = nblocks;
           if (--temp == 0) {
-            this->freeCount -= nblocks;
+            thiz->freeCount -= nblocks;
             size_t offset = WA_MEMORY_MANAGER_SBLOCK_SIZE * (WA_MEMORY_MANAGER_SBLOCKINPAGE - i);
-            return reinterpret_cast<char*>(this) - offset;
+            return reinterpret_cast<char*>(thiz) - offset;
           }
           i--;
         }
@@ -294,9 +289,9 @@ void* SBlockSet::allocBlock(unsigned nblocks)
   return nullptr;
 }
 
-int SBlockSet::freeBlock(unsigned index)
+static int SBlockSet_freeBlock(SBlockSet* thiz, unsigned index)
 {
-  uint8_t nblocks = this->state[index];
+  uint8_t nblocks = thiz->state[index];
   if (nblocks == 0) {
     LOG_ERROR("There was no memory allocation for %u sblock", index);
     return 0;
@@ -308,17 +303,17 @@ int SBlockSet::freeBlock(unsigned index)
   }
 
   for (unsigned i = index + 1; i < nblocks; i++) {
-    if (this->state[i] != nblocks) {
+    if (thiz->state[i] != nblocks) {
       LOG_ERROR("Index %u does not correspond to the beginning of the sblock", index);
       return 0;
     }
   }
 
   for (unsigned i = index; i < nblocks; i++) {
-    this->state[i] = 0;
+    thiz->state[i] = 0;
   }
 
-  this->freeCount += nblocks;
+  thiz->freeCount += nblocks;
   return nblocks;
 }
 
@@ -332,7 +327,7 @@ static void* allocBlockInternal(memory_manager* mm, unsigned nblocks)
         auto num = index - mm->index_base;
         if (wasmux_bitset_get(mm->sblock_pages, num)) {
           auto& bset = sblockSet(pageOfIndex<void*>(index));
-          void* ptr = bset.allocBlock(nblocks);
+          void* ptr = SBlockSet_allocBlock(&bset, nblocks);
           if (ptr != nullptr) {
             mm->free_blocks -= nblocks;
             return ptr;
@@ -351,8 +346,8 @@ static void* allocBlockInternal(memory_manager* mm, unsigned nblocks)
     auto num = index - mm->index_base;
     wasmux_bitset_set(mm->sblock_pages, num);
     auto& bset = sblockSet(page);
-    bset.init(page);
-    void* ptr = bset.allocBlock(nblocks);
+    SBlockSet_init(&bset, page);
+    void* ptr = SBlockSet_allocBlock(&bset, nblocks);
     mm->free_blocks += bset.freeCount;
     return ptr;
   }
@@ -398,7 +393,7 @@ void memory_manager_free(memory_manager* mm, void* ptr)
     auto index = sblockToIndex(ptr);
     auto& bset = sblockSet(ptr);
     wa_mutex_lock(&mm->mutex);
-    mm->free_blocks += bset.freeBlock(index);
+    mm->free_blocks += SBlockSet_freeBlock(&bset, index);
     if (bset.freeCount == WA_MEMORY_MANAGER_SBLOCKINPAGE) {
       auto i = pageToIndex(sblockBegin<void*>(ptr));
       auto num = i - mm->index_base;
@@ -409,7 +404,7 @@ void memory_manager_free(memory_manager* mm, void* ptr)
     wa_mutex_unlock(&mm->mutex);
   }
   else if (isBBlockPointer(ptr)) {
-    void* page = startOfPage<void*>(ptr);
+    void* page = startOfPage(ptr);
     unsigned order = reinterpret_cast<BBlockHeader*>(page)->order;
     unsigned index = pageToIndex(page);
     wa_mutex_lock(&mm->mutex);
