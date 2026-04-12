@@ -501,12 +501,11 @@ WasmuxRuntime.prototype.init = async function() {
   const importObj = {
     env: {
       memory: this._kernelMemory,
-      // _math_random: Math.random,
-      // _date_now: Date.now,
       _performance_now: performance.now.bind(performance),
       _webcall: (number, arg1, arg2, arg3, arg4, arg5, arg6) => this._objects[number].call(this, arg1, arg2, arg3, arg4, arg5, arg6),
     },
   };
+
   const moduleImports = WebAssembly.Module.imports(this._kernelModule);
   for (const { module, name, kind } of moduleImports) {
     let moduleObj = importObj[module];

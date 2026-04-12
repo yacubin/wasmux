@@ -21,12 +21,11 @@ bool memory_manager_addr_valid(const memory_manager* mm, void* ptr)
   return data <= ptr && ptr < ((const char*)data + WA_MEMORY_MANAGER_PAGE_SIZE * memory_heap_size(&mm->heap));
 }
 
-static constexpr size_t bblockHeaderSize = sizeof(void*);
 struct BBlockHeader {
-  uint32_t order;
+  uintptr_t order;
 };
 
-static_assert(sizeof(BBlockHeader) <= bblockHeaderSize, "The block header exceeded fixed size");
+static_assert(sizeof(BBlockHeader) <= sizeof(void*), "The block header exceeded fixed size");
 
 static bool isPagePointer(void* addr)
 {
@@ -38,7 +37,7 @@ static void* startOfPage(void* addr)
   return (void*)((uintptr_t)addr & WA_MEMORY_MANAGER_PAGE_MASK);
 }
 
-static constexpr size_t sblockSetSize = WA_MEMORY_MANAGER_SBLOCKINPAGE * sizeof(void*);
+#define SBLOCK_SET_SIZE WA_MEMORY_MANAGER_SBLOCKINPAGE * sizeof(void*)
 #define kUsedBlock 0xff
 
 struct SBlockSet {
@@ -50,24 +49,22 @@ static void SBlockSet_init(SBlockSet*, void* ptr);
 static void* SBlockSet_allocBlock(SBlockSet*, unsigned nblocks);
 static int SBlockSet_freeBlock(SBlockSet*, unsigned index);
 
-static_assert(sizeof(SBlockSet) <= sblockSetSize, "The BlockSet exceeded fixed size");
+static_assert(sizeof(SBlockSet) <= SBLOCK_SET_SIZE, "The BlockSet exceeded fixed size");
 
-static bool isBBlockPointer(void* addr)
+static bool isBBlockPointer(void* ptr)
 {
-  return isPagePointer((void*)((uintptr_t)addr - sizeof(void*)));
+  return isPagePointer((void*)((uintptr_t)ptr - sizeof(void*)));
 }
 
-template<typename T>
-static bool isSBlockPointer(T addr)
+static bool isSBlockPointer(void* ptr)
 {
-  return ((reinterpret_cast<uintptr_t>(addr) & ~WA_MEMORY_MANAGER_PAGE_MASK) % WA_MEMORY_MANAGER_SBLOCK_SIZE) == 0;
+  return (((uintptr_t)ptr & ~WA_MEMORY_MANAGER_PAGE_MASK) % WA_MEMORY_MANAGER_SBLOCK_SIZE) == 0;
 }
 
-template<typename T>
-static unsigned sblockToIndex(T addr)
+static inline unsigned sblockToIndex(void* ptr)
 {
-  WA_ASSERT(isSBlockPointer(addr));
-  return (reinterpret_cast<uintptr_t>(addr) & (WA_MEMORY_MANAGER_PAGE_SIZE - 1)) / WA_MEMORY_MANAGER_SBLOCK_SIZE;
+  WA_ASSERT(isSBlockPointer(ptr));
+  return (((uintptr_t)ptr) & (WA_MEMORY_MANAGER_PAGE_SIZE - 1)) / WA_MEMORY_MANAGER_SBLOCK_SIZE;
 }
 
 template<typename TO, typename FROM>
@@ -80,7 +77,7 @@ static TO sblockBegin(FROM addr)
 template<typename T>
 static SBlockSet& sblockSet(T addr)
 {
-  return *reinterpret_cast<SBlockSet*>(sblockBegin<char*>(reinterpret_cast<uintptr_t>(addr)) + WA_MEMORY_MANAGER_SBLOCKINPAGE * WA_MEMORY_MANAGER_SBLOCK_SIZE);
+  return *reinterpret_cast<SBlockSet*>(sblockBegin<char*>((void*)addr) + WA_MEMORY_MANAGER_SBLOCKINPAGE * WA_MEMORY_MANAGER_SBLOCK_SIZE);
 }
 
 template<typename T>
@@ -125,7 +122,7 @@ void memory_manager_init(memory_manager* mm)
   else {
     firstFreeIndex = mm->index_start + 1;
     auto& firstBSet = sblockSet(firstPage);
-    if ((reinterpret_cast<char*>(&firstBSet) + sblockSetSize) < memory_heap_base(&mm->heap))
+    if ((reinterpret_cast<char*>(&firstBSet) + SBLOCK_SET_SIZE) < memory_heap_base(&mm->heap))
       mm->index_start++;
     else {
       SBlockSet_init(&firstBSet, memory_heap_base(&mm->heap));
