@@ -497,21 +497,42 @@ function WasmuxRuntime(kernelModule, kernelMemory, isWorker, scriptUrl, WorkerCt
   this._objects[WEB_PostMessage6] = isWorker ? sys_PostMessage6 : sys_NotImplemented;
 }
 
-WasmuxRuntime.prototype.makeImports = function() {
-  return {
+WasmuxRuntime.prototype.init = async function() {
+  const importObj = {
     env: {
       memory: this._kernelMemory,
-      _math_random: Math.random,
-      _date_now: Date.now,
+      // _math_random: Math.random,
+      // _date_now: Date.now,
       _performance_now: performance.now.bind(performance),
       _webcall: (number, arg1, arg2, arg3, arg4, arg5, arg6) => this._objects[number].call(this, arg1, arg2, arg3, arg4, arg5, arg6),
     },
   };
-}
+  const moduleImports = WebAssembly.Module.imports(this._kernelModule);
+  for (const { module, name, kind } of moduleImports) {
+    let moduleObj = importObj[module];
+    if (moduleObj === undefined)
+      importObj[module] = moduleObj = {};
+    else if (moduleObj[name] !== undefined)
+      continue;
 
-WasmuxRuntime.prototype.init = async function() {
+    if (kind !== "function")
+        throw `Kind ${kind} is not supported`;
+
+    let obj = globalThis;
+    for (const iter of name.split(".")) {
+      obj = obj[iter];
+      if (obj === undefined)
+        throw `Unable to import ${name}`;
+    }
+
+    if (typeof obj !== "function")
+        throw `Import object has type ${typeof obj}`;
+
+    moduleObj[name] = obj;
+  }
+
   // WebAssembly.Instance is disallowed on the main thread, if the buffer size is larger than 8MB
-  const kinst = await WebAssembly.instantiate(this._kernelModule, this.makeImports());
+  const kinst = await WebAssembly.instantiate(this._kernelModule, importObj);
   this._kernel = kinst.exports;
 }
 

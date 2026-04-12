@@ -12,8 +12,8 @@
 
 #define WASMUX_BROWSER_MODULE "env"
 #define WASMUX_BROWSER_WEBCALL "_webcall"
-#define WASMUX_BROWSER_MATH_RANDOM "_math_random"
-#define WASMUX_BROWSER_DATE_NOW "_date_now"
+#define WASMUX_BROWSER_MATH_RANDOM "Math.random"
+#define WASMUX_BROWSER_DATE_NOW "Date.now"
 #define WASMUX_BROWSER_PERFORMANCE_NOW "_performance_now"
 
 #endif /* _WASMUX_WAINST_NAMES_H */
