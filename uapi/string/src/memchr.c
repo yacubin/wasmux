@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2025  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2025-2026  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
@@ -12,7 +12,8 @@
 void* __memchr(const void* mem, int ch, size_t n)
 {
   const unsigned char* ptr = mem;
-  for (;;) {
+  const unsigned char* end = ptr + n;
+  while (ptr < end) {
     if (*ptr == ch)
       return ptr;
     ptr++;

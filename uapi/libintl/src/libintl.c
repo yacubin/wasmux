@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2026  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
@@ -20,7 +20,25 @@ char* dgettext(const char* domainname, const char* msgid)
   return NULL;
 }
 
-char* dngettext(const char* domainname, const char* msgid, const char* msgid_plural, unsigned long n)
+char* ngettext(const char* msgid1, const char* msgid2, unsigned long n)
+{
+  assert(0);
+  return NULL;
+}
+
+char* dngettext(const char* domainname, const char* msgid1, const char* msgid2, unsigned long n)
+{
+  assert(0);
+  return NULL;
+}
+
+char* textdomain(const char* domainname)
+{
+  assert(0);
+  return NULL;
+}
+
+char* bindtextdomain(const char* domainname, const char* dirname)
 {
   assert(0);
   return NULL;

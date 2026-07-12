@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2025  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2025-2026  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
@@ -11,7 +11,7 @@ int __ATTR_WEAK strncmp(const char* s1, const char* s2, size_t n)
 {
   unsigned char c1, c2;
 
-  for (;;) {
+  while (n != 0) {
     c1 = (unsigned char)*s1;
     c2 = (unsigned char)*s2;
 
@@ -23,6 +23,7 @@ int __ATTR_WEAK strncmp(const char* s1, const char* s2, size_t n)
 
     s1++;
     s2++;
+    n--;
   }
 
   return 0;

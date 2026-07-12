@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2026  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
@@ -18,8 +18,10 @@ char* strchr(const char* str, int ch)
 {
   for (;;) {
     char c = *str;
-    if (c == '\0' || c == ch)
+    if (c == ch)
       return (char*)str;
+    if (c == '\0')
+      break;
     str++;
   }
   return NULL;

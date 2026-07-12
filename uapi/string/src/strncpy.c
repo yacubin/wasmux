@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2025  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2025-2026  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
@@ -9,11 +9,13 @@
 
 char* __ATTR_WEAK strncpy(char* dst, const char* src, size_t n)
 {
-  size_t i = 0;
-  while (i < n) {
-    if ((dst[i] = src[i]) == '\0')
+  for (size_t i = 0; i < n; i++) {
+    char ch = dst[i] = src[i];
+    if (ch == '\0') {
+      if (++i < n)
+        __builtin_memset(&dst[i], 0, n - i);
       break;
-    i++;
+    }
   }
   return dst;
 }
