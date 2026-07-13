@@ -17,8 +17,8 @@ void* memmove(void* dst, const void* src, size_t n)
 char* strchr(const char* str, int ch)
 {
   for (;;) {
-    char c = *str;
-    if (c == ch)
+    unsigned char c = (unsigned char)*str;
+    if (c == (unsigned char)ch)
       return (char*)str;
     if (c == '\0')
       break;

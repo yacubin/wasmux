@@ -14,7 +14,7 @@ void* __memchr(const void* mem, int ch, size_t n)
   const unsigned char* ptr = mem;
   const unsigned char* end = ptr + n;
   while (ptr < end) {
-    if (*ptr == ch)
+    if (*ptr == (unsigned char)ch)
       return ptr;
     ptr++;
   }

@@ -13,7 +13,7 @@ void* __memrchr(const void* mem, int ch, size_t n)
 {
   unsigned char* p = (unsigned char*)mem + n;
   while (n != 0) {
-    if (*--p == ch)
+    if (*--p == (unsigned char)ch)
       return p;
     n--;
   }
