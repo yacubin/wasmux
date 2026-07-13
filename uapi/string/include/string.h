@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2026  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
@@ -45,6 +45,7 @@ size_t strcspn(const char* str, const char* reject);
 size_t strxfrm(char* dst, const char* src, size_t len);
 int strcoll(const char* str1, const char* str2);
 char* stpcpy(char* dst, const char* src);
+char* stpncpy(char* dst, const char* src, size_t n);
 char* strsep(char** strp, const char* delim);
 
 char* strtok_r(char* str, const char* delim, char** saveptr);

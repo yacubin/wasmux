@@ -17,6 +17,7 @@ export default (mk) => {
     "src/memset.c",
     "src/rindex.c",
     "src/stpcpy.c",
+    "src/stpncpy.c",
     "src/strchrnul.c",
     "src/strcmp.c",
     "src/strcpy.c",

@@ -16,7 +16,11 @@ __EXPORT int net1_socket(int family, int type, int protocol);
 __EXPORT int net1_close(int fd);
 __EXPORT int net1_bind(int fd, struct sockaddr* addr, int addrlen);
 __EXPORT int net1_listen(int fd, int backlog);
+__EXPORT int net1_accept(int fd, struct sockaddr* addr, int* addrlen);
+__EXPORT int net1_connect(int fd, struct sockaddr* addr, int addrlen);
 __EXPORT int net1_recv(int fd, void* buf, size_t size, unsigned flags);
 __EXPORT int net1_send(int fd, const void* buf, size_t len, unsigned flags);
+__EXPORT int net1_recvfrom(int fd, void* buf, size_t size, unsigned flags, struct sockaddr* addr, int* addrlen);
+__EXPORT int net1_sendto(int fd, const void* buf, size_t len, unsigned flags, const struct sockaddr* addr, int addrlen);
 
 #endif /* _WASMUX_NET_NET1_H */

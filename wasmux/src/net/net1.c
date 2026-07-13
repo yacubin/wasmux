@@ -27,12 +27,32 @@ int net1_listen(int fd, int backlog)
   return -1;
 }
 
+int net1_accept(int fd, struct sockaddr* addr, int* addrlen)
+{
+  return -1;
+}
+
+int net1_connect(int fd, struct sockaddr* addr, int addrlen)
+{
+  return -1;
+}
+
 int net1_recv(int fd, void* buf, size_t size, unsigned flags)
 {
   return -1;
 }
 
 int net1_send(int fd, const void* buf, size_t len, unsigned flags)
+{
+  return -1;
+}
+
+int net1_recvfrom(int fd, void* buf, size_t size, unsigned flags, struct sockaddr* addr, int* addrlen)
+{
+  return -1;
+}
+
+int net1_sendto(int fd, const void* buf, size_t len, unsigned flags, const struct sockaddr* addr, int addrlen)
 {
   return -1;
 }

@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2024  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2026  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
@@ -18,6 +18,11 @@ const char* inet_ntop(int af, const void* addr, char* buf, socklen_t len);
 int inet_pton(int af, const char* src, void* dst);
 
 in_addr_t inet_addr(const char* addr);
+in_addr_t inet_network(const char* addr);
+int inet_aton(const char* addr, struct in_addr* in);
+
+struct in_addr inet_makeaddr(in_addr_t net, in_addr_t host);
+in_addr_t inet_lnaof(struct in_addr in);
 
 #ifdef __cplusplus
 }
