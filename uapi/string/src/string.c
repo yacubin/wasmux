@@ -8,37 +8,12 @@
 #include <strings.h>
 #include <assert.h>
 
-void* memmove(void* dst, const void* src, size_t n)
-{
-  assert(0);
-  return NULL;
-}
-
-char* strchr(const char* str, int ch)
-{
-  for (;;) {
-    unsigned char c = (unsigned char)*str;
-    if (c == (unsigned char)ch)
-      return (char*)str;
-    if (c == '\0')
-      break;
-    str++;
-  }
-  return NULL;
-}
-
 size_t strnlen(const char* str, size_t len)
 {
   size_t n = 0;
   while (n < len && str[n])
     n++;
   return n;
-}
-
-char* strtok(char* str, const char* delim)
-{
-  assert(0);
-  return NULL;
 }
 
 char* strcat(char* dst, const char* src)
