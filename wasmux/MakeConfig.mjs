@@ -107,11 +107,11 @@ export default {
   },
   WASMUX_CORE_INIT_PAGES: {
     description: "Initial size of core pages",
-    value: 17,
+    value: 19,
   },
   WASMUX_CORE_MAX_PAGES: {
     description: "Maximum size of core pages",
-    value: 125,
+    value: 127,
   },
   WASMUX_WEI: {
     description: "Enable Web Enviromet Interface",
