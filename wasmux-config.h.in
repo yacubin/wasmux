@@ -1,0 +1,88 @@
+/* Generated from wasmux-config.h.in */
+
+/* Target architecture for libc */
+#define WASMUX_ARCH "@WASMUX_ARCH@"
+
+/* Architecture directory */
+#define WASMUX_ARCH_DIR "@WASMUX_ARCH_DIR@"
+
+/* WASMUX Version */
+#define WASMUX_VERSION "@WASMUX_VERSION@"
+
+/* WASMUX Description */
+#define WASMUX_DESCRIPTION "@WASMUX_DESCRIPTION@"
+
+/* WASMUX URL */
+#define WASMUX_URL "@WASMUX_URL@"
+
+/* Loader section */
+#define WASMUX_LOADER_SECTION "@WASMUX_LOADER_SECTION@"
+
+/* Worker section */
+#define WASMUX_WORKER_SECTION "@WASMUX_WORKER_SECTION@"
+
+/* Version section */
+#define WASMUX_VERSION_SECTION "@WASMUX_VERSION_SECTION@"
+
+/* Enable threads */
+#cmakedefine01 WASMUX_THREADS
+
+/* Enable kernel installation */
+#cmakedefine01 WASMUX_KERNEL
+
+/* Enable libc library */
+#cmakedefine01 WASMUX_LIBC
+
+/* Choosing features for libc */
+#define WASMUX_LIBC_FEATURES "@WASMUX_LIBC_FEATURES@"
+
+/* Built-in env in libc */
+#cmakedefine01 WASMUX_ENV_WITH_LIBC
+
+/* Stub implementations for env */
+#cmakedefine01 WASMUX_ENV_STUB
+
+/* Built-in locale in libc */
+#cmakedefine01 WASMUX_LOCALE_WITH_LIBC
+
+/* Enable C Runtime Library */
+#cmakedefine01 WASMUX_CRT
+
+/* Enable Real-Time library */
+#cmakedefine01 WASMUX_RT
+
+/* Built-in time into Real-Time library */
+#cmakedefine01 WASMUX_TIME_WITH_RT
+
+/* Enable libgcc library */
+#cmakedefine01 WASMUX_LIBGCC
+
+/* Enable libcxx library */
+#cmakedefine01 WASMUX_LIBCXX
+
+/* Enable libcxxabi library */
+#cmakedefine01 WASMUX_LIBCXXABI
+
+/* Enable Math library */
+#cmakedefine01 WASMUX_LIBM
+
+/* Enable Dynamic linking library */
+#cmakedefine01 WASMUX_DL
+
+/* Enable pthread library */
+#cmakedefine01 WASMUX_PTHREAD
+
+/* Built-in pthread in libc */
+#cmakedefine01 WASMUX_PTHREAD_WITH_LIBC
+
+/* Enable env argument for main function */
+#cmakedefine01 WASMUX_MAIN_ENV_ARG
+
+/* Initial size of core pages */
+#cmakedefine WASMUX_CORE_INIT_PAGES @WASMUX_CORE_INIT_PAGES@
+
+/* Maximum size of core pages */
+#cmakedefine WASMUX_CORE_MAX_PAGES @WASMUX_CORE_MAX_PAGES@
+
+/* Enable Web Enviromet Interface */
+#cmakedefine01 WASMUX_WEI

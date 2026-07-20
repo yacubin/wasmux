@@ -16,7 +16,7 @@
     "./build": "./MakeScript.mjs",
     "./preset/*": "./preset/*.mjs",
     "./toolchain/*": "./toolchain/*.mjs",
-    "./make-webpack-plugin": "./scripts/make-webpack-plugin.js"
+    "./make-webpack-plugin": "./es6/make-webpack-plugin.js"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,9 @@
     "wasm",
     "libc"
   ],
+  "scripts": {
+    "build": "npx bitmake build --config tools/bitmake.test.mjs"
+  },
   "dependencies": {
     "bitmake": "^0.0.1-develop.15"
   }
