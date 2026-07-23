@@ -17,6 +17,7 @@ export default {
       CMAKE_INSTALL_PREFIX: "/usr",
       CMAKE_PREFIX_PATH: "${binaryRoot}/sysroot/usr",
       CMAKE_MODULE_PATH: "${binaryRoot}/sysroot/usr/share/libnetq/cmake",
+      WASMUX_ARCH: "seal",
     },
     destDir: "${binaryRoot}/sysroot",
     buildType: "Debug",

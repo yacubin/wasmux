@@ -12,17 +12,11 @@
 /* WASMUX Description */
 #define WASMUX_DESCRIPTION "@WASMUX_DESCRIPTION@"
 
+/* Manifest section */
+#define WASMUX_MANIFEST_SECTION "@WASMUX_MANIFEST_SECTION@"
+
 /* WASMUX URL */
 #define WASMUX_URL "@WASMUX_URL@"
-
-/* Loader section */
-#define WASMUX_LOADER_SECTION "@WASMUX_LOADER_SECTION@"
-
-/* Worker section */
-#define WASMUX_WORKER_SECTION "@WASMUX_WORKER_SECTION@"
-
-/* Version section */
-#define WASMUX_VERSION_SECTION "@WASMUX_VERSION_SECTION@"
 
 /* Enable threads */
 #cmakedefine01 WASMUX_THREADS

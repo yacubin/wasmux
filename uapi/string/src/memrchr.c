@@ -5,7 +5,6 @@
  */
 
 #include <string.h>
-#include <stdlib.h>
 #include <wasmux/export.h>
 #include <wasmux/compiler.h>
 

@@ -5,7 +5,6 @@
  */
 
 #include <string.h>
-#include <stdlib.h>
 #include <wasmux/export.h>
 #include <wasmux/compiler.h>
 
@@ -15,7 +14,7 @@ void* __memchr(const void* mem, int ch, size_t n)
   const unsigned char* end = ptr + n;
   while (ptr < end) {
     if (*ptr == (unsigned char)ch)
-      return ptr;
+      return (void*)ptr;
     ptr++;
   }
   return NULL;
