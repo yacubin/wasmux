@@ -12,6 +12,7 @@ export default (mk) => {
     "include/wasmux/byteorder.h",
     "include/wasmux/compiler.h",
     "include/wasmux/cpu_set.h",
+    "include/wasmux/errno.h",
     "include/wasmux/eventfd.h",
     "include/wasmux/eventpoll.h",
     "include/wasmux/export.h",
@@ -171,14 +172,6 @@ export default (mk) => {
   });
   sources.push(syscall_list_h);
 
-  const errno_h = mk.BINARY_DIR.join("include/wasmux/errno.h");
-  mk.addCustomScript("src/errno.h.js", {
-    SCRIPT_NAME: "<wasmux/errno.h>",
-    SCRIPT_INPUT:  mk.PROJECT_SOURCE_DIR.join("data/errno.js"),
-    SCRIPT_OUTPUT: errno_h,
-  });
-  sources.push(errno_h);
-
   const thread_data_h = mk.BINARY_DIR.join("include/wasmux/thread_data.h");
   mk.addCustomScript("configure_file", {
     SCRIPT_NAME: "<wasmux/thread_data.h>",
@@ -195,7 +188,7 @@ export default (mk) => {
     destination: mk.INSTALL_INCLUDEDIR,
     baseDir: "include",
   });
-  mk.install([ errno_h, thread_data_h ], {
+  mk.install([ thread_data_h ], {
     destination: mk.INSTALL_INCLUDEDIR,
     baseDir: mk.BINARY_DIR.join("include"),
   });

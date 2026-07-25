@@ -28,6 +28,7 @@ export default (mk) => {
     "src/strcpy.c",
     "src/strcspn.c",
     "src/strdup.c",
+    "src/strerror.c",
     "src/string.c",
     "src/strlen.c",
     "src/strncat.c",
@@ -50,13 +51,7 @@ export default (mk) => {
     mk.SOURCE_DIR.join("include"),
   ];
 
-  const strerror_cpp = mk.BINARY_DIR.join("src/strerror.c");
-  mk.addCustomScript("src/strerror.c.mjs", {
-    SCRIPT_INPUT: mk.PROJECT_SOURCE_DIR.join("data/errno.js"),
-    SCRIPT_OUTPUT: strerror_cpp,
-  });
-
-  mk.target("libc").addSources(headers, sources, strerror_cpp);
+  mk.target("libc").addSources(headers, sources);
   mk.target("libc").addPublicIncludes(includes);
 
   mk.install(headers, {

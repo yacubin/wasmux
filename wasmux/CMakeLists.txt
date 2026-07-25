@@ -12,9 +12,16 @@ add_custom_command(
   COMMAND "$<TARGET_FILE:emit>" errno-json > "${CMAKE_CURRENT_BINARY_DIR}/errno.json"
   COMMAND "${NODE_EXECUTABLE}" include/wasmux/errno.h.mjs "${CMAKE_CURRENT_BINARY_DIR}/errno.json" include/wasmux/errno.h
   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-  OUTPUT  include/wasmux/errno.h
+  OUTPUT  "${CMAKE_CURRENT_SOURCE_DIR}/include/wasmux/errno.h"
   )
-set_source_files_properties(include/wasmux/errno.h PROPERTIES GENERATED TRUE)
+set_source_files_properties("${CMAKE_CURRENT_SOURCE_DIR}/include/wasmux/errno.h" PROPERTIES GENERATED TRUE)
+
+set(SCRIPT_ENTITIES "  int errcode;\n  char buffer[256];")
+configure_file(
+  "${CMAKE_CURRENT_SOURCE_DIR}/include/wasmux/thread_data.h.in"
+  "${CMAKE_CURRENT_SOURCE_DIR}/include/wasmux/thread_data.h"
+  @ONLY
+  )
 
 set(wasmux_HEADERS
   include/wasmux/arch-generic/log.h
@@ -48,6 +55,7 @@ set(wasmux_HEADERS
   include/wasmux/compiler.h
   include/wasmux/cpu_set.h
   include/wasmux/errno.h
+  include/wasmux/thread_data.h
   )
 
 set(wasmux_SOURCES
@@ -106,7 +114,7 @@ set(wasmux_SOURCES
 
 set(wasmux_DATAFILES
   include/wasmux/errno.h.mjs
-  src/errno.h.js
+  include/wasmux/thread_data.h.in
   )
 
 set(wasmux_INCLUDES

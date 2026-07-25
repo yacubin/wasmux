@@ -1,12 +1,12 @@
 add_custom_command(
   COMMENT "Generating errors messages, strerror.c"
-  DEPENDS emit src/strerror.c2.mjs
+  DEPENDS emit src/strerror.c.mjs
   COMMAND "$<TARGET_FILE:emit>" errno-json > "${CMAKE_CURRENT_BINARY_DIR}/errno.json"
-  COMMAND "${NODE_EXECUTABLE}" src/strerror.c2.mjs "${CMAKE_CURRENT_BINARY_DIR}/errno.json" src/strerror.c
+  COMMAND "${NODE_EXECUTABLE}" src/strerror.c.mjs "${CMAKE_CURRENT_BINARY_DIR}/errno.json" src/strerror.c
   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-  OUTPUT src/strerror.c
+  OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/src/strerror.c"
   )
-set_source_files_properties(src/strerror.c PROPERTIES GENERATED TRUE)
+set_source_files_properties("${CMAKE_CURRENT_SOURCE_DIR}/src/strerror.c" PROPERTIES GENERATED TRUE)
 
 set(string_HEADERS
   include/bits/string_basename.h
@@ -58,7 +58,6 @@ set(string_SOURCES
 
 set(string_DATAFILES
   src/strerror.c.mjs
-  src/strerror.c2.mjs
   )
 
 set(string_INCLUDES
