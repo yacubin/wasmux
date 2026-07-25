@@ -15,3 +15,5 @@ source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${wasmux_arch_HEADERS})
 add_library(wasmux_arch OBJECT ${wasmux_arch_HEADERS})
 target_include_directories(wasmux_arch PUBLIC ${wasmux_arch_INCLUDES})
 set_target_properties(wasmux_arch PROPERTIES LINKER_LANGUAGE C)
+
+add_library(wasmux::arch ALIAS wasmux_arch)

@@ -3,6 +3,7 @@
 // uapi/CMakeLists.txt
 // uapi/libc/CMakeLists.txt
 // uapi/string/CMakeLists.txt
+// uapi/termios/CMakeLists.txt
 // wasmux-config.h.in
 // wasmux/include/wasmux/errno.h.mjs
 

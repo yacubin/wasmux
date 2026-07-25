@@ -4,11 +4,10 @@
  *
  */
 
-#include <string.h>
+#include <strings.h>
 #include <assert.h>
 
-char* strsignal(int sig)
+void bcopy(const void* src, void* dst, size_t len)
 {
   assert(0);
-  return NULL;
 }

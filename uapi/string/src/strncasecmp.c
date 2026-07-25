@@ -4,11 +4,11 @@
  *
  */
 
-#include <string.h>
+#include <strings.h>
 #include <assert.h>
 
-char* strsignal(int sig)
+int strncasecmp(const char* str1, const char* str2, size_t len)
 {
   assert(0);
-  return NULL;
+  return 0;
 }

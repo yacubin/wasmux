@@ -8,7 +8,9 @@ export default (mk) => {
 
   const sources = [
     "src/basename.c",
+    "src/bcopy.c",
     "src/dirname.c",
+    "src/ffs.c",
     "src/memchr.c",
     "src/memcmp.c",
     "src/memcpy.c",
@@ -20,6 +22,7 @@ export default (mk) => {
     "src/rindex.c",
     "src/stpcpy.c",
     "src/stpncpy.c",
+    "src/strcasecmp.c",
     "src/strcat.c",
     "src/strchr.c",
     "src/strchrnul.c",
@@ -31,6 +34,7 @@ export default (mk) => {
     "src/strerror.c",
     "src/string.c",
     "src/strlen.c",
+    "src/strncasecmp.c",
     "src/strncat.c",
     "src/strncmp.c",
     "src/strncpy.c",

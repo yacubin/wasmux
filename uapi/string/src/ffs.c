@@ -4,11 +4,11 @@
  *
  */
 
-#include <string.h>
+#include <strings.h>
 #include <assert.h>
 
-char* strsignal(int sig)
+int ffs(int i)
 {
   assert(0);
-  return NULL;
+  return 0;
 }

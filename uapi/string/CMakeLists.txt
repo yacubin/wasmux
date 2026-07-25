@@ -17,7 +17,9 @@ set(string_HEADERS
 
 set(string_SOURCES
   src/basename.c
+  src/bcopy.c
   src/dirname.c
+  src/ffs.c
   src/memchr.c
   src/memcmp.c
   src/memcpy.c
@@ -29,6 +31,7 @@ set(string_SOURCES
   src/rindex.c
   src/stpcpy.c
   src/stpncpy.c
+  src/strcasecmp.c
   src/strcat.c
   src/strchr.c
   src/strchrnul.c
@@ -40,6 +43,7 @@ set(string_SOURCES
   src/strerror.c
   src/string.c
   src/strlen.c
+  src/strncasecmp.c
   src/strncat.c
   src/strncmp.c
   src/strncpy.c

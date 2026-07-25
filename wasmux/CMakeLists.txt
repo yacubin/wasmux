@@ -126,5 +126,5 @@ set(wasmux_INCLUDES
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${wasmux_HEADERS} ${wasmux_SOURCES} ${wasmux_DATAFILES})
 add_library(wasmux OBJECT ${wasmux_HEADERS} ${wasmux_SOURCES} ${wasmux_DATAFILES})
 target_include_directories(wasmux PUBLIC ${wasmux_INCLUDES})
-target_link_libraries(wasmux PUBLIC wasmux_arch)
+target_link_libraries(wasmux PUBLIC wasmux::arch)
 set_target_properties(wasmux PROPERTIES LINKER_LANGUAGE CXX)
