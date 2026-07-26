@@ -1,10 +1,10 @@
 /*
  *
- *  Copyright (C) 2024-2025  Yurii Yakubin (yurii.yakubin@gmail.com)
+ *  Copyright (C) 2024-2026  Yurii Yakubin (yurii.yakubin@gmail.com)
  *
  */
 
-#include <fp_lib.h>
+#include <ti128.h>
 #include <wasmux/compiler.h>
 #include <wasmux/assert.h>
 

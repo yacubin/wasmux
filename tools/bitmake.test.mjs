@@ -1,6 +1,8 @@
+// RUN npx bitmake build --config tools/bitmake.test.mjs
+
 export default {
   "bundle:libnetq": {
-    sourceUrl: "https://github.com/libnetq/libnetq/archive/refs/tags/v1.0.16.tar.gz",
+    sourceUrl: "https://github.com/libnetq/libnetq/archive/refs/tags/v1.0.17.tar.gz",
     action: "cmake",
     generator: "Unix Makefiles",
     cacheVariables: {

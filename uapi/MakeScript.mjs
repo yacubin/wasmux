@@ -1,4 +1,6 @@
 export default (mk) => {
+  mk.addSubdirectory("ti128");
+
   if (mk.WASMUX_LIBC) {
     mk.addSubdirectory("malloc");
     mk.addSubdirectory("fcntl");

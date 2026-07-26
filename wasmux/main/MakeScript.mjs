@@ -48,6 +48,7 @@ export default (mk) => {
   );
 
   const kapsule = mk.addExecutable("kapsule", headers, sources);
+  kapsule.addSources(mk.target("ti128").objects);
   kapsule.addIncludes(includes);
   kapsule.addLibraries(libraries);
 

@@ -1,6 +1,5 @@
 set(termios_HEADERS
   include/termios.h
-  include/bits
   include/bits/termios_unistd.h
   )
 

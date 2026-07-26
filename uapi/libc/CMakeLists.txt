@@ -100,6 +100,7 @@ set(libc_DATAFILES
   include/wchar.h.in
   include/wctype.h.in
   src/sys/syscall.h.js
+  MakeScript.mjs
   )
 
 set(libc_INCLUDES
