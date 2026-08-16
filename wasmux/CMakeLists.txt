@@ -14,7 +14,9 @@ add_custom_command(
   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
   OUTPUT  "${CMAKE_CURRENT_SOURCE_DIR}/include/wasmux/errno.h"
   )
-set_source_files_properties("${CMAKE_CURRENT_SOURCE_DIR}/include/wasmux/errno.h" PROPERTIES GENERATED TRUE)
+set_source_files_properties(
+  "${CMAKE_CURRENT_SOURCE_DIR}/include/wasmux/errno.h" PROPERTIES GENERATED TRUE
+  )
 
 set(SCRIPT_ENTITIES "  int errcode;\n  char buffer[256];")
 configure_file(

@@ -10,8 +10,10 @@
 // wasmux-config.h.in
 // wasmux/include/wasmux/errno.h.mjs
 // wasmux/arch/seal/include/wasmux/arch/arch-syscall.h.mjs
+// uapi/libc/include/sys/syscall.h.mjs
 
 /* GEN */
 // wasmux/include/wasmux/errno.h
 // wasmux/arch/seal/include/wasmux/arch/arch-syscall.h
 // uapi/string/src/strerror.c
+// uapi/libc/include/sys/syscall.h

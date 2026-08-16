@@ -37,6 +37,7 @@ export default (mk) => {
     "include/sys/stat.h",
     "include/sys/statfs.h",
     "include/sys/statvfs.h",
+    "include/sys/syscall.h",
     "include/sys/sysinfo.h",
     "include/sys/syslog.h",
     "include/sys/sysmacros.h",
@@ -179,13 +180,6 @@ export default (mk) => {
     mk.SOURCE_DIR.join("include"),
   ];
 
-  const syscall_h = mk.BINARY_DIR.join("include/sys/syscall.h");
-  mk.addCustomScript("src/sys/syscall.h.js", {
-    SCRIPT_NAME: "<sys/syscall.h>",
-    SCRIPT_INPUT: mk.PROJECT_SOURCE_DIR.join("data/syscall.js"),
-    SCRIPT_OUTPUT: syscall_h,
-  });
-
   const ctype_h = mk.BINARY_DIR.join("include/ctype.h");
   mk.addCustomScript("configure_file", {
     SCRIPT_NAME: "<ctype.h>",
@@ -259,7 +253,7 @@ export default (mk) => {
   });
 
   const libc = mk.addStaticLibrary("libc", headers, sources);
-  libc.addSources(syscall_h, ctype_h, wctype_h, gnu_versions_h, stdlib_h, unistd_h, time_h, wchar_h, features_h);
+  libc.addSources(ctype_h, wctype_h, gnu_versions_h, stdlib_h, unistd_h, time_h, wchar_h, features_h);
   libc.addSources(mk.target("wasmux").objects);
   libc.addPublicLibraries(mk.target("wasmux"));
   libc.addPublicIncludes(includes);
@@ -269,7 +263,7 @@ export default (mk) => {
     destination: mk.INSTALL_INCLUDEDIR,
     baseDir: "include",
   });
-  mk.install([ syscall_h, ctype_h, wctype_h, gnu_versions_h, stdlib_h, unistd_h, time_h, wchar_h, features_h ], {
+  mk.install([ ctype_h, wctype_h, gnu_versions_h, stdlib_h, unistd_h, time_h, wchar_h, features_h ], {
     destination: mk.INSTALL_INCLUDEDIR,
     baseDir: mk.BINARY_DIR.join("include"),
   });

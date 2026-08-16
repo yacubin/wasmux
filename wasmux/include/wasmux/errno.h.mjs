@@ -15,7 +15,6 @@ const lines = [];
 
 const pragmaOnce = "_WASMUX_ERRNO_H";
 
-lines.push("");
 lines.push(`#ifndef ${pragmaOnce}`);
 lines.push(`#define ${pragmaOnce}`);
 lines.push("");
