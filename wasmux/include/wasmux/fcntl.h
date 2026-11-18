@@ -15,6 +15,9 @@
 #ifndef O_NONBLOCK
 #define O_NONBLOCK  00004000
 #endif
+#ifndef O_DSYNC
+#define O_DSYNC     00010000
+#endif
 #ifndef O_DIRECTORY
 #define O_DIRECTORY	00200000
 #endif
@@ -23,6 +26,16 @@
 #endif
 #ifndef O_NOFOLLOW
 #define O_NOFOLLOW  00400000
+#endif
+
+#ifndef __O_SYNC
+#define __O_SYNC    04000000
+#endif
+#ifndef O_SYNC
+#define O_SYNC      (__O_SYNC | O_DSYNC)
+#endif
+#ifndef O_RSYNC
+#define O_RSYNC     O_SYNC
 #endif
 
 #ifndef O_PATH
