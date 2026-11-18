@@ -9,6 +9,7 @@
 
 #include <wasmux/types.h>
 #include <wasmux/socket.h>
+#include <netinet/in.h>
 
 #ifdef __cplusplus
 extern "C" {
